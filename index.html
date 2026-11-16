@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=64"></script>
+<script src="firebase-config.js?v=65"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -702,6 +702,13 @@ body.cover-on footer{display:block}
 background:var(--surface);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
 border-radius:var(--r-pill);padding:7px;box-shadow:var(--sh)}
 }
+.nh-gio{height:6px;border-radius:var(--r-pill);background:var(--sunken);overflow:hidden;margin-bottom:10px}
+.nh-gio i{display:block;height:100%;width:100%;border-radius:var(--r-pill);
+background:linear-gradient(90deg,var(--accent),var(--deep))}
+.nh-meta{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.nh-meta .chuoi{color:var(--deep);font-weight:600}
+.nh-to{font-family:var(--f-cyr);font-size:52px;line-height:1.12;margin:6px 0 2px;word-break:break-word}
+@media(max-width:420px){.nh-to{font-size:42px}}
 .hat-now{font-family:var(--f-cyr);font-size:60px;line-height:1.05;transition:transform .14s ease-out}
 .hat-now.dap{transform:scale(1.08)}
 .hat-ten{min-height:1.6em}
@@ -1433,7 +1440,7 @@ laVeDau=false;
 document.body.classList.remove("cover-on");
 var bia=canDangNhap();
 if(bia)view={n:"home"};
-document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song"].indexOf(view.n)>=0);
+document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song","nhanh"].indexOf(view.n)>=0);
 syncHeader();
 if(bia){renderLanding();sauKhiVe();return;}
 document.onkeydown=null;
@@ -1441,6 +1448,7 @@ if(view.n==="home"){renderHome();sauKhiVe();return;}
 if(view.n==="mod"){renderMod();sauKhiVe();return;}
 if(view.n==="study")return renderStudy();
 if(view.n==="song"){renderSong();sauKhiVe();return;}
+if(view.n==="nhanh"){renderNhanh();sauKhiVe();return;}
 if(view.n==="browse"){renderBrowse();sauKhiVe();return;}
 if(view.n==="gram"){renderGram();sauKhiVe();return;}
 if(view.n==="set"){renderSet();sauKhiVe();return;}
@@ -1886,6 +1894,26 @@ var hbtn=el('<button class="btn sm">'+ic("nhac",18)+'<span>Nghe</span></button>'
 hbtn.onclick=function(){go({n:"song"});};
 hrow.querySelector(".act").appendChild(hbtn);
 h.appendChild(hrow);
+var yeu=mucYeu();
+if(yeu.length>=4){
+var yrow=el('<div class="set"><div class="l"><div class="n">Luyện chỗ hay sai</div>'+
+'<div class="d">'+yeu.length+' mục bạn hay trả lời sai nhất, gom từ khắp các chủ đề vào một bài.</div></div>'+
+'<div class="act"></div></div>');
+var ybtn=el('<button class="btn sm">'+ic("velai",18)+'<span>Luyện</span></button>');
+ybtn.onclick=function(){startSession(buildYeu());};
+yrow.querySelector(".act").appendChild(ybtn);
+h.appendChild(yrow);
+}
+var nrow=el('<div class="set" style="display:block"><div class="l"><div class="n">Luyện nhanh</div>'+
+'<div class="d">Có tính giờ, ép phản xạ thay vì ngồi nghĩ. Đúng sai đều tính vào tiến độ như bài thường.</div></div>'+
+'<div class="row" style="margin-top:12px"></div></div>');
+var nr=nrow.querySelector(".row");
+var nb1=el('<button class="btn sm">'+ic("nhip",18)+'<span>Chữ dễ nhầm</span></button>');
+nb1.onclick=function(){go({n:"nhanh",kieu:"chu"});};
+var nb2=el('<button class="btn sm ghost">'+ic("tim",18)+'<span>Đọc nhanh</span></button>');
+nb2.onclick=function(){go({n:"nhanh",kieu:"doc"});};
+nr.appendChild(nb1);nr.appendChild(nb2);
+h.appendChild(nrow);
 var ac=accountCard(seen);
 if(ac)h.appendChild(ac);
 h.appendChild(el('<div class="sec-head"><h2>Lộ trình</h2><div class="ln"></div></div>'));
@@ -2482,7 +2510,7 @@ else{quiz.push(mcVocab(it,"ru2vi",pool));quiz.push(mcVocab(it,"vi2ru",pool));}
 });
 return {title:m.name,steps:steps.concat(shuffle(quiz))};
 }
-function buildReview(items){
+function buildReview(items,tieuDe){
 var steps=[];
 shuffle(items).slice(0,20).forEach(function(it){
 var pool=modById(it.mod).items;
@@ -2495,7 +2523,21 @@ else if(r>=.78&&r<.9&&hasRu())steps.push(dictStep(it));
 else steps.push(r<.33?mcVocab(it,"ru2vi",pool):(r<.62?mcVocab(it,"vi2ru",pool):(hasRu()?mcVocab(it,"listen",pool):typeStep(it))));
 }
 });
-return {title:"Ôn tập",steps:steps};
+return {title:tieuDe||"Ôn tập",steps:steps};
+}
+function diemYeu(it){
+var p=rec(it.id);
+if(!p||!p.seen)return 0;
+var w=p.w||0,c=p.c||0;
+if(!w)return 0;
+return (w/(w+c+1))*(1+Math.min(w,6)*.15)+(4-Math.min(p.b,4))*.08;
+}
+function mucYeu(){
+return ALL_ITEMS.filter(function(it){return diemYeu(it)>0;})
+.sort(function(a,b){return diemYeu(b)-diemYeu(a);});
+}
+function buildYeu(){
+return buildReview(mucYeu().slice(0,20),"Chỗ hay sai");
 }
 function buildStress(m){
 var pool=m.items.filter(function(it){return rec(it.id)&&stressInfo(it);});
@@ -3224,6 +3266,137 @@ if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
 if(e.key===" "||e.key==="Spacebar"){e.preventDefault();bPlay.click();}
 };
 }
+const CHU_GIONG_LATIN=["\u0430","\u0432","\u0435","\u043a","\u043c","\u043d","\u043e","\u0440","\u0441","\u0442","\u0443","\u0445"];
+const NHANH_SO=20;
+function nhanhCaiDat(kieu){
+return kieu==="doc"
+? {ten:"Đọc nhanh",han:5000,hoi:"Từ này nghĩa là gì?",
+mo:"Từng từ một, mỗi từ 5 giây. Đừng ghép từng chữ — nhìn cả từ rồi chọn."}
+: {ten:"Chữ dễ nhầm",han:4500,hoi:"Chữ này đọc là âm gì?",
+mo:"12 chữ trông y như chữ Latin, một nửa đọc khác hẳn. Mỗi chữ 4,5 giây."};
+}
+function nhanhCauHoi(kieu){
+var ds=[];
+if(kieu==="doc"){
+var tu=ALL_ITEMS.filter(function(it){return it.t==="V"&&rec(it.id);});
+if(tu.length<8)return ds;
+shuffle(tu).slice(0,NHANH_SO).forEach(function(it){
+var sai=shuffle(tu.filter(function(x){return x.id!==it.id&&x.vi!==it.vi;})).slice(0,3);
+ds.push({it:it,to:it.ru,cyr:true,dap:it.vi,
+opt:shuffle([it.vi].concat(sai.map(function(x){return x.vi;})))});
+});
+return ds;
+}
+var LS=modById("alpha").items;
+var bay=LS.filter(function(it){return CHU_GIONG_LATIN.indexOf(it.lo)>=0;});
+var am=LS.map(function(it){return it.snd;}).filter(function(x){return x&&x!=="\u2014";});
+var i=0;
+while(ds.length<NHANH_SO&&bay.length){
+var it=bay[i%bay.length];i++;
+if(i>NHANH_SO*3)break;
+var sai=shuffle(am.filter(function(x){return x!==it.snd;})).slice(0,3);
+ds.push({it:it,to:it.up+" "+it.lo,cyr:true,dap:it.snd,
+opt:shuffle([it.snd].concat(sai))});
+}
+return shuffle(ds);
+}
+function renderNhanh(){
+var kieu=view.kieu==="doc"?"doc":"chu",ct=nhanhCaiDat(kieu);
+var back=el('<button class="back">← Lộ trình</button>');
+back.onclick=function(){go({n:"home"});};
+app.appendChild(back);
+var ds=nhanhCauHoi(kieu);
+if(ds.length<6){
+app.appendChild(el('<div class="eyebrow">Luyện nhanh</div><h1 style="margin-bottom:6px">'+esc(ct.ten)+'</h1>'));
+app.appendChild(el('<div class="tipbox"><b>Chưa đủ mục</b>'+(kieu==="doc"
+? "Cần học ít nhất 8 từ trước đã. Học vài chủ đề rồi quay lại."
+: "Chưa lấy được danh sách chữ.")+'</div>'));
+return;
+}
+var i=0,dung=0,chuoi=0,chuoiTot=0,khoa=false,hen=0,t0=Date.now();
+app.appendChild(el('<div class="eyebrow">Luyện nhanh</div><h1 style="margin-bottom:6px">'+esc(ct.ten)+'</h1>'));
+app.appendChild(el('<div class="note" style="margin-bottom:14px">'+esc(ct.mo)+'</div>'));
+var gio=el('<div class="nh-gio"><i></i></div>');app.appendChild(gio);
+var oGio=gio.querySelector("i");
+var meta=el('<div class="nh-meta"><span class="dem"></span><span class="chuoi"></span></div>');
+app.appendChild(meta);
+var than=el('<div></div>');app.appendChild(than);
+function veMeta(){
+meta.querySelector(".dem").textContent="Câu "+Math.min(i+1,ds.length)+" / "+ds.length+" · đúng "+dung;
+meta.querySelector(".chuoi").textContent=chuoi>1?("chuỗi "+chuoi):"";
+}
+function dungGio(){
+if(hen){clearTimeout(hen);hen=0;}
+oGio.style.transition="none";oGio.style.width=oGio.getBoundingClientRect().width+"px";
+}
+function chayGio(){
+oGio.style.transition="none";oGio.style.width="100%";
+void oGio.offsetWidth;
+oGio.style.transition="width "+ct.han+"ms linear";
+oGio.style.width="0%";
+hen=setTimeout(function(){chon(null);},ct.han);
+}
+function chon(o,nut,wrap){
+if(khoa)return;
+khoa=true;dungGio();
+var c=ds[i],ok=o===c.dap;
+grade(c.it.id,ok);
+if(ok){dung++;chuoi++;if(chuoi>chuoiTot)chuoiTot=chuoi;tingDung();}
+else chuoi=0;
+if(wrap)Array.prototype.forEach.call(wrap.children,function(x,k){
+x.disabled=true;
+if(c.opt[k]===c.dap)x.classList.add("right");
+else if(x===nut)x.classList.add("wrong");
+});
+veMeta();
+setTimeout(function(){i++;ve();},ok?420:1050);
+}
+function ve(){
+if(i>=ds.length)return xong();
+khoa=false;
+var c=ds[i];
+than.innerHTML="";
+than.appendChild(el('<div class="q anim"><div class="ask">'+esc(ct.hoi)+'</div>'+
+'<div class="nh-to'+(c.cyr?" cyr":"")+'">'+esc(c.to)+'</div></div>'));
+var wrap=el('<div class="opts anim"></div>');
+c.opt.forEach(function(o,k){
+var b=el('<button class="opt"><span class="k">'+(k+1)+'</span><span>'+esc(o)+'</span></button>');
+b.onclick=function(){chon(o,b,wrap);};
+wrap.appendChild(b);
+});
+than.appendChild(wrap);
+veMeta();
+chayGio();
+document.onkeydown=function(e){
+var n=parseInt(e.key,10);
+if(n>=1&&n<=c.opt.length){e.preventDefault();wrap.children[n-1].click();}
+};
+}
+function xong(){
+dungGio();document.onkeydown=null;
+var giay=Math.round((Date.now()-t0)/1000),pct=Math.round(dung/ds.length*100);
+var ky=prog.stats.nhanh||(prog.stats.nhanh={});
+var cu=ky[kieu]||{diem:0,chuoi:0};
+var pha=dung>cu.diem||chuoiTot>cu.chuoi;
+ky[kieu]={diem:Math.max(cu.diem,dung),chuoi:Math.max(cu.chuoi,chuoiTot)};
+touch();
+than.innerHTML="";
+than.appendChild(el('<div class="card"><div class="lbl">'+esc(ct.ten)+'</div>'+
+'<div class="glyph" style="font-family:var(--f-head);font-size:52px">'+dung+'<span style="font-size:26px;color:var(--muted)">/'+ds.length+'</span></div>'+
+'<div class="tr">Đúng '+pct+'% · chuỗi dài nhất '+chuoiTot+' · '+giay+' giây</div>'+
+(pha?'<div class="fb ok" style="margin-top:12px">Kỷ lục mới</div>'
+:'<div class="note">Kỷ lục đang giữ: '+ky[kieu].diem+'/'+ds.length+' · chuỗi '+ky[kieu].chuoi+'</div>')+
+'</div>'));
+var lai=el('<button class="btn wide" style="margin-top:14px">Chơi lại</button>');
+lai.onclick=function(){go({n:"nhanh",kieu:kieu});};
+than.appendChild(lai);
+var ve2=el('<button class="btn ghost wide" style="margin-top:9px">Về lộ trình</button>');
+ve2.onclick=function(){go({n:"home"});};
+than.appendChild(ve2);
+gio.style.display="none";meta.style.display="none";
+}
+ve();
+}
 function renderBrowse(){
 var back=el('<button class="back">← Lộ trình</button>');back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
@@ -3522,7 +3695,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=64"></script>
+<script type="module" src="firebase-sync.js?v=65"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
