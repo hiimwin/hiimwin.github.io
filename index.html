@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=44"></script>
+<script src="firebase-config.js?v=45"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -140,7 +140,7 @@ border-top:1px solid var(--line-soft);font-size:13.5px;color:var(--muted)}
 .syncline b{color:var(--ink);font-weight:600;word-break:break-all}
 #nav-acct .ava{width:26px;height:26px;border-radius:var(--r-xs);background:var(--deep);color:#FFFFFF;
 display:grid;place-items:center;font-size:13px;font-weight:700;line-height:1}
-.cta{width:100%;background:var(--accent);color:var(--on-accent);border-radius:var(--r);padding:17px 18px;
+.cta{width:100%;background:var(--accent);color:var(--on-accent);border-radius:var(--r);padding:17px 18px;margin-bottom:14px;
 display:flex;align-items:center;gap:14px;text-align:left;box-shadow:var(--sh);transition:transform .12s,box-shadow .15s}
 .cta:hover{transform:translateY(-1px);box-shadow:var(--sh-lift)}
 .cta .big{font-family:var(--f-head);font-size:19px;font-weight:700;line-height:1.25}
@@ -3280,7 +3280,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=44"></script>
+<script type="module" src="firebase-sync.js?v=45"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;daTai=true;location.reload();});});</script>
 </body>
 </html>
