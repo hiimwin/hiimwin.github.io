@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=51"></script>
+<script src="firebase-config.js?v=52"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -3347,14 +3347,39 @@ r.setAttribute("data-theme",dark?"light":"dark");
 try{localStorage.setItem(LS_KEY+":theme",dark?"light":"dark");}catch(e){}
 };
 try{var th=localStorage.getItem(LS_KEY+":theme");if(th)document.documentElement.setAttribute("data-theme",th);}catch(e){}
+const NHA_CU="hoc-tieng-nga.web.app";
+const NHA_MOI="hoc-tieng-nga.firebaseapp.com";
+function nhanGoiTienDo(){
+if(location.hash.indexOf("#mang=")!==0)return;
+try{
+var goi=JSON.parse(decodeURIComponent(location.hash.slice(6)));
+if(goi&&goi.items)prog=normProg(mergeProg(prog,goi));
+saveLocal();
+}catch(e){}
+try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}
+}
+function donNha(){
+if(location.hostname!==NHA_CU)return false;
+var duoi="";
+try{
+var goi=JSON.stringify(prog);
+if(prog&&prog.items&&ownKeys(prog.items).length&&goi.length<30000)
+duoi="#mang="+encodeURIComponent(goi);
+}catch(e){}
+try{location.replace("https://"+NHA_MOI+"/"+location.search+duoi);}catch(e){return false;}
+return true;
+}
 dungChuBay();
 prog=normProg(loadLocal()||prog);
+nhanGoiTienDo();
+if(donNha()){}else{
 render();
 initCloud();
+}
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=51"></script>
+<script type="module" src="firebase-sync.js?v=52"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;try{if(sessionStorage.getItem("nga:dangdangnhap")==="1")return;}catch(e){}daTai=true;location.reload();});});</script>
 </body>
 </html>
