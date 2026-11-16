@@ -8,12 +8,12 @@
 <meta name="description" content="Học tiếng Nga từ bảng chữ cái: Nga - Anh - Việt, có trọng âm, nghe chép và tập viết tay chấm điểm.">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts.css">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=59"></script>
+<script src="firebase-config.js?v=60"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
-<link rel="stylesheet" href="fonts.css">
 <style>:root{
 --paper:#EDF2FC;
 --m1:#9FC7F8; --m2:#D7AEF0; --m3:#FBB9D3; --m4:#A6E6CB; --m5:#FDD2A2;
@@ -1414,16 +1414,19 @@ var bg=document.getElementById("nav-burger");
 if(bg)bg.setAttribute("aria-expanded","false");
 window.scrollTo(0,0);render();
 }
-var khoaManTruoc="",vuaDoiMan=true;
+var khoaManTruoc="",vuaDoiMan=false,laVeDau=true;
 function render(){
 dungHat();
 app.innerHTML="";
 var khoaMan=view.n+"|"+(view.one||"")+"|"+(view.mod||"")+"|"+(view.tab||"");
-vuaDoiMan=(khoaMan!==khoaManTruoc);
+if(khoaMan!==khoaManTruoc){
+vuaDoiMan=!laVeDau;
+khoaManTruoc=khoaMan;
+}else vuaDoiMan=false;
 if(vuaDoiMan){
 app.classList.remove("swap");void app.offsetWidth;app.classList.add("swap");
-khoaManTruoc=khoaMan;
 }
+laVeDau=false;
 document.body.classList.remove("cover-on");
 var bia=canDangNhap();
 if(bia)view={n:"home"};
@@ -3465,7 +3468,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=59"></script>
+<script type="module" src="firebase-sync.js?v=60"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
