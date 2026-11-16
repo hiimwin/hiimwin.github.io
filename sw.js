@@ -1,4 +1,4 @@
-const CACHE = "nga-v47";
+const CACHE = "nga-v48";
 const SHELL = ["./", "./index.html", "./fonts.css", "./manifest.json", "./icon.svg"];
 self.addEventListener("install", e => {
 e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
