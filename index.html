@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=33"></script>
+<script src="firebase-config.js?v=34"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -2802,20 +2802,6 @@ if(!e.target.closest)return;
 var b=e.target.closest(".btn:not(.ghost), .cta");
 if(b&&!b.disabled)gonSong(b,e.clientX,e.clientY);
 },true);
-(function moKhoaGiongDoc(){
-if(!window.speechSynthesis)return;
-function moi(){
-try{
-var u=new SpeechSynthesisUtterance(" ");
-u.volume=0;u.lang="ru-RU";
-speechSynthesis.speak(u);
-}catch(e){}
-removeEventListener("pointerdown",moi,true);
-removeEventListener("keydown",moi,true);
-}
-addEventListener("pointerdown",moi,true);
-addEventListener("keydown",moi,true);
-})();
 (function menuBaGach(){
 var bg=document.getElementById("nav-burger");
 if(!bg)return;
@@ -2862,7 +2848,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=33"></script>
+<script type="module" src="firebase-sync.js?v=34"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
