@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=34"></script>
+<script src="firebase-config.js?v=35"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -364,8 +364,8 @@ footer{margin-top:46px;border-top:1px solid var(--line);background:var(--surface
 .ft-brand{display:flex;align-items:center;gap:11px;min-width:0}
 .ft-brand .tag{flex:none;width:34px;height:34px;border-radius:var(--r-xs);background:var(--accent);color:var(--on-accent);
 display:grid;place-items:center;font-size:16px;line-height:1}
-.ft-brand b{display:block;font-family:var(--f-head);font-size:15.5px;letter-spacing:-.01em}
-.ft-brand span{display:block;font-size:13.5px;color:var(--muted);margin-top:1px}
+.ft-brand>div>b{display:block;font-family:var(--f-head);font-size:15.5px;letter-spacing:-.01em}
+.ft-brand>div>span{display:block;font-size:13.5px;color:var(--muted);margin-top:1px}
 .tacgia{color:var(--accent);font-weight:600}
 .ft-nav{display:flex;flex-wrap:wrap;gap:8px}
 .ft-nav button,.ft-nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:var(--r-xs);
@@ -466,8 +466,8 @@ footer{background:var(--surface);border-top:1px solid var(--line);
 position:sticky;bottom:0;z-index:9;-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
 .ft{padding-block:14px 16px;gap:12px}
 .ft-brand .tag{width:30px;height:30px;border-radius:var(--r-xs);font-size:15px}
-.ft-brand b{font-size:14.5px}
-.ft-brand span{font-size:12.5px}
+.ft-brand>div>b{font-size:14.5px}
+.ft-brand>div>span{font-size:12.5px}
 .ft-note{display:none}
 @media(min-width:900px){
 .ft{flex-direction:row;align-items:center;justify-content:space-between;padding-block:12px 14px}
@@ -701,7 +701,7 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
   <div class="wrap gut ft">
     <div class="ft-brand">
       <span class="tag cyr">Аа</span>
-      <div><b>Tiếng Nga từ A đến Я</b><span>Nga · Anh · Việt — làm bởi <b class="tacgia">Win</b></span></div>
+      <div><b>Tiếng Nga từ A đến Я</b><span>Nga · Anh · Việt — <b class="tacgia">Win</b></span></div>
     </div>
     <nav class="ft-nav">
       <button data-go="gram">Ngữ pháp</button>
@@ -1444,8 +1444,8 @@ var box=el('<section class="cover cov3">'+
 '<div class="lbl">Đã thuộc <b>'+thuoc+'/33</b> chữ cái · <b>472</b> từ vựng đang chờ</div>'+
 '<div class="prog-bar"><i></i><span class="run">'+ic("maybay",19)+'</span></div>'+
 '</div>'+
-'<div class="cvnote">Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống.</div>'+
-'<div class="cvnote">Làm bởi <b class="tacgia">Win</b> — tự soạn phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay.</div>'+
+'<div class="cvnote">Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống. '+
+'Phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay đều tự soạn.</div>'+
 '</div>'+
 '<div class="cv-col cv-mid">'+
 '<div class="canvas">'+
@@ -2848,7 +2848,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=34"></script>
+<script type="module" src="firebase-sync.js?v=35"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
