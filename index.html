@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=23"></script>
+<script src="firebase-config.js?v=24"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -80,7 +80,7 @@ input{font:inherit}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line)}
 .hrow{display:flex;align-items:center;gap:12px;padding-block:11px}
-.brand{display:flex;align-items:center;gap:10px;min-width:0;font-family:var(--f-head);font-weight:700;font-size:17px;letter-spacing:-.01em}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer;font-family:var(--f-head);font-weight:700;font-size:17px;letter-spacing:-.01em}
 .brand .tag{flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-size:15px;line-height:1}
 .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hbtn{margin-left:auto;display:flex;gap:4px;flex:none}
@@ -98,6 +98,7 @@ h2{font-size:19px}
 .sec-head{display:flex;align-items:baseline;gap:12px;margin:30px 0 12px}
 .sec-head .ln{flex:1;height:1px;background:var(--line)}
 .btn{font-family:var(--f-ui);font-weight:600;font-size:17px;line-height:1.2;background:var(--accent);color:var(--on-accent);
+display:inline-flex;align-items:center;justify-content:center;gap:8px;
 padding:14px 22px;min-height:50px;border-radius:var(--r-sm);transition:transform .12s,box-shadow .15s,opacity .15s;box-shadow:var(--sh)}
 .btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:var(--sh-lift)}
 .btn:active:not(:disabled){transform:translateY(0)}
@@ -228,7 +229,7 @@ padding-bottom:6%}
 .glyph{font-family:var(--f-cyr);font-size:68px;line-height:1.05}
 .glyph .hw{font-family:var(--f-hand);color:var(--muted);margin-left:14px}
 .word{font-family:var(--f-cyr);font-size:38px;line-height:1.25;word-break:break-word}
-.tr{color:var(--muted);font-family:var(--f-cyr);font-style:italic;font-size:17px;margin-top:5px}
+.tr{color:var(--muted);font-family:var(--f-ui);font-size:16.5px;margin-top:5px}
 .mean-en{font-size:16px;color:var(--muted);margin-top:16px}
 .mean-vi{font-size:21px;font-weight:600;margin-top:2px}
 .tipbox{background:var(--surface-2);border-radius:var(--r-sm);padding:14px 16px;text-align:left;font-size:15px;line-height:1.6;margin-top:14px}
@@ -405,11 +406,14 @@ border:1px solid var(--line);
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wbox .sheet{background:rgba(255,255,255,.04)}}
 header{background:var(--surface);border-bottom:1px solid var(--line)}
 .brand{font-family:var(--f-head);font-weight:700;letter-spacing:-.02em;font-size:18px}
+.brand:hover .tag{transform:scale(1.06)}
+.brand .tag{transition:transform .18s}
 .brand .tag{background:linear-gradient(135deg,var(--accent),var(--deep));border-radius:11px}
 .icb{border-radius:12px}
 .icb i{font-style:normal;display:grid;place-items:center}
 .ic-svg{display:block;flex:none}
-.btn .ic-svg,.qa .ic-svg{vertical-align:-4px;margin-right:2px}
+.btn .ic-svg,.qa .ic-svg{flex:none}
+.spk-big .ic-svg{width:32px;height:32px}
 .prog-bar .run svg{display:block;color:var(--accent);filter:drop-shadow(0 2px 6px rgba(61,92,224,.45))}
 .icb b{display:none;font-weight:500;font-size:15px}
 .burger{display:none;margin-left:auto}
@@ -466,6 +470,7 @@ position:sticky;bottom:0;z-index:9;-webkit-backdrop-filter:var(--blur);backdrop-
 .ft-nav button,.ft-nav a{border-radius:999px;background:var(--surface-2)}
 #app{width:100%}
 body.hep #app{max-width:780px;margin-inline:auto}
+body.cover-on .burger,body.cover-on .ft-nav{display:none}
 .col2{display:grid;gap:10px}
 @media(min-width:1024px){
 .col2{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -521,7 +526,7 @@ opacity:.4;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#
 .cvhead{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .cvbig{font-family:var(--f-cyr);font-size:76px;line-height:1;letter-spacing:-.02em}
 .cvmeta{min-width:0}
-.cvtr{font-family:var(--f-cyr);font-style:italic;color:var(--muted);font-size:19px}
+.cvtr{font-family:var(--f-ui);color:var(--muted);font-size:18px}
 .cvvi{font-size:19px;font-weight:600;margin-top:3px}
 .cvtip{font-size:14.5px;color:var(--muted);margin-top:7px;line-height:1.6;max-width:34em}
 .cvacts{display:flex;align-items:center;gap:14px;margin-top:20px;flex-wrap:wrap}
@@ -631,12 +636,17 @@ transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
 }
 @media(max-width:768px){
 .burger{display:grid}
+#nav-login b{display:none}
+#nav-login{padding:0;width:42px;min-width:42px;min-height:42px;border-radius:50%;gap:0}
+.brand{font-size:16px}
+.brand .tag{width:28px;height:28px;border-radius:9px;font-size:14px}
 .hrow{position:relative}
 .hbtn{display:none;position:absolute;top:calc(100% + 10px);right:0;left:auto;flex-direction:column;gap:2px;
-min-width:196px;padding:8px;border-radius:16px;background:var(--surface);border:1px solid var(--line);
+min-width:196px;padding:8px;border-radius:16px;background:var(--paper);border:1px solid var(--line);
 box-shadow:var(--sh-lift);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);z-index:12}
 body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
-.hbtn .icb{width:100%;min-height:46px;justify-content:flex-start;gap:12px;padding:0 12px;border-radius:11px}
+.hbtn .icb{display:flex;align-items:center;width:100%;min-height:46px;justify-content:flex-start;gap:12px;padding:0 12px;border-radius:11px}
+.hbtn .icb .ic-svg,.hbtn .icb i,.hbtn .icb svg{flex:none}
 .btn.sm{min-height:44px}
 .abc button{width:66px;height:74px}
 .qa{min-height:62px}
@@ -652,8 +662,8 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
 
 <header>
   <div class="wrap gut hrow">
-    <div class="brand"><span class="tag cyr">Аа</span><span>Tiếng Nga từ A đến Я</span></div>
-    <button class="btn sm" id="nav-login" hidden>Đăng nhập</button>
+    <button class="brand" id="nav-home" title="Về trang chủ" aria-label="Về trang chủ"><span class="tag cyr">Аа</span><span>Tiếng Nga từ A đến Я</span></button>
+    <button class="btn sm" id="nav-login" hidden><svg class="ic-svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-3"/><path d="M10 8.5 13.5 12 10 15.5"/><path d="M13.5 12H4.5"/></svg><b>Đăng nhập</b></button>
     <button class="icb burger" id="nav-burger" aria-label="Mở menu" aria-expanded="false"><span></span></button>
     <div class="hbtn" id="nav-menu">
       <button class="icb" id="nav-acct" title="Tài khoản" aria-label="Tài khoản" hidden></button>
@@ -678,7 +688,7 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
       <button data-go="browse">Tra cứu</button>
       <button data-go="set">Cài đặt</button>
     </nav>
-    <div class="ft-note">33 chữ cái Кириллица · 34 mục số đếm · 472 từ theo 29 chủ đề · 10 chữ viết tay có nét mẫu chấm điểm</div>
+    <div class="ft-note">33 chữ cái Кириллица · 34 mục số đếm · 472 từ theo 29 chủ đề · đủ 33 chữ viết tay có nét mẫu chấm điểm</div>
   </div>
 </footer>
 <script>const LETTERS=[
@@ -1242,9 +1252,11 @@ function render(){
 app.innerHTML="";
 app.classList.remove("swap");void app.offsetWidth;app.classList.add("swap");
 document.body.classList.remove("cover-on");
-document.body.classList.toggle("hep",["study","gram","set","browse"].indexOf(view.n)>=0);
+var bia=canDangNhap();
+if(bia)view={n:"home"};
+document.body.classList.toggle("hep",!bia&&["study","gram","set","browse"].indexOf(view.n)>=0);
 syncHeader();
-if(canDangNhap()){renderLanding();sauKhiVe();return;}
+if(bia){renderLanding();sauKhiVe();return;}
 document.onkeydown=null;
 if(view.n==="home"){renderHome();sauKhiVe();return;}
 if(view.n==="mod"){renderMod();sauKhiVe();return;}
@@ -1327,11 +1339,11 @@ if(lg){
 lg.hidden=!(st&&!st.signed);
 lg.onclick=function(){
 if(!window.CLOUD)return;
-lg.disabled=true;var keep=lg.textContent;lg.textContent="Đang mở…";
+lg.disabled=true;var lb=lg.querySelector("b")||lg;var keep=lb.textContent;lb.textContent="Đang mở…";
 window.CLOUD.signInGoogle()
 .then(function(){flash("Đã đăng nhập. Tiến độ từ giờ được đồng bộ.");})
 .catch(function(e){flash("Không đăng nhập được"+((e&&e.code)?" ("+e.code+")":"."));})
-.then(function(){lg.disabled=false;lg.textContent=keep;render();});
+.then(function(){lg.disabled=false;lb.textContent=keep;render();});
 };
 }
 ["gram","browse","set"].forEach(function(n){
@@ -1364,11 +1376,13 @@ return box;
 }
 function daTungDangNhap(){ try{return localStorage.getItem(LS_KEY+":signed")==="1";}catch(e){return false;} }
 function ghiDaDangNhap(v){ try{ if(v)localStorage.setItem(LS_KEY+":signed","1"); else localStorage.removeItem(LS_KEY+":signed"); }catch(e){} }
+function daBoQuaBia(){ try{return localStorage.getItem(LS_KEY+":skipcover")==="1";}catch(e){return false;} }
+function boQuaBia(){ try{localStorage.setItem(LS_KEY+":skipcover","1");}catch(e){} }
 function canDangNhap(){
 if(!window.CLOUD)return false;
 var a=acctState();
 if(a&&a.signed){ghiDaDangNhap(true);return false;}
-return !daTungDangNhap();
+return !daTungDangNhap()&&!daBoQuaBia();
 }
 function renderLanding(){
 document.body.classList.add("cover-on");
@@ -1418,6 +1432,7 @@ var box=el('<section class="cover cov3">'+
 var svg=box.querySelector(".cv-sheet svg"), art=svg.querySelector(".art");
 var cur=null;
 function doiChu(it,chay){
+stopStrokes(svg);
 cur=it;
 var g=CURSIVE[it.lo];
 art.innerHTML=g
@@ -1431,7 +1446,8 @@ box.querySelector(".cvtip").textContent=it.tip;
 Array.prototype.forEach.call(box.querySelectorAll(".abc button"),function(b){
 b.classList.toggle("now",b.getAttribute("data-lo")===it.lo);
 });
-setTimeout(function(){
+svg.__t=setTimeout(function(){
+svg.__t=0;
 centerArt(svg);
 if(g&&chay!==false)animateStrokes(svg,WSPEED[prog.settings.wspeed||"cham"]);
 },60);
@@ -1450,7 +1466,7 @@ setTimeout(function(){spk.classList.remove("on");},1500);
 if(cur)speak(cur.lo);
 };
 box.querySelector(".cvacts .btn").onclick=function(){
-centerArt(svg);
+stopStrokes(svg);centerArt(svg);
 if(cur&&CURSIVE[cur.lo])animateStrokes(svg,WSPEED[prog.settings.wspeed||"cham"]);
 else flash("Chữ này app chưa dựng được đường nét mẫu.");
 };
@@ -1524,6 +1540,9 @@ veTab(t.getAttribute("data-tab"));
 });
 setTimeout(function(){veTab("ghep");},200);
 box.querySelector(".cv-cta").appendChild(googleBtn("Đăng nhập với Google"));
+var vao=el('<button class="btn sm ghost wide" style="margin-top:10px">Vào học luôn, chưa cần đăng nhập</button>');
+vao.onclick=function(){boQuaBia();go({n:"home"});};
+box.querySelector(".cv-cta").appendChild(vao);
 app.appendChild(box);
 var pc=Math.round(thuoc/33*100);
 setTimeout(function(){
@@ -1686,12 +1705,58 @@ note:"Giống chữ “w”: ba lần kéo xuống, lần nào cũng lượn đ�
 note:"Viết bụng tròn trước như chữ “о”, đóng kín bụng, rồi kéo thẳng xuống dưới dòng kẻ, vòng thành thòng lọng sang trái và hất lên thoát ra."},
 "п":{n:1,d:["M 12,70 L 26,34 L 26,72 C 26,50 30,34 37,34 C 44,34 46,42 46,50 L 46,66 C 46,71 52,74 58,70 L 68,52"],
 note:"Giống chữ “n” Latin: hất lên, xuống tới đáy, vòng ngược lên làm vai, xuống lần nữa rồi lượn đáy thoát ra. Hai chân."},
-"л":{n:1,d:["M 13,73 C 13,57 17,41 28,34 L 28,72 C 28,50 32,34 39,34 C 46,34 48,42 48,50 L 48,66 C 48,71 54,74 60,70 L 70,52"],
+"л":{n:1,d:["M 14,72 C 14,56 19,41 30,34 L 30,64 C 30,70 36,73 42,69 L 52,54"],
 note:"Mở đầu bằng nét CONG hất lên, không phải nét thẳng — đó là chỗ duy nhất phân biệt với п. Phần còn lại viết y như п."},
 "м":{n:1,d:["M 14,70 C 16,54 21,40 28,34 L 28,72 C 28,50 32,34 39,34 C 46,34 48,42 48,50 L 48,72 C 48,50 52,34 59,34 C 66,34 68,42 68,50 L 68,66 C 68,71 74,74 80,70 L 90,52"],
 note:"Cũng mở đầu bằng nét cong hất lên như л, nhưng có ba chân như chữ “m”."},
-"г":{n:1,d:["M 12,70 L 26,34 C 31,29 38,32 36,40 L 33,62 C 32,69 38,73 44,69 L 54,52"],
+"г":{n:1,d:["M 14,70 L 29,34 C 32,32 35,34 34,39 L 31,63 C 30,69 36,73 42,69 L 51,54"],
 note:"Hất lên đỉnh, làm một cái vai nhỏ sang phải, rồi kéo xiên xuống đáy và thoát ra — nhìn như chữ “r” thường."},
+"а":{n:1,d:["M 44,41 C 44,34 33,30 27,37 C 21,44 22,57 30,60 C 38,63 44,57 44,49 L 44,63 C 44,70 50,74 56,70 L 66,53"],
+note:"Viết bụng tròn trước như chữ “o”, đóng kín, rồi kéo thẳng xuống đáy và thoát ra."},
+"б":{n:1,d:["M 55,19 C 45,15 32,21 30,34 L 29,59 C 29,68 37,73 44,68 C 51,63 50,52 43,48 C 36,44 30,49 29,56"],
+note:"Bắt đầu từ cái móc trên cao hất sang trái, kéo xuống, rồi vòng thành bụng tròn ở dưới."},
+"в":{n:1,d:["M 29,64 L 33,26 C 41,19 51,25 46,33 C 42,39 35,41 32,41 C 41,41 49,45 47,55 C 45,64 33,67 29,58"],
+note:"Một vòng cao ở trên rồi một bụng tròn ở dưới — nhìn như chữ “B” viết nhanh."},
+"е":{n:1,d:["M 24,56 C 27,45 35,36 42,39 C 47,42 43,48 33,49 C 26,50 24,58 30,61 C 36,64 44,60 49,53"],
+note:"Một vòng nhỏ khép kín rồi kéo xuống đáy, lượn và thoát ra. Giống chữ “e” Latin."},
+"ё":{n:3,d:["M 24,56 C 27,45 35,36 42,39 C 47,42 43,48 33,49 C 26,50 24,58 30,61 C 36,64 44,60 49,53","M 30,24 h.01","M 44,24 h.01"],
+note:"Viết е trước cho xong, nhấc bút, rồi chấm hai chấm phía trên."},
+"ж":{n:3,d:["M 46,30 L 46,62 C 46,69 52,73 58,69 L 68,54","M 24,33 C 33,40 41,45 46,48 C 41,52 33,58 24,65","M 68,33 C 59,40 51,45 46,48 C 51,52 59,58 68,65"],
+note:"Ba nét: nét giữa thẳng đứng trước, rồi hất hai cánh trái và phải vào giữa thân."},
+"з":{n:1,d:["M 28,40 C 32,33 44,32 45,40 C 46,47 38,50 33,50 C 41,50 48,54 46,62 C 44,70 32,72 27,64"],
+note:"Giống số 3 viết nhanh: một vòng nhỏ trên, một vòng to hơn ở dưới."},
+"к":{n:3,d:["M 12,70 L 27,34 L 27,62 C 27,69 33,73 39,69 L 48,54","M 45,34 C 39,42 33,48 28,50","M 30,50 C 36,54 42,62 46,68"],
+note:"Nét thẳng xuống trước, rồi hai cánh: cánh trên hất từ ngoài vào, cánh dưới đẩy từ trong ra."},
+"н":{n:3,d:["M 15,68 L 28,34 L 28,63","M 28,50 L 47,50","M 47,34 L 47,63 C 47,69 53,73 59,69 L 68,54"],
+note:"Hai nét đứng hai bên, nối nhau bằng một vạch ngang chính giữa."},
+"о":{n:1,d:["M 41,39 C 37,33 27,32 24,40 C 21,48 23,58 31,60 C 39,62 44,55 42,47 C 41,42 38,39 41,39 L 54,52"],
+note:"Một vòng tròn kín viết ngược chiều kim đồng hồ, khép ở trên rồi hất ra."},
+"р":{n:2,d:["M 12,70 L 26,34 L 25,91","M 26,44 C 34,37 46,39 46,48 C 46,57 34,61 27,55"],
+note:"Kéo thẳng xuống DƯỚI dòng kẻ trước, rồi mới quay lên làm bụng tròn ở giữa."},
+"с":{n:1,d:["M 44,41 C 41,34 30,31 25,39 C 20,47 22,58 30,60 C 36,61 42,57 44,52 L 55,47"],
+note:"Một vòng hở sang phải, viết ngược chiều kim đồng hồ — giống chữ “c” Latin."},
+"у":{n:1,d:["M 12,70 L 26,34 L 26,60 C 26,68 32,72 38,68 L 48,34 L 45,76 C 44,87 37,93 30,89 C 25,86 27,79 34,80 C 41,81 46,73 50,55"],
+note:"Hất lên, xuống, lên lại rồi kéo thẳng xuống dưới dòng kẻ và vòng thòng lọng sang trái."},
+"ф":{n:3,d:["M 44,17 L 42,90","M 43,40 C 39,34 29,34 26,42 C 23,50 25,60 33,61 C 40,62 44,56 43,48","M 44,42 C 48,35 58,35 61,43 C 64,51 61,61 54,61 C 48,61 44,55 44,48"],
+note:"Nét thẳng dài xuyên từ trên xuống dưới dòng kẻ, rồi thêm hai bụng tròn hai bên."},
+"х":{n:2,d:["M 22,36 C 30,44 40,56 46,66","M 48,36 C 40,44 30,56 24,64 L 58,52"],
+note:"Hai nét chéo cắt nhau, đúng như chữ “x” Latin."},
+"ц":{n:1,d:["M 12,70 L 26,34 L 26,62 C 26,69 32,73 38,69 L 48,34 L 48,72 L 59,72 C 59,81 57,87 53,91"],
+note:"Viết như chữ “u”, rồi thêm cái đuôi nhỏ vòng xuống ở chân bên phải."},
+"ч":{n:1,d:["M 24,34 L 24,48 C 24,55 33,58 41,54 L 49,34 L 49,62 C 49,69 55,73 61,69 L 70,53"],
+note:"Giống số 4 viết nhanh: một nét hất xuống rồi gập sang phải, sau đó kéo thẳng xuống."},
+"щ":{n:1,d:["M 12,70 L 26,34 L 26,62 C 26,69 32,73 38,69 L 48,34 L 48,62 C 48,69 54,73 60,69 L 70,34 L 70,72 L 81,72 C 81,81 79,87 75,91"],
+note:"Viết như ш, rồi thêm đuôi nhỏ vòng xuống ở chân bên phải."},
+"ъ":{n:1,d:["M 17,40 L 33,32 L 33,62 C 33,70 42,73 49,68 C 56,63 54,51 44,51 L 33,51"],
+note:"Nét móc nhỏ hất lên trước, rồi kéo xuống và vòng thành bụng ở nửa dưới."},
+"ы":{n:2,d:["M 21,34 L 21,62 C 21,70 30,73 37,68 C 44,63 42,51 32,51 L 21,51","M 52,34 L 52,62 C 52,69 58,73 64,69 L 73,53"],
+note:"Viết ь trước, nhấc bút, rồi thêm một nét thẳng đứng bên phải."},
+"ь":{n:1,d:["M 27,34 L 27,62 C 27,70 36,73 43,68 C 50,63 48,51 38,51 L 27,51"],
+note:"Kéo thẳng xuống rồi vòng thành bụng tròn ở NỬA DƯỚI — không có âm, chỉ làm mềm chữ trước nó."},
+"э":{n:3,d:["M 26,41 C 30,33 42,32 46,40 C 49,48 42,52 36,51","M 35,51 L 46,51","M 46,51 C 49,59 44,67 36,66 C 30,65 26,61 26,57"],
+note:"Vòng hở sang trái, thêm một vạch ngang ở giữa — ngược hướng với з."},
+"ю":{n:3,d:["M 12,70 L 26,34 L 26,62 C 26,69 32,73 38,69","M 26,50 L 43,50","M 59,40 C 53,35 45,40 45,50 C 45,60 53,65 59,60 C 65,55 65,45 59,40 L 73,53"],
+note:"Viết nét đứng và vạch ngang trước, rồi mới thêm vòng tròn bên phải."},
 "я":{n:1,d:["M 14,70 L 46,34 C 37,28 22,33 22,45 C 22,55 35,59 46,52 L 46,64 C 46,70 52,74 58,70 L 68,52"],
 note:"Hất lên đỉnh TRƯỚC, rồi mới vòng ngược sang trái tạo bụng chữ, đóng bụng, kéo xuống đáy và thoát ra."}
 };
@@ -1742,10 +1807,17 @@ Array.prototype.forEach.call(box.querySelectorAll("[data-sp]"),function(b){
 b.onclick=function(){prog.settings.wspeed=b.getAttribute("data-sp");touch();mark();play();};
 });
 mark();
-function play(){ centerArt(svg); if(g)animateStrokes(svg,WSPEED[prog.settings.wspeed||"cham"]); }
+function play(){ stopStrokes(svg); centerArt(svg); if(g)animateStrokes(svg,WSPEED[prog.settings.wspeed||"cham"]); }
 box.querySelector("button").onclick=play;
 setTimeout(play,250);
 return box;
+}
+function stopStrokes(svg){
+if(!svg)return;
+if(svg.__raf){cancelAnimationFrame(svg.__raf);svg.__raf=0;}
+if(svg.__t){clearTimeout(svg.__t);svg.__t=0;}
+var p=svg.querySelector(".pen");
+if(p)p.style.opacity=0;
 }
 function animateStrokes(svg,speed){
 var inks=svg.querySelectorAll(".ink"),pen=svg.querySelector(".pen");
@@ -2644,6 +2716,7 @@ b.onclick=function(){go({n:b.getAttribute("data-go")});};
 Array.prototype.forEach.call(document.querySelectorAll("[data-ic]"),function(x){
 x.innerHTML=ic(x.getAttribute("data-ic"),19);
 });
+document.getElementById("nav-home").onclick=function(){go({n:"home"});};
 document.getElementById("nav-acct").onclick=function(){go({n:"set"});};
 document.getElementById("nav-gram").onclick=function(){go({n:"gram"});};
 document.getElementById("nav-browse").onclick=function(){go({n:"browse"});};
@@ -2662,7 +2735,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=23"></script>
+<script type="module" src="firebase-sync.js?v=24"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
