@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=39"></script>
+<script src="firebase-config.js?v=40"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -3242,9 +3242,10 @@ dungChuBay();
 prog=normProg(loadLocal()||prog);
 render();
 initCloud();
-window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
+window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
+window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=39"></script>
+<script type="module" src="firebase-sync.js?v=40"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
