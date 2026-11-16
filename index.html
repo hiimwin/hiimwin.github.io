@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=62"></script>
+<script src="firebase-config.js?v=63"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -3044,10 +3044,38 @@ function soVan(ten){
 var m=String(ten).toLowerCase().match(/[\u0430\u0435\u0451\u0438\u043e\u0443\u044b\u044d\u044e\u044f]/g);
 return m?m.length:1;
 }
+var vanGiay=0,treGiong=70,dangDo=false;
+function doGiong(){
+if(vanGiay||dangDo||!window.speechSynthesis||!ruV)return;
+dangDo=true;
+var mau=[["\u0430",1],["\u0431\u044d",1],["\u0438 \u043a\u0440\u0430\u0301\u0442\u043a\u043e\u0435",4]],i=0,tongVan=0,tongGiay=0,tre=[];
+function tiep(){
+if(i>=mau.length){
+if(tongVan&&tongGiay>0)vanGiay=Math.max(.12,Math.min(.6,tongGiay/tongVan));
+if(tre.length){
+var c=0;tre.forEach(function(x){c+=x;});
+treGiong=Math.max(40,Math.min(400,c/tre.length));
+}
+dangDo=false;return;
+}
+var m=mau[i++],t0=Date.now(),batLuc=0,het=false;
+function sang(){if(het)return;het=true;tiep();}
+try{
+var u=new SpeechSynthesisUtterance(m[0]);
+u.lang="ru-RU";u.voice=ruV;u.volume=0;u.rate=1;
+u.onstart=function(){batLuc=Date.now();tre.push(batLuc-t0);};
+u.onend=function(){if(batLuc){tongGiay+=(Date.now()-batLuc)/1000;tongVan+=m[1];}sang();};
+u.onerror=sang;
+speechSynthesis.speak(u);
+}catch(e){dangDo=false;return;}
+setTimeout(sang,2500);
+}
+tiep();
+}
 function docMotChu(ten,f,dai){
 if(!window.speechSynthesis||!ruV)return;
 try{
-var toc=Math.max(.45,Math.min(1.35,soVan(ten)*.3/(dai*.92)));
+var toc=Math.max(.45,Math.min(1.45,soVan(ten)*(vanGiay||.3)/(dai*.92)));
 var u=new SpeechSynthesisUtterance(ten);
 u.lang="ru-RU";u.voice=ruV;
 u.pitch=Math.max(.5,Math.min(1.8,1+(f/HAT_TAN[0]-1)*.55));
@@ -3098,7 +3126,11 @@ if(hasRu()){
 var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-start;margin-top:12px;cursor:pointer">'+
 '<input type="checkbox" style="margin-top:3px;flex:none"'+(NHAC.giong?" checked":"")+'>'+
 '<span>Hát tên chữ theo nhạc — mỗi chữ rơi đúng vào nốt của nó, tên dài đọc nhanh, tên ngắn ngân dài. Vẫn là giọng đọc của máy nên không thành tiếng hát thật được.</span></label>');
-lb.querySelector("input").onchange=function(){NHAC.giong=this.checked;if(!NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}};
+lb.querySelector("input").onchange=function(){
+NHAC.giong=this.checked;
+if(NHAC.giong)doGiong();
+else if(window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+};
 app.appendChild(lb);
 }
 app.appendChild(el('<div class="sec-head"><h2>Lời</h2><div class="ln"></div></div>'));
@@ -3145,7 +3177,10 @@ var hopVang=ac.createConvolver();hopVang.buffer=buffVang(ac);
 var uot=ac.createGain();uot.gain.value=.26;
 loc.connect(uot);uot.connect(hopVang);hopVang.connect(ac.destination);
 }catch(e){}
-if(NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+if(NHAC.giong){
+doGiong();
+if(window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+}
 var t0=ac.currentTime+.18;
 HAT_HOP.forEach(function(cau,p){
 var dauCau=p*8*q;
@@ -3167,7 +3202,7 @@ if(NHAC.giong&&e.chu>=0){
 NHAC.hen.push(setTimeout(function(){
 var it=LS[e.chu];
 if(it)docMotChu(it.nm,e.f,e.dai);
-},Math.max(0,(t0+e.t-ac.currentTime)*1000-70)));
+},Math.max(0,(t0+e.t-ac.currentTime)*1000-treGiong)));
 }
 });
 NHAC.hen.push(setTimeout(xong,Math.max(0,(t0+cv.tong-ac.currentTime)*1000)));
@@ -3455,9 +3490,12 @@ duoi="#mang="+encodeURIComponent(goi);
 try{location.replace("https://"+NHA_MOI+"/"+location.search+duoi);}catch(e){return false;}
 return true;
 }
+var LUC_MO=Date.now();
 function catManCho(){
 var m=document.getElementById("manCho");
 if(!m||m.classList.contains("xong"))return;
+var con=550-(Date.now()-LUC_MO);
+if(con>0){setTimeout(catManCho,con);return;}
 m.classList.add("xong");
 setTimeout(function(){if(m.parentNode)m.parentNode.removeChild(m);},400);
 }
@@ -3484,7 +3522,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=62"></script>
+<script type="module" src="firebase-sync.js?v=63"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
