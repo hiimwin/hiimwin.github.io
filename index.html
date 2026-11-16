@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=27"></script>
+<script src="firebase-config.js?v=29"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -660,6 +660,8 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
 .hbtn .icb{display:flex;align-items:center;width:100%;min-height:46px;justify-content:flex-start;gap:12px;padding:0 12px;border-radius:var(--r-xs)}
 .hbtn .icb .ic-svg,.hbtn .icb i,.hbtn .icb svg{flex:none}
 .btn.sm{min-height:44px}
+.ft-nav button,.ft-nav a{min-height:44px;display:inline-flex;align-items:center}
+.brand{min-height:44px}
 .abc button{width:66px;height:74px}
 .qa{min-height:62px}
 .hbtn .icb b{display:block}
@@ -1192,6 +1194,11 @@ return String(s||"").replace(/́/g,"").toLowerCase().replace(/ё/g,"е")
 .replace(/[^0-9a-zа-яёÀ-ỹ ]/gi," ").replace(/\s+/g," ").trim();
 }
 function plain(s){return String(s||"").replace(/́/g,"");}
+function normTim(s){
+return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"")
+.toLowerCase().replace(/ё/g,"е").replace(/đ/g,"d")
+.replace(/[^0-9a-zа-я ]/gi," ").replace(/s+/g," ").trim();
+}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function pick(a,n,not){var p=shuffle(a.filter(function(x){return x!==not;}));return p.slice(0,n);}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
@@ -2425,7 +2432,7 @@ var b=el('<button class="btn wide" style="margin-top:10px">Tiếp tục</button>
 b.onclick=next;app.appendChild(b);b.focus();
 document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
 }
-var TRMAP=[["shh","щ"],["sch","щ"],["yo","ё"],["yu","ю"],["ya","я"],["zh","ж"],["ch","ч"],["sh","ш"],["a","а"],["b","б"],["v","в"],["g","г"],["d","д"],["e","е"],["z","з"],["i","и"],["j","й"],["k","к"],["l","л"],["m","м"],["n","н"],
+var TRMAP=[["tsya","тся"],["tsja","тся"],["shch","щ"],["shh","щ"],["sch","щ"],["yo","ё"],["yu","ю"],["ya","я"],["zh","ж"],["ch","ч"],["sh","ш"],["ts","ц"],["kh","х"],["ye","е"],["a","а"],["b","б"],["v","в"],["g","г"],["d","д"],["e","е"],["z","з"],["i","и"],["j","й"],["k","к"],["l","л"],["m","м"],["n","н"],
 ["o","о"],["p","п"],["r","р"],["s","с"],["t","т"],["u","у"],["f","ф"],["h","х"],["c","ц"],["w","ш"],["x","х"],["y","ы"],["q","ъ"],
 ["'","ь"],["\"","ъ"]];
 var TRPRE={};TRMAP.forEach(function(p){for(var i=1;i<p[0].length;i++)TRPRE[p[0].slice(0,i)]=1;});
@@ -2570,19 +2577,20 @@ function renderBrowse(){
 var back=el('<button class="back">← Lộ trình</button>');back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
 app.appendChild(el('<h1 style="margin-bottom:12px">Tra cứu</h1>'));
-var s=el('<input class="srch" id="srch-in" placeholder="Nhập từ: Пожа́луйста, спаси́бо, “cảm ơn”…">');
+var s=el('<input class="srch" id="srch-in" placeholder="Gõ kiểu gì cũng được: spasibo, спасибо, “cảm ơn”…">');
 app.appendChild(s);
 var out=el('<div></div>');app.appendChild(out);
 function draw(){
-var q=norm(s.value);
+var q=normTim(s.value);
+var qru=normTim(trRu(s.value));
 out.innerHTML="";
 var pool=ALL_ITEMS.filter(function(it){
 if(!q)return false;
-var hay=it.t==="L"?norm(it.up+" "+it.lo+" "+it.nm+" "+it.nmv+" "+it.snd+" "+it.ex+" "+it.exen+" "+it.exvi)
-:norm(it.ru+" "+it.tr+" "+it.en+" "+it.vi);
-return hay.indexOf(q)>=0;
+var hay=it.t==="L"?normTim(it.up+" "+it.lo+" "+it.nm+" "+it.nmv+" "+it.snd+" "+it.ex+" "+it.exen+" "+it.exvi)
+:normTim(it.ru+" "+it.tr+" "+it.en+" "+it.vi);
+return hay.indexOf(q)>=0||(qru&&qru!==q&&hay.indexOf(qru)>=0);
 }).slice(0,60);
-if(!q){out.appendChild(el('<div class="note">Gõ để tìm trong '+ALL_ITEMS.length+' mục.</div>'));return;}
+if(!q){out.appendChild(el('<div class="note">Gõ để tìm trong '+ALL_ITEMS.length+' mục. Gõ bằng bàn phím Latin cũng ra, khỏi cần dấu.</div>'));return;}
 if(!pool.length){out.appendChild(el('<div class="note">Không tìm thấy “'+esc(s.value)+'”.</div>'));return;}
 var lst=el('<div class="lst"></div>');
 pool.forEach(function(it){
@@ -2814,7 +2822,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=27"></script>
+<script type="module" src="firebase-sync.js?v=29"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
