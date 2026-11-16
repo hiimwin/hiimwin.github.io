@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=54"></script>
+<script src="firebase-config.js?v=55"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -1215,7 +1215,6 @@ if(!ns){ try{ ns = window.claude && window.claude.use ? await window.claude.use(
 if(!ns){cloud=null;syncHeader();return;}
 cloud=ns;
 syncHeader();
-if(view&&view.n==="home")render();
 try{
 var snap=await cloud.doc("progress/main").get();
 if(snap&&snap.exists){
@@ -1415,10 +1414,15 @@ var bg=document.getElementById("nav-burger");
 if(bg)bg.setAttribute("aria-expanded","false");
 window.scrollTo(0,0);render();
 }
+var khoaManTruoc="";
 function render(){
 dungHat();
 app.innerHTML="";
+var khoaMan=view.n+"|"+(view.one||"")+"|"+(view.mod||"")+"|"+(view.tab||"");
+if(khoaMan!==khoaManTruoc){
 app.classList.remove("swap");void app.offsetWidth;app.classList.add("swap");
+khoaManTruoc=khoaMan;
+}
 document.body.classList.remove("cover-on");
 var bia=canDangNhap();
 if(bia)view={n:"home"};
@@ -3408,7 +3412,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=54"></script>
+<script type="module" src="firebase-sync.js?v=55"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;try{if(sessionStorage.getItem("nga:dangdangnhap")==="1")return;}catch(e){}daTai=true;location.reload();});});</script>
 </body>
 </html>

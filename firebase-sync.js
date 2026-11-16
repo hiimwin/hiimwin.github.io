@@ -49,7 +49,8 @@ console.warn("[nga] Không bật được tài khoản khách:", e.code || e);
 settle(null);
 });
 }
-if (truoc !== uid && typeof window.CLOUD_CHANGED === "function") {
+const laKhach = !!(u && u.isAnonymous);
+if (truoc !== uid && (truoc !== null || !laKhach) && typeof window.CLOUD_CHANGED === "function") {
 window.CLOUD_CHANGED();
 }
 });
