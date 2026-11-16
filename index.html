@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=47"></script>
+<script src="firebase-config.js?v=48"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -131,7 +131,7 @@ box-shadow:inset 0 0 0 1px var(--g-line),var(--sh);transition:transform .12s,box
 .gbtn:hover:not(:disabled){transform:translateY(-1px);box-shadow:inset 0 0 0 1px var(--g-line),var(--sh-lift)}
 .gbtn:disabled{opacity:.6;cursor:progress}
 .gbtn svg{width:19px;height:19px;flex:none}
-.acct{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);padding:19px 20px;margin-bottom:14px}
+.acct{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh),inset 0 0 0 1px var(--line-soft);padding:19px 20px;margin-bottom:14px}
 .acct .t{font-family:var(--f-head);font-weight:700;font-size:17.5px;letter-spacing:-.01em;margin-bottom:5px}
 .acct .d{font-size:14.5px;color:var(--muted);line-height:1.6}
 .syncline{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:16px;padding-top:14px;
@@ -140,7 +140,7 @@ border-top:1px solid var(--line-soft);font-size:13.5px;color:var(--muted)}
 .syncline b{color:var(--ink);font-weight:600;word-break:break-all}
 #nav-acct .ava{width:26px;height:26px;border-radius:var(--r-xs);background:var(--deep);color:#FFFFFF;
 display:grid;place-items:center;font-size:13px;font-weight:700;line-height:1}
-.cta{width:100%;background:var(--accent);color:var(--on-accent);border-radius:var(--r);padding:17px 18px;margin-bottom:14px;
+.cta{width:100%;background:var(--accent);color:var(--on-accent);border-radius:var(--r);padding:17px 18px;margin:20px 0;
 display:flex;align-items:center;gap:14px;text-align:left;box-shadow:var(--sh);transition:transform .12s,box-shadow .15s}
 .cta:hover{transform:translateY(-1px);box-shadow:var(--sh-lift)}
 .cta .big{font-family:var(--f-head);font-size:19px;font-weight:700;line-height:1.25}
@@ -293,7 +293,7 @@ background:conic-gradient(var(--accent) calc(var(--p)*3.6deg),var(--sunken) 0);t
 .li .r1 .hw{font-family:var(--f-hand);color:var(--muted);margin-left:10px}
 .li .r2{font-size:14px;color:var(--muted);margin-top:1px}
 .li .r3{font-size:15.5px;margin-top:1px}
-.set{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);padding:15px 16px;margin-bottom:9px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.set{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh),inset 0 0 0 1px var(--line-soft);padding:15px 16px;margin-bottom:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .set .l{flex:1 1 200px;min-width:0}
 .set .act{flex:none;margin-left:auto}
 @media(max-width:560px){
@@ -731,8 +731,8 @@ transition:background .16s,color .16s,transform .16s,box-shadow .16s}
 button,a,label,summary,.opt,.cell,.mod,.chap,input[type="checkbox"]{touch-action:manipulation}
 @keyframes theVaoPhai{from{transform:translateX(66%) rotate(4deg);opacity:0}to{transform:none;opacity:1}}
 @keyframes theVaoTrai{from{transform:translateX(-66%) rotate(-4deg);opacity:0}to{transform:none;opacity:1}}
-.the.vaoPhai{animation:theVaoPhai .28s cubic-bezier(.22,1,.36,1) both}
-.the.vaoTrai{animation:theVaoTrai .28s cubic-bezier(.22,1,.36,1) both}
+.the.vaoPhai{animation:theVaoPhai .42s cubic-bezier(.22,1,.36,1) both}
+.the.vaoTrai{animation:theVaoTrai .42s cubic-bezier(.22,1,.36,1) both}
 .the button{touch-action:pan-y}
 .the{position:relative;touch-action:pan-y;cursor:pointer;-webkit-user-select:none;user-select:none}
 .the-an{display:none}
@@ -1310,6 +1310,17 @@ while(d.firstChild)f.appendChild(d.firstChild);
 return f;
 }
 var voices=[],ruV=null,ttsWarned=false,daMoiGiong=false;
+function moiGiongDoc(){
+if(daMoiGiong||!window.speechSynthesis)return;
+daMoiGiong=true;
+try{
+var m=new SpeechSynthesisUtterance("\u00a0");
+m.volume=0;m.rate=2;m.lang="ru-RU";
+speechSynthesis.speak(m);
+}catch(e){}
+}
+addEventListener("pointerdown",moiGiongDoc,{once:true,capture:true});
+addEventListener("keydown",moiGiongDoc,{once:true,capture:true});
 function loadVoices(){
 try{voices=window.speechSynthesis?speechSynthesis.getVoices()||[]:[];}catch(e){voices=[];}
 ruV=null;
@@ -2771,7 +2782,7 @@ if(ngang&&Math.abs(dx)>52){
 if(dx<0)phai(); else trai();
 return;
 }
-node.style.transition="transform .2s cubic-bezier(.22,1,.36,1),opacity .2s";
+node.style.transition="transform .32s cubic-bezier(.22,1,.36,1),opacity .32s";
 node.style.transform="";node.style.opacity="";
 }
 node.addEventListener("pointerup",het);
@@ -2801,10 +2812,10 @@ function lat(){ c.classList.add("mo"); }
 c.onclick=function(e){ if(e.target.closest(".spk"))return; lat(); };
 app.appendChild(c);
 function bay(huong,xong){
-c.style.transition="transform .18s ease-in,opacity .18s ease-in";
-c.style.transform="translateX("+(-huong*64)+"%) rotate("+(-huong*5)+"deg)";
+c.style.transition="transform .26s cubic-bezier(.4,0,.6,1),opacity .26s ease-in";
+c.style.transform="translateX("+(-huong*70)+"%) rotate("+(-huong*5)+"deg)";
 c.style.opacity="0";
-setTimeout(xong,170);
+setTimeout(xong,250);
 }
 var b=el('<button class="btn wide" style="margin-top:14px">'+(it.t==="L"?"Nghe tên chữ":"Nghe lại")+'</button>');
 b.onclick=function(){speak(it.t==="L"?it.lo:it.ru);};
@@ -3321,7 +3332,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=47"></script>
+<script type="module" src="firebase-sync.js?v=48"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;daTai=true;location.reload();});});</script>
 </body>
 </html>
