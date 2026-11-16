@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=65"></script>
+<script src="firebase-config.js?v=66"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1173,7 +1173,7 @@ function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)retu
 const LS_KEY="rus-az-v1";
 const INTERVALS=[0,1,2,4,8,16,32,64];
 const DAY=86400000;
-let prog={items:{},stats:{streak:0,last:"",hist:{}},settings:{unlockAll:false,translit:true,latinType:true,rate:.85,wspeed:"cham"},v:0};
+let prog={items:{},stats:{streak:0,last:"",hist:{}},settings:{unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham"},v:0};
 let dirty=false,cloud=null,saveTimer=null,saving=false;
 function todayKey(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function badKey(k){return k==="__proto__"||k==="constructor"||k==="prototype";}
@@ -1245,7 +1245,7 @@ if(v&&typeof v==="object")clean[k]={b:+v.b||0,due:+v.due||0,c:+v.c||0,w:+v.w||0,
 });
 p.items=clean;
 p.stats=Object.assign({streak:0,last:"",hist:{}},p.stats||{});
-p.settings=Object.assign({unlockAll:false,translit:true,latinType:true,rate:.85,wspeed:"cham"},p.settings||{});
+p.settings=Object.assign({unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham"},p.settings||{});
 p.v=p.v||0;return p;
 }
 function rec(id){return prog.items[id]||null;}
@@ -1440,7 +1440,7 @@ laVeDau=false;
 document.body.classList.remove("cover-on");
 var bia=canDangNhap();
 if(bia)view={n:"home"};
-document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song","nhanh"].indexOf(view.n)>=0);
+document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song","nhanh","anhnga"].indexOf(view.n)>=0);
 syncHeader();
 if(bia){renderLanding();sauKhiVe();return;}
 document.onkeydown=null;
@@ -1449,6 +1449,7 @@ if(view.n==="mod"){renderMod();sauKhiVe();return;}
 if(view.n==="study")return renderStudy();
 if(view.n==="song"){renderSong();sauKhiVe();return;}
 if(view.n==="nhanh"){renderNhanh();sauKhiVe();return;}
+if(view.n==="anhnga"){renderAnhNga();sauKhiVe();return;}
 if(view.n==="browse"){renderBrowse();sauKhiVe();return;}
 if(view.n==="gram"){renderGram();sauKhiVe();return;}
 if(view.n==="set"){renderSet();sauKhiVe();return;}
@@ -1914,6 +1915,16 @@ var nb2=el('<button class="btn sm ghost">'+ic("tim",18)+'<span>Đọc nhanh</spa
 nb2.onclick=function(){go({n:"nhanh",kieu:"doc"});};
 nr.appendChild(nb1);nr.appendChild(nb2);
 h.appendChild(nrow);
+var soCho=tuChoKhong().length;
+if(soCho>=10){
+var arow=el('<div class="set"><div class="l"><div class="n">Từ cho không</div>'+
+'<div class="d">'+soCho+' từ tiếng Nga đọc gần như tiếng Anh — học một công được cả hai thứ tiếng.</div></div>'+
+'<div class="act"></div></div>');
+var abtn=el('<button class="btn sm ghost">'+ic("sach",18)+'<span>Xem</span></button>');
+abtn.onclick=function(){go({n:"anhnga"});};
+arow.querySelector(".act").appendChild(abtn);
+h.appendChild(arow);
+}
 var ac=accountCard(seen);
 if(ac)h.appendChild(ac);
 h.appendChild(el('<div class="sec-head"><h2>Lộ trình</h2><div class="ln"></div></div>'));
@@ -2454,6 +2465,21 @@ if(mode==="vi2ru"){
 var o2=shuffle([it].concat(others)).map(function(x){return {txt:x.ru,ok:x.id===it.id};});
 return {k:"mc",it:it,ask:"Tiếng Nga nói thế nào?",big:it.vi,cyr:false,sub:it.en,opts:o2,optCyr:true,audio:null};
 }
+if(mode==="ru2en"){
+var ke=pick(pool.filter(function(x){return x.id!==it.id&&x.en!==it.en;}),3);
+var oe=shuffle([it].concat(ke)).map(function(x){return {txt:x.en,ok:x.id===it.id};});
+return {k:"mc",it:it,ask:"Tiếng Anh là gì?",big:it.ru,cyr:true,sub:prog.settings.translit?it.tr:"",opts:oe,optCyr:false,audio:it.ru};
+}
+if(mode==="en2ru"){
+var kr=pick(pool.filter(function(x){return x.id!==it.id&&x.ru!==it.ru;}),3);
+var or2=shuffle([it].concat(kr)).map(function(x){return {txt:x.ru,ok:x.id===it.id};});
+return {k:"mc",it:it,ask:"Từ tiếng Anh này, tiếng Nga nói thế nào?",big:it.en,cyr:false,sub:it.vi,opts:or2,optCyr:true,audio:null};
+}
+if(mode==="en2vi"){
+var kv=pick(pool.filter(function(x){return x.id!==it.id&&x.vi!==it.vi;}),3);
+var ov=shuffle([it].concat(kv)).map(function(x){return {txt:x.vi,ok:x.id===it.id};});
+return {k:"mc",it:it,ask:"Từ tiếng Anh này nghĩa là gì?",big:it.en,cyr:false,sub:"",opts:ov,optCyr:false,audio:null};
+}
 var o3=shuffle([it].concat(others)).map(function(x){return {txt:x.vi,ok:x.id===it.id};});
 return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:false,audio:it.ru,auto:true};
 }
@@ -2506,7 +2532,10 @@ batch.forEach(function(it){steps.push(introStep(it));});
 var quiz=[];
 batch.forEach(function(it){
 if(it.t==="L"){quiz.push(mcLetter(it,"snd",pool));quiz.push(mcLetter(it,"pick",pool));if(hasRu())quiz.push(mcLetter(it,"listen",pool));}
-else{quiz.push(mcVocab(it,"ru2vi",pool));quiz.push(mcVocab(it,"vi2ru",pool));}
+else{
+quiz.push(mcVocab(it,"ru2vi",pool));quiz.push(mcVocab(it,"vi2ru",pool));
+if(prog.settings.anh)quiz.push(mcVocab(it,Math.random()<.5?"ru2en":"en2ru",pool));
+}
 });
 return {title:m.name,steps:steps.concat(shuffle(quiz))};
 }
@@ -2520,7 +2549,13 @@ else{
 var ss=(r>=.62&&r<.78)?stressStep(it):null;
 if(ss)steps.push(ss);
 else if(r>=.78&&r<.9&&hasRu())steps.push(dictStep(it));
-else steps.push(r<.33?mcVocab(it,"ru2vi",pool):(r<.62?mcVocab(it,"vi2ru",pool):(hasRu()?mcVocab(it,"listen",pool):typeStep(it))));
+else{
+var ds=["ru2vi","vi2ru"];
+if(prog.settings.anh)ds.push("ru2en","en2ru","en2vi");
+if(hasRu())ds.push("listen");
+var ch=ds[Math.floor(Math.random()*ds.length)];
+steps.push(mcVocab(it,ch,pool));
+}
 }
 });
 return {title:tieuDe||"Ôn tập",steps:steps};
@@ -2817,6 +2852,7 @@ return el('<div class="card the">'+
 '<div class="mean-vi">'+esc(it.vi)+'</div>'+
 '<div class="the-an">'+
 '<div class="mean-en">'+esc(it.en)+'</div>'+
+(giongAnh(it)?'<div class="tipbox" style="margin-top:12px"><b>Nhớ nhanh</b>Đọc lên gần như tiếng Anh “'+esc(giongAnh(it).tu)+'” — khỏi học thuộc lòng.</div>':'')+
 (chuDe?'<div class="muted" style="font-size:13.5px;margin-top:6px">Thuộc chủ đề: '+esc(chuDe.name)+'</div>':'')+
 '</div>'+
 '<div class="exrow" style="justify-content:center;border:0;padding-top:10px;margin-top:10px">'+
@@ -3266,6 +3302,59 @@ if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
 if(e.key===" "||e.key==="Spacebar"){e.preventDefault();bPlay.click();}
 };
 }
+var _giongAnh={};
+function gonChu(s){
+return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z]/g,"");
+}
+function cachChu(a,b){
+var i,j,d=[];
+for(i=0;i<=a.length;i++){d[i]=[i];}
+for(j=0;j<=b.length;j++)d[0][j]=j;
+for(i=1;i<=a.length;i++)for(j=1;j<=b.length;j++)
+d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a.charAt(i-1)===b.charAt(j-1)?0:1));
+return d[a.length][b.length];
+}
+function giongAnh(it){
+if(!it||it.t!=="V")return null;
+if(_giongAnh[it.id]!==undefined)return _giongAnh[it.id];
+var a=gonChu(it.tr),tot=0,tu="";
+String(it.en||"").split(/[\/,;()]|\s+/).forEach(function(w){
+var b=gonChu(w);
+if(!a||b.length<3)return;
+var t=1-cachChu(a,b)/Math.max(a.length,b.length);
+if(t>tot){tot=t;tu=w;}
+});
+var kq=tot>=.55?{ti:tot,tu:tu}:null;
+_giongAnh[it.id]=kq;
+return kq;
+}
+function tuChoKhong(){
+return ALL_ITEMS.filter(function(it){return !!giongAnh(it);})
+.sort(function(a,b){return giongAnh(b).ti-giongAnh(a).ti;});
+}
+function renderAnhNga(){
+var ds=tuChoKhong();
+var back=el('<button class="back">← Lộ trình</button>');
+back.onclick=function(){go({n:"home"});};
+app.appendChild(back);
+app.appendChild(el('<div class="eyebrow">Nga ↔ Anh</div><h1 style="margin-bottom:6px">Từ cho không</h1>'));
+app.appendChild(el('<div class="note" style="margin-bottom:14px">'+ds.length+' từ tiếng Nga đọc lên gần như tiếng Anh — đây là chỗ học nhanh nhất trong cả kho từ. Biết một bên là gần như biết bên kia.</div>'));
+var bt=el('<button class="btn wide" style="margin-bottom:16px">'+ic("velai",18)+'<span>Luyện những từ này</span></button>');
+bt.onclick=function(){startSession(buildReview(ds,"Từ cho không"));};
+app.appendChild(bt);
+var lst=el('<div class="lst"></div>');
+ds.forEach(function(it){
+var g=giongAnh(it);
+var r=el('<div class="li"><div class="l">'+
+'<div class="r1">'+esc(it.ru)+'</div>'+
+'<div class="r2">'+esc(it.tr)+' ≈ <b>'+esc(g.tu)+'</b> · giống '+Math.round(g.ti*100)+'%</div>'+
+'<div class="r3">'+esc(it.vi)+'</div></div>'+
+'<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
+r.querySelector(".spk").onclick=function(){speak(it.ru);};
+lst.appendChild(r);
+});
+app.appendChild(lst);
+}
 const CHU_GIONG_LATIN=["\u0430","\u0432","\u0435","\u043a","\u043c","\u043d","\u043e","\u0440","\u0441","\u0442","\u0443","\u0445"];
 const NHANH_SO=20;
 function nhanhCaiDat(kieu){
@@ -3454,6 +3543,7 @@ app.appendChild(row);
 }
 toggle("Hiện phiên âm Latin","Dòng “máma”, “spasíbo” dưới chữ Nga.","translit");
 toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
+toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều Nga → Anh và Anh → Nga, học một công đôi việc.","anh");
 toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng chữ cái. Không khuyến khích.","unlockAll");
 var rate=el('<div class="set"><div class="l"><div class="n">Tốc độ đọc</div><div class="d">Hiện tại: '+prog.settings.rate.toFixed(2)+'×</div></div></div>');
 var rr=el('<div class="row" style="flex:none"></div>');
@@ -3695,7 +3785,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=65"></script>
+<script type="module" src="firebase-sync.js?v=66"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
