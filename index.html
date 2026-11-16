@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=48"></script>
+<script src="firebase-config.js?v=49"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -2717,28 +2717,30 @@ return el('<div class="card the">'+
 '<div class="glyph">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
-'<div class="the-an">'+
 '<div class="tr">tên chữ: “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
+'<div class="the-an">'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
 '<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
 '<div style="min-width:0"><div class="ex">'+esc(it.ex)+'</div>'+
 '<div class="muted" style="font-size:13px">'+esc(it.extr)+' · '+esc(it.exen)+'</div>'+
 '<div style="font-weight:600">'+esc(it.exvi)+'</div></div></div>'+
 '</div>'+
-'<div class="the-nhac">'+ic("tai",17)+'Bấm vào thẻ để xem cách đọc</div>'+
+'<div class="the-nhac">'+ic("sach",17)+'Bấm vào thẻ để xem mẹo và từ ví dụ</div>'+
 '</div>');
 }
+var chuDe=modById(it.mod);
 return el('<div class="card the">'+
 '<div class="lbl">Từ mới</div>'+
 '<div class="word">'+esc(it.ru)+'</div>'+
-'<div class="the-an">'+
 '<div class="tr">'+esc(it.tr)+'</div>'+
-'<div class="mean-en">'+esc(it.en)+'</div>'+
 '<div class="mean-vi">'+esc(it.vi)+'</div>'+
+'<div class="the-an">'+
+'<div class="mean-en">'+esc(it.en)+'</div>'+
+(chuDe?'<div class="muted" style="font-size:13.5px;margin-top:6px">Thuộc chủ đề: '+esc(chuDe.name)+'</div>':'')+
 '</div>'+
 '<div class="exrow" style="justify-content:center;border:0;padding-top:10px;margin-top:10px">'+
 '<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>'+
-'<div class="the-nhac">'+ic("tai",17)+'Bấm vào thẻ để xem nghĩa</div>'+
+'<div class="the-nhac">'+ic("sach",17)+'Bấm vào thẻ để xem nghĩa tiếng Anh</div>'+
 '</div>');
 }
 function dongTrangThai(it){
@@ -3332,7 +3334,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=48"></script>
+<script type="module" src="firebase-sync.js?v=49"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;daTai=true;location.reload();});});</script>
 </body>
 </html>
