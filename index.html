@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=49"></script>
+<script src="firebase-config.js?v=50"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -491,11 +491,9 @@ body.cover-on .burger,body.cover-on .ft-nav{display:none}
 .hero h1{font-size:38px}
 }
 @media(min-width:1500px){.wrap{max-width:1440px}}
-#nav-login{margin-left:auto;flex:none;min-height:40px;padding:9px 20px;font-size:15px}
-body.menu-open #nav-login,.burger+#nav-login{margin-left:0}
+#nav-login{flex:none;min-height:40px;padding:9px 18px;font-size:15px}
 header .hrow{gap:10px}
 body.cover-on header .hbtn{display:none}
-body.cover-on #nav-login{display:inline-flex}
 .icb[aria-current="true"]{background:var(--accent-soft);color:var(--accent)}
 .tabs3{display:flex;gap:6px;background:var(--surface-2);border-radius:999px;padding:4px;margin-top:4px}
 .tabs3 button{flex:1;min-height:44px;padding:9px 10px;border-radius:999px;font-size:14px;font-weight:500;
@@ -660,8 +658,8 @@ transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
 }
 @media(max-width:768px){
 .burger{display:grid}
-#nav-login b{display:none}
-#nav-login{padding:0;width:42px;min-width:42px;min-height:42px;border-radius:50%;gap:0}
+.hbtn #nav-login{width:100%;min-height:46px;justify-content:flex-start;gap:12px;padding:0 12px;
+border-radius:var(--r-xs);font-size:15px;box-shadow:none}
 .brand{font-size:16px}
 .brand .tag{width:28px;height:28px;border-radius:var(--r-xs);font-size:14px}
 .hrow{position:relative}
@@ -677,6 +675,8 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
 .abc button{width:66px;height:74px}
 .qa{min-height:62px}
 .hbtn .icb b{display:block}
+.hbtn #nav-acct b{max-width:148px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbtn #nav-login,.hbtn #nav-out{margin-bottom:8px}
 .hbtn .icb[hidden]{display:none}
 .cover h1{font-size:33px}
 .cover .lead{font-size:16.5px}
@@ -762,10 +762,11 @@ font-weight:600;font-size:14.5px;line-height:1.2;transition:transform .12s,box-s
 <header>
   <div class="wrap gut hrow">
     <button class="brand" id="nav-home" title="Về trang chủ" aria-label="Về trang chủ"><span class="tag cyr">Аа</span><span>Tiếng Nga từ A đến Я</span></button>
-    <button class="btn sm" id="nav-login" hidden><svg class="ic-svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-3"/><path d="M10 8.5 13.5 12 10 15.5"/><path d="M13.5 12H4.5"/></svg><b>Đăng nhập</b></button>
     <button class="icb burger" id="nav-burger" aria-label="Mở menu" aria-expanded="false"><span></span></button>
     <div class="hbtn" id="nav-menu">
+      <button class="btn sm" id="nav-login" hidden><svg class="ic-svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-3"/><path d="M10 8.5 13.5 12 10 15.5"/><path d="M13.5 12H4.5"/></svg><b>Đăng nhập</b></button>
       <button class="icb" id="nav-acct" title="Tài khoản" aria-label="Tài khoản" hidden></button>
+      <button class="icb" id="nav-out" title="Đăng xuất" aria-label="Đăng xuất" hidden><i data-ic="ra"></i><b>Đăng xuất</b></button>
       <button class="icb" id="nav-song" title="Bài hát bảng chữ cái" aria-label="Bài hát bảng chữ cái"><i data-ic="nhac"></i><b>Bài hát</b></button>
       <button class="icb" id="nav-gram" title="Ngữ pháp" aria-label="Ngữ pháp"><i data-ic="sach"></i><b>Ngữ pháp</b></button>
       <button class="icb" id="nav-browse" title="Tra cứu" aria-label="Tra cứu"><i data-ic="tim"></i><b>Tra cứu</b></button>
@@ -1464,6 +1465,7 @@ velai:'<path d="M20.2 11.6a8.2 8.2 0 1 1-2.5-5.9"/><path d="M20.4 4.3v4.4h-4.4"/
 tai:'<path d="M4.4 14.4v-2.2a7.6 7.6 0 0 1 15.2 0v2.2"/><rect x="2.9" y="13.6" width="4.2" height="6.6" rx="2.1"/><rect x="16.9" y="13.6" width="4.2" height="6.6" rx="2.1"/>',
 nhip:'<path d="M3 12.2h4.2L9.6 6l4.2 12 2.4-5.8H21"/>',
 nhac:'<path d="M9.3 18.1V5.7l9.3-1.9v12.2"/><ellipse cx="6.8" cy="18.3" rx="2.5" ry="2.1"/><ellipse cx="16.1" cy="16" rx="2.5" ry="2.1"/>',
+ra:'<path d="M9.5 3.5h-3a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3"/><path d="M15.5 8.5 19 12l-3.5 3.5"/><path d="M19 12h-9"/>',
 but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>'
 };
 function ic(n,sz){
@@ -1497,7 +1499,9 @@ return b;
 function acctState(){
 if(!window.CLOUD)return null;
 var st=window.CLOUD.state();
-return {signed:!!(st.user&&!st.user.isAnonymous),ten:(st.user&&(st.user.email||st.user.displayName))||""};
+return {signed:!!(st.user&&!st.user.isAnonymous),
+ten:(st.user&&(st.user.displayName||st.user.email))||"",
+mail:(st.user&&st.user.email)||""};
 }
 function syncHeader(){
 var lg=document.getElementById("nav-login");
@@ -1513,18 +1517,32 @@ window.CLOUD.signInGoogle()
 .then(function(){lg.disabled=false;lb.textContent=keep;render();});
 };
 }
+var ra=document.getElementById("nav-out");
+if(ra){
+ra.hidden=!(st&&st.signed);
+ra.onclick=function(){
+if(!window.CLOUD)return;
+ra.disabled=true;
+ghiDaDangNhap(false);
+window.CLOUD.signOutNow()
+.catch(function(){})
+.then(function(){
+ra.disabled=false;
+flash("Đã đăng xuất. Tiến độ trên máy này vẫn còn.");
+go({n:"home"});
+});
+};
+}
 ["song","gram","browse","set"].forEach(function(n){
 var x=document.getElementById("nav-"+n);
 if(x)x.setAttribute("aria-current",view.n===n?"true":"false");
 });
 var b=document.getElementById("nav-acct");if(!b)return;
 var a=acctState();
-if(!a){b.hidden=true;return;}
+if(!a||!a.signed){b.hidden=true;return;}
 b.hidden=false;
-b.innerHTML=a.signed
-? '<span class="ava">'+esc((a.ten||"?").charAt(0).toUpperCase())+'</span>'
-: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c.6-3.8 3.6-5.8 7.2-5.8s6.6 2 7.2 5.8"/></svg>';
-b.title=a.signed?("Tài khoản: "+a.ten):"Chưa đăng nhập";
+b.innerHTML='<span class="ava">'+esc((a.ten||"?").charAt(0).toUpperCase())+'</span><b>'+esc(a.ten||"Tài khoản")+'</b>';
+b.title="Tài khoản: "+(a.mail||a.ten);
 }
 function accountCard(seen){
 var a=acctState();
@@ -3334,7 +3352,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=49"></script>
+<script type="module" src="firebase-sync.js?v=50"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;daTai=true;location.reload();});});</script>
 </body>
 </html>
