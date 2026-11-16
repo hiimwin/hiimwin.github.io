@@ -9,11 +9,11 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=22"></script>
+<script src="firebase-config.js?v=23"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Inter:wght@500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Marck+Script&display=swap">
+<link rel="stylesheet" href="fonts.css">
 <style>:root{
 --paper:#EDF2FC;
 --m1:#9FC7F8; --m2:#D7AEF0; --m3:#FBB9D3; --m4:#A6E6CB; --m5:#FDD2A2;
@@ -29,7 +29,7 @@
 --sh:0 1px 2px rgba(20,32,66,.04),0 10px 26px -14px rgba(20,32,66,.22),inset 0 1px 0 rgba(255,255,255,.65);
 --sh-lift:0 2px 6px rgba(20,32,66,.06),0 26px 50px -20px rgba(20,32,66,.34),inset 0 1px 0 rgba(255,255,255,.8);
 --f-head:"Inter","Be Vietnam Pro",system-ui,sans-serif;
---f-ui:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+--f-ui:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
 --f-cyr:"PT Serif",Georgia,serif;
 --f-hand:"Marck Script","Segoe Script",cursive;
 }
@@ -407,7 +407,10 @@ header{background:var(--surface);border-bottom:1px solid var(--line)}
 .brand{font-family:var(--f-head);font-weight:700;letter-spacing:-.02em;font-size:18px}
 .brand .tag{background:linear-gradient(135deg,var(--accent),var(--deep));border-radius:11px}
 .icb{border-radius:12px}
-.icb i{font-style:normal}
+.icb i{font-style:normal;display:grid;place-items:center}
+.ic-svg{display:block;flex:none}
+.btn .ic-svg,.qa .ic-svg{vertical-align:-4px;margin-right:2px}
+.prog-bar .run svg{display:block;color:var(--accent);filter:drop-shadow(0 2px 6px rgba(61,92,224,.45))}
 .icb b{display:none;font-weight:500;font-size:15px}
 .burger{display:none;margin-left:auto}
 .burger span,.burger span::before,.burger span::after{display:block;width:17px;height:2px;border-radius:2px;background:currentColor}
@@ -448,7 +451,18 @@ background:rgba(255,255,255,.45);pointer-events:none;animation:rip .55s ease-out
 .srch{border-radius:999px;padding:16px 22px;background:var(--surface);box-shadow:var(--sh)}
 .srch:focus{box-shadow:0 0 0 2px var(--accent),var(--sh-lift)}
 .tin{border-radius:16px;background:var(--surface)}
-footer{background:var(--surface);border-top:1px solid var(--line)}
+footer{background:var(--surface);border-top:1px solid var(--line);
+position:sticky;bottom:0;z-index:9;-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
+.ft{padding-block:14px 16px;gap:12px}
+.ft-brand .tag{width:30px;height:30px;border-radius:9px;font-size:15px}
+.ft-brand b{font-size:14.5px}
+.ft-brand span{font-size:12.5px}
+.ft-note{display:none}
+@media(min-width:900px){
+.ft{flex-direction:row;align-items:center;justify-content:space-between;padding-block:12px 14px}
+.ft-nav{margin-left:auto}
+.ft-note{display:block;font-size:12.5px;max-width:30em}
+}
 .ft-nav button,.ft-nav a{border-radius:999px;background:var(--surface-2)}
 #app{width:100%}
 body.hep #app{max-width:780px;margin-inline:auto}
@@ -643,10 +657,10 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
     <button class="icb burger" id="nav-burger" aria-label="Mở menu" aria-expanded="false"><span></span></button>
     <div class="hbtn" id="nav-menu">
       <button class="icb" id="nav-acct" title="Tài khoản" aria-label="Tài khoản" hidden></button>
-      <button class="icb" id="nav-gram" title="Ngữ pháp" aria-label="Ngữ pháp"><i>¶</i><b>Ngữ pháp</b></button>
-      <button class="icb" id="nav-browse" title="Tra cứu" aria-label="Tra cứu"><i>⌕</i><b>Tra cứu</b></button>
-      <button class="icb" id="nav-set" title="Cài đặt" aria-label="Cài đặt"><i>⚙</i><b>Cài đặt</b></button>
-      <button class="icb" id="nav-theme" title="Đổi nền sáng/tối" aria-label="Đổi nền sáng tối"><i>◐</i><b>Sáng / tối</b></button>
+      <button class="icb" id="nav-gram" title="Ngữ pháp" aria-label="Ngữ pháp"><i data-ic="sach"></i><b>Ngữ pháp</b></button>
+      <button class="icb" id="nav-browse" title="Tra cứu" aria-label="Tra cứu"><i data-ic="tim"></i><b>Tra cứu</b></button>
+      <button class="icb" id="nav-set" title="Cài đặt" aria-label="Cài đặt"><i data-ic="caidat"></i><b>Cài đặt</b></button>
+      <button class="icb" id="nav-theme" title="Đổi nền sáng/tối" aria-label="Đổi nền sáng tối"><i data-ic="sangtoi"></i><b>Sáng / tối</b></button>
     </div>
   </div>
 </header>
@@ -1192,12 +1206,12 @@ function voiceHelp(){
 var k=osKind();
 if(k==="android")return {t:"Cách cài trên Android",h:
 '1. Cài đặt → Hệ thống → Ngôn ngữ &amp; nhập liệu → <b>Đầu ra chuyển văn bản thành lời nói</b><br>'+
-'2. Bấm ⚙ cạnh <b>Google Text-to-speech</b> → Cài dữ liệu giọng nói → chọn <b>Русский</b> → tải về<br>'+
-'3. Tải xong bấm 🔊 lại. Vẫn im thì mở link này bằng <b>Chrome</b> thay vì xem trong app Claude.'};
+'2. Bấm nút bánh răng cạnh <b>Google Text-to-speech</b> → Cài dữ liệu giọng nói → chọn <b>Русский</b> → tải về<br>'+
+'3. Tải xong bấm nút loa lại. Vẫn im thì mở link này bằng <b>Chrome</b> thay vì xem trong app Claude.'};
 if(k==="ios")return {t:"Cách cài trên iPhone / iPad",h:
 '1. Cài đặt → Trợ năng → <b>Nội dung được nói</b> (Spoken Content) → Giọng nói<br>'+
 '2. Chọn <b>Русский (Russian)</b> → tải một giọng (Milena hoặc Yuri)<br>'+
-'3. Tải xong bấm 🔊 lại. Vẫn im thì mở link này bằng <b>Safari</b> thay vì xem trong app Claude.'};
+'3. Tải xong bấm nút loa lại. Vẫn im thì mở link này bằng <b>Safari</b> thay vì xem trong app Claude.'};
 if(k==="mac")return {t:"Cách cài trên macOS",h:
 '1. System Settings → Accessibility → <b>Spoken Content</b> → System voice → Manage Voices<br>'+
 '2. Chọn <b>Russian</b> → tải về<br>'+
@@ -1257,6 +1271,26 @@ const CHAPTERS=[
 ];
 var openChap;
 try{openChap=localStorage.getItem(LS_KEY+":chap")||null;}catch(e){openChap=null;}
+const ICON={
+loa:'<path d="M4 9.4v5.2h3.3L12 18.6V5.4L7.3 9.4z"/><path d="M15.6 9.1a4 4 0 0 1 0 5.8"/><path d="M18.2 6.6a7.6 7.6 0 0 1 0 10.8"/>',
+khoa:'<rect x="4.6" y="10.4" width="14.8" height="9.6" rx="2.5"/><path d="M8.1 10.4V7.7a3.9 3.9 0 0 1 7.8 0v2.7"/>',
+maybay:'<path d="M21.3 2.7 2.9 9.9c-.8.3-.8 1.5.1 1.7l6.2 1.9 1.9 6.2c.3.9 1.5.9 1.8.1l7.2-18.4c.2-.6-.3-1.1-.8-.7z" fill="currentColor" stroke="none"/>',
+choi:'<path d="M8.2 5.4v13.2L19 12z" fill="currentColor" stroke="none"/>',
+trai:'<path d="M14.6 5.8 8.8 12l5.8 6.2"/>',
+phai:'<path d="M9.4 5.8 15.2 12l-5.8 6.2"/>',
+caidat:'<path d="M3.6 7.4h8.2M16.6 7.4h3.8M3.6 16.6h5.2M13.6 16.6h6.8"/><circle cx="14.2" cy="7.4" r="2.4"/><circle cx="11.2" cy="16.6" r="2.4"/>',
+sangtoi:'<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4a8.6 8.6 0 0 0 0 17.2z" fill="currentColor" stroke="none"/>',
+tim:'<circle cx="10.9" cy="10.9" r="6.3"/><path d="M15.5 15.5 20.2 20.2"/>',
+sach:'<path d="M4.2 5.4A2.3 2.3 0 0 1 6.5 3.1h13v15.4h-13a2.3 2.3 0 0 0-2.3 2.3z"/><path d="M4.2 20.8V5.4"/><path d="M8.4 7.6h6.6M8.4 11.4h6.6"/>',
+velai:'<path d="M20.2 11.6a8.2 8.2 0 1 1-2.5-5.9"/><path d="M20.4 4.3v4.4h-4.4"/>',
+tai:'<path d="M4.4 14.4v-2.2a7.6 7.6 0 0 1 15.2 0v2.2"/><rect x="2.9" y="13.6" width="4.2" height="6.6" rx="2.1"/><rect x="16.9" y="13.6" width="4.2" height="6.6" rx="2.1"/>',
+nhip:'<path d="M3 12.2h4.2L9.6 6l4.2 12 2.4-5.8H21"/>',
+but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>'
+};
+function ic(n,sz){
+return '<svg class="ic-svg" viewBox="0 0 24 24" width="'+(sz||20)+'" height="'+(sz||20)+'" fill="none" '+
+'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICON[n]+'</svg>';
+}
 const G_LOGO='<svg viewBox="0 0 48 48" aria-hidden="true">'+
 '<path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>'+
 '<path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>'+
@@ -1349,7 +1383,7 @@ var box=el('<section class="cover cov3">'+
 'chữ viết tay, rồi mới tới từ và câu.</p>'+
 '<div class="prog">'+
 '<div class="lbl">Đã thuộc <b>'+thuoc+'/33</b> chữ cái · <b>472</b> từ vựng đang chờ</div>'+
-'<div class="prog-bar"><i></i><span class="run">🐦</span></div>'+
+'<div class="prog-bar"><i></i><span class="run">'+ic("maybay",19)+'</span></div>'+
 '</div>'+
 '<div class="cvnote">Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống.</div>'+
 '</div>'+
@@ -1363,7 +1397,7 @@ var box=el('<section class="cover cov3">'+
 '<div class="cv-sheet" style="margin-top:16px">'+sheetSvg("")+'</div>'+
 '<div class="cvacts">'+
 '<button class="spk-big" aria-label="Nghe cách đọc"><span class="wv"><s></s><s></s><s></s><s></s><s></s></span></button>'+
-'<button class="btn sm ghost">▶ Xem cách viết</button>'+
+'<button class="btn sm ghost">'+ic("choi",17)+' Xem cách viết</button>'+
 '<div class="cvnote" style="flex:1;min-width:150px">Bấm một chữ bên dưới để đổi.</div>'+
 '</div>'+
 '</div>'+
@@ -1460,7 +1494,7 @@ than.appendChild(el('<div class="cvnote" style="margin-top:10px">Bấm một t�
 var c2=MAU[0];
 var w=el('<div class="ctx"><div class="ru">'+esc(c2[0])+'</div>'+
 '<div class="vi">Trọng âm rơi vào âm tiết có dấu nhọn — đặt sai là người Nga nghe không ra.</div>'+
-'<div class="row" style="margin-top:14px"><button class="btn sm">🔊 Nghe</button>'+
+'<div class="row" style="margin-top:14px"><button class="btn sm">'+ic("loa",17)+' Nghe</button>'+
 '<button class="btn sm ghost">Đổi từ khác</button></div></div>');
 var i2=0;
 w.querySelectorAll("button")[0].onclick=function(){speak(MAU[i2][0]);};
@@ -1475,7 +1509,7 @@ than.appendChild(w);
 var it3=ALL_ITEMS.filter(function(x){return x.t==="L"&&x.ex&&x.exvi;})[Math.floor(Math.random()*8)]||ALL_ITEMS[0];
 var w3=el('<div class="ctx"><div class="ru">'+esc(it3.ex)+'</div>'+
 '<div class="vi">'+esc(it3.extr)+' · '+esc(it3.exen)+'<br><b style="color:var(--ink)">'+esc(it3.exvi)+'</b></div>'+
-'<div class="row" style="margin-top:14px"><button class="btn sm">🔊 Nghe câu</button></div></div>');
+'<div class="row" style="margin-top:14px"><button class="btn sm">'+ic("loa",17)+' Nghe câu</button></div></div>');
 w3.querySelector("button").onclick=function(){speak(it3.ex);};
 than.appendChild(w3);
 }
@@ -1563,7 +1597,7 @@ var ok=unlocked(m),ms=mastery(m.items),sc=seenCount(m.items),pc=Math.round(ms*10
 var cls="mod"+(ok?"":" locked")+(ms>=.95?" done":"");
 var sub=ok?(sc+"/"+m.items.length+" mục · thuộc "+pc+"%"):lockWhy(m);
 var b=el('<button class="'+cls+'">'+
-'<span class="ring" data-p="'+(ok?pc:0)+'"><span>'+(ok?(ms>=.95?"✓":idx[m.id]):"🔒")+'</span></span>'+
+'<span class="ring" data-p="'+(ok?pc:0)+'"><span>'+(ok?(ms>=.95?"✓":idx[m.id]):ic("khoa",17))+'</span></span>'+
 '<span class="body">'+
 '<span class="t">'+esc(m.name)+'</span>'+
 '<span class="s" style="display:block">'+esc(sub)+'</span>'+
@@ -1694,7 +1728,7 @@ g.d.map(function(d){return '<path class="ink" d="'+d+'"/>';}).join("")
 : '<text class="ghost-text" x="52" y="71">'+esc(it.up+" "+it.lo)+'</text>';
 var box=el('<div class="wbox"><div class="sheet">'+sheetSvg(inner)+'</div>'+
 '<div class="row" style="margin-top:12px">'+
-'<button class="btn sm ghost" style="flex:none">↻ Viết lại</button>'+
+'<button class="btn sm ghost" style="flex:none">'+ic("velai",17)+' Viết lại</button>'+
 '<div class="seg" style="flex:none"><button data-sp="cham">Chậm</button><button data-sp="vua">Vừa</button></div>'+
 '</div>'+
 '<div class="wnote" style="margin-top:11px">'+esc(g?g.note:"Chữ này app chưa dựng được đường nét, phần dưới chỉ hiện hình dáng chữ viết tay.")+'</div></div>');
@@ -1915,9 +1949,9 @@ var demoWrap=el('<div></div>');
 var pad=writePad(list[0]);
 var padWrap=el('<div style="margin-top:12px"></div>');padWrap.appendChild(pad);
 var ctr=el('<div class="row" style="margin-top:11px;justify-content:center">'+
-'<button class="btn sm ghost">◀ Chữ trước</button>'+
+'<button class="btn sm ghost">'+ic("trai",16)+' Chữ trước</button>'+
 '<div style="min-width:86px;text-align:center" class="muted"></div>'+
-'<button class="btn sm ghost">Chữ sau ▶</button></div>');
+'<button class="btn sm ghost">Chữ sau '+ic("phai",16)+'</button></div>');
 function show(){
 var it=list[cur];
 demoWrap.innerHTML="";demoWrap.appendChild(strokeDemo(it));
@@ -1992,7 +2026,7 @@ var r=el('<div class="li'+(p&&p.b>=4?" known":"")+'">'+
 '<div class="l"><div class="r1">'+esc(it.ru)+'</div>'+
 (prog.settings.translit?'<div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div>':'<div class="r2">'+esc(it.en)+'</div>')+
 '<div class="r3">'+esc(it.vi)+'</div></div>'+
-'<button class="spk" aria-label="Nghe">🔊</button></div>');
+'<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(){speak(it.ru);};
 lst.appendChild(r);
 });
@@ -2029,7 +2063,7 @@ var o4=shuffle([it].concat(others)).map(function(x){return {txt:x.up+" "+x.lo,ok
 return {k:"mc",it:it,ask:"Chữ viết tay này là chữ gì?",big:it.up+" "+it.lo,hand:true,sub:"",opts:o4,optCyr:true,audio:it.lo};
 }
 var o3=shuffle([it].concat(others)).map(function(x){return {txt:x.up+" "+x.lo,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Nghe rồi chọn chữ",big:"🔊",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:true,audio:it.lo,auto:true};
+return {k:"mc",it:it,ask:"Nghe rồi chọn chữ",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:true,audio:it.lo,auto:true};
 }
 function mcVocab(it,mode,pool){
 var others=pick(pool.filter(function(x){return x.id!==it.id;}),3);
@@ -2042,7 +2076,7 @@ var o2=shuffle([it].concat(others)).map(function(x){return {txt:x.ru,ok:x.id===i
 return {k:"mc",it:it,ask:"Tiếng Nga nói thế nào?",big:it.vi,cyr:false,sub:it.en,opts:o2,optCyr:true,audio:null};
 }
 var o3=shuffle([it].concat(others)).map(function(x){return {txt:x.vi,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"🔊",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:false,audio:it.ru,auto:true};
+return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:false,audio:it.ru,auto:true};
 }
 const VOWELS="аеёиоуыэюя";
 function stressInfo(it){
@@ -2160,7 +2194,7 @@ return el('<div class="card anim">'+
 '<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
 '<div class="tr">đọc tên: “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm: “'+esc(it.snd)+'”':'')+'</div>'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
-'<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">🔊</button>'+
+'<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
 '<div style="min-width:0"><div class="ex">'+esc(it.ex)+'</div>'+
 '<div class="muted" style="font-size:13px">'+esc(it.extr)+' · '+esc(it.exen)+'</div>'+
 '<div style="font-weight:600">'+esc(it.exvi)+'</div></div></div>'+
@@ -2172,7 +2206,7 @@ return el('<div class="card anim">'+
 '<div class="tr">'+esc(it.tr)+'</div>'+
 '<div class="mean-en">'+esc(it.en)+'</div>'+
 '<div class="mean-vi">'+esc(it.vi)+'</div>'+
-'<div class="exrow" style="justify-content:center;border:0;padding-top:10px;margin-top:10px"><button class="spk" aria-label="Nghe">🔊</button></div>'+
+'<div class="exrow" style="justify-content:center;border:0;padding-top:10px;margin-top:10px"><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>'+
 '</div>');
 }
 function stepIntro(st){
@@ -2186,11 +2220,11 @@ document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
 }
 function stepMC(st){
 var q=el('<div class="q anim"><div class="ask">'+esc(st.ask)+'</div>'+
-'<div class="big'+(st.hand?" hw":(st.cyr?"":" lat"))+'">'+esc(st.big)+'</div>'+
+'<div class="big'+(st.hand?" hw":(st.cyr?"":" lat"))+'">'+(st.big==="\u0000loa"?ic("loa",54):esc(st.big))+'</div>'+
 (st.sub?'<div class="sub">'+esc(st.sub)+'</div>':'')+'</div>');
 app.appendChild(q);
 if(st.audio){
-var sp=el('<div class="row" style="justify-content:center;margin:-8px 0 16px"><button class="spk" aria-label="Nghe">🔊</button></div>');
+var sp=el('<div class="row" style="justify-content:center;margin:-8px 0 16px"><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 sp.querySelector(".spk").onclick=function(){speak(st.audio);};
 app.appendChild(sp);
 if(st.auto)speak(st.audio);
@@ -2276,7 +2310,7 @@ var q=el('<div class="q anim"><div class="ask">'+esc(st.ask)+'</div>'+
 (st.sub?'<div class="sub">'+esc(st.sub)+'</div>':'')+'</div>');
 app.appendChild(q);
 if(st.dict){
-var spk=el('<button class="bigspk" aria-label="Nghe lại">🔊</button>');
+var spk=el('<button class="bigspk" aria-label="Nghe lại">'+ic("loa",34)+'</button>');
 spk.onclick=function(){
 spk.classList.add("playing");
 setTimeout(function(){spk.classList.remove("playing");},1400);
@@ -2402,8 +2436,8 @@ if(!pool.length){out.appendChild(el('<div class="note">Không tìm thấy “'+e
 var lst=el('<div class="lst"></div>');
 pool.forEach(function(it){
 var r=it.t==="L"
-? el('<div class="li"><div class="l"><div class="r1">'+esc(it.up+" "+it.lo)+'<span class="hw">'+esc(it.up+" "+it.lo)+'</span></div><div class="r2">'+esc(it.nm)+' · âm “'+esc(it.snd)+'”</div><div class="r3">'+esc(it.ex)+' — '+esc(it.exvi)+'</div></div><button class="spk">🔊</button></div>')
-: el('<div class="li"><div class="l"><div class="r1">'+esc(it.ru)+'</div><div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div><div class="r3">'+esc(it.vi)+'</div></div><button class="spk">🔊</button></div>');
+? el('<div class="li"><div class="l"><div class="r1">'+esc(it.up+" "+it.lo)+'<span class="hw">'+esc(it.up+" "+it.lo)+'</span></div><div class="r2">'+esc(it.nm)+' · âm “'+esc(it.snd)+'”</div><div class="r3">'+esc(it.ex)+' — '+esc(it.exvi)+'</div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>')
+: el('<div class="li"><div class="l"><div class="r1">'+esc(it.ru)+'</div><div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div><div class="r3">'+esc(it.vi)+'</div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(){speak(it.t==="L"?it.ex:it.ru);};
 lst.appendChild(r);
 });
@@ -2453,7 +2487,7 @@ var vbox=el('<div class="set" style="display:block'+(ruV?'':';border-left:3px so
 '<div class="n">Giọng đọc</div>'+
 '<div class="d" style="margin-bottom:8px">'+(ruV
 ? 'Đang dùng: <b>'+esc(ruV.name)+'</b> — phát âm tiếng Nga hoạt động bình thường.'
-: 'Máy chưa có giọng tiếng Nga nào, nên nút 🔊 không kêu. Giọng đọc là gói riêng — thêm tiếng Nga vào danh sách ngôn ngữ giao diện không tính.')+'</div>'+
+: 'Máy chưa có giọng tiếng Nga nào, nên nút loa không kêu. Giọng đọc là gói riêng — thêm tiếng Nga vào danh sách ngôn ngữ giao diện không tính.')+'</div>'+
 (ruV?'':'<div class="tipbox" style="margin-top:0"><b>'+esc(vh.t)+'</b>'+vh.h+'</div>')+
 '<div class="d" style="margin-top:8px">Không cài được cũng không sao: mọi từ trong app đều có dòng phiên âm kiểu tiếng Việt để đọc theo.</div>'+
 '<details class="more"><summary>Xem '+voices.length+' giọng máy đang có</summary>'+
@@ -2607,6 +2641,9 @@ bg.setAttribute("aria-expanded","false");
 Array.prototype.forEach.call(document.querySelectorAll(".ft-nav [data-go]"),function(b){
 b.onclick=function(){go({n:b.getAttribute("data-go")});};
 });
+Array.prototype.forEach.call(document.querySelectorAll("[data-ic]"),function(x){
+x.innerHTML=ic(x.getAttribute("data-ic"),19);
+});
 document.getElementById("nav-acct").onclick=function(){go({n:"set"});};
 document.getElementById("nav-gram").onclick=function(){go({n:"gram"});};
 document.getElementById("nav-browse").onclick=function(){go({n:"browse"});};
@@ -2625,7 +2662,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=22"></script>
+<script type="module" src="firebase-sync.js?v=23"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
