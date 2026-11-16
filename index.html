@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=57"></script>
+<script src="firebase-config.js?v=58"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -1407,11 +1407,12 @@ var bg=document.getElementById("nav-burger");
 if(bg)bg.setAttribute("aria-expanded","false");
 window.scrollTo(0,0);render();
 }
-var khoaManTruoc="";
+var khoaManTruoc="",vuaDoiMan=true;
 function render(){
 app.innerHTML="";
 var khoaMan=view.n+"|"+(view.one||"")+"|"+(view.mod||"")+"|"+(view.tab||"");
-if(khoaMan!==khoaManTruoc){
+vuaDoiMan=(khoaMan!==khoaManTruoc);
+if(vuaDoiMan){
 app.classList.remove("swap");void app.offsetWidth;app.classList.add("swap");
 khoaManTruoc=khoaMan;
 }
@@ -1433,8 +1434,8 @@ renderHome();
 sauKhiVe();
 }
 function sauKhiVe(){
-hienDan();
-Array.prototype.forEach.call(app.querySelectorAll("[data-to]"),demSo);
+hienDan(vuaDoiMan);
+Array.prototype.forEach.call(app.querySelectorAll("[data-to]"),function(x){demSo(x,vuaDoiMan);});
 }
 function fill(node){requestAnimationFrame(function(){requestAnimationFrame(function(){
 Array.prototype.forEach.call(node.querySelectorAll("[data-p]"),function(x){x.style.setProperty("--p",x.getAttribute("data-p"));});
@@ -3144,9 +3145,9 @@ w.appendChild(t);
 document.body.appendChild(w);
 }
 var theoDoi=null;
-function hienDan(){
+function hienDan(hieuUng){
 if(view.n==="study"||app.querySelector(".cover"))return;
-if(!window.IntersectionObserver)return;
+if(!hieuUng||!window.IntersectionObserver)return;
 if(!theoDoi)theoDoi=new IntersectionObserver(function(es){
 es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add("in");theoDoi.unobserve(e.target);} });
 },{rootMargin:"0px 0px -6% 0px",threshold:.05});
@@ -3157,9 +3158,9 @@ x.style.transitionDelay=Math.min(i*42,430)+"ms";
 theoDoi.observe(x);
 });
 }
-function demSo(node){
+function demSo(node,hieuUng){
 var dich=parseInt(node.getAttribute("data-to"),10)||0;
-if(dich<=0||(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){node.textContent=dich;return;}
+if(!hieuUng||dich<=0||(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){node.textContent=dich;return;}
 var t0=0,dur=Math.min(260+dich*9,1150);
 function b(t){
 if(!t0)t0=t;
@@ -3263,7 +3264,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=57"></script>
+<script type="module" src="firebase-sync.js?v=58"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
