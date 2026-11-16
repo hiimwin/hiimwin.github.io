@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=52"></script>
+<script src="firebase-config.js?v=53"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -1502,8 +1502,16 @@ function acctState(){
 if(!window.CLOUD)return null;
 var st=window.CLOUD.state();
 return {signed:!!(st.user&&!st.user.isAnonymous),
-ten:(st.user&&(st.user.displayName||st.user.email))||"",
+ten:tenNguoi(st.user),
 mail:(st.user&&st.user.email)||""};
+}
+function tenNguoi(u){
+if(!u)return "";
+if(u.displayName)return u.displayName;
+var pd=u.providerData||[];
+for(var i=0;i<pd.length;i++)if(pd[i]&&pd[i].displayName)return pd[i].displayName;
+var m=u.email||"";
+return m?m.split("@")[0]:"";
 }
 function syncHeader(){
 var lg=document.getElementById("nav-login");
@@ -3186,7 +3194,7 @@ app.appendChild(vbox);
 if(window.CLOUD){
 var u=window.CLOUD.state(),signed=u.user&&!u.user.isAnonymous;
 var acc=el('<div class="set"><div class="l"><div class="n">Tài khoản</div><div class="d">'+
-(signed?("Đang đăng nhập: <b>"+esc(u.user.email||u.user.displayName||"đã đăng nhập")+"</b>. Tiến độ đồng bộ sang mọi máy bạn đăng nhập.")
+(signed?("Đang đăng nhập: <b>"+esc(tenNguoi(u.user)||"đã đăng nhập")+"</b>"+(u.user.email?" · "+esc(u.user.email):"")+". Tiến độ đồng bộ sang mọi máy bạn đăng nhập.")
 :"Đang học với tài khoản khách — tiến độ chỉ nằm trên máy này. Đăng nhập để giữ tiến độ và học tiếp trên điện thoại.")+
 '</div></div><div class="act"></div></div>');
 var slot=acc.querySelector(".act");
@@ -3379,7 +3387,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=52"></script>
+<script type="module" src="firebase-sync.js?v=53"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;try{if(sessionStorage.getItem("nga:dangdangnhap")==="1")return;}catch(e){}daTai=true;location.reload();});});</script>
 </body>
 </html>
