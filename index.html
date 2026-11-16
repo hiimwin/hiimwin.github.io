@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=53"></script>
+<script src="firebase-config.js?v=54"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -2928,8 +2928,13 @@ for(var p=0;p<HAT_CAU.length;p++){
 var soChu=p<HAT_DONG.length?HAT_DONG[p]:0;
 for(var n=0;n<HAT_CAU[p].length;n++){
 var dai=HAT_PHACH[n]*q;
-ds.push({t:t,dai:dai,f:HAT_TAN[HAT_CAU[p][n]],chu:n<soChu?chu+n:-1});
+ds.push({t:t,dai:dai,f:HAT_TAN[HAT_CAU[p][n]],chu:n<soChu?chu+n:-1,
+dong:n===0&&soChu?p:-1,dongDai:0});
 t+=dai;
+}
+if(soChu){
+var dauDong=ds.length-HAT_CAU[p].length;
+ds[dauDong].dongDai=t-ds[dauDong].t;
 }
 chu+=soChu;
 }
@@ -2989,6 +2994,17 @@ o.start(t0+n[1]);o.stop(t0+n[1]+.34);
 }catch(e){}
 });
 }
+function cauCuaDong(p){
+var LS=modById("alpha").items,bat=0,i;
+for(i=0;i<p;i++)bat+=HAT_DONG[i];
+var soChu=HAT_DONG[p],loi=[],tong=0;
+for(i=0;i<soChu;i++){
+var it=LS[bat+i];
+if(it)loi.push(it.nm);
+tong+=HAT_TAN[HAT_CAU[p][i]];
+}
+return {loi:loi.join(" "),cao:tong/soChu};
+}
 function dungHat(){
 if(NHAC.raf){cancelAnimationFrame(NHAC.raf);NHAC.raf=0;}
 NHAC.hen.forEach(function(h){clearTimeout(h);});NHAC.hen=[];
@@ -3031,7 +3047,7 @@ app.appendChild(dk);
 if(hasRu()){
 var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-start;margin-top:12px;cursor:pointer">'+
 '<input type="checkbox" style="margin-top:3px;flex:none"'+(NHAC.giong?" checked":"")+'>'+
-'<span>Cho giọng đọc hát theo — đọc tên từng chữ, bám theo cao độ của nốt. Đây là giọng đọc của máy nên vẫn ra chất máy, và có thể đuổi không kịp nhịp nhanh.</span></label>');
+'<span>Cho giọng đọc hát theo — đọc liền cả dòng theo từng câu nhạc, dòng cao dòng thấp khác nhau. Đây là giọng đọc của máy nên không thành tiếng hát thật được.</span></label>');
 lb.querySelector("input").onchange=function(){NHAC.giong=this.checked;if(!NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}};
 app.appendChild(lb);
 }else{
@@ -3089,8 +3105,13 @@ NHAC.hen.push(setTimeout(function(){
 oThanh.style.width=(e.t/cv.tong*100).toFixed(1)+"%";
 if(e.chu<0)return;
 danhDau(e.chu);
-if(NHAC.giong)hatMotChu(LS[e.chu].nm,e.f,e.dai>.9?.72:.88);
 },Math.max(0,(t0+e.t-ac.currentTime)*1000)));
+if(NHAC.giong&&e.dong>=0){
+var lai=cauCuaDong(e.dong);
+NHAC.hen.push(setTimeout(function(){
+hatMotChu(lai.loi,lai.cao,Math.max(.5,Math.min(1.2,.75*(NHAC.nhip/100))));
+},Math.max(0,(t0+e.t-ac.currentTime)*1000-90)));
+}
 });
 NHAC.hen.push(setTimeout(xong,Math.max(0,(t0+cv.tong-ac.currentTime)*1000)));
 NHAC.dang=true;
@@ -3387,7 +3408,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=53"></script>
+<script type="module" src="firebase-sync.js?v=54"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;try{if(sessionStorage.getItem("nga:dangdangnhap")==="1")return;}catch(e){}daTai=true;location.reload();});});</script>
 </body>
 </html>
