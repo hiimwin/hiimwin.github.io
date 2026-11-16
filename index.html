@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=29"></script>
+<script src="firebase-config.js?v=30"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -292,8 +292,13 @@ background:conic-gradient(var(--accent) calc(var(--p)*3.6deg),var(--sunken) 0);t
 .li .r1 .hw{font-family:var(--f-hand);color:var(--muted);margin-left:10px}
 .li .r2{font-size:14px;color:var(--muted);margin-top:1px}
 .li .r3{font-size:15.5px;margin-top:1px}
-.set{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);padding:15px 16px;margin-bottom:9px;display:flex;gap:14px;align-items:center}
-.set .l{flex:1;min-width:0}
+.set{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);padding:15px 16px;margin-bottom:9px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.set .l{flex:1 1 200px;min-width:0}
+.set .act{flex:none;margin-left:auto}
+@media(max-width:560px){
+.set .act{flex:1 0 100%;margin-left:0}
+.set .act>.gbtn,.set .act>.btn{width:100%;justify-content:center}
+}
 .set .n{font-weight:600;font-size:16px}
 .set .d{font-size:14px;line-height:1.6;color:var(--muted);margin-top:2px}
 .sw{flex:none;width:48px;height:28px;border-radius:var(--r-pill);background:var(--sunken);position:relative;padding:0;transition:background .18s}
@@ -1215,13 +1220,32 @@ if(!window.speechSynthesis){warnVoice();return;}
 loadVoices();
 if(!ruV&&voices.length){warnVoice();return;}
 try{
-speechSynthesis.cancel();
+if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();
+if(speechSynthesis.paused)speechSynthesis.resume();
 var u=new SpeechSynthesisUtterance(plain(text));
 u.lang="ru-RU";if(ruV)u.voice=ruV;
 u.rate=prog.settings.rate||.85;
 speechSynthesis.speak(u);
+setTimeout(function(){
+try{
+if(speechSynthesis.speaking||speechSynthesis.pending)return;
+var u2=new SpeechSynthesisUtterance(plain(text));
+u2.lang="ru-RU";u2.rate=prog.settings.rate||.85;
+speechSynthesis.speak(u2);
+setTimeout(function(){
+if(!speechSynthesis.speaking&&!speechSynthesis.pending)warnCongTacTat();
+},260);
+}catch(e){}
+},240);
 }catch(e){}
 if(!ruV)setTimeout(function(){loadVoices();if(!ruV)warnVoice();},800);
+}
+var daBaoCongTac=false;
+function warnCongTacTat(){
+if(daBaoCongTac)return;daBaoCongTac=true;
+flash(osKind()==="ios"
+? "Máy có giọng Nga nhưng không ra tiếng — thử gạt công tắc chuông bên hông iPhone sang chuông, rồi vặn to âm lượng."
+: "Máy có giọng Nga nhưng không ra tiếng — kiểm tra lại âm lượng và quyền phát tiếng của trình duyệt.");
 }
 function osKind(){
 var u=navigator.userAgent||"";
@@ -1240,7 +1264,8 @@ if(k==="android")return {t:"Cách cài trên Android",h:
 if(k==="ios")return {t:"Cách cài trên iPhone / iPad",h:
 '1. Cài đặt → Trợ năng → <b>Nội dung được nói</b> (Spoken Content) → Giọng nói<br>'+
 '2. Chọn <b>Русский (Russian)</b> → tải một giọng (Milena hoặc Yuri)<br>'+
-'3. Tải xong bấm nút loa lại. Vẫn im thì mở link này bằng <b>Safari</b> thay vì xem trong app Claude.'};
+'3. Tải xong bấm nút loa lại.<br>'+
+'4. Đã có giọng mà vẫn im: gạt <b>công tắc chuông bên hông máy</b> sang chuông — để im lặng là Safari câm tiếng mà không báo gì.'};
 if(k==="mac")return {t:"Cách cài trên macOS",h:
 '1. System Settings → Accessibility → <b>Spoken Content</b> → System voice → Manage Voices<br>'+
 '2. Chọn <b>Russian</b> → tải về<br>'+
@@ -2658,7 +2683,7 @@ var u=window.CLOUD.state(),signed=u.user&&!u.user.isAnonymous;
 var acc=el('<div class="set"><div class="l"><div class="n">Tài khoản</div><div class="d">'+
 (signed?("Đang đăng nhập: <b>"+esc(u.user.email||u.user.displayName||"đã đăng nhập")+"</b>. Tiến độ đồng bộ sang mọi máy bạn đăng nhập.")
 :"Đang học với tài khoản khách — tiến độ chỉ nằm trên máy này. Đăng nhập để giữ tiến độ và học tiếp trên điện thoại.")+
-'</div></div><div class="act" style="flex:none"></div></div>');
+'</div></div><div class="act"></div></div>');
 var slot=acc.querySelector(".act");
 if(signed){
 var out=el('<button class="btn sm ghost">Đăng xuất</button>');
@@ -2776,6 +2801,20 @@ if(!e.target.closest)return;
 var b=e.target.closest(".btn:not(.ghost), .cta");
 if(b&&!b.disabled)gonSong(b,e.clientX,e.clientY);
 },true);
+(function moKhoaGiongDoc(){
+if(!window.speechSynthesis)return;
+function moi(){
+try{
+var u=new SpeechSynthesisUtterance(" ");
+u.volume=0;u.lang="ru-RU";
+speechSynthesis.speak(u);
+}catch(e){}
+removeEventListener("pointerdown",moi,true);
+removeEventListener("keydown",moi,true);
+}
+addEventListener("pointerdown",moi,true);
+addEventListener("keydown",moi,true);
+})();
 (function menuBaGach(){
 var bg=document.getElementById("nav-burger");
 if(!bg)return;
@@ -2822,7 +2861,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=29"></script>
+<script type="module" src="firebase-sync.js?v=30"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
