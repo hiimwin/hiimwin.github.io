@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=45"></script>
+<script src="firebase-config.js?v=47"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -729,6 +729,10 @@ transition:background .16s,color .16s,transform .16s,box-shadow .16s}
 .hat-dong{gap:8px;margin-bottom:9px}
 }
 button,a,label,summary,.opt,.cell,.mod,.chap,input[type="checkbox"]{touch-action:manipulation}
+@keyframes theVaoPhai{from{transform:translateX(66%) rotate(4deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes theVaoTrai{from{transform:translateX(-66%) rotate(-4deg);opacity:0}to{transform:none;opacity:1}}
+.the.vaoPhai{animation:theVaoPhai .28s cubic-bezier(.22,1,.36,1) both}
+.the.vaoTrai{animation:theVaoTrai .28s cubic-bezier(.22,1,.36,1) both}
 .the button{touch-action:pan-y}
 .the{position:relative;touch-action:pan-y;cursor:pointer;-webkit-user-select:none;user-select:none}
 .the-an{display:none}
@@ -1305,7 +1309,7 @@ var f=document.createDocumentFragment();
 while(d.firstChild)f.appendChild(d.firstChild);
 return f;
 }
-var voices=[],ruV=null,ttsWarned=false;
+var voices=[],ruV=null,ttsWarned=false,daMoiGiong=false;
 function loadVoices(){
 try{voices=window.speechSynthesis?speechSynthesis.getVoices()||[]:[];}catch(e){voices=[];}
 ruV=null;
@@ -1322,6 +1326,14 @@ if(speechSynthesis.paused)speechSynthesis.resume();
 var u=new SpeechSynthesisUtterance(plain(text));
 u.lang="ru-RU";if(ruV)u.voice=ruV;
 u.rate=prog.settings.rate||.85;
+if(!daMoiGiong){
+daMoiGiong=true;
+try{
+var moi=new SpeechSynthesisUtterance("\u00a0");
+moi.volume=0;moi.rate=2;moi.lang="ru-RU";if(ruV)moi.voice=ruV;
+speechSynthesis.speak(moi);
+}catch(e){}
+}
 speechSynthesis.speak(u);
 setTimeout(function(){
 try{
@@ -2755,14 +2767,19 @@ function het(e){
 if(!dang)return;
 dang=false;
 var dx=(e&&typeof e.clientX==="number")?e.clientX-x0:0;
-node.style.transition="";node.style.transform="";node.style.opacity="";
-if(ngang&&Math.abs(dx)>52){ if(dx<0)phai(); else trai(); }
+if(ngang&&Math.abs(dx)>52){
+if(dx<0)phai(); else trai();
+return;
+}
+node.style.transition="transform .2s cubic-bezier(.22,1,.36,1),opacity .2s";
+node.style.transform="";node.style.opacity="";
 }
 node.addEventListener("pointerup",het);
 node.addEventListener("pointercancel",het);
 node.addEventListener("pointerleave",het);
 node.addEventListener("click",function(e){ if(xa>8){e.stopPropagation();e.preventDefault();} xa=0; },true);
 }
+var huongThe=0;
 function renderOne(it){
 var mod=modById(it.mod),ds=mod?mod.items:[],vt=ds.indexOf(it);
 var back=el('<button class="back">← '+esc(mod?mod.name:"Quay lại")+'</button>');
@@ -2778,15 +2795,16 @@ app.appendChild(rail);
 }
 app.appendChild(dongTrangThai(it));
 var c=theGhiNho(it);
+if(huongThe){c.classList.add(huongThe>0?"vaoPhai":"vaoTrai");huongThe=0;}
 c.querySelector(".spk").onclick=function(e){e.stopPropagation();speak(it.t==="L"?it.ex:it.ru);};
 function lat(){ c.classList.add("mo"); }
 c.onclick=function(e){ if(e.target.closest(".spk"))return; lat(); };
 app.appendChild(c);
 function bay(huong,xong){
-c.style.transition="transform .17s ease-in,opacity .17s ease-in";
-c.style.transform="translateX("+(huong*62)+"%) rotate("+(huong*5)+"deg)";
+c.style.transition="transform .18s ease-in,opacity .18s ease-in";
+c.style.transform="translateX("+(-huong*64)+"%) rotate("+(-huong*5)+"deg)";
 c.style.opacity="0";
-setTimeout(xong,165);
+setTimeout(xong,170);
 }
 var b=el('<button class="btn wide" style="margin-top:14px">'+(it.t==="L"?"Nghe tên chữ":"Nghe lại")+'</button>');
 b.onclick=function(){speak(it.t==="L"?it.lo:it.ru);};
@@ -2835,7 +2853,7 @@ var ten=it.t==="L"?"Chữ":"Từ",khoa=false;
 function nhay(x,huong){
 if(khoa)return;
 khoa=true;
-function di(){go({n:"study",one:x.id,from:view.from||{n:"home"}});}
+function di(){huongThe=huong||0;go({n:"study",one:x.id,from:view.from||{n:"home"}});}
 if(bay)bay(huong,di); else di();
 }
 var nav=el('<div class="navchu"></div>');
@@ -2877,21 +2895,39 @@ chu+=soChu;
 return {ds:ds,tong:t+q*.6};
 }
 function motNot(ac,ra,f,t0,dai){
+[{k:"triangle",he:1,to:.2,tat:dai*1.05},
+{k:"sine",he:2,to:.07,tat:dai*.55},
+{k:"sine",he:.5,to:.05,tat:dai*1.25}].forEach(function(L,i){
+try{
 var o=ac.createOscillator(),g=ac.createGain();
-o.type="triangle";o.frequency.setValueAtTime(f,t0);
+o.type=L.k;
+o.frequency.setValueAtTime(f*L.he*(i===0?1.004:1),t0);
+o.frequency.exponentialRampToValueAtTime(f*L.he,t0+.07);
 g.gain.setValueAtTime(.0001,t0);
-g.gain.exponentialRampToValueAtTime(.26,t0+.025);
-g.gain.exponentialRampToValueAtTime(.0001,t0+dai*.92);
+g.gain.exponentialRampToValueAtTime(L.to,t0+.016);
+g.gain.exponentialRampToValueAtTime(.0001,t0+L.tat);
 o.connect(g);g.connect(ra);
-o.start(t0);o.stop(t0+dai+.06);
+o.start(t0);o.stop(t0+L.tat+.05);
 NHAC.osc.push(o);
+}catch(e){}
+});
+}
+function buffVang(ac){
+if(NHAC.bufVang)return NHAC.bufVang;
+var n=Math.floor(ac.sampleRate*1.2),b=ac.createBuffer(2,n,ac.sampleRate);
+for(var c=0;c<2;c++){
+var d=b.getChannelData(c);
+for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2.8);
+}
+NHAC.bufVang=b;
+return b;
 }
 function hatMotChu(ten,f,toc){
 if(!window.speechSynthesis||!ruV)return;
 try{
 var u=new SpeechSynthesisUtterance(ten);
 u.lang="ru-RU";u.voice=ruV;
-u.pitch=Math.max(.5,Math.min(1.9,f/HAT_TAN[0]));
+u.pitch=Math.max(.5,Math.min(1.8,1+(f/HAT_TAN[0]-1)*.55));
 u.rate=toc;
 speechSynthesis.speak(u);
 }catch(e){}
@@ -2954,7 +2990,7 @@ app.appendChild(dk);
 if(hasRu()){
 var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-start;margin-top:12px;cursor:pointer">'+
 '<input type="checkbox" style="margin-top:3px;flex:none"'+(NHAC.giong?" checked":"")+'>'+
-'<span>Cho giọng đọc hát theo — đọc tên từng chữ đúng cao độ của nốt. Giọng máy có thể đuổi không kịp nhạc nhanh.</span></label>');
+'<span>Cho giọng đọc hát theo — đọc tên từng chữ, bám theo cao độ của nốt. Đây là giọng đọc của máy nên vẫn ra chất máy, và có thể đuổi không kịp nhịp nhanh.</span></label>');
 lb.querySelector("input").onchange=function(){NHAC.giong=this.checked;if(!NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}};
 app.appendChild(lb);
 }else{
@@ -2997,8 +3033,13 @@ var ac=amCtx();
 if(!ac){flash("Trình duyệt này không phát được nhạc.");return;}
 var cv=hatSuKien(NHAC.nhip);
 var ra=ac.createGain();ra.gain.value=.9;
-var loc=ac.createBiquadFilter();loc.type="lowpass";loc.frequency.value=2600;
+var loc=ac.createBiquadFilter();loc.type="lowpass";loc.frequency.value=3400;
 ra.connect(loc);loc.connect(ac.destination);
+try{
+var hopVang=ac.createConvolver();hopVang.buffer=buffVang(ac);
+var uot=ac.createGain();uot.gain.value=.3;
+loc.connect(uot);uot.connect(hopVang);hopVang.connect(ac.destination);
+}catch(e){}
 if(NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
 var t0=ac.currentTime+.14;
 cv.ds.forEach(function(e){
@@ -3007,7 +3048,7 @@ NHAC.hen.push(setTimeout(function(){
 oThanh.style.width=(e.t/cv.tong*100).toFixed(1)+"%";
 if(e.chu<0)return;
 danhDau(e.chu);
-if(NHAC.giong)hatMotChu(LS[e.chu].nm,e.f,e.dai>.9?.95:1.1);
+if(NHAC.giong)hatMotChu(LS[e.chu].nm,e.f,e.dai>.9?.72:.88);
 },Math.max(0,(t0+e.t-ac.currentTime)*1000)));
 });
 NHAC.hen.push(setTimeout(xong,Math.max(0,(t0+cv.tong-ac.currentTime)*1000)));
@@ -3280,7 +3321,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=45"></script>
+<script type="module" src="firebase-sync.js?v=47"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){var coTruoc=!!navigator.serviceWorker.controller,daTai=false;navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai||!coTruoc)return;daTai=true;location.reload();});});</script>
 </body>
 </html>
