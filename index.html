@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=30"></script>
+<script src="firebase-config.js?v=31"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -365,8 +365,7 @@ footer{margin-top:46px;border-top:1px solid var(--line);background:var(--surface
 display:grid;place-items:center;font-size:16px;line-height:1}
 .ft-brand b{display:block;font-family:var(--f-head);font-size:15.5px;letter-spacing:-.01em}
 .ft-brand span{display:block;font-size:13.5px;color:var(--muted);margin-top:1px}
-.tacgia{color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid transparent;transition:border-color .15s}
-.tacgia:hover{border-bottom-color:currentColor}
+.tacgia{color:var(--accent);font-weight:600}
 .ft-nav{display:flex;flex-wrap:wrap;gap:8px}
 .ft-nav button,.ft-nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:var(--r-xs);
 background:var(--surface-2);transition:color .15s,background .15s}
@@ -700,7 +699,7 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
   <div class="wrap gut ft">
     <div class="ft-brand">
       <span class="tag cyr">Аа</span>
-      <div><b>Tiếng Nga từ A đến Я</b><span>Nga · Anh · Việt — làm bởi <a class="tacgia" href="https://github.com/hiimwin" target="_blank" rel="noopener noreferrer">Win</a></span></div>
+      <div><b>Tiếng Nga từ A đến Я</b><span>Nga · Anh · Việt — làm bởi <b class="tacgia">Win</b></span></div>
     </div>
     <nav class="ft-nav">
       <button data-go="gram">Ngữ pháp</button>
@@ -1444,7 +1443,7 @@ var box=el('<section class="cover cov3">'+
 '<div class="prog-bar"><i></i><span class="run">'+ic("maybay",19)+'</span></div>'+
 '</div>'+
 '<div class="cvnote">Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống.</div>'+
-'<div class="cvnote">Làm bởi <a class="tacgia" href="https://github.com/hiimwin" target="_blank" rel="noopener noreferrer">Win</a> — tự soạn phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay.</div>'+
+'<div class="cvnote">Làm bởi <b class="tacgia">Win</b> — tự soạn phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay.</div>'+
 '</div>'+
 '<div class="cv-col cv-mid">'+
 '<div class="canvas">'+
@@ -2861,7 +2860,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=30"></script>
+<script type="module" src="firebase-sync.js?v=31"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
