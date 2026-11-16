@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=35"></script>
+<script src="firebase-config.js?v=37"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -678,6 +678,49 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
 .hero h1{font-size:27px}
 .stats{flex-wrap:wrap;gap:14px 0}
 .stat{flex:0 0 50%;padding-right:10px}
+}
+@media(max-width:899px){
+footer{display:none}
+body.cover-on footer{display:block}
+.act-stick{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:7}
+}
+.navchu{display:flex;align-items:center;gap:10px;margin-top:20px}
+.navchu .btn{flex:1 1 0;min-width:0}
+.navchu .btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.navchu .dem{flex:none;font-size:13.5px;color:var(--muted);text-align:center;min-width:52px;font-variant-numeric:tabular-nums}
+@media(max-width:899px){
+.navchu{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:7;margin-bottom:6px;
+background:var(--surface);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+border-radius:var(--r-pill);padding:7px;box-shadow:var(--sh)}
+}
+.hat-now{font-family:var(--f-cyr);font-size:60px;line-height:1.05;transition:transform .14s ease-out}
+.hat-now.dap{transform:scale(1.08)}
+.hat-ten{min-height:1.6em}
+.hat-dong{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:7px}
+.hat-o{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:7px 2px;
+border-radius:var(--r-xs);background:var(--surface-2);min-height:46px;
+transition:background .16s,color .16s,transform .16s,box-shadow .16s}
+.hat-o .c{font-family:var(--f-cyr);font-size:16px;line-height:1.1}
+.hat-o .v{font-size:9.5px;line-height:1.1;color:var(--muted)}
+.hat-o.qua{background:var(--deep-soft);color:var(--deep)}
+.hat-o.qua .v{color:var(--deep);opacity:.85}
+.hat-o.nay{background:var(--accent);color:var(--on-accent);transform:scale(1.12);box-shadow:var(--sh-lift)}
+.hat-o.nay .v{color:var(--on-accent);opacity:.85}
+.hat-thanh{height:5px;border-radius:var(--r-pill);background:var(--sunken);overflow:hidden;margin:16px 0 4px}
+.hat-thanh i{display:block;height:100%;width:0;border-radius:var(--r-pill);background:var(--accent)}
+.hat-dk{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.hat-nhip{display:flex;gap:3px;background:var(--sunken);border-radius:var(--r-pill);padding:3px;flex:none}
+.hat-nhip button{font-size:14px;padding:8px 14px;min-height:40px;border-radius:var(--r-pill);color:var(--muted)}
+.hat-nhip button.on{background:var(--surface);color:var(--ink);box-shadow:var(--sh);font-weight:600}
+@media(max-width:420px){
+.hat-o .c{font-size:15px}
+.hat-dong{gap:4px}
+}
+@media(min-width:700px){
+.hat-o{min-height:58px;padding:9px 4px}
+.hat-o .c{font-size:21px}
+.hat-o .v{font-size:11px}
+.hat-dong{gap:8px;margin-bottom:9px}
 }</style>
 
 <header>
@@ -687,6 +730,7 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
     <button class="icb burger" id="nav-burger" aria-label="Mở menu" aria-expanded="false"><span></span></button>
     <div class="hbtn" id="nav-menu">
       <button class="icb" id="nav-acct" title="Tài khoản" aria-label="Tài khoản" hidden></button>
+      <button class="icb" id="nav-song" title="Bài hát bảng chữ cái" aria-label="Bài hát bảng chữ cái"><i data-ic="nhac"></i><b>Bài hát</b></button>
       <button class="icb" id="nav-gram" title="Ngữ pháp" aria-label="Ngữ pháp"><i data-ic="sach"></i><b>Ngữ pháp</b></button>
       <button class="icb" id="nav-browse" title="Tra cứu" aria-label="Tra cứu"><i data-ic="tim"></i><b>Tra cứu</b></button>
       <button class="icb" id="nav-set" title="Cài đặt" aria-label="Cài đặt"><i data-ic="caidat"></i><b>Cài đặt</b></button>
@@ -1208,7 +1252,13 @@ return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"")
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function pick(a,n,not){var p=shuffle(a.filter(function(x){return x!==not;}));return p.slice(0,n);}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
-function el(h){var d=document.createElement("div");d.innerHTML=h.trim();return d.firstElementChild;}
+function el(h){
+var d=document.createElement("div");d.innerHTML=h.trim();
+if(d.children.length<2)return d.firstElementChild;
+var f=document.createDocumentFragment();
+while(d.firstChild)f.appendChild(d.firstChild);
+return f;
+}
 var voices=[],ruV=null,ttsWarned=false;
 function loadVoices(){
 try{voices=window.speechSynthesis?speechSynthesis.getVoices()||[]:[];}catch(e){voices=[];}
@@ -1294,18 +1344,20 @@ if(bg)bg.setAttribute("aria-expanded","false");
 window.scrollTo(0,0);render();
 }
 function render(){
+dungHat();
 app.innerHTML="";
 app.classList.remove("swap");void app.offsetWidth;app.classList.add("swap");
 document.body.classList.remove("cover-on");
 var bia=canDangNhap();
 if(bia)view={n:"home"};
-document.body.classList.toggle("hep",!bia&&["study","gram","set","browse"].indexOf(view.n)>=0);
+document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song"].indexOf(view.n)>=0);
 syncHeader();
 if(bia){renderLanding();sauKhiVe();return;}
 document.onkeydown=null;
 if(view.n==="home"){renderHome();sauKhiVe();return;}
 if(view.n==="mod"){renderMod();sauKhiVe();return;}
 if(view.n==="study")return renderStudy();
+if(view.n==="song"){renderSong();sauKhiVe();return;}
 if(view.n==="browse"){renderBrowse();sauKhiVe();return;}
 if(view.n==="gram"){renderGram();sauKhiVe();return;}
 if(view.n==="set"){renderSet();sauKhiVe();return;}
@@ -1342,6 +1394,7 @@ sach:'<path d="M4.2 5.4A2.3 2.3 0 0 1 6.5 3.1h13v15.4h-13a2.3 2.3 0 0 0-2.3 2.3z
 velai:'<path d="M20.2 11.6a8.2 8.2 0 1 1-2.5-5.9"/><path d="M20.4 4.3v4.4h-4.4"/>',
 tai:'<path d="M4.4 14.4v-2.2a7.6 7.6 0 0 1 15.2 0v2.2"/><rect x="2.9" y="13.6" width="4.2" height="6.6" rx="2.1"/><rect x="16.9" y="13.6" width="4.2" height="6.6" rx="2.1"/>',
 nhip:'<path d="M3 12.2h4.2L9.6 6l4.2 12 2.4-5.8H21"/>',
+nhac:'<path d="M9.3 18.1V5.7l9.3-1.9v12.2"/><ellipse cx="6.8" cy="18.3" rx="2.5" ry="2.1"/><ellipse cx="16.1" cy="16" rx="2.5" ry="2.1"/>',
 but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>'
 };
 function ic(n,sz){
@@ -1391,7 +1444,7 @@ window.CLOUD.signInGoogle()
 .then(function(){lg.disabled=false;lb.textContent=keep;render();});
 };
 }
-["gram","browse","set"].forEach(function(n){
+["song","gram","browse","set"].forEach(function(n){
 var x=document.getElementById("nav-"+n);
 if(x)x.setAttribute("aria-current",view.n===n?"true":"false");
 });
@@ -1719,6 +1772,12 @@ var first=el('<button class="cta"><div><div class="big">Bắt đầu từ bảng
 first.onclick=function(){go({n:"mod",mod:"alpha"});};
 h.appendChild(first);
 }
+var hrow=el('<div class="set"><div class="l"><div class="n">Bài hát bảng chữ cái</div>'+
+'<div class="d">33 chữ trên điệu “Twinkle twinkle”, nghe vài lượt là thuộc thứ tự.</div></div><div class="act"></div></div>');
+var hbtn=el('<button class="btn sm">'+ic("nhac",18)+'<span>Nghe</span></button>');
+hbtn.onclick=function(){go({n:"song"});};
+hrow.querySelector(".act").appendChild(hbtn);
+h.appendChild(hrow);
 var ac=accountCard(seen);
 if(ac)h.appendChild(ac);
 h.appendChild(el('<div class="sec-head"><h2>Lộ trình</h2><div class="ln"></div></div>'));
@@ -2398,7 +2457,7 @@ var c=cardFor(st.it);
 c.querySelector(".spk").onclick=function(){speak(st.it.t==="L"?st.it.ex:st.it.ru);};
 app.appendChild(c);
 speak(st.it.t==="L"?st.it.ex:st.it.ru);
-var b=el('<button class="btn wide" style="margin-top:14px">Tiếp tục</button>');
+var b=el('<button class="btn wide act-stick" style="margin-top:14px">Tiếp tục</button>');
 b.onclick=next;app.appendChild(b);
 document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
 }
@@ -2444,7 +2503,7 @@ var si=stressInfo(it);
 var fb0=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+
 'Trọng âm ở đây: <b class="cyr">'+(si?markAt(si.plain,si.pos[si.right]):esc(plain(it.ru)))+'</b> — '+esc(it.vi)+'</div>');
 app.appendChild(fb0);
-var b0=el('<button class="btn wide" style="margin-top:10px">Tiếp tục</button>');
+var b0=el('<button class="btn wide act-stick" style="margin-top:10px">Tiếp tục</button>');
 b0.onclick=next;app.appendChild(b0);b0.focus();
 document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
 return;
@@ -2454,7 +2513,7 @@ var txt=it.t==="L"
 : (plain(it.ru)+" — "+it.vi);
 var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+'<b>'+esc(it.t==="L"?it.up+" "+it.lo:it.ru)+'</b> '+esc(it.t==="L"?("đọc “"+(it.snd==="—"?it.nmv:it.snd)+"”"):("= "+it.vi))+'</div>');
 app.appendChild(fb);
-var b=el('<button class="btn wide" style="margin-top:10px">Tiếp tục</button>');
+var b=el('<button class="btn wide act-stick" style="margin-top:10px">Tiếp tục</button>');
 b.onclick=next;app.appendChild(b);b.focus();
 document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
 }
@@ -2590,7 +2649,7 @@ app.appendChild(c);
 var b=el('<button class="btn wide" style="margin-top:14px">'+(it.t==="L"?"Nghe tên chữ":"Nghe lại")+'</button>');
 b.onclick=function(){speak(it.t==="L"?it.lo:it.ru);};
 app.appendChild(b);
-if(it.t!=="L")return;
+if(it.t==="L"){
 var trap=HAND_TRAPS.filter(function(t){return t[0]===it.lo;})[0];
 app.appendChild(el('<div class="sec-head"><h2>Viết tay</h2><div class="ln"></div></div>'));
 if(trap)app.appendChild(el('<div class="tipbox" style="margin-top:0"><b>Dễ nhầm</b>'+esc(trap[1])+'</div>'));
@@ -2598,6 +2657,196 @@ app.appendChild(el('<div class="eyebrow" style="margin:16px 0 8px">Mẫu viết 
 app.appendChild(strokeDemo(it));
 app.appendChild(el('<div class="eyebrow" style="margin:18px 0 8px">Bạn viết thử</div>'));
 app.appendChild(writePad(it));
+}
+dieuHuongChu(it);
+}
+function dieuHuongChu(it){
+var m=modById(it.mod);
+if(!m)return;
+var ds=m.items,i=ds.indexOf(it);
+if(i<0||ds.length<2)return;
+var truoc=ds[(i-1+ds.length)%ds.length],sau=ds[(i+1)%ds.length];
+var ten=it.t==="L"?"Chữ":"Từ";
+function nhay(x){go({n:"study",one:x.id,from:view.from||{n:"home"}});}
+var nav=el('<div class="navchu"></div>');
+var bt=el('<button class="btn ghost sm">'+ic("trai",18)+'<span>'+ten+' trước</span></button>');
+var bs=el('<button class="btn sm"><span>'+ten+' sau</span>'+ic("phai",18)+'</button>');
+bt.onclick=function(){nhay(truoc);};
+bs.onclick=function(){nhay(sau);};
+nav.appendChild(bt);
+nav.appendChild(el('<div class="dem">'+(i+1)+' / '+ds.length+'</div>'));
+nav.appendChild(bs);
+app.appendChild(nav);
+document.onkeydown=function(e){
+if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+if(e.key==="ArrowRight"){e.preventDefault();nhay(sau);}
+else if(e.key==="ArrowLeft"){e.preventDefault();nhay(truoc);}
+};
+}
+const HAT_DONG=[7,7,7,6,6];
+const HAT_CAU=[[0,0,4,4,5,5,4],[3,3,2,2,1,1,0],[4,4,3,3,2,2,1],[4,4,3,3,2,2,1],[0,0,4,4,5,5,4],[3,3,2,2,1,1,0]];
+const HAT_PHACH=[1,1,1,1,1,1,2];
+const HAT_TAN=[261.63,293.66,329.63,349.23,392.00,440.00];
+const HAT_NHIP=[{t:"Chậm",v:76},{t:"Vừa",v:100},{t:"Nhanh",v:124}];
+var NHAC={ac:null,osc:[],hen:[],raf:0,dang:false,nhip:100,giong:false};
+function amCtx(){
+if(!NHAC.ac){
+var C=window.AudioContext||window.webkitAudioContext;
+if(!C)return null;
+try{NHAC.ac=new C();}catch(e){return null;}
+}
+if(NHAC.ac.state==="suspended"){try{NHAC.ac.resume();}catch(e){}}
+return NHAC.ac;
+}
+function hatSuKien(bpm){
+var q=60/bpm,t=0,ds=[],chu=0;
+for(var p=0;p<HAT_CAU.length;p++){
+var soChu=p<HAT_DONG.length?HAT_DONG[p]:0;
+for(var n=0;n<HAT_CAU[p].length;n++){
+var dai=HAT_PHACH[n]*q;
+ds.push({t:t,dai:dai,f:HAT_TAN[HAT_CAU[p][n]],chu:n<soChu?chu+n:-1});
+t+=dai;
+}
+chu+=soChu;
+}
+return {ds:ds,tong:t+q*.6};
+}
+function motNot(ac,ra,f,t0,dai){
+var o=ac.createOscillator(),g=ac.createGain();
+o.type="triangle";o.frequency.setValueAtTime(f,t0);
+g.gain.setValueAtTime(.0001,t0);
+g.gain.exponentialRampToValueAtTime(.26,t0+.025);
+g.gain.exponentialRampToValueAtTime(.0001,t0+dai*.92);
+o.connect(g);g.connect(ra);
+o.start(t0);o.stop(t0+dai+.06);
+NHAC.osc.push(o);
+}
+function hatMotChu(ten,f,toc){
+if(!window.speechSynthesis||!ruV)return;
+try{
+var u=new SpeechSynthesisUtterance(ten);
+u.lang="ru-RU";u.voice=ruV;
+u.pitch=Math.max(.5,Math.min(1.9,f/HAT_TAN[0]));
+u.rate=toc;
+speechSynthesis.speak(u);
+}catch(e){}
+}
+function dungHat(){
+if(NHAC.raf){cancelAnimationFrame(NHAC.raf);NHAC.raf=0;}
+NHAC.hen.forEach(function(h){clearTimeout(h);});NHAC.hen=[];
+NHAC.osc.forEach(function(o){try{o.stop();}catch(e){}});NHAC.osc=[];
+if(NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+NHAC.dang=false;
+}
+function renderSong(){
+dungHat();
+var LS=modById("alpha").items;
+var back=el('<button class="back">← Lộ trình</button>');
+back.onclick=function(){go({n:"home"});};
+app.appendChild(back);
+app.appendChild(el('<div class="eyebrow cyr">Алфавит</div><h1 style="margin-bottom:6px">Bài hát bảng chữ cái</h1>'));
+app.appendChild(el('<div class="note" style="margin-bottom:16px">33 chữ chia 5 dòng, hát trên điệu dân ca Pháp “Ah! vous dirai-je, maman” — đúng cái điệu “Twinkle twinkle” quen tai. Thuộc bài này là thuộc thứ tự bảng chữ cái, mà thứ tự đó chính là thứ tự tra từ điển.</div>'));
+if(!(window.AudioContext||window.webkitAudioContext))
+app.appendChild(el('<div class="tipbox" style="margin-bottom:14px"><b>Không phát được nhạc</b>Trình duyệt này không có Web Audio. Phần lời bên dưới vẫn đọc và hát theo được.</div>'));
+var card=el('<div class="card"><div class="lbl">Đang hát</div><div class="glyph hat-now">♪</div><div class="tr hat-ten">Bấm “Hát” để bắt đầu</div></div>');
+app.appendChild(card);
+var oNow=card.querySelector(".hat-now"),oTen=card.querySelector(".hat-ten");
+var thanh=el('<div class="hat-thanh"><i></i></div>');app.appendChild(thanh);
+var oThanh=thanh.querySelector("i");
+var dk=el('<div class="hat-dk"></div>');
+var bPlay=el('<button class="btn" style="flex:1 1 150px">'+ic("choi",18)+'<span>Hát</span></button>');
+var nhanPlay=bPlay.querySelector("span");
+dk.appendChild(bPlay);
+var nhip=el('<div class="hat-nhip"></div>');
+HAT_NHIP.forEach(function(n){
+var b=el('<button'+(n.v===NHAC.nhip?' class="on"':'')+'>'+n.t+'</button>');
+b.onclick=function(){
+NHAC.nhip=n.v;
+Array.prototype.forEach.call(nhip.children,function(x){x.classList.remove("on");});
+b.classList.add("on");
+if(NHAC.dang){dungHat();batDau();}
+};
+nhip.appendChild(b);
+});
+dk.appendChild(nhip);
+app.appendChild(dk);
+if(hasRu()){
+var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-start;margin-top:12px;cursor:pointer">'+
+'<input type="checkbox" style="margin-top:3px;flex:none"'+(NHAC.giong?" checked":"")+'>'+
+'<span>Cho giọng đọc hát theo — đọc tên từng chữ đúng cao độ của nốt. Giọng máy có thể đuổi không kịp nhạc nhanh.</span></label>');
+lb.querySelector("input").onchange=function(){NHAC.giong=this.checked;if(!NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}};
+app.appendChild(lb);
+}else{
+app.appendChild(el('<div class="note" style="margin-top:12px">Máy chưa cài giọng Nga nên chỉ có phần nhạc. Tên chữ vẫn hiện bên dưới để bạn hát theo.</div>'));
+}
+app.appendChild(el('<div class="sec-head"><h2>Lời</h2><div class="ln"></div></div>'));
+var o=[],k=0;
+for(var d=0;d<HAT_DONG.length;d++){
+var row=el('<div class="hat-dong"></div>');
+for(var j=0;j<HAT_DONG[d];j++){
+var it=LS[k];
+var chip=el('<button class="hat-o" title="'+esc(it.up+it.lo+" · "+it.nmv)+'">'+
+'<span class="c">'+esc(it.up+it.lo)+'</span><span class="v">'+esc(it.nmv)+'</span></button>');
+(function(x){chip.onclick=function(){dungHat();go({n:"study",one:x.id,from:{n:"song"}});};})(it);
+o.push(chip);row.appendChild(chip);k++;
+}
+app.appendChild(row);
+}
+app.appendChild(el('<div class="note">Bấm một ô để mở trang chữ đó. Dòng cuối có Ъ và Ь — hai chữ không đọc thành tiếng, chỉ đổi cách đọc chữ đứng trước.</div>'));
+function danhDau(i){
+for(var x=0;x<o.length;x++){
+o[x].classList.toggle("qua",x<i);
+o[x].classList.toggle("nay",x===i);
+}
+var t=LS[i];
+if(!t)return;
+oNow.textContent=t.up+" "+t.lo;
+oTen.textContent="“"+t.nm+"” — đọc “"+t.nmv+"”";
+oNow.classList.remove("dap");void oNow.offsetWidth;oNow.classList.add("dap");
+}
+function xong(){
+NHAC.dang=false;
+nhanPlay.textContent="Hát lại";
+oThanh.style.width="100%";
+for(var x=0;x<o.length;x++){o[x].classList.remove("nay");o[x].classList.add("qua");}
+oTen.textContent="Xong một lượt — đủ 33 chữ, đúng thứ tự.";
+}
+function batDau(){
+var ac=amCtx();
+if(!ac){flash("Trình duyệt này không phát được nhạc.");return;}
+var cv=hatSuKien(NHAC.nhip);
+var ra=ac.createGain();ra.gain.value=.9;
+var loc=ac.createBiquadFilter();loc.type="lowpass";loc.frequency.value=2600;
+ra.connect(loc);loc.connect(ac.destination);
+if(NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+var t0=ac.currentTime+.14;
+cv.ds.forEach(function(e){
+motNot(ac,ra,e.f,t0+e.t,e.dai);
+NHAC.hen.push(setTimeout(function(){
+oThanh.style.width=(e.t/cv.tong*100).toFixed(1)+"%";
+if(e.chu<0)return;
+danhDau(e.chu);
+if(NHAC.giong)hatMotChu(LS[e.chu].nm,e.f,e.dai>.9?.95:1.1);
+},Math.max(0,(t0+e.t-ac.currentTime)*1000)));
+});
+NHAC.hen.push(setTimeout(xong,Math.max(0,(t0+cv.tong-ac.currentTime)*1000)));
+NHAC.dang=true;
+nhanPlay.textContent="Dừng";
+(function chay(){
+if(!NHAC.dang)return;
+var tl=Math.max(0,Math.min(1,(ac.currentTime-t0)/cv.tong));
+oThanh.style.width=(tl*100).toFixed(1)+"%";
+NHAC.raf=requestAnimationFrame(chay);
+})();
+}
+bPlay.onclick=function(){
+if(NHAC.dang){dungHat();nhanPlay.textContent="Hát tiếp";oTen.textContent="Đã dừng.";return;}
+batDau();
+};
+document.onkeydown=function(e){
+if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+if(e.key===" "||e.key==="Spacebar"){e.preventDefault();bPlay.click();}
+};
 }
 function renderBrowse(){
 var back=el('<button class="back">← Lộ trình</button>');back.onclick=function(){go({n:"home"});};
@@ -2831,6 +3080,7 @@ x.innerHTML=ic(x.getAttribute("data-ic"),19);
 });
 document.getElementById("nav-home").onclick=function(){go({n:"home"});};
 document.getElementById("nav-acct").onclick=function(){go({n:"set"});};
+document.getElementById("nav-song").onclick=function(){go({n:"song"});};
 document.getElementById("nav-gram").onclick=function(){go({n:"gram"});};
 document.getElementById("nav-browse").onclick=function(){go({n:"browse"});};
 document.getElementById("nav-set").onclick=function(){go({n:"set"});};
@@ -2848,7 +3098,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=35"></script>
+<script type="module" src="firebase-sync.js?v=37"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
