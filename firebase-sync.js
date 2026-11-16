@@ -49,7 +49,7 @@ console.warn("[nga] Không bật được tài khoản khách:", e.code || e);
 settle(null);
 });
 }
-if (settled && truoc && uid && uid !== truoc && typeof window.CLOUD_CHANGED === "function") {
+if (truoc !== uid && typeof window.CLOUD_CHANGED === "function") {
 window.CLOUD_CHANGED();
 }
 });
