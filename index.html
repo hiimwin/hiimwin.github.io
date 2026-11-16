@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=37"></script>
+<script src="firebase-config.js?v=39"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -721,6 +721,30 @@ transition:background .16s,color .16s,transform .16s,box-shadow .16s}
 .hat-o .c{font-size:21px}
 .hat-o .v{font-size:11px}
 .hat-dong{gap:8px;margin-bottom:9px}
+}
+.the{position:relative;touch-action:pan-y;cursor:pointer;-webkit-user-select:none;user-select:none}
+.the-an{display:none}
+.the.mo .the-an{display:block}
+.the-nhac{margin-top:18px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:7px}
+.the.mo .the-nhac{display:none}
+.the-tt{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;padding:5px 11px;border-radius:var(--r-pill);
+font-size:12.5px;font-weight:600;background:var(--surface-2);color:var(--muted);flex:none}
+.chip.dang{background:var(--deep-soft);color:var(--deep)}
+.chip.thuoc{background:var(--ok-bg);color:var(--ok)}
+.cham{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.cham button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+padding:12px 6px;min-height:64px;border-radius:var(--r-sm);background:var(--surface);box-shadow:var(--sh);
+font-weight:600;font-size:14.5px;line-height:1.2;transition:transform .12s,box-shadow .15s}
+.cham button:hover{transform:translateY(-1px);box-shadow:var(--sh-lift)}
+.cham button:active{transform:translateY(0)}
+.cham button i{font-style:normal;font-size:11px;font-weight:500;color:var(--muted)}
+.cham .c0{color:var(--bad)}
+.cham .c1{color:var(--warn)}
+.cham .c2{color:var(--ok)}
+@media(max-width:380px){
+.cham button{font-size:12.5px;padding:10px 3px;min-height:58px}
+.cham button i{font-size:10px}
 }</style>
 
 <header>
@@ -1205,6 +1229,20 @@ function grade(id,ok){
 var p=prog.items[id]||{b:0,due:0,c:0,w:0,seen:0};
 if(ok){p.b=Math.min(p.b+1,INTERVALS.length-1);p.c=(p.c||0)+1;}
 else{p.b=Math.max(0,p.b-2);p.w=(p.w||0)+1;}
+ghiSoOn(id,p);
+}
+function tuCham(id,muc){
+var p=prog.items[id]||{b:0,due:0,c:0,w:0,seen:0};
+if(muc===0)p.w=(p.w||0)+1; else if(muc===2)p.c=(p.c||0)+1;
+p.b=bacMoi(p.b,muc);
+ghiSoOn(id,p);
+}
+function bacMoi(b,muc){
+if(muc===0)return 0;
+if(muc===1)return Math.max(1,Math.min(b,2));
+return Math.min(b<=1?b+2:b+1,INTERVALS.length-1);
+}
+function ghiSoOn(id,p){
 p.seen=1;p.due=Date.now()+INTERVALS[p.b]*DAY;p.ts=Date.now();
 prog.items[id]=p;
 var k=todayKey();prog.stats.hist[k]=(prog.stats.hist[k]||0)+1;
@@ -2639,16 +2677,117 @@ var b2=el('<button class="btn ghost wide" style="margin-top:9px">Về lộ trìn
 b2.onclick=function(){S=null;go({n:"home"});};
 app.appendChild(b2);
 }
+function theGhiNho(it){
+if(it.t==="L"){
+return el('<div class="card the">'+
+'<div class="lbl">Chữ cái</div>'+
+'<div class="glyph">'+esc(it.up+" "+it.lo)+'</div>'+
+'<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
+'<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
+'<div class="the-an">'+
+'<div class="tr">tên chữ: “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
+'<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
+'<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
+'<div style="min-width:0"><div class="ex">'+esc(it.ex)+'</div>'+
+'<div class="muted" style="font-size:13px">'+esc(it.extr)+' · '+esc(it.exen)+'</div>'+
+'<div style="font-weight:600">'+esc(it.exvi)+'</div></div></div>'+
+'</div>'+
+'<div class="the-nhac">'+ic("tai",17)+'Bấm vào thẻ để xem cách đọc</div>'+
+'</div>');
+}
+return el('<div class="card the">'+
+'<div class="lbl">Từ mới</div>'+
+'<div class="word">'+esc(it.ru)+'</div>'+
+'<div class="the-an">'+
+'<div class="tr">'+esc(it.tr)+'</div>'+
+'<div class="mean-en">'+esc(it.en)+'</div>'+
+'<div class="mean-vi">'+esc(it.vi)+'</div>'+
+'</div>'+
+'<div class="exrow" style="justify-content:center;border:0;padding-top:10px;margin-top:10px">'+
+'<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>'+
+'<div class="the-nhac">'+ic("tai",17)+'Bấm vào thẻ để xem nghĩa</div>'+
+'</div>');
+}
+function dongTrangThai(it){
+var p=rec(it.id),chip,txt;
+if(!p||!p.seen){
+chip='<span class="chip">Chưa học</span>';
+txt="Tự chấm sau khi xem, app mới biết khi nào nhắc lại.";
+}else{
+var con=Math.round((p.due-Date.now())/DAY);
+chip='<span class="chip '+(p.b>=4?"thuoc":"dang")+'">'+(p.b>=4?"Đã thuộc":"Đang học")+'</span>';
+txt=(p.due<=Date.now()?"Đến hạn ôn":("Ôn lại sau "+(con<1?"hôm nay":con+" ngày")))+" · mức "+p.b+"/"+(INTERVALS.length-1);
+}
+return el('<div class="the-tt">'+chip+'<span>'+esc(txt)+'</span></div>');
+}
+function hanMoi(it,muc){
+var p=rec(it.id);
+var n=INTERVALS[bacMoi(p?p.b:0,muc)];
+return n<=0?"gặp lại ngay":(n+" ngày nữa");
+}
+function ganVuot(node,trai,phai){
+var x0=0,y0=0,dang=false,xa=0,ngang=false;
+node.addEventListener("pointerdown",function(e){
+if(e.pointerType==="mouse"&&e.button!==0)return;
+x0=e.clientX;y0=e.clientY;dang=true;xa=0;ngang=false;
+});
+node.addEventListener("pointermove",function(e){
+if(!dang)return;
+var dx=e.clientX-x0,dy=e.clientY-y0;
+xa=Math.max(xa,Math.abs(dx));
+if(!ngang&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy))ngang=true;
+if(!ngang)return;
+node.style.transition="none";
+node.style.transform="translateX("+(dx*.55).toFixed(1)+"px) rotate("+(dx*.012).toFixed(2)+"deg)";
+node.style.opacity=String(Math.max(.5,1-Math.abs(dx)/420));
+});
+function het(e){
+if(!dang)return;
+dang=false;
+var dx=(e&&typeof e.clientX==="number")?e.clientX-x0:0;
+node.style.transition="";node.style.transform="";node.style.opacity="";
+if(ngang&&Math.abs(dx)>52){ if(dx<0)phai(); else trai(); }
+}
+node.addEventListener("pointerup",het);
+node.addEventListener("pointercancel",het);
+node.addEventListener("pointerleave",het);
+node.addEventListener("click",function(e){ if(xa>8){e.stopPropagation();e.preventDefault();} xa=0; },true);
+}
 function renderOne(it){
 var back=el('<button class="back">← Quay lại</button>');
 back.onclick=function(){go(view.from||{n:"home"});};
 app.appendChild(back);
-var c=cardFor(it);
-c.querySelector(".spk").onclick=function(){speak(it.t==="L"?it.ex:it.ru);};
+app.appendChild(dongTrangThai(it));
+var c=theGhiNho(it);
+c.querySelector(".spk").onclick=function(e){e.stopPropagation();speak(it.t==="L"?it.ex:it.ru);};
+function lat(){ c.classList.add("mo"); }
+c.onclick=function(e){ if(e.target.closest(".spk"))return; lat(); };
 app.appendChild(c);
+function bay(huong,xong){
+c.style.transition="transform .17s ease-in,opacity .17s ease-in";
+c.style.transform="translateX("+(huong*62)+"%) rotate("+(huong*5)+"deg)";
+c.style.opacity="0";
+setTimeout(xong,165);
+}
 var b=el('<button class="btn wide" style="margin-top:14px">'+(it.t==="L"?"Nghe tên chữ":"Nghe lại")+'</button>');
 b.onclick=function(){speak(it.t==="L"?it.lo:it.ru);};
 app.appendChild(b);
+var nav=dieuHuongChu(it,bay);
+ganVuot(c,function(){nav.truoc();},function(){nav.sau();});
+app.appendChild(el('<div class="eyebrow" style="margin:20px 0 8px">Bạn nhớ tới đâu?</div>'));
+var cham=el('<div class="cham"></div>'),daCham=false;
+[["Chưa thuộc",0],["Lờ mờ",1],["Thuộc rồi",2]].forEach(function(x){
+var bt=el('<button class="c'+x[1]+'">'+esc(x[0])+'<i>'+esc(hanMoi(it,x[1]))+'</i></button>');
+bt.onclick=function(){
+if(daCham)return;
+daCham=true;
+lat();
+tuCham(it.id,x[1]);
+nav.sau();
+};
+cham.appendChild(bt);
+});
+app.appendChild(cham);
 if(it.t==="L"){
 var trap=HAND_TRAPS.filter(function(t){return t[0]===it.lo;})[0];
 app.appendChild(el('<div class="sec-head"><h2>Viết tay</h2><div class="ln"></div></div>'));
@@ -2658,30 +2797,37 @@ app.appendChild(strokeDemo(it));
 app.appendChild(el('<div class="eyebrow" style="margin:18px 0 8px">Bạn viết thử</div>'));
 app.appendChild(writePad(it));
 }
-dieuHuongChu(it);
+app.appendChild(nav.node);
+document.onkeydown=function(e){
+if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+if(e.key==="ArrowRight"){e.preventDefault();nav.sau();}
+else if(e.key==="ArrowLeft"){e.preventDefault();nav.truoc();}
+else if(e.key===" "||e.key==="Enter"){e.preventDefault();lat();}
+else if(e.key==="1"||e.key==="2"||e.key==="3"){e.preventDefault();cham.children[+e.key-1].click();}
+};
 }
-function dieuHuongChu(it){
-var m=modById(it.mod);
-if(!m)return;
+function dieuHuongChu(it,bay){
+var m=modById(it.mod),tron={node:el("<div></div>"),truoc:function(){},sau:function(){}};
+if(!m)return tron;
 var ds=m.items,i=ds.indexOf(it);
-if(i<0||ds.length<2)return;
+if(i<0||ds.length<2)return tron;
 var truoc=ds[(i-1+ds.length)%ds.length],sau=ds[(i+1)%ds.length];
-var ten=it.t==="L"?"Chữ":"Từ";
-function nhay(x){go({n:"study",one:x.id,from:view.from||{n:"home"}});}
+var ten=it.t==="L"?"Chữ":"Từ",khoa=false;
+function nhay(x,huong){
+if(khoa)return;
+khoa=true;
+function di(){go({n:"study",one:x.id,from:view.from||{n:"home"}});}
+if(bay)bay(huong,di); else di();
+}
 var nav=el('<div class="navchu"></div>');
 var bt=el('<button class="btn ghost sm">'+ic("trai",18)+'<span>'+ten+' trước</span></button>');
 var bs=el('<button class="btn sm"><span>'+ten+' sau</span>'+ic("phai",18)+'</button>');
-bt.onclick=function(){nhay(truoc);};
-bs.onclick=function(){nhay(sau);};
+var diTruoc=function(){nhay(truoc,-1);},diSau=function(){nhay(sau,1);};
+bt.onclick=diTruoc;bs.onclick=diSau;
 nav.appendChild(bt);
 nav.appendChild(el('<div class="dem">'+(i+1)+' / '+ds.length+'</div>'));
 nav.appendChild(bs);
-app.appendChild(nav);
-document.onkeydown=function(e){
-if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
-if(e.key==="ArrowRight"){e.preventDefault();nhay(sau);}
-else if(e.key==="ArrowLeft"){e.preventDefault();nhay(truoc);}
-};
+return {node:nav,truoc:diTruoc,sau:diSau};
 }
 const HAT_DONG=[7,7,7,6,6];
 const HAT_CAU=[[0,0,4,4,5,5,4],[3,3,2,2,1,1,0],[4,4,3,3,2,2,1],[4,4,3,3,2,2,1],[0,0,4,4,5,5,4],[3,3,2,2,1,1,0]];
@@ -3098,7 +3244,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=37"></script>
+<script type="module" src="firebase-sync.js?v=39"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
