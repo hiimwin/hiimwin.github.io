@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=21"></script>
+<script src="firebase-config.js?v=22"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -471,7 +471,8 @@ color:var(--muted);transition:.2s;white-space:nowrap;overflow:hidden;text-overfl
 .tabs3 button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--sh)}
 .tabbody{margin-top:12px;animation:hienMo .32s cubic-bezier(.22,1,.36,1) both}
 @keyframes hienMo{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
+.pairs>div{display:flex;flex-direction:column;gap:8px}
 .pair{min-height:46px;padding:11px 13px;border-radius:14px;background:var(--surface);border:1px solid var(--line);
 box-shadow:var(--sh);font-size:15px;text-align:left;transition:.2s}
 .pair.cyr{font-family:var(--f-cyr);font-size:17px}
@@ -1427,7 +1428,8 @@ than.style.animation="none";void than.offsetWidth;than.style.animation="";
 if(ten==="ghep"){
 var cap=shuffle(MAU).slice(0,3);
 var trai=shuffle(cap.slice()), phai=shuffle(cap.slice());
-var g=el('<div class="pairs"></div>');
+var g=el('<div class="pairs"><div class="ct"></div><div class="cp"></div></div>');
+var ct=g.querySelector('.ct'), cp=g.querySelector('.cp');
 var dangChon=null,xong=0;
 trai.forEach(function(c){
 var b=el('<button class="pair cyr">'+esc(plain(c[0]))+'</button>');
@@ -1436,7 +1438,7 @@ if(b.disabled)return;
 if(dangChon)dangChon.classList.remove("pick");
 dangChon=b;b.classList.add("pick");
 };
-g.appendChild(b);
+ct.appendChild(b);
 });
 phai.forEach(function(c){
 var b=el('<button class="pair">'+esc(c[1])+'</button>');
@@ -1450,7 +1452,7 @@ if(++xong===3)setTimeout(function(){flash("Đúng hết. Đăng nhập để h�
 b.classList.add("no");setTimeout(function(){b.classList.remove("no");},450);
 }
 };
-g.appendChild(b);
+cp.appendChild(b);
 });
 than.appendChild(g);
 than.appendChild(el('<div class="cvnote" style="margin-top:10px">Bấm một từ Nga rồi bấm nghĩa tiếng Việt tương ứng.</div>'));
@@ -2623,7 +2625,7 @@ render();
 initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};</script>
 
-<script type="module" src="firebase-sync.js?v=21"></script>
+<script type="module" src="firebase-sync.js?v=22"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
 </body>
 </html>
