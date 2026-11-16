@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=40"></script>
+<script src="firebase-config.js?v=41"></script>
 </head>
 <body>
 <title>Tiếng Nga từ A đến Я</title>
@@ -222,6 +222,7 @@ padding-bottom:6%}
 .rail i{flex:1;height:4px;border-radius:2px;background:var(--sunken);transition:background .3s}
 .rail i.on{background:var(--deep)}
 .rail i.cur{background:var(--accent)}
+.rail i.ro{background:var(--deep-soft)}
 @keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 .anim{animation:rise .3s cubic-bezier(.22,1,.36,1) both}
 .card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);padding:26px 20px;text-align:center}
@@ -2754,9 +2755,18 @@ node.addEventListener("pointerleave",het);
 node.addEventListener("click",function(e){ if(xa>8){e.stopPropagation();e.preventDefault();} xa=0; },true);
 }
 function renderOne(it){
-var back=el('<button class="back">← Quay lại</button>');
+var mod=modById(it.mod),ds=mod?mod.items:[],vt=ds.indexOf(it);
+var back=el('<button class="back">← '+esc(mod?mod.name:"Quay lại")+'</button>');
 back.onclick=function(){go(view.from||{n:"home"});};
 app.appendChild(back);
+if(vt>=0&&ds.length>1){
+var rail=el('<div class="rail"></div>');
+ds.forEach(function(x,i){
+var pr=rec(x.id);
+rail.appendChild(el('<i class="'+(i===vt?"cur":(pr&&pr.b>=4?"on":(pr?"ro":"")))+'"></i>'));
+});
+app.appendChild(rail);
+}
 app.appendChild(dongTrangThai(it));
 var c=theGhiNho(it);
 c.querySelector(".spk").onclick=function(e){e.stopPropagation();speak(it.t==="L"?it.ex:it.ru);};
@@ -3245,7 +3255,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=40"></script>
-<script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});</script>
+<script type="module" src="firebase-sync.js?v=41"></script>
+<script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){try{r.update();}catch(e){}}).catch(function(){});var daTai=false;navigator.serviceWorker.addEventListener("controllerchange",function(){if(daTai)return;daTai=true;location.reload();});});</script>
 </body>
 </html>
