@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=91"></script>
+<script src="firebase-config.js?v=92"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -125,6 +125,9 @@ font-family:var(--f-cyr);font-size:15px;line-height:1;display:grid;place-items:c
 .alegend{font-size:13.5px;color:var(--muted);margin-top:10px;display:flex;gap:16px;flex-wrap:wrap}
 .alegend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .stats{display:flex;margin-top:20px;border-top:1px solid var(--line-soft);padding-top:16px}
+.stats.ba{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
+border-top:0;padding-top:0;margin-top:0}
+.stats.ba .stat{flex:none;padding-right:0}
 .stat{flex:1;min-width:0;padding-right:12px}
 .stat b{display:block;font-family:var(--f-head);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums;font-weight:700}
 .stat small{display:block;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:3px;font-weight:500}
@@ -482,16 +485,18 @@ background:color-mix(in srgb,var(--hm) 16%,transparent);color:var(--hm);
 box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--hm) 38%,transparent);
 transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
 .huy b{font-family:var(--f-cyr);font-size:18px;line-height:1;font-weight:700}
-.huy.dat{background:linear-gradient(140deg,var(--hm),color-mix(in srgb,var(--hm) 62%,#1b1033));
-color:#fff;box-shadow:0 6px 16px -7px var(--hm),inset 0 1px 0 rgba(255,255,255,.3)}
-.huy.chua{opacity:.34;filter:grayscale(.9)}
+.huy.dat{background:linear-gradient(145deg,color-mix(in srgb,var(--hm) 72%,#fff),var(--hm));
+color:#fff;box-shadow:0 5px 14px -7px var(--hm),inset 0 1px 0 rgba(255,255,255,.45);
+text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.huy.chua{background:var(--sunken);color:var(--muted);opacity:.55;
+box-shadow:inset 0 0 0 1.5px var(--line-soft)}
 .huy.nay{box-shadow:0 0 0 3px color-mix(in srgb,var(--hm) 22%,transparent),
 0 6px 16px -7px var(--hm),inset 0 1px 0 rgba(255,255,255,.3)}
 .huy:hover{transform:translateY(-2px)}
 .napcap{width:auto;min-width:40px;display:flex;align-items:center;gap:6px;padding:0 8px}
 .napcap .huy{width:26px;height:26px;border-radius:9px}
 .napcap .huy b{font-size:13px}
-.napcap .chuoi{font-size:13px;font-weight:700;color:var(--deep);font-variant-numeric:tabular-nums}
+.napcap .chuoi{font-size:12.5px;font-weight:700;color:var(--deep);font-variant-numeric:tabular-nums;line-height:1}
 .napcap .nhan{display:none}
 .napcap:hover .huy{transform:none}
 .td-cap{display:flex;align-items:center;gap:12px}
@@ -508,19 +513,19 @@ background:linear-gradient(90deg,var(--accent),var(--deep));transition:width .9s
 .td-note b{color:var(--ink);font-weight:600}
 .td-huy{display:flex;align-items:center;justify-content:space-between;gap:4px;
 margin-top:16px;position:relative}
-.td-huy::before{content:"";position:absolute;left:14px;right:14px;top:50%;height:2px;
-background:var(--line-soft);border-radius:2px;z-index:0}
+.td-huy::before{content:"";position:absolute;left:16px;right:16px;top:50%;height:2px;
+transform:translateY(-1px);background:var(--line-soft);border-radius:2px;z-index:0}
 .td-huy .huy{position:relative;z-index:1;width:32px;height:32px;border-radius:11px}
 .td-huy .huy b{font-size:15px}
 @media(max-width:420px){.td-huy .huy{width:28px;height:28px;border-radius:9px}.td-huy .huy b{font-size:13px}}
 .td-tuan{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-top:18px}
 .td-tuan .o{text-align:center;min-width:0}
-.td-tuan .o i{display:grid;place-items:center;aspect-ratio:1;border-radius:12px;
+.td-tuan .o i{display:grid;place-items:center;aspect-ratio:1;max-width:46px;margin:0 auto;border-radius:12px;
 background:var(--sunken);color:transparent;font-size:15px;font-weight:700;font-style:normal;
 transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
 .td-tuan .o.co i{background:linear-gradient(140deg,var(--accent),var(--deep));color:#fff;
 box-shadow:0 6px 16px -8px var(--accent),inset 0 1px 0 rgba(255,255,255,.28)}
-.td-tuan .o.mai i{background:none;box-shadow:inset 0 0 0 1.5px var(--line-soft)}
+.td-tuan .o.mai i{background:none;box-shadow:none;border:1.5px dashed var(--line);border-radius:12px}
 .td-tuan .o.nay i{outline:2.5px solid var(--accent);outline-offset:2.5px}
 .td-tuan .o:hover i{transform:translateY(-2px)}
 .td-tuan .o span{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:7px}
@@ -652,6 +657,7 @@ margin-left:19px;padding-left:14px}
 .chapbody .mod{margin-bottom:0}
 .hero{padding:34px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);
 gap:20px 44px;align-items:start}
+.hero.mot{display:block}
 .hero h1{font-size:38px}
 .h-c{grid-column:1;grid-row:2;align-self:end}
 .h-b{grid-column:2;grid-row:1 / span 2;align-self:center}
@@ -875,9 +881,11 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
 .abc button{width:66px;height:74px}
 .qa{min-height:62px}
 .hbtn .icb b{display:block}
-.hbtn .napcap{width:100%;justify-content:flex-start;padding:0 12px}
-.hbtn .napcap .nhan{display:block;font-weight:500;font-size:15px}
-.hbtn .napcap .chuoi{margin-left:auto}
+.hbtn .napcap{width:100%;justify-content:flex-start;padding:0 12px;gap:12px}
+.hbtn .napcap .huy{order:1}
+.hbtn .napcap .nhan{order:2;display:block;font-weight:500;font-size:15px}
+.hbtn .napcap .chuoi{order:3;margin-left:auto;
+padding:2px 9px;border-radius:var(--r-pill);background:var(--deep-soft)}
 .hbtn #nav-acct b{max-width:148px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hbtn #nav-login,.hbtn #nav-out{margin-bottom:8px}
 .hbtn .icb[hidden]{display:none}
@@ -1551,15 +1559,15 @@ prog.stats.last=k;
 touch();
 }
 const CAP=[
-{ten:"Mới bắt đầu",ru:"Новичок",can:0,hh:"Н",mau:"#7E8AA6"},
-{ten:"Thuộc mặt chữ",ru:"Алфавит",can:20,hh:"А",mau:"#4C86E8"},
-{ten:"Biết đếm",ru:"Числа",can:45,hh:"Ч",mau:"#17A8A0"},
-{ten:"Chào hỏi được",ru:"Приветствие",can:80,hh:"П",mau:"#2E9E53"},
-{ten:"Đủ sống sót",ru:"Выживание",can:130,hh:"В",mau:"#B99014"},
-{ten:"Nói chuyện thường ngày",ru:"Беседа",can:200,hh:"Б",mau:"#DB7B22"},
-{ten:"Khá vững",ru:"Уверенно",can:290,hh:"У",mau:"#D2473F"},
-{ten:"Thạo",ru:"Свободно",can:400,hh:"С",mau:"#9B45BC"},
-{ten:"Hết kho từ",ru:"Мастер",can:520,hh:"М",mau:"#6A46D6"}
+{ten:"Mới bắt đầu",ru:"Новичок",can:0,hh:"Н",mau:"#6E93D6"},
+{ten:"Thuộc mặt chữ",ru:"Алфавит",can:20,hh:"А",mau:"#4A8BE8"},
+{ten:"Biết đếm",ru:"Числа",can:45,hh:"Ч",mau:"#1FADA4"},
+{ten:"Chào hỏi được",ru:"Приветствие",can:80,hh:"П",mau:"#3BA862"},
+{ten:"Đủ sống sót",ru:"Выживание",can:130,hh:"В",mau:"#C79A1E"},
+{ten:"Nói chuyện thường ngày",ru:"Беседа",can:200,hh:"Б",mau:"#E08534"},
+{ten:"Khá vững",ru:"Уверенно",can:290,hh:"У",mau:"#DC5A50"},
+{ten:"Thạo",ru:"Свободно",can:400,hh:"С",mau:"#A855C9"},
+{ten:"Hết kho từ",ru:"Мастер",can:520,hh:"М",mau:"#7355E4"}
 ];
 function veHuy(c,trangThai){
 var h=el('<span class="huy '+trangThai+'" title="'+esc(c.ten+" · "+c.ru)+'"><b class="cyr"></b></span>');
@@ -4324,6 +4332,7 @@ app.appendChild(ds);
 });
 }
 function renderTienDo(){
+document.body.classList.add("vua");
 var back=el('<button class="back">← Lộ trình</button>');
 back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
@@ -4331,14 +4340,11 @@ app.appendChild(el('<div class="eyebrow cyr">Прогресс</div><h1 style="ma
 app.appendChild(el('<div class="note" style="margin-bottom:16px">Chín chặng, mỗi chặng là một mốc làm được việc gì đó bằng tiếng Nga. Một mục tính là “thuộc” khi bạn trả lời đúng nó đủ nhiều lần để app giãn lịch nhắc ra xa.</div>'));
 var seen=0,learned=0;
 ALL_ITEMS.forEach(function(it){var p=rec(it.id);if(p&&p.seen)seen++;if(p&&p.b>=4)learned++;});
-var h=el('<div class="hero"><div class="stats">'+
+var h=el('<div class="hero mot"><div class="stats ba">'+
 '<div class="stat"><b><i data-to="'+seen+'">0</i><span class="muted" style="font-size:15px;font-weight:400">/'+ALL_ITEMS.length+'</span></b><small>Đã học</small></div>'+
 '<div class="stat"><b><i data-to="'+learned+'">0</i></b><small>Đã thuộc</small></div>'+
 '<div class="stat"><b><i data-to="'+capDo().so+'">0</i></b><small>Cấp độ</small></div>'+
 '</div></div>');
-h.querySelector(".stats").style.borderTop="0";
-h.querySelector(".stats").style.paddingTop="0";
-h.querySelector(".stats").style.marginTop="0";
 h.appendChild(theTienDo());
 app.appendChild(h);
 }
@@ -4708,7 +4714,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=91"></script>
+<script type="module" src="firebase-sync.js?v=92"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
