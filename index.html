@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=117"></script>
+<script src="firebase-config.js?v=118"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -343,8 +343,10 @@ padding:4px 9px;border-radius:var(--r-pill);background:var(--accent-soft);color:
 .set{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh),inset 0 0 0 1px var(--line-soft);padding:15px 16px;margin-bottom:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .set .l{flex:1 1 200px;min-width:0}
 .set .act{flex:none;margin-left:auto}
-@media(max-width:420px){
-.set>.row{flex:1 1 100%!important;min-width:0;justify-content:flex-start}
+.set>.row{justify-content:flex-end}
+.set .hang-nut{flex-wrap:wrap;max-width:100%}
+@media(max-width:620px){
+.set>.row{flex:1 1 100%!important;min-width:0;justify-content:flex-start!important;margin-top:4px}
 .set>.row>.btn{flex:0 1 auto;min-width:0}
 }
 @media(max-width:560px){
@@ -6868,7 +6870,7 @@ var gm=el('<div class="set"><div class="l"><div class="n">Giọng đọc '+esc(t
 : 'Máy bạn chưa có giọng '+esc(tenM)+' nào nên app không đọc được. Thêm gói giọng nói '+esc(mn.ten.toLowerCase())+' trong phần Ngôn ngữ của hệ điều hành rồi mở lại app.'))+
 '</div></div></div>');
 if(giongRu.length){
-var gr=el('<div class="row" style="flex:none;flex-wrap:wrap;justify-content:flex-end;max-width:100%"></div>');
+var gr=el('<div class="row hang-nut" style="flex:none"></div>');
 var dangChon=(prog.settings.giong&&prog.settings.giong[mn.ma])||"";
 var ds=[{t:"Tự động",v:""}].concat(giongRu.map(function(v){return {t:tenGiong(v),v:v.voiceURI||v.name};}));
 ds.forEach(function(o){
@@ -7176,7 +7178,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=117"></script>
+<script type="module" src="firebase-sync.js?v=118"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
