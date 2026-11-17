@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=100"></script>
+<script src="firebase-config.js?v=101"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1504,6 +1504,708 @@ const CAP_RU=[
 {ten:"Thạo",ban:"Свободно",can:400,hh:"С",mau:"#A855C9"},
 {ten:"Hết kho từ",ban:"Мастер",can:520,hh:"М",mau:"#7355E4"}
 ];
+const AM_ANH=[
+["iː","sheep","sheep","i dài","—","Kéo dài và căng môi sang hai bên. Đây là âm người Việt hay đọc ngắn lại thành “ship”.","tree","/triː/","tree","cái cây"],
+["ɪ","ship","ship","i ngắn","—","Ngắn và lỏng, lưỡi thấp hơn /iː/ một chút — nghe hơi lai giữa “i” và “ê”.","fish","/fɪʃ/","fish","con cá"],
+["e","bed","bed","e","—","Như “e” trong “mẹ”. Âm này người Việt đọc gần đúng sẵn.","head","/hed/","head","cái đầu"],
+["æ","cat","cat","a bẹt","—","Miệng bè ngang, nằm giữa “a” và “e”. Đọc thành “e” là ra “ket”, thành “a” là ra “cat” kiểu Việt.","hand","/hænd/","hand","bàn tay"],
+["ɑː","car","car","a dài","—","“A” sâu trong họng, kéo dài, miệng mở to. Khác hẳn /æ/ bẹt.","father","/ˈfɑːðə/","father","bố"],
+["ɒ","hot","hot","o ngắn","—","Tròn môi, ngắn gọn (giọng Anh-Anh). Giọng Mỹ đọc âm này gần với /ɑː/.","dog","/dɒɡ/","dog","con chó"],
+["ɔː","door","door","o dài","—","Tròn môi và kéo dài. Người Việt hay đọc ngắn thành /ɒ/.","four","/fɔː/","four","số bốn"],
+["ʊ","book","book","u ngắn","—","Ngắn, môi không chúm hẳn, lưỡi lùi. Đừng kéo dài thành /uː/.","good","/ɡʊd/","good","tốt"],
+["uː","food","food","u dài","—","Chúm môi và kéo dài. “Full” /ʊ/ với “fool” /uː/ là hai từ khác nhau.","moon","/muːn/","moon","mặt trăng"],
+["ʌ","cup","cup","â","—","Như “â” trong “cân”, miệng thả lỏng, âm ngắn.","love","/lʌv/","love","tình yêu"],
+["ɜː","bird","bird","ơ dài","—","“Ơ” kéo dài, lưỡi ở giữa miệng. Giọng Mỹ cong lưỡi thêm thành /ɜːr/.","work","/wɜːk/","work","công việc"],
+["ə","about","about","ơ nhẹ","—","Âm yếu nhất tiếng Anh, chỉ nằm ở vần KHÔNG nhấn. Nhiều từ dài nghe khó chính vì chỗ này bị nuốt.","teacher","/ˈtiːtʃə/","teacher","giáo viên"],
+["eɪ","day","day","ây","—","Trượt từ “e” sang “i”. Đừng dừng ở “e”, phải nghe ra đuôi “i”.","name","/neɪm/","name","tên"],
+["aɪ","my","my","ai","—","Như “ai” tiếng Việt. Âm này người Việt đọc sẵn đúng.","time","/taɪm/","time","thời gian"],
+["ɔɪ","boy","boy","oi","—","Bắt đầu tròn môi “o” rồi trượt sang “i”.","coin","/kɔɪn/","coin","đồng xu"],
+["aʊ","now","now","ao","—","Như “ao” tiếng Việt, miệng mở rồi chúm lại.","house","/haʊs/","house","ngôi nhà"],
+["əʊ","go","go","âu","—","Bắt đầu bằng “ơ” rồi mới tròn môi. Đọc thẳng thành “ô” là ra giọng Việt rất rõ.","phone","/fəʊn/","phone","điện thoại"],
+["ɪə","here","here","i-ơ","—","“I” trượt về “ơ”, không tách thành hai tiếng.","near","/nɪə/","near","gần"],
+["eə","hair","hair","e-ơ","—","“E” trượt về “ơ”. Giọng Mỹ đọc thành /er/ cong lưỡi.","chair","/tʃeə/","chair","cái ghế"],
+["ʊə","tour","tour","u-ơ","—","“U” trượt về “ơ”. Âm này ngày càng ít dùng, nhiều người đọc thành /ɔː/.","sure","/ʃʊə/","sure","chắc chắn"],
+["p","pen","pen","p bật hơi","—","Đầu từ phải BẬT HƠI ra, khác “p” tiếng Việt vốn câm. Để tờ giấy trước miệng, giấy phải rung.","happy","/ˈhæpi/","happy","vui"],
+["b","bag","bag","b","—","Như “b” tiếng Việt nhưng rung dây thanh rõ hơn, và cuối từ vẫn phải phát ra.","job","/dʒɒb/","job","việc làm"],
+["t","tea","tea","t bật hơi","—","Đầu từ bật hơi mạnh. Cuối từ đừng nuốt: “cat” mà mất /t/ thì thành “ca”.","water","/ˈwɔːtə/","water","nước"],
+["d","dog","dog","đ","—","Gần “đ” tiếng Việt, đầu lưỡi chạm lợi trên. Cuối từ phải nghe ra.","red","/red/","red","màu đỏ"],
+["k","key","key","c bật hơi","—","Bật hơi mạnh ở đầu từ. Sau /s/ thì không bật: “school” nghe gần “s-gool”.","school","/skuːl/","school","trường học"],
+["ɡ","go","go","g","—","Như “g” trong “ga”, có rung thanh. Cuối từ đừng bỏ: “big”.","big","/bɪɡ/","big","to"],
+["tʃ","chair","chair","ch","—","Như “ch” tiếng Việt nhưng bật mạnh và cong lưỡi hơn.","teacher","/ˈtiːtʃə/","teacher","giáo viên"],
+["dʒ","job","job","ch rung","—","Chính là /tʃ/ nhưng RUNG dây thanh. Người Việt hay đọc trượt thành “gi”.","bridge","/brɪdʒ/","bridge","cây cầu"],
+["f","fish","fish","ph","—","Răng trên chạm môi dưới rồi đẩy hơi — như “ph” tiếng Việt.","coffee","/ˈkɒfi/","coffee","cà phê"],
+["v","very","very","v răng-môi","—","Giống /f/ nhưng rung thanh. “V” tiếng Việt không chạm răng nên nghe khác.","love","/lʌv/","love","tình yêu"],
+["θ","think","think","th thè lưỡi","—","ĐẦU LƯỠI RA GIỮA HAI HÀM RĂNG rồi đẩy hơi. Đây KHÔNG phải “th” tiếng Việt — đọc “th” là ra “tin” hoặc “sin”.","mouth","/maʊθ/","mouth","cái miệng"],
+["ð","this","this","đ thè lưỡi","—","Y như /θ/ nhưng rung dây thanh. Hai âm này là chỗ lộ giọng Việt rõ nhất.","mother","/ˈmʌðə/","mother","mẹ"],
+["s","see","see","x","—","Như “x” tiếng Việt. Cuối từ đừng nuốt, nhất là khi là đuôi số nhiều.","bus","/bʌs/","bus","xe buýt"],
+["z","zoo","zoo","x rung","—","Giống /s/ nhưng rung thanh. Người Việt hay đọc thành “d” hoặc bỏ hẳn ở cuối từ.","nose","/nəʊz/","nose","cái mũi"],
+["ʃ","she","she","s cong lưỡi","—","Gần “s” giọng miền Nam, môi hơi chúm tròn.","fish","/fɪʃ/","fish","con cá"],
+["ʒ","vision","vision","s cong rung","—","Chính là /ʃ/ có rung thanh. Âm hiếm, hay nằm giữa từ.","measure","/ˈmeʒə/","measure","đo lường"],
+["h","hat","hat","h","—","Như “h” tiếng Việt, chỉ là luồng hơi nhẹ, không nghiến họng.","behind","/bɪˈhaɪnd/","behind","phía sau"],
+["m","man","man","m","—","Giống “m” tiếng Việt. Cuối từ phải ngậm môi lại cho đủ tiếng.","time","/taɪm/","time","thời gian"],
+["n","no","no","n","—","Giống “n” tiếng Việt, đầu lưỡi chạm lợi. Đừng lẫn với /ŋ/ ở cuối từ.","nine","/naɪn/","nine","số chín"],
+["ŋ","sing","sing","ng","—","Như “ng” trong “mang”. Chỉ đứng cuối vần, không bao giờ mở đầu từ tiếng Anh.","English","/ˈɪŋɡlɪʃ/","English","tiếng Anh"],
+["l","look","look","l","—","Đầu từ như “l” tiếng Việt. Cuối từ phải cong lưỡi chạm lợi — “ball” không được thành “bo”.","ball","/bɔːl/","ball","quả bóng"],
+["r","red","red","r cong lưỡi","—","KHÔNG rung lưỡi. Chỉ cong đầu lưỡi lên, không chạm vào đâu cả.","very","/ˈveri/","very","rất"],
+["w","we","we","oa","—","Chúm môi tròn rồi bật mở ra, như “oa” nói nhanh.","window","/ˈwɪndəʊ/","window","cửa sổ"],
+["j","yes","yes","d (y)","—","Như “d” giọng miền Nam, hoặc “y” trong “yêu”.","yellow","/ˈjeləʊ/","yellow","màu vàng"]
+];
+const SO_ANH=[
+["zero","/ˈzɪərəʊ/","","số không — 0"],
+["one","/wʌn/","","một — 1"],
+["two","/tuː/","","hai — 2"],
+["three","/θriː/","","ba — 3 (âm θ thè lưỡi)"],
+["four","/fɔː/","","bốn — 4"],
+["five","/faɪv/","","năm — 5"],
+["six","/sɪks/","","sáu — 6"],
+["seven","/ˈsevn/","","bảy — 7"],
+["eight","/eɪt/","","tám — 8"],
+["nine","/naɪn/","","chín — 9"],
+["ten","/ten/","","mười — 10"],
+["eleven","/ɪˈlevn/","","mười một — 11"],
+["twelve","/twelv/","","mười hai — 12"],
+["thirteen","/ˌθɜːˈtiːn/","","mười ba — 13 (nhấn vần SAU)"],
+["fourteen","/ˌfɔːˈtiːn/","","mười bốn — 14"],
+["fifteen","/ˌfɪfˈtiːn/","","mười lăm — 15"],
+["sixteen","/ˌsɪksˈtiːn/","","mười sáu — 16"],
+["seventeen","/ˌsevnˈtiːn/","","mười bảy — 17"],
+["eighteen","/ˌeɪˈtiːn/","","mười tám — 18"],
+["nineteen","/ˌnaɪnˈtiːn/","","mười chín — 19"],
+["twenty","/ˈtwenti/","","hai mươi — 20 (nhấn vần ĐẦU)"],
+["thirty","/ˈθɜːti/","","ba mươi — 30"],
+["forty","/ˈfɔːti/","","bốn mươi — 40 (viết không có chữ u)"],
+["fifty","/ˈfɪfti/","","năm mươi — 50"],
+["sixty","/ˈsɪksti/","","sáu mươi — 60"],
+["seventy","/ˈsevnti/","","bảy mươi — 70"],
+["eighty","/ˈeɪti/","","tám mươi — 80"],
+["ninety","/ˈnaɪnti/","","chín mươi — 90"],
+["a hundred","/ə ˈhʌndrəd/","","một trăm — 100"],
+["a thousand","/ə ˈθaʊznd/","","một nghìn — 1 000"],
+["a million","/ə ˈmɪljən/","","một triệu — 1 000 000"],
+["first","/fɜːst/","","thứ nhất — 1st"],
+["second","/ˈsekənd/","","thứ hai — 2nd"],
+["third","/θɜːd/","","thứ ba — 3rd"]
+];
+const CHUDE_ANH=[
+{id:"greet",name:"Chào hỏi & lịch sự",ru:"Greetings",items:[
+["Hello","/həˈləʊ/","","xin chào"],
+["Hi","/haɪ/","","chào (thân mật)"],
+["Good morning","/ɡʊd ˈmɔːnɪŋ/","","chào buổi sáng"],
+["Good afternoon","/ɡʊd ˌɑːftəˈnuːn/","","chào buổi chiều"],
+["Good evening","/ɡʊd ˈiːvnɪŋ/","","chào buổi tối"],
+["Good night","/ɡʊd naɪt/","","chúc ngủ ngon"],
+["Goodbye","/ɡʊdˈbaɪ/","","tạm biệt"],
+["Bye","/baɪ/","","bai (thân mật)"],
+["Thank you","/ˈθæŋk juː/","","cảm ơn"],
+["Thanks","/θæŋks/","","cảm ơn (thân mật)"],
+["You're welcome","/jɔː ˈwelkəm/","","không có gì"],
+["Please","/pliːz/","","làm ơn / xin mời"],
+["Sorry","/ˈsɒri/","","xin lỗi"],
+["Excuse me","/ɪkˈskjuːz miː/","","xin phép / cho hỏi"],
+["Nice to meet you","/naɪs tə ˈmiːt juː/","","rất vui được gặp bạn"],
+["See you later","/siː juː ˈleɪtə/","","hẹn gặp lại"],
+["How are you?","/haʊ ɑː juː/","","bạn khoẻ không?"],
+["I'm fine, thanks","/aɪm faɪn θæŋks/","","tôi khoẻ, cảm ơn"]
+]},
+{id:"self",name:"Giới thiệu bản thân",ru:"About me",items:[
+["My name is…","/maɪ ˈneɪm ɪz/","","tên tôi là…"],
+["What's your name?","/wɒts jɔː neɪm/","","bạn tên gì?"],
+["I'm from Vietnam","/aɪm frəm ˌvjetˈnæm/","","tôi đến từ Việt Nam"],
+["Where are you from?","/weər ɑː juː frɒm/","","bạn từ đâu tới?"],
+["I'm twenty years old","/aɪm ˈtwenti jɪəz əʊld/","","tôi hai mươi tuổi"],
+["How old are you?","/haʊ əʊld ɑː juː/","","bạn bao nhiêu tuổi?"],
+["I live in Hanoi","/aɪ lɪv ɪn hæˈnɔɪ/","","tôi sống ở Hà Nội"],
+["I'm a student","/aɪm ə ˈstjuːdnt/","","tôi là sinh viên"],
+["I work in an office","/aɪ wɜːk ɪn ən ˈɒfɪs/","","tôi làm việc văn phòng"],
+["I don't understand","/aɪ dəʊnt ˌʌndəˈstænd/","","tôi không hiểu"],
+["Could you repeat that?","/kʊd juː rɪˈpiːt ðæt/","","bạn nhắc lại được không?"],
+["Do you speak English?","/duː juː spiːk ˈɪŋɡlɪʃ/","","bạn có nói tiếng Anh không?"],
+["I speak a little English","/aɪ spiːk ə ˈlɪtl ˈɪŋɡlɪʃ/","","tôi nói được chút tiếng Anh"],
+["I'm learning English","/aɪm ˈlɜːnɪŋ ˈɪŋɡlɪʃ/","","tôi đang học tiếng Anh"]
+]},
+{id:"pron",name:"Đại từ & từ để hỏi",ru:"Pronouns",items:[
+["I","/aɪ/","","tôi"],
+["you","/juː/","","bạn / các bạn"],
+["he","/hiː/","","anh ấy"],
+["she","/ʃiː/","","cô ấy"],
+["it","/ɪt/","","nó (vật, con vật)"],
+["we","/wiː/","","chúng tôi"],
+["they","/ðeɪ/","","họ"],
+["who","/huː/","","ai"],
+["what","/wɒt/","","cái gì"],
+["where","/weə/","","ở đâu"],
+["when","/wen/","","khi nào"],
+["why","/waɪ/","","tại sao"],
+["how","/haʊ/","","như thế nào"],
+["which","/wɪtʃ/","","cái nào"],
+["this","/ðɪs/","","cái này"],
+["that","/ðæt/","","cái kia"],
+["these","/ðiːz/","","những cái này"],
+["those","/ðəʊz/","","những cái kia"]
+]},
+{id:"fam",name:"Người & gia đình",ru:"Family",items:[
+["family","/ˈfæməli/","","gia đình"],
+["mother","/ˈmʌðə/","","mẹ"],
+["father","/ˈfɑːðə/","","bố"],
+["parents","/ˈpeərənts/","","bố mẹ"],
+["son","/sʌn/","","con trai"],
+["daughter","/ˈdɔːtə/","","con gái"],
+["brother","/ˈbrʌðə/","","anh / em trai"],
+["sister","/ˈsɪstə/","","chị / em gái"],
+["husband","/ˈhʌzbənd/","","chồng"],
+["wife","/waɪf/","","vợ"],
+["child","/tʃaɪld/","","đứa trẻ"],
+["children","/ˈtʃɪldrən/","","những đứa trẻ"],
+["baby","/ˈbeɪbi/","","em bé"],
+["grandmother","/ˈɡrænmʌðə/","","bà"],
+["grandfather","/ˈɡrænfɑːðə/","","ông"],
+["friend","/frend/","","bạn bè"],
+["man","/mæn/","","người đàn ông"],
+["woman","/ˈwʊmən/","","người phụ nữ"],
+["boy","/bɔɪ/","","cậu bé"],
+["girl","/ɡɜːl/","","cô bé"]
+]},
+{id:"time",name:"Thời gian & ngày tháng",ru:"Time",items:[
+["today","/təˈdeɪ/","","hôm nay"],
+["tomorrow","/təˈmɒrəʊ/","","ngày mai"],
+["yesterday","/ˈjestədeɪ/","","hôm qua"],
+["now","/naʊ/","","bây giờ"],
+["later","/ˈleɪtə/","","lát nữa"],
+["morning","/ˈmɔːnɪŋ/","","buổi sáng"],
+["afternoon","/ˌɑːftəˈnuːn/","","buổi chiều"],
+["evening","/ˈiːvnɪŋ/","","buổi tối"],
+["night","/naɪt/","","ban đêm"],
+["day","/deɪ/","","ngày"],
+["week","/wiːk/","","tuần"],
+["month","/mʌnθ/","","tháng"],
+["year","/jɪə/","","năm"],
+["hour","/ˈaʊə/","","giờ (h không đọc)"],
+["minute","/ˈmɪnɪt/","","phút"],
+["Monday","/ˈmʌndeɪ/","","thứ Hai"],
+["Tuesday","/ˈtjuːzdeɪ/","","thứ Ba"],
+["Wednesday","/ˈwenzdeɪ/","","thứ Tư (chữ d câm)"],
+["Thursday","/ˈθɜːzdeɪ/","","thứ Năm"],
+["Friday","/ˈfraɪdeɪ/","","thứ Sáu"],
+["Saturday","/ˈsætədeɪ/","","thứ Bảy"],
+["Sunday","/ˈsʌndeɪ/","","Chủ nhật"],
+["What time is it?","/wɒt ˈtaɪm ɪz ɪt/","","mấy giờ rồi?"]
+]},
+{id:"food",name:"Đồ ăn & thức uống",ru:"Food & drink",items:[
+["water","/ˈwɔːtə/","","nước"],
+["tea","/tiː/","","trà"],
+["coffee","/ˈkɒfi/","","cà phê"],
+["milk","/mɪlk/","","sữa"],
+["bread","/bred/","","bánh mì"],
+["rice","/raɪs/","","cơm / gạo"],
+["noodles","/ˈnuːdlz/","","mì / bún"],
+["meat","/miːt/","","thịt"],
+["chicken","/ˈtʃɪkɪn/","","thịt gà"],
+["beef","/biːf/","","thịt bò"],
+["pork","/pɔːk/","","thịt lợn"],
+["fish","/fɪʃ/","","cá"],
+["egg","/eɡ/","","trứng"],
+["fruit","/fruːt/","","trái cây"],
+["vegetables","/ˈvedʒtəblz/","","rau củ"],
+["soup","/suːp/","","canh / súp"],
+["salt","/sɔːlt/","","muối"],
+["sugar","/ˈʃʊɡə/","","đường"],
+["beer","/bɪə/","","bia"],
+["breakfast","/ˈbrekfəst/","","bữa sáng"],
+["lunch","/lʌntʃ/","","bữa trưa"],
+["dinner","/ˈdɪnə/","","bữa tối"]
+]},
+{id:"rest",name:"Quán ăn & gọi món",ru:"At the restaurant",items:[
+["menu","/ˈmenjuː/","","thực đơn"],
+["the bill","/ðə bɪl/","","hoá đơn"],
+["a table for two","/ə ˈteɪbl fə tuː/","","bàn cho hai người"],
+["I'd like…","/aɪd laɪk/","","cho tôi… (lịch sự)"],
+["Can I have…?","/kən aɪ hæv/","","cho tôi xin…?"],
+["delicious","/dɪˈlɪʃəs/","","ngon"],
+["waiter","/ˈweɪtə/","","nhân viên phục vụ"],
+["to order","/tu ˈɔːdə/","","gọi món"],
+["spicy","/ˈspaɪsi/","","cay"],
+["sweet","/swiːt/","","ngọt"],
+["I'm vegetarian","/aɪm ˌvedʒəˈteəriən/","","tôi ăn chay"],
+["How much is it?","/haʊ ˈmʌtʃ ɪz ɪt/","","bao nhiêu tiền?"],
+["Cheers!","/tʃɪəz/","","cạn ly!"],
+["No ice, please","/nəʊ aɪs pliːz/","","đừng cho đá"]
+]},
+{id:"shop",name:"Mua sắm & tiền",ru:"Shopping",items:[
+["money","/ˈmʌni/","","tiền"],
+["price","/praɪs/","","giá"],
+["cheap","/tʃiːp/","","rẻ"],
+["expensive","/ɪkˈspensɪv/","","đắt"],
+["to buy","/tə baɪ/","","mua"],
+["to sell","/tə sel/","","bán"],
+["shop","/ʃɒp/","","cửa hàng"],
+["market","/ˈmɑːkɪt/","","chợ"],
+["cash","/kæʃ/","","tiền mặt"],
+["card","/kɑːd/","","thẻ"],
+["receipt","/rɪˈsiːt/","","hoá đơn (chữ p câm)"],
+["change","/tʃeɪndʒ/","","tiền thừa"],
+["discount","/ˈdɪskaʊnt/","","giảm giá"],
+["open","/ˈəʊpən/","","mở cửa"],
+["closed","/kləʊzd/","","đóng cửa"],
+["Too expensive!","/tuː ɪkˈspensɪv/","","đắt quá!"]
+]},
+{id:"move",name:"Đi lại & phương hướng",ru:"Getting around",items:[
+["car","/kɑː/","","ô tô"],
+["bus","/bʌs/","","xe buýt"],
+["train","/treɪn/","","tàu hoả"],
+["plane","/pleɪn/","","máy bay"],
+["taxi","/ˈtæksi/","","taxi"],
+["motorbike","/ˈməʊtəbaɪk/","","xe máy"],
+["station","/ˈsteɪʃn/","","nhà ga"],
+["airport","/ˈeəpɔːt/","","sân bay"],
+["ticket","/ˈtɪkɪt/","","vé"],
+["left","/left/","","bên trái"],
+["right","/raɪt/","","bên phải"],
+["straight ahead","/streɪt əˈhed/","","đi thẳng"],
+["to go","/tə ɡəʊ/","","đi"],
+["to come","/tə kʌm/","","đến"],
+["near","/nɪə/","","gần"],
+["far","/fɑː/","","xa"],
+["Where is…?","/weər ɪz/","","…ở đâu?"],
+["map","/mæp/","","bản đồ"]
+]},
+{id:"home",name:"Nhà cửa & khách sạn",ru:"Home & hotel",items:[
+["house","/haʊs/","","ngôi nhà"],
+["flat","/flæt/","","căn hộ"],
+["room","/ruːm/","","căn phòng"],
+["door","/dɔː/","","cửa"],
+["window","/ˈwɪndəʊ/","","cửa sổ"],
+["table","/ˈteɪbl/","","cái bàn"],
+["chair","/tʃeə/","","cái ghế"],
+["bed","/bed/","","cái giường"],
+["kitchen","/ˈkɪtʃɪn/","","nhà bếp"],
+["bathroom","/ˈbɑːθruːm/","","phòng tắm"],
+["hotel","/həʊˈtel/","","khách sạn"],
+["key","/kiː/","","chìa khoá"],
+["booking","/ˈbʊkɪŋ/","","đặt phòng"],
+["floor","/flɔː/","","tầng / sàn"],
+["lift","/lɪft/","","thang máy"]
+]},
+{id:"body",name:"Cơ thể & sức khoẻ",ru:"Body & health",items:[
+["head","/hed/","","đầu"],
+["eye","/aɪ/","","mắt"],
+["nose","/nəʊz/","","mũi"],
+["mouth","/maʊθ/","","miệng"],
+["ear","/ɪə/","","tai"],
+["hand","/hænd/","","bàn tay"],
+["foot","/fʊt/","","bàn chân"],
+["stomach","/ˈstʌmək/","","bụng / dạ dày"],
+["back","/bæk/","","lưng"],
+["heart","/hɑːt/","","tim"],
+["doctor","/ˈdɒktə/","","bác sĩ"],
+["hospital","/ˈhɒspɪtl/","","bệnh viện"],
+["medicine","/ˈmedsn/","","thuốc"],
+["pain","/peɪn/","","cơn đau"],
+["ill","/ɪl/","","ốm"],
+["I feel sick","/aɪ fiːl sɪk/","","tôi thấy khó chịu"],
+["Help!","/help/","","cứu với!"]
+]}
+];
+const CHUDE_ANH2=[
+{id:"adj",name:"Tính từ & cảm xúc",ru:"Adjectives",items:[
+["good","/ɡʊd/","","tốt"],
+["bad","/bæd/","","tệ / xấu"],
+["big","/bɪɡ/","","to"],
+["small","/smɔːl/","","nhỏ"],
+["new","/njuː/","","mới"],
+["old","/əʊld/","","cũ / già"],
+["hot","/hɒt/","","nóng"],
+["cold","/kəʊld/","","lạnh"],
+["beautiful","/ˈbjuːtɪfl/","","đẹp"],
+["happy","/ˈhæpi/","","vui"],
+["sad","/sæd/","","buồn"],
+["tired","/ˈtaɪəd/","","mệt"],
+["hungry","/ˈhʌŋɡri/","","đói"],
+["thirsty","/ˈθɜːsti/","","khát"],
+["easy","/ˈiːzi/","","dễ"],
+["difficult","/ˈdɪfɪkəlt/","","khó"],
+["fast","/fɑːst/","","nhanh"],
+["slow","/sləʊ/","","chậm"],
+["angry","/ˈæŋɡri/","","tức giận"],
+["afraid","/əˈfreɪd/","","sợ"]
+]},
+{id:"verb",name:"Động từ thông dụng",ru:"Common verbs",items:[
+["to be","/tə biː/","","thì / là / ở"],
+["to have","/tə hæv/","","có"],
+["to do","/tə duː/","","làm"],
+["to go","/tə ɡəʊ/","","đi"],
+["to come","/tə kʌm/","","đến"],
+["to eat","/tu iːt/","","ăn"],
+["to drink","/tə drɪŋk/","","uống"],
+["to see","/tə siː/","","nhìn thấy"],
+["to hear","/tə hɪə/","","nghe thấy"],
+["to speak","/tə spiːk/","","nói"],
+["to know","/tə nəʊ/","","biết"],
+["to want","/tə wɒnt/","","muốn"],
+["to need","/tə niːd/","","cần"],
+["to like","/tə laɪk/","","thích"],
+["to love","/tə lʌv/","","yêu"],
+["to work","/tə wɜːk/","","làm việc"],
+["to live","/tə lɪv/","","sống"],
+["to read","/tə riːd/","","đọc"],
+["to write","/tə raɪt/","","viết"],
+["to sleep","/tə sliːp/","","ngủ"],
+["to give","/tə ɡɪv/","","cho"],
+["to take","/tə teɪk/","","lấy"],
+["to buy","/tə baɪ/","","mua"],
+["to make","/tə meɪk/","","làm ra / chế tạo"]
+]},
+{id:"survive",name:"Câu dùng hằng ngày",ru:"Everyday phrases",items:[
+["Yes","/jes/","","vâng / có"],
+["No","/nəʊ/","","không"],
+["Maybe","/ˈmeɪbi/","","có lẽ"],
+["I don't know","/aɪ dəʊnt nəʊ/","","tôi không biết"],
+["I'm lost","/aɪm lɒst/","","tôi bị lạc"],
+["Where is the toilet?","/weər ɪz ðə ˈtɔɪlət/","","nhà vệ sinh ở đâu?"],
+["How much?","/haʊ mʌtʃ/","","bao nhiêu?"],
+["Speak slowly, please","/spiːk ˈsləʊli pliːz/","","nói chậm thôi"],
+["Can you help me?","/kən juː ˈhelp miː/","","giúp tôi được không?"],
+["It's okay","/ɪts ˌəʊˈkeɪ/","","không sao"],
+["No problem","/nəʊ ˈprɒbləm/","","không vấn đề gì"],
+["Of course","/əv ˈkɔːs/","","tất nhiên"],
+["Just a moment","/dʒʌst ə ˈməʊmənt/","","chờ một chút"],
+["I agree","/aɪ əˈɡriː/","","tôi đồng ý"],
+["What does it mean?","/wɒt dʌz ɪt miːn/","","cái đó nghĩa là gì?"],
+["How do you say…?","/haʊ duː juː seɪ/","","…nói thế nào?"]
+]},
+{id:"color",name:"Màu sắc",ru:"Colours",items:[
+["red","/red/","","màu đỏ"],
+["orange","/ˈɒrɪndʒ/","","màu cam"],
+["yellow","/ˈjeləʊ/","","màu vàng"],
+["green","/ɡriːn/","","màu xanh lá"],
+["blue","/bluː/","","màu xanh dương"],
+["purple","/ˈpɜːpl/","","màu tím"],
+["pink","/pɪŋk/","","màu hồng"],
+["brown","/braʊn/","","màu nâu"],
+["black","/blæk/","","màu đen"],
+["white","/waɪt/","","màu trắng"],
+["grey","/ɡreɪ/","","màu xám"]
+]},
+{id:"weather",name:"Thời tiết & mùa",ru:"Weather & seasons",items:[
+["weather","/ˈweðə/","","thời tiết"],
+["sun","/sʌn/","","mặt trời"],
+["rain","/reɪn/","","mưa"],
+["snow","/snəʊ/","","tuyết"],
+["wind","/wɪnd/","","gió"],
+["cloud","/klaʊd/","","mây"],
+["warm","/wɔːm/","","ấm"],
+["cool","/kuːl/","","mát"],
+["humid","/ˈhjuːmɪd/","","ẩm"],
+["storm","/stɔːm/","","bão"],
+["spring","/sprɪŋ/","","mùa xuân"],
+["summer","/ˈsʌmə/","","mùa hè"],
+["autumn","/ˈɔːtəm/","","mùa thu"],
+["winter","/ˈwɪntə/","","mùa đông"],
+["It's raining","/ɪts ˈreɪnɪŋ/","","trời đang mưa"]
+]},
+{id:"cloth",name:"Quần áo & mua đồ",ru:"Clothes",items:[
+["clothes","/kləʊðz/","","quần áo"],
+["shirt","/ʃɜːt/","","áo sơ mi"],
+["T-shirt","/ˈtiːʃɜːt/","","áo phông"],
+["trousers","/ˈtraʊzəz/","","quần dài"],
+["dress","/dres/","","váy liền"],
+["skirt","/skɜːt/","","chân váy"],
+["jacket","/ˈdʒækɪt/","","áo khoác"],
+["shoes","/ʃuːz/","","giày"],
+["hat","/hæt/","","mũ"],
+["bag","/bæɡ/","","túi"],
+["size","/saɪz/","","cỡ"],
+["to try on","/tə traɪ ɒn/","","mặc thử"],
+["It fits","/ɪt fɪts/","","vừa rồi"],
+["too big","/tuː bɪɡ/","","rộng quá"]
+]},
+{id:"animal",name:"Động vật",ru:"Animals",items:[
+["animal","/ˈænɪml/","","động vật"],
+["dog","/dɒɡ/","","con chó"],
+["cat","/kæt/","","con mèo"],
+["bird","/bɜːd/","","con chim"],
+["horse","/hɔːs/","","con ngựa"],
+["cow","/kaʊ/","","con bò"],
+["pig","/pɪɡ/","","con lợn"],
+["chicken","/ˈtʃɪkɪn/","","con gà"],
+["mouse","/maʊs/","","con chuột"],
+["elephant","/ˈelɪfənt/","","con voi"],
+["tiger","/ˈtaɪɡə/","","con hổ"],
+["monkey","/ˈmʌŋki/","","con khỉ"],
+["snake","/sneɪk/","","con rắn"],
+["insect","/ˈɪnsekt/","","côn trùng"]
+]},
+{id:"work",name:"Công việc & văn phòng",ru:"Work & office",items:[
+["work","/wɜːk/","","công việc"],
+["job","/dʒɒb/","","việc làm"],
+["office","/ˈɒfɪs/","","văn phòng"],
+["company","/ˈkʌmpəni/","","công ty"],
+["boss","/bɒs/","","sếp"],
+["colleague","/ˈkɒliːɡ/","","đồng nghiệp"],
+["meeting","/ˈmiːtɪŋ/","","cuộc họp"],
+["email","/ˈiːmeɪl/","","thư điện tử"],
+["deadline","/ˈdedlaɪn/","","hạn chót"],
+["salary","/ˈsæləri/","","lương"],
+["busy","/ˈbɪzi/","","bận"],
+["holiday","/ˈhɒlədeɪ/","","kỳ nghỉ"],
+["to call","/tə kɔːl/","","gọi điện"],
+["to send","/tə send/","","gửi"]
+]},
+{id:"study",name:"Trường học & học tập",ru:"School & study",items:[
+["school","/skuːl/","","trường học"],
+["university","/ˌjuːnɪˈvɜːsəti/","","trường đại học"],
+["teacher","/ˈtiːtʃə/","","giáo viên"],
+["student","/ˈstjuːdnt/","","học sinh / sinh viên"],
+["lesson","/ˈlesn/","","bài học"],
+["book","/bʊk/","","quyển sách"],
+["pen","/pen/","","cái bút"],
+["homework","/ˈhəʊmwɜːk/","","bài tập về nhà"],
+["exam","/ɪɡˈzæm/","","kỳ thi"],
+["question","/ˈkwestʃən/","","câu hỏi"],
+["answer","/ˈɑːnsə/","","câu trả lời"],
+["to learn","/tə lɜːn/","","học"],
+["to teach","/tə tiːtʃ/","","dạy"],
+["to remember","/tə rɪˈmembə/","","nhớ"],
+["to forget","/tə fəˈɡet/","","quên"]
+]},
+{id:"hobby",name:"Sở thích & giải trí",ru:"Hobbies",items:[
+["hobby","/ˈhɒbi/","","sở thích"],
+["music","/ˈmjuːzɪk/","","âm nhạc"],
+["film","/fɪlm/","","phim"],
+["song","/sɒŋ/","","bài hát"],
+["game","/ɡeɪm/","","trò chơi"],
+["to listen","/tə ˈlɪsn/","","nghe"],
+["to watch","/tə wɒtʃ/","","xem"],
+["to play","/tə pleɪ/","","chơi"],
+["to dance","/tə dɑːns/","","nhảy"],
+["to sing","/tə sɪŋ/","","hát"],
+["to draw","/tə drɔː/","","vẽ"],
+["to cook","/tə kʊk/","","nấu ăn"],
+["to travel","/tə ˈtrævl/","","đi du lịch"],
+["interesting","/ˈɪntrəstɪŋ/","","thú vị"],
+["boring","/ˈbɔːrɪŋ/","","chán"]
+]},
+{id:"sport",name:"Thể thao",ru:"Sport",items:[
+["sport","/spɔːt/","","thể thao"],
+["football","/ˈfʊtbɔːl/","","bóng đá"],
+["basketball","/ˈbɑːskɪtbɔːl/","","bóng rổ"],
+["tennis","/ˈtenɪs/","","quần vợt"],
+["swimming","/ˈswɪmɪŋ/","","bơi lội"],
+["running","/ˈrʌnɪŋ/","","chạy bộ"],
+["gym","/dʒɪm/","","phòng tập"],
+["team","/tiːm/","","đội"],
+["match","/mætʃ/","","trận đấu"],
+["to win","/tə wɪn/","","thắng"],
+["to lose","/tə luːz/","","thua"],
+["to train","/tə treɪn/","","tập luyện"]
+]},
+{id:"trip",name:"Du lịch",ru:"Travel",items:[
+["travel","/ˈtrævl/","","việc đi lại / du lịch"],
+["trip","/trɪp/","","chuyến đi"],
+["passport","/ˈpɑːspɔːt/","","hộ chiếu"],
+["visa","/ˈviːzə/","","thị thực"],
+["luggage","/ˈlʌɡɪdʒ/","","hành lý"],
+["suitcase","/ˈsuːtkeɪs/","","vali"],
+["beach","/biːtʃ/","","bãi biển"],
+["mountain","/ˈmaʊntɪn/","","núi"],
+["sea","/siː/","","biển"],
+["camera","/ˈkæmrə/","","máy ảnh"],
+["guide","/ɡaɪd/","","hướng dẫn viên"],
+["booking","/ˈbʊkɪŋ/","","đặt chỗ"],
+["Have a good trip!","/hæv ə ɡʊd trɪp/","","chúc đi vui vẻ!"]
+]},
+{id:"phone",name:"Điện thoại & internet",ru:"Phone & internet",items:[
+["phone","/fəʊn/","","điện thoại"],
+["mobile phone","/ˈməʊbaɪl fəʊn/","","điện thoại di động"],
+["number","/ˈnʌmbə/","","số"],
+["message","/ˈmesɪdʒ/","","tin nhắn"],
+["internet","/ˈɪntənet/","","mạng internet"],
+["wifi","/ˈwaɪfaɪ/","","wifi"],
+["password","/ˈpɑːswɜːd/","","mật khẩu"],
+["website","/ˈwebsaɪt/","","trang web"],
+["app","/æp/","","ứng dụng"],
+["screen","/skriːn/","","màn hình"],
+["battery","/ˈbætri/","","pin"],
+["to charge","/tə tʃɑːdʒ/","","sạc"],
+["to download","/tə ˌdaʊnˈləʊd/","","tải về"],
+["What's the wifi password?","/wɒts ðə ˈwaɪfaɪ ˈpɑːswɜːd/","","mật khẩu wifi là gì?"]
+]},
+{id:"city",name:"Trong thành phố",ru:"In the city",items:[
+["city","/ˈsɪti/","","thành phố"],
+["street","/striːt/","","đường phố"],
+["bank","/bæŋk/","","ngân hàng"],
+["post office","/ˈpəʊst ɒfɪs/","","bưu điện"],
+["supermarket","/ˈsuːpəmɑːkɪt/","","siêu thị"],
+["pharmacy","/ˈfɑːməsi/","","hiệu thuốc"],
+["park","/pɑːk/","","công viên"],
+["museum","/mjuˈziːəm/","","bảo tàng"],
+["church","/tʃɜːtʃ/","","nhà thờ"],
+["bridge","/brɪdʒ/","","cây cầu"],
+["corner","/ˈkɔːnə/","","góc phố"],
+["traffic","/ˈtræfɪk/","","giao thông"],
+["crossing","/ˈkrɒsɪŋ/","","chỗ sang đường"]
+]},
+{id:"prep",name:"Giới từ & trạng từ",ru:"Prepositions & adverbs",items:[
+["in","/ɪn/","","trong"],
+["on","/ɒn/","","trên"],
+["under","/ˈʌndə/","","dưới"],
+["next to","/ˈnekst tuː/","","bên cạnh"],
+["between","/bɪˈtwiːn/","","ở giữa"],
+["behind","/bɪˈhaɪnd/","","phía sau"],
+["in front of","/ɪn ˈfrʌnt əv/","","phía trước"],
+["with","/wɪð/","","với"],
+["without","/wɪˈðaʊt/","","không có"],
+["always","/ˈɔːlweɪz/","","luôn luôn"],
+["often","/ˈɒfn/","","thường"],
+["sometimes","/ˈsʌmtaɪmz/","","thỉnh thoảng"],
+["never","/ˈnevə/","","không bao giờ"],
+["already","/ɔːlˈredi/","","đã rồi"],
+["still","/stɪl/","","vẫn còn"],
+["very","/ˈveri/","","rất"]
+]},
+{id:"opinion",name:"Ý kiến & quan điểm",ru:"Opinions",items:[
+["I think…","/aɪ ˈθɪŋk/","","tôi nghĩ là…"],
+["In my opinion","/ɪn maɪ əˈpɪnjən/","","theo ý tôi"],
+["I agree","/aɪ əˈɡriː/","","tôi đồng ý"],
+["I disagree","/ˌaɪ dɪsəˈɡriː/","","tôi không đồng ý"],
+["You're right","/jɔː raɪt/","","bạn nói đúng"],
+["I'm not sure","/aɪm nɒt ʃʊə/","","tôi không chắc"],
+["It depends","/ɪt dɪˈpendz/","","còn tuỳ"],
+["because","/bɪˈkɒz/","","bởi vì"],
+["however","/haʊˈevə/","","tuy nhiên"],
+["for example","/fər ɪɡˈzɑːmpl/","","ví dụ"],
+["important","/ɪmˈpɔːtnt/","","quan trọng"],
+["true","/truː/","","đúng / thật"],
+["probably","/ˈprɒbəbli/","","có lẽ"]
+]},
+{id:"social",name:"Đời sống xã hội",ru:"Social life",items:[
+["party","/ˈpɑːti/","","bữa tiệc"],
+["invitation","/ˌɪnvɪˈteɪʃn/","","lời mời"],
+["to invite","/tu ɪnˈvaɪt/","","mời"],
+["to meet","/tə miːt/","","gặp"],
+["birthday","/ˈbɜːθdeɪ/","","sinh nhật"],
+["gift","/ɡɪft/","","món quà"],
+["wedding","/ˈwedɪŋ/","","đám cưới"],
+["guest","/ɡest/","","khách"],
+["neighbour","/ˈneɪbə/","","hàng xóm"],
+["Congratulations!","/kənˌɡrætʃuˈleɪʃnz/","","chúc mừng!"],
+["Happy birthday!","/ˈhæpi ˈbɜːθdeɪ/","","chúc mừng sinh nhật!"],
+["Good luck!","/ɡʊd lʌk/","","chúc may mắn!"]
+]},
+{id:"society",name:"Xã hội & tin tức",ru:"Society & news",items:[
+["news","/njuːz/","","tin tức"],
+["country","/ˈkʌntri/","","đất nước"],
+["government","/ˈɡʌvənmənt/","","chính phủ"],
+["law","/lɔː/","","luật"],
+["economy","/ɪˈkɒnəmi/","","kinh tế"],
+["health","/helθ/","","sức khoẻ"],
+["education","/ˌedʒuˈkeɪʃn/","","giáo dục"],
+["environment","/ɪnˈvaɪrənmənt/","","môi trường"],
+["technology","/tekˈnɒlədʒi/","","công nghệ"],
+["problem","/ˈprɒbləm/","","vấn đề"],
+["change","/tʃeɪndʒ/","","sự thay đổi"],
+["future","/ˈfjuːtʃə/","","tương lai"],
+["society","/səˈsaɪəti/","","xã hội"]
+]}
+];
+Array.prototype.push.apply(CHUDE_ANH,CHUDE_ANH2);
+const NGU_PHAP_ANH=[
+{id:"g1",ten:"Ba thứ tiếng Việt không có mà tiếng Anh bắt buộc",mo:"Chưa quen ba thứ này thì câu nào cũng thiếu một mẩu.",muc:[
+{loi:1,t:"Danh từ đếm được hầu như không bao giờ đứng trần",
+d:"Tiếng Việt nói “tôi mua sách” là đủ. Tiếng Anh phải có a / an / the, hoặc phải ở số nhiều. “I buy book” là câu sai, không phải câu thiếu lịch sự.",
+vd:[["I bought a book.","Tôi đã mua một quyển sách."],["I bought books.","Tôi đã mua sách (nhiều quyển)."],["I bought the book.","Tôi đã mua quyển sách đó."]]},
+{loi:1,t:"Số nhiều phải thêm -s, dù đã có số đếm",
+d:"Tiếng Việt có “ba quyển sách” thì chữ “sách” không đổi. Tiếng Anh vẫn phải thêm -s: three books. Có số rồi vẫn phải thêm.",
+vd:[["three books","ba quyển sách"],["two children","hai đứa trẻ (bất quy tắc)"],["five people","năm người"]]},
+{loi:1,t:"Động từ phải mang thì, không được để trần",
+d:"Tiếng Việt dùng đã / đang / sẽ và bỏ được. Tiếng Anh bắt buộc đổi hình động từ: go → went → will go. Nói “Yesterday I go” là sai, không phải là nói tắt.",
+vd:[["I go to school every day.","Tôi đi học hằng ngày."],["I went to school yesterday.","Hôm qua tôi đã đi học."],["I will go tomorrow.","Mai tôi sẽ đi."]]}
+]},
+{id:"g2",ten:"Danh từ, mạo từ và số nhiều",mo:"Phần ngắn nhưng gặp ở mọi câu.",muc:[
+{loi:1,t:"a hay an — nghe ÂM chứ không nhìn chữ",
+d:"an đứng trước ÂM nguyên âm, không phải trước chữ nguyên âm. “an hour” vì h câm, “a university” vì đọc là /juː/.",
+vd:[["an apple","một quả táo"],["an hour","một tiếng đồng hồ"],["a university","một trường đại học"]]},
+{loi:1,t:"the = cái mà cả hai đều biết là cái nào",
+d:"Nhắc lần đầu dùng a, nhắc lại dùng the. Vật chỉ có một trên đời cũng dùng the: the sun, the moon.",
+vd:[["I saw a dog. The dog was black.","Tôi thấy một con chó. Con chó đó màu đen."],["Close the door, please.","Đóng cửa lại giúp tôi."]]},
+{loi:2,t:"Danh từ không đếm được thì không có số nhiều",
+d:"water, rice, money, information, advice — không thêm -s, không dùng a. Muốn đếm thì mượn đơn vị: a glass of water, a piece of advice.",
+vd:[["two glasses of water","hai cốc nước"],["some rice","một ít cơm"],["a piece of advice","một lời khuyên"]]},
+{loi:2,t:"Sở hữu bằng ’s",
+d:"Người và con vật dùng ’s: my friend’s car. Vật thường dùng of: the door of the house.",
+vd:[["my brother’s phone","điện thoại của anh tôi"],["the name of the book","tên của quyển sách"]]}
+]},
+{id:"g3",ten:"Động từ và các thì hay dùng",mo:"Năm khuôn này đủ nói chuyện hằng ngày.",muc:[
+{loi:1,t:"to be — am / is / are",
+d:"Tiếng Việt bỏ được chữ “là”, tiếng Anh thì không. I am, he/she/it is, you/we/they are.",
+vd:[["I am a student.","Tôi là sinh viên."],["She is tired.","Cô ấy mệt."],["They are at home.","Họ đang ở nhà."]]},
+{loi:1,t:"Hiện tại đơn — ngôi thứ ba số ít thêm -s",
+d:"Việc làm đều đặn, sự thật. Chỉ he / she / it mới thêm -s, và đây là lỗi người Việt sai nhiều nhất.",
+vd:[["I work in Hanoi.","Tôi làm việc ở Hà Nội."],["She works in Hanoi.","Cô ấy làm việc ở Hà Nội."],["He doesn’t work here.","Anh ấy không làm ở đây."]]},
+{loi:1,t:"Hiện tại tiếp diễn — am/is/are + V-ing",
+d:"Việc đang diễn ra ngay lúc nói, hoặc quanh dạo này.",
+vd:[["I am learning English.","Tôi đang học tiếng Anh."],["It is raining.","Trời đang mưa."],["What are you doing?","Bạn đang làm gì đấy?"]]},
+{loi:2,t:"Quá khứ đơn — thêm -ed, trừ loại bất quy tắc",
+d:"worked, lived, studied. Nhưng những động từ hay dùng nhất lại bất quy tắc: go → went, see → saw, eat → ate, have → had, take → took.",
+vd:[["I worked yesterday.","Hôm qua tôi đã làm việc."],["I went to the market.","Tôi đã đi chợ."],["She saw him.","Cô ấy đã gặp anh ta."]]},
+{loi:2,t:"Tương lai — will hay be going to",
+d:"will cho quyết định ngay lúc nói và dự đoán; be going to cho dự định đã có sẵn.",
+vd:[["I will help you.","Tôi sẽ giúp bạn."],["I am going to buy a car.","Tôi định mua ô tô."]]},
+{loi:2,t:"Hỏi và phủ định mượn do / does / did",
+d:"Động từ thường không tự hỏi được. Mượn trợ động từ, rồi động từ chính TRỞ VỀ dạng gốc: did you go, chứ không phải did you went.",
+vd:[["Do you like coffee?","Bạn có thích cà phê không?"],["Does she live here?","Cô ấy sống ở đây à?"],["I didn’t go.","Tôi đã không đi."]]}
+]},
+{id:"g4",ten:"Mẫu câu nói ra là dùng được",mo:"Không cần học hết các thì mới nói được những câu này.",muc:[
+{loi:1,t:"There is / There are — có cái gì ở đâu",
+d:"Một thứ dùng is, nhiều thứ dùng are.",
+vd:[["There is a bank near here.","Gần đây có một ngân hàng."],["There are two beds in the room.","Trong phòng có hai cái giường."]]},
+{loi:1,t:"Câu hỏi Wh- — từ hỏi đứng đầu",
+d:"What / where / when / who / why / how đứng đầu, rồi mới tới trợ động từ.",
+vd:[["Where do you live?","Bạn sống ở đâu?"],["What time does it open?","Mấy giờ mở cửa?"],["How much is this?","Cái này bao nhiêu tiền?"]]},
+{loi:1,t:"can / could — khả năng và nhờ vả",
+d:"Sau can, could thì động từ để nguyên, không to, không -s.",
+vd:[["I can swim.","Tôi biết bơi."],["Can you help me?","Bạn giúp tôi được không?"],["Could you repeat that?","Bạn nhắc lại được không?"]]},
+{loi:2,t:"would like — cách gọi món lịch sự",
+d:"Lịch sự hơn hẳn “I want”. Sau would like là danh từ hoặc to + động từ.",
+vd:[["I would like a coffee.","Cho tôi một cà phê."],["I’d like to book a table.","Tôi muốn đặt bàn."]]},
+{loi:2,t:"So sánh hơn và nhất",
+d:"Từ ngắn thêm -er / -est; từ dài dùng more / the most. Đừng dùng cả hai cùng lúc.",
+vd:[["cheaper than this","rẻ hơn cái này"],["the biggest city","thành phố lớn nhất"],["more expensive","đắt hơn"]]}
+]}
+];
+const CAP_EN=[
+{ten:"Mới bắt đầu",ban:"Beginner",can:0,hh:"B",mau:"#6E93D6"},
+{ten:"Thuộc bảng âm",ban:"Sounds",can:20,hh:"S",mau:"#4A8BE8"},
+{ten:"Biết đếm",ban:"Numbers",can:45,hh:"N",mau:"#1FADA4"},
+{ten:"Chào hỏi được",ban:"Greetings",can:80,hh:"G",mau:"#3BA862"},
+{ten:"Đủ sống sót",ban:"Survival",can:130,hh:"V",mau:"#C79A1E"},
+{ten:"Nói chuyện thường ngày",ban:"Everyday",can:200,hh:"E",mau:"#E08534"},
+{ten:"Khá vững",ban:"Confident",can:290,hh:"C",mau:"#DC5A50"},
+{ten:"Thạo",ban:"Fluent",can:400,hh:"F",mau:"#A855C9"},
+{ten:"Hết kho từ",ban:"Master",can:520,hh:"M",mau:"#7355E4"}
+];
+const NHOM_ANH=[
+["Dài và ngắn là hai âm khác nhau","/iː/ sheep ≠ /ɪ/ ship · /uː/ fool ≠ /ʊ/ full · /ɑː/ cart ≠ /ʌ/ cut. Tiếng Việt không phân biệt độ dài nên đây là chỗ sai nhiều nhất."],
+["Hai âm phải thè lưỡi","/θ/ think · /ð/ this — đầu lưỡi ra giữa hai hàm răng. Đọc thành “th”, “t” hay “s” tiếng Việt là lộ ngay."],
+["Âm cuối không được nuốt","Tiếng Việt không có phụ âm cuối bật ra, nên /s/ /z/ /t/ /d/ /k/ hay bị bỏ. “cat” mất /t/ thành “ca”, “books” mất /s/ là mất luôn số nhiều."],
+["/æ/ và /e/","cat /kæt/ ≠ ket · bad /bæd/ ≠ bed. /æ/ miệng bè ngang, /e/ như “e” tiếng Việt."],
+["Ba âm người Việt hay thay bằng âm quen","/r/ KHÔNG rung lưỡi, chỉ cong lên · /z/ đừng đọc thành “d” · /v/ phải để răng chạm môi."],
+["/ə/ — vần không nhấn","Từ dài nghe khó phần nhiều vì vần không nhấn bị đọc rõ quá: about, teacher, banana. Nhấn đúng một vần, các vần còn lại thả lỏng thành /ə/."]
+];
+function napMonAnh(){
+var ms=[];
+ms.push({id:"alpha",kind:"L",name:"Bảng âm IPA",ru:"Sounds",items:AM_ANH.map(function(a,i){
+return {id:"alpha:"+i,t:"L",up:a[0],lo:a[1],nm:a[2],nmv:a[3],snd:a[4],tip:a[5],ex:a[6],extr:a[7],exen:a[8],exvi:a[9]};
+})});
+ms.push({id:"num",kind:"V",name:"Số đếm",ru:"Numbers",items:SO_ANH.map(function(a,i){
+return {id:"num:"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
+})});
+CHUDE_ANH.forEach(function(t){
+ms.push({id:t.id,kind:"V",name:t.name,ru:t.ru,items:t.items.map(function(a,i){
+return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
+})});
+});
+return {mods:ms,np:NGU_PHAP_ANH,cap:CAP_EN};
+}
 function napMonNga(){
 var ms=[];
 ms.push({id:"alpha",kind:"L",name:"Bảng chữ cái",ru:"Алфавит",items:LETTERS.map(function(a,i){
@@ -1521,13 +2223,37 @@ return {mods:ms,np:NGU_PHAP_RU,cap:CAP_RU};
 }
 const MON=[
 {ma:"ru",ten:"Tiếng Nga",ban:"Русский",hh:"Р",bcp:"ru-RU",enTen:"Russian",
-mau:"#4A8BE8",chu:"Chữ Kirin, 33 ký tự",vd:"Здра́вствуйте",trongam:true,nap:napMonNga},
+mau:"#4A8BE8",chu:"Chữ Kirin, 33 ký tự",vd:"Здра́вствуйте",
+trongam:true,hat:true,viettay:true,coAnh:true,goLatin:true,canLatin:true,
+tenChu:"Bảng chữ cái",tenChuT:"bảng chữ cái",donVi:"chữ cái",nhanChu:"Chữ cái",nhanTen:"tên chữ",
+ctaChu:"Bắt đầu từ bảng chữ cái",moTaChu:"33 chữ Кириллица — thuộc mặt chữ và cách đọc trước đã",
+nhanhChu:"Chữ dễ nhầm",nhanhMo:"12 chữ trông y như chữ Latin, một nửa đọc khác hẳn. Mỗi chữ 4,5 giây.",
+nham:null,tag:"Аа",nhan:"Tiếng Nga từ A đến Я",ban3:"Русский язык",
+loTrinh:"Алфавит → Числа → Слова и фразы",
+phienAm:"phiên âm Latin",nhom:null,nap:napMonNga},
 {ma:"en",ten:"Tiếng Anh",ban:"English",hh:"E",bcp:"en-US",enTen:"English",
-mau:"#3BA862",chu:"Chữ Latin, phiên âm IPA",vd:"Hello",trongam:true,nap:null},
+mau:"#3BA862",chu:"Chữ Latin, 44 âm IPA",vd:"Hello",
+trongam:false,hat:false,viettay:false,coAnh:false,goLatin:false,canLatin:false,
+tenChu:"Bảng âm IPA",tenChuT:"bảng âm IPA",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
+ctaChu:"Bắt đầu từ bảng âm",moTaChu:"44 âm IPA — mặt chữ bạn biết rồi, cái khó là đọc đúng âm",
+nhanhChu:"Âm dễ nhầm",nhanhMo:"Những âm người Việt hay trộn vào nhau: dài/ngắn, thè lưỡi, rung không rung. Mỗi âm 4,5 giây.",
+nham:["iː","ɪ","uː","ʊ","æ","e","ɑː","ʌ","ɜː","ə","θ","ð","s","z","ʃ","ʒ","tʃ","dʒ","r","l","v","ŋ"],
+tag:"æ",nhan:"Tiếng Anh từ âm đến câu",ban3:"English",
+loTrinh:"Sounds → Numbers → Words & phrases",
+phienAm:"phiên âm IPA",nhom:NHOM_ANH,nap:napMonAnh},
 {ma:"zh",ten:"Tiếng Trung",ban:"中文",hh:"中",bcp:"zh-CN",enTen:"Chinese",
-mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",trongam:false,nap:null}
+mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",
+trongam:false,hat:false,viettay:false,coAnh:true,goLatin:false,canLatin:false,
+tenChu:"Bảng pinyin",tenChuT:"bảng pinyin",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
+ctaChu:"Bắt đầu từ pinyin",moTaChu:"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa",
+nhanhChu:"Thanh dễ nhầm",nhanhMo:"Bốn thanh nghe gần nhau. Mỗi âm 4,5 giây.",
+nham:null,tag:"中",nhan:"Tiếng Trung từ thanh đến câu",ban3:"中文",
+loTrinh:"拼音 → 数字 → 词语",
+phienAm:"pinyin",nhom:null,nap:null}
 ];
 function monTheoMa(ma){for(var i=0;i<MON.length;i++)if(MON[i].ma===ma)return MON[i];return null;}
+function TenMon(){return monNay().ten;}
+function tenmon(){var t=monNay().ten;return t.charAt(0).toLowerCase()+t.slice(1);}
 function monNay(){
 var ma="";
 try{ma=(prog&&prog.settings&&prog.settings.mon)||"";}catch(e){}
@@ -1544,7 +2270,7 @@ var d=m.nap(),pre=m.ma==="ru"?"":m.ma+".";
 MODULES.length=0;ALL_ITEMS.length=0;GRAMMAR.length=0;CAP.length=0;
 Object.keys(BY_ID).forEach(function(k){delete BY_ID[k];});
 d.mods.forEach(function(mo){
-mo.id=pre+mo.id;mo.mon=m.ma;
+mo.mon=m.ma;
 mo.items.forEach(function(it){it.id=pre+it.id;it.mod=mo.id;ALL_ITEMS.push(it);BY_ID[it.id]=it;});
 MODULES.push(mo);
 });
@@ -1559,7 +2285,22 @@ var ma=(prog&&prog.settings&&prog.settings.mon)||"ru";
 if(ma===monDangDung)return false;
 dungMon(ma);
 try{loadVoices();}catch(e){}
+try{datNhanMon();}catch(e){}
 return true;
+}
+function datNhanMon(){
+var mn=monNay();
+try{document.title=mn.nhan;}catch(e){}
+var b=document.querySelector("#nav-home .tag");
+if(b)b.textContent=mn.tag;
+var t=document.querySelector("#nav-home span:not(.tag)");
+if(t)t.textContent=mn.nhan;
+var f=document.querySelector("footer .tacgia");
+if(f&&f.parentNode)f.parentNode.firstChild.nodeValue=mn.ten.replace("Tiếng ","")+" · Việt — ";
+var fb=document.querySelector("footer b:not(.tacgia)");
+if(fb)fb.textContent=mn.nhan;
+var ns=document.getElementById("nav-song");
+if(ns)ns.hidden=!mn.hat;
 }
 function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)return MODULES[i];return null;}
 const LS_KEY="rus-az-v1";
@@ -1761,9 +2502,10 @@ return am>=.7&&mastery(modById("num").items)>=.5;
 }
 function lockWhy(m){
 var am=Math.round(mastery(modById("alpha").items)*100);
-if(m.id==="num")return "Mở khi Bảng chữ cái đạt 35% — hiện "+am+"%";
+var tc=monNay().tenChu;
+if(m.id==="num")return "Mở khi "+tc+" đạt 35% — hiện "+am+"%";
 var nm=Math.round(mastery(modById("num").items)*100);
-return "Mở khi Bảng chữ cái ≥70% ("+am+"%) và Số đếm ≥50% ("+nm+"%)";
+return "Mở khi "+tc+" ≥70% ("+am+"%) và Số đếm ≥50% ("+nm+"%)";
 }
 function norm(s){
 return String(s||"").replace(/́/g,"").toLowerCase().replace(/ё/g,"е")
@@ -1902,6 +2644,8 @@ app.insertBefore(n,app.firstChild);
 setTimeout(function(){if(n.parentNode)n.remove();},9000);
 }
 function hasRu(){return !!ruV;}
+function hoiAnh(){return prog.settings.anh!==false&&monNay().coAnh!==false;}
+function coNham(){var mn=monNay();return !!(mn.nham||(mn.ma==="ru"&&CHU_GIONG_LATIN.length));}
 var view={n:"home"};
 var app=document.getElementById("app");
 var dangLui=false;
@@ -1975,7 +2719,7 @@ document.onkeydown=null;
 if(view.n==="home"){renderHome();sauKhiVe();return;}
 if(view.n==="mod"){renderMod();sauKhiVe();return;}
 if(view.n==="study")return renderStudy();
-if(view.n==="song"){renderSong();sauKhiVe();return;}
+if(view.n==="song"){if(!monNay().hat){go({n:"home"});return;}renderSong();sauKhiVe();return;}
 if(view.n==="nhanh"){renderNhanh();sauKhiVe();return;}
 if(view.n==="doc"){renderDoc();sauKhiVe();return;}
 if(view.n==="tiendo"){renderTienDo();sauKhiVe();return;}
@@ -2179,18 +2923,24 @@ document.body.classList.add("cover-on");
 var alpha=modById("alpha");
 var hoc=ALL_ITEMS.filter(function(x){return rec(x.id);}).length;
 var thuoc=alpha.items.filter(function(x){var p=rec(x.id);return p&&p.b>=3;}).length;
+var mnBia=monNay(),soChu=alpha.items.length;
+var numMod=modById("num"),soSo=numMod?numMod.items.length:0;
+var soChuDe=MODULES.filter(function(m){return m.kind==="V"&&m.id!=="num";}).length;
+var soTu=ALL_ITEMS.filter(function(x){return x.t==="V";}).length;
 var box=el('<section class="cover cov3">'+
 '<div class="cv-col cv-left">'+
-'<div><div class="eyebrow cyr">Русский язык</div>'+
-'<h1>Tiếng Nga từ A đến Я</h1></div>'+
-'<p class="lead" style="margin:0">Học từ mặt chữ trở đi — bảng chữ cái, cách đọc cho người Việt, '+
-'chữ viết tay, rồi mới tới từ và câu.</p>'+
+'<div><div class="eyebrow cyr">'+esc(mnBia.ban3)+'</div>'+
+'<h1>'+esc(mnBia.nhan)+'</h1></div>'+
+'<p class="lead" style="margin:0">'+(mnBia.ma==="ru"
+? 'Học từ mặt chữ trở đi — bảng chữ cái, cách đọc cho người Việt, chữ viết tay, rồi mới tới từ và câu.'
+: 'Học từ cái khó nhất trở đi — '+esc(mnBia.tenChuT)+', mẹo đọc cho người Việt, rồi mới tới từ và câu.')+'</p>'+
 '<div class="prog">'+
-'<div class="lbl">Đã thuộc <b>'+thuoc+'/33</b> chữ cái · <b>472</b> từ vựng đang chờ</div>'+
+'<div class="lbl">Đã thuộc <b>'+thuoc+'/'+soChu+'</b> '+esc(mnBia.donVi)+' · <b>'+soTu+'</b> từ vựng đang chờ</div>'+
 '<div class="prog-bar"><i></i><span class="run">'+ic("maybay",19)+'</span></div>'+
 '</div>'+
-'<div class="cvnote">Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống. '+
-'Phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay đều tự soạn.</div>'+
+'<div class="cvnote">'+(mnBia.ma==="ru"
+? 'Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống. Phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay đều tự soạn.'
+: 'Nghĩa tiếng Việt và mẹo đọc cho người Việt ở từng mục đều tự soạn — không phải bản dịch máy. Đổi môn lúc nào cũng được, tiến độ mỗi thứ tiếng giữ riêng.')+'</div>'+
 '</div>'+
 '<div class="cv-col cv-mid">'+
 '<div class="canvas">'+
@@ -2217,7 +2967,7 @@ var box=el('<section class="cover cov3">'+
 '<button role="tab" data-tab="am" aria-selected="false">Phát âm</button>'+
 '<button role="tab" data-tab="ngucanh" aria-selected="false">Ngữ cảnh</button>'+
 '</div><div class="tabbody"></div>'+
-'<div class="cvnote"><b>33</b> chữ cái · <b>34</b> mục số đếm · <b>472</b> từ theo <b>29</b> chủ đề</div>'+
+'<div class="cvnote"><b>'+soChu+'</b> '+esc(mnBia.donVi)+' · <b>'+soSo+'</b> mục số đếm · <b>'+soTu+'</b> từ theo <b>'+soChuDe+'</b> chủ đề</div>'+
 '</div>'+
 '</section>');
 var svg=box.querySelector(".cv-sheet svg"), art=svg.querySelector(".art");
@@ -2395,6 +3145,7 @@ if(b&&b.scrollIntoView)b.scrollIntoView({block:"nearest",inline:"center"});
 },900);
 }
 function renderHome(){
+var mnHome=monNay();
 var due=dueItems(ALL_ITEMS);
 var learned=ALL_ITEMS.filter(function(it){var p=rec(it.id);return p&&p.b>=4;}).length;
 var seen=ALL_ITEMS.filter(function(it){return rec(it.id);}).length;
@@ -2403,9 +3154,9 @@ var h=el('<div></div>');
 var hero=el(
 '<section class="hero">'+
 '<div class="h-a">'+
-'<div class="eyebrow"><span class="cyr">Русский язык</span> · Nga — Anh — Việt</div>'+
-'<h1>Học từ bảng chữ cái trở đi</h1>'+
-'<div class="ru">Алфавит → Числа → Слова и фразы</div>'+
+'<div class="eyebrow"><span class="cyr">'+esc(mnHome.ban3)+'</span> · '+esc(mnHome.ten.replace("Tiếng ",""))+' — Việt</div>'+
+'<h1>Học từ '+esc(mnHome.tenChuT)+' trở đi</h1>'+
+'<div class="ru">'+esc(mnHome.loTrinh)+'</div>'+
 '</div>'+
 '<div class="h-b">'+
 '<div class="astrip"></div>'+
@@ -2446,8 +3197,8 @@ h.appendChild(c);
 }else if(seen>0){
 h.appendChild(el('<div class="set"><div class="l"><div class="n">Không có gì phải ôn</div><div class="d">Hôm nay bạn đã ôn hết. Học tiếp mục mới bên dưới.</div></div></div>'));
 }else{
-var first=el('<button class="cta"><div><div class="big">Bắt đầu từ bảng chữ cái</div>'+
-'<div class="sm2">33 chữ Кириллица — thuộc mặt chữ và cách đọc trước đã</div></div>'+
+var first=el('<button class="cta"><div><div class="big">'+esc(mnHome.ctaChu)+'</div>'+
+'<div class="sm2">'+esc(mnHome.moTaChu)+'</div></div>'+
 '<div class="cnt">→</div></button>');
 first.onclick=function(){go({n:"mod",mod:"alpha"});};
 h.appendChild(first);
@@ -2458,7 +3209,7 @@ var hbtn=el('<button class="btn sm">'+ic("nhac",18)+'<span>Nghe</span></button>'
 hbtn.onclick=function(){go({n:"song"});};
 hrow.querySelector(".act").appendChild(hbtn);
 var hangLuyen=el('<div class="hang-luyen"></div>');
-hangLuyen.appendChild(hrow);
+if(mnHome.hat)hangLuyen.appendChild(hrow);
 var yeu=mucYeu();
 if(yeu.length>=4){
 var yrow=el('<div class="set"><div class="l"><div class="n">Luyện chỗ hay sai</div>'+
@@ -2473,11 +3224,12 @@ var nrow=el('<div class="set" style="display:block"><div class="l"><div class="n
 '<div class="d">Có tính giờ, ép phản xạ thay vì ngồi nghĩ. Đúng sai đều tính vào tiến độ như bài thường.</div></div>'+
 '<div class="row" style="margin-top:12px"></div></div>');
 var nr=nrow.querySelector(".row");
-var nb1=el('<button class="btn sm">'+ic("nhip",18)+'<span>Chữ dễ nhầm</span></button>');
+var nb1=el('<button class="btn sm">'+ic("nhip",18)+'<span>'+esc(mnHome.nhanhChu)+'</span></button>');
 nb1.onclick=function(){go({n:"nhanh",kieu:"chu"});};
-var nb2=el('<button class="btn sm ghost">'+ic("tim",18)+'<span>Đọc nhanh</span></button>');
+var nb2=el('<button class="btn sm'+(coNham()?" ghost":"")+'">'+ic("tim",18)+'<span>Đọc nhanh</span></button>');
 nb2.onclick=function(){go({n:"nhanh",kieu:"doc"});};
-nr.appendChild(nb1);nr.appendChild(nb2);
+if(coNham())nr.appendChild(nb1);
+nr.appendChild(nb2);
 hangLuyen.appendChild(nrow);
 var ngheDuoc=coNhanDang();
 var drow=el('<div class="set'+(ngheDuoc?"":" khoa")+'"><div class="l"><div class="n">Tập đọc</div>'+
@@ -2494,10 +3246,10 @@ var daHocTu=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.vi&&rec(it.id);}
 var moGhep=kho.length>=4;
 var grow=el('<div class="set'+(moGhep?"":" khoa")+'"><div class="l"><div class="n">Ghép từ</div>'+
 '<div class="d">'+(!moGhep
-? 'Nối từ Nga với nghĩa tiếng Việt, năm cặp một lượt. '+esc(lockWhy(modById("num")))+'.'
+? 'Nối từ '+esc(mnHome.ban3)+' với nghĩa tiếng Việt, năm cặp một lượt. '+esc(lockWhy(modById("num")))+'.'
 : (daHocTu>=4
-? 'Nối từ Nga với nghĩa tiếng Việt, năm cặp một lượt. Nhìn cả cụm cùng lúc nên nhận ra từ nào là từ nào nhanh hơn hỏi lẻ từng câu.'
-: 'Nối từ Nga với nghĩa tiếng Việt, năm cặp một lượt — cách nhẹ nhất để gặp những từ đầu tiên.'))+
+? 'Nối từ với nghĩa tiếng Việt, năm cặp một lượt. Nhìn cả cụm cùng lúc nên nhận ra từ nào là từ nào nhanh hơn hỏi lẻ từng câu.'
+: 'Nối từ với nghĩa tiếng Việt, năm cặp một lượt — cách nhẹ nhất để gặp những từ đầu tiên.'))+
 '</div></div><div class="act"></div></div>');
 var gbtn=el('<button class="btn sm ghost"'+(moGhep?"":" disabled")+'>'+ic(moGhep?"noi":"khoa",18)+'<span>Ghép</span></button>');
 if(moGhep)gbtn.onclick=function(){
@@ -2577,8 +3329,8 @@ h.appendChild(body);
 });
 if(!hasRu()){
 var warn=el('<div class="set" style="margin-top:14px">'+
-'<div class="l"><div class="n">Chưa phát được tiếng Nga</div>'+
-'<div class="d">Máy chưa cài giọng đọc tiếng Nga. Mở Cài đặt để xem cách khắc phục cho đúng loại máy bạn đang dùng.</div></div>'+
+'<div class="l"><div class="n">Chưa phát được '+esc(tenmon())+'</div>'+
+'<div class="d">Máy chưa cài giọng đọc '+esc(tenmon())+'. Mở Cài đặt để xem cách khắc phục cho đúng loại máy bạn đang dùng.</div></div>'+
 '<button class="btn sm ghost">Xem</button></div>');
 warn.querySelector("button").onclick=function(){go({n:"set"});};
 h.appendChild(warn);
@@ -2990,7 +3742,7 @@ bg.onclick=function(){var ss=buildGhep(m.items);if(ss)startSession(ss);};
 act.appendChild(bg);
 }
 if(sc>3){var b3=el('<button class="btn ghost">'+ic("but",18)+'<span>Luyện gõ</span></button>');b3.onclick=function(){startSession(buildTyping(m));};act.appendChild(b3);}
-if(m.kind==="L"&&sc>3){var b4=el('<button class="btn ghost">'+ic("sach",18)+'<span>Đọc chữ viết tay</span></button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
+if(m.kind==="L"&&sc>3&&monNay().viettay){var b4=el('<button class="btn ghost">'+ic("sach",18)+'<span>Đọc chữ viết tay</span></button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
 if(m.kind==="V"&&sc>3&&m.items.filter(function(it){return rec(it.id)&&stressInfo(it);}).length>3){
 var b5=el('<button class="btn ghost">'+ic("nhip",18)+'<span>Trọng âm</span></button>');
 b5.onclick=function(){startSession(buildStress(m));};act.appendChild(b5);
@@ -3001,8 +3753,10 @@ b6.onclick=function(){startSession(buildDictation(m));};act.appendChild(b6);
 }
 app.appendChild(act);
 if(m.kind==="L"){
-var names=[["table","Bảng tra"],["hand","Chữ viết tay"],["groups","Nhóm dễ nhầm"]];
-app.appendChild(el('<div class="eyebrow" style="margin-bottom:8px">Xem bảng chữ theo</div>'));
+var names=monNay().viettay
+? [["table","Bảng tra"],["hand","Chữ viết tay"],["groups","Nhóm dễ nhầm"]]
+: [["table","Bảng tra"],["groups","Nhóm dễ nhầm"]];
+app.appendChild(el('<div class="eyebrow" style="margin-bottom:8px">Xem '+esc(monNay().tenChuT)+' theo</div>'));
 var tabs=el('<div class="tabs"></div>');
 names.forEach(function(t){
 var b=el('<button aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>');
@@ -3038,8 +3792,7 @@ lst.appendChild(r);
 });
 app.appendChild(lst);
 }
-function renderGroups(m){
-var G=[
+const NHOM_NGA=[
 ["Đọc gần giống chữ Latin","А К М О Т — nhìn sao đọc vậy, an toàn."],
 ["BẪY nguy hiểm nhất","В = v · Н = n · Р = r (rung) · С = s · У = u · Х = kh — nhìn quen mắt nhưng đọc khác hẳn."],
 ["Bốn âm xì xoà","Ж = “gi” nặng · Ш = “s” cong lưỡi · Щ = “s” mềm kéo dài · Ч = “ch”."],
@@ -3047,6 +3800,8 @@ var G=[
 ["Hai dấu không đọc","Ъ tách âm · Ь làm mềm phụ âm trước nó."],
 ["Âm khó nhất với người Việt","Ы (gần “ư”) · Р (phải rung lưỡi) · З (âm “z” thật, đừng đọc thành “d”)."]
 ];
+function renderGroups(m){
+var G=monNay().nhom||NHOM_NGA;
 var w=el('<div></div>');
 G.forEach(function(g){
 w.appendChild(el('<div class="tipbox" style="margin-top:9px"><b>'+esc(g[0])+'</b>'+esc(g[1])+'</div>'));
@@ -3079,7 +3834,7 @@ return {k:"mc",it:it,ask:"Nghĩa tiếng Việt là gì?",big:it.ru,cyr:true,sub
 }
 if(mode==="vi2ru"){
 var o2=shuffle([it].concat(others)).map(function(x){return {txt:x.ru,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Tiếng Nga nói thế nào?",big:it.vi,cyr:false,sub:it.en,opts:o2,optCyr:true,audio:null};
+return {k:"mc",it:it,ask:TenMon()+" nói thế nào?",big:it.vi,cyr:false,sub:it.en,opts:o2,optCyr:true,audio:null};
 }
 if(mode==="ru2en"){
 var ke=pick(pool.filter(function(x){return x.id!==it.id&&x.en!==it.en;}),3);
@@ -3089,7 +3844,7 @@ return {k:"mc",it:it,ask:"Tiếng Anh là gì?",big:it.ru,cyr:true,sub:prog.sett
 if(mode==="en2ru"){
 var kr=pick(pool.filter(function(x){return x.id!==it.id&&x.ru!==it.ru;}),3);
 var or2=shuffle([it].concat(kr)).map(function(x){return {txt:x.ru,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Từ tiếng Anh này, tiếng Nga nói thế nào?",big:it.en,cyr:false,sub:it.vi,opts:or2,optCyr:true,audio:null};
+return {k:"mc",it:it,ask:"Từ tiếng Anh này, "+tenmon()+" nói thế nào?",big:it.en,cyr:false,sub:it.vi,opts:or2,optCyr:true,audio:null};
 }
 if(mode==="en2vi"){
 var kv=pick(pool.filter(function(x){return x.id!==it.id&&x.vi!==it.vi;}),3);
@@ -3135,11 +3890,12 @@ return {k:"mc",it:it,ask:"Trọng âm rơi vào đâu?",big:si.plain,cyr:true,su
 opts:opts,optCls:"stress",audio:it.ru};
 }
 function dictStep(it){
-return {k:"type",it:it,ask:"Nghe rồi gõ lại bằng tiếng Nga",big:"",sub:"",dict:true,
+return {k:"type",it:it,ask:"Nghe rồi gõ lại bằng "+tenmon(),big:"",sub:"",dict:true,
 answer:it.ru,show:it.ru};
 }
 function typeStep(it){
-if(it.t==="L")return {k:"type",it:it,ask:"Gõ chữ cái (thường)",big:it.snd==="—"?it.nmv:it.snd,sub:it.nm,answer:it.lo,show:it.up+" "+it.lo};
+if(it.t==="L")return {k:"type",it:it,ask:monNay().viettay?"Gõ chữ cái (thường)":("Gõ từ ví dụ của âm "+it.up),
+big:it.snd==="—"?it.nmv:it.snd,sub:monNay().viettay?it.nm:it.up,answer:it.lo,show:it.up+" "+it.lo};
 return {k:"type",it:it,ask:"Gõ bằng tiếng Nga",big:it.vi,sub:it.en,answer:it.ru,show:it.ru};
 }
 function buildLearn(m,nw){
@@ -3150,7 +3906,7 @@ batch.forEach(function(it){
 if(it.t==="L"){quiz.push(mcLetter(it,"snd",pool));quiz.push(mcLetter(it,"pick",pool));if(hasRu())quiz.push(mcLetter(it,"listen",pool));}
 else{
 quiz.push(mcVocab(it,"ru2vi",pool));quiz.push(mcVocab(it,"vi2ru",pool));
-if(prog.settings.anh)quiz.push(mcVocab(it,Math.random()<.5?"ru2en":"en2ru",pool));
+if(hoiAnh())quiz.push(mcVocab(it,Math.random()<.5?"ru2en":"en2ru",pool));
 }
 });
 return {title:m.name,steps:steps.concat(shuffle(quiz))};
@@ -3190,14 +3946,14 @@ if(gh)steps.push(gh);
 shuffle(items).slice(0,soCauOn()).forEach(function(it){
 var pool=modById(it.mod).items;
 var r=Math.random();
-if(it.t==="L")steps.push(r<.33?mcLetter(it,"snd",pool):(r<.58?mcLetter(it,"pick",pool):(r<.78?mcLetter(it,"hand",pool):(hasRu()?mcLetter(it,"listen",pool):typeStep(it)))));
+if(it.t==="L")steps.push(r<.33?mcLetter(it,"snd",pool):(r<.58?mcLetter(it,"pick",pool):((r<.78&&monNay().viettay)?mcLetter(it,"hand",pool):(hasRu()?mcLetter(it,"listen",pool):typeStep(it)))));
 else{
 var ss=(r>=.62&&r<.78)?stressStep(it):null;
 if(ss)steps.push(ss);
 else if(r>=.78&&r<.9&&hasRu())steps.push(dictStep(it));
 else{
 var ds=["ru2vi","vi2ru"];
-if(prog.settings.anh)ds.push("ru2en","en2ru","en2vi");
+if(hoiAnh())ds.push("ru2en","en2ru","en2vi");
 if(hasRu())ds.push("listen");
 var ch=ds[Math.floor(Math.random()*ds.length)];
 steps.push(mcVocab(it,ch,pool));
@@ -3283,11 +4039,11 @@ function next(){ if(S.i>=S.steps.length-1){S.done=true;} else {S.i++;} render();
 function cardFor(it){
 if(it.t==="L"){
 return el('<div class="card anim">'+
-'<div class="lbl">Chữ cái · '+esc(it.nm)+'</div>'+
+'<div class="lbl">'+esc(monNay().nhanChu)+' · '+esc(it.nm)+'</div>'+
 '<div class="glyph">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
-'<div class="tr">đọc tên: “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm: “'+esc(it.snd)+'”':'')+'</div>'+
+'<div class="tr">'+(monNay().viettay?"đọc tên":"đọc là")+': “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm: “'+esc(it.snd)+'”':'')+'</div>'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
 '<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
 '<div style="min-width:0"><div class="ex">'+esc(it.ex)+'</div>'+
@@ -3629,7 +4385,7 @@ return el('<div class="card the">'+
 '<div class="glyph">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
-'<div class="tr">tên chữ: “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
+'<div class="tr">'+esc(monNay().nhanTen)+': “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
 '<div class="the-an">'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
 '<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
@@ -4165,11 +4921,12 @@ return r;
 const CHU_GIONG_LATIN=["\u0430","\u0432","\u0435","\u043a","\u043c","\u043d","\u043e","\u0440","\u0441","\u0442","\u0443","\u0445"];
 const NHANH_SO=20;
 function nhanhCaiDat(kieu){
+var mn=monNay();
 return kieu==="doc"
 ? {ten:"Đọc nhanh",han:5000,hoi:"Từ này nghĩa là gì?",
 mo:"Từng từ một, mỗi từ 5 giây. Đừng ghép từng chữ — nhìn cả từ rồi chọn."}
-: {ten:"Chữ dễ nhầm",han:4500,hoi:"Chữ này đọc là âm gì?",
-mo:"12 chữ trông y như chữ Latin, một nửa đọc khác hẳn. Mỗi chữ 4,5 giây."};
+: {ten:mn.nhanhChu,han:4500,hoi:mn.viettay?"Chữ này đọc là âm gì?":"Âm này đọc thế nào?",
+mo:mn.nhanhMo};
 }
 function nhanhCauHoi(kieu){
 var ds=[];
@@ -4183,16 +4940,22 @@ opt:shuffle([it.vi].concat(sai.map(function(x){return x.vi;})))});
 });
 return ds;
 }
+var mn=monNay();
+var danh=mn.nham||(mn.ma==="ru"?CHU_GIONG_LATIN:null);
+if(!danh)return ds;
 var LS=modById("alpha").items;
-var bay=LS.filter(function(it){return CHU_GIONG_LATIN.indexOf(it.lo)>=0;});
-var am=LS.map(function(it){return it.snd;}).filter(function(x){return x&&x!=="\u2014";});
+var khoa=mn.viettay?"lo":"up";
+function docRa(it){return (it.snd&&it.snd!=="\u2014")?it.snd:it.nmv;}
+var bay=LS.filter(function(it){return danh.indexOf(it[khoa])>=0;});
+var am=LS.map(docRa).filter(Boolean);
 var i=0;
 while(ds.length<NHANH_SO&&bay.length){
 var it=bay[i%bay.length];i++;
 if(i>NHANH_SO*3)break;
-var sai=shuffle(am.filter(function(x){return x!==it.snd;})).slice(0,3);
-ds.push({it:it,to:it.up+" "+it.lo,cyr:true,dap:it.snd,
-opt:shuffle([it.snd].concat(sai))});
+var d=docRa(it);
+var sai=shuffle(am.filter(function(x){return x!==d;})).slice(0,3);
+ds.push({it:it,to:it.up+" "+it.lo,cyr:!!mn.viettay,dap:d,
+opt:shuffle([d].concat(sai))});
 }
 return shuffle(ds);
 }
@@ -4710,10 +5473,11 @@ prog.settings[key]=!prog.settings[key];touch();render();
 };
 app.appendChild(row);
 }
-toggle("Hiện phiên âm Latin","Dòng “máma”, “spasíbo” dưới chữ Nga.","translit");
-toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
-toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều Nga → Anh và Anh → Nga, học một công đôi việc.","anh");
-toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng chữ cái. Không khuyến khích.","unlockAll");
+if(mNay.ma==="ru")toggle("Hiện phiên âm Latin","Dòng “máma”, “spasíbo” dưới chữ Nga.","translit");
+else toggle("Hiện "+mNay.phienAm,"Dòng phiên âm nhỏ dưới mỗi từ.","translit");
+if(mNay.goLatin)toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
+if(mNay.coAnh!==false)toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều "+tenmon()+" → Anh và Anh → "+tenmon()+", học một công đôi việc.","anh");
+toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc "+mNay.tenChuT+". Không khuyến khích.","unlockAll");
 var hu=el('<div class="set"><div class="l"><div class="n">Hiệu ứng nền</div>'+
 '<div class="d">Nền chuyển màu và lớp làm mờ sau các thẻ nhìn đẹp nhưng tốn sức máy. Cửa sổ app cài về máy có lúc không được tăng tốc phần cứng như tab trình duyệt, nên ở đó app mặc định chạy chế độ nhẹ: nền đứng yên, không làm mờ. Hiện đang: <b>'+(nenNhe()?"nhẹ":"đầy đủ")+'</b>.</div></div></div>');
 var hur=el('<div class="row" style="flex:none"></div>');
@@ -5053,6 +5817,7 @@ n.innerHTML='<span><b>'+chu+'</b> chữ cái Кириллица</span>'+
 })();
 prog=normProg(loadLocal()||prog);
 dongBoMon();
+datNhanMon();
 nhanGoiTienDo();
 if(donNha()){}else{
 render();
@@ -5069,7 +5834,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=100"></script>
+<script type="module" src="firebase-sync.js?v=101"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
