@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=116"></script>
+<script src="firebase-config.js?v=117"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1623,6 +1623,34 @@ const CAP_RU=[
 {ten:"Thạo",ban:"Свободно",can:400,hh:"С",mau:"#A855C9"},
 {ten:"Hết kho từ",ban:"Мастер",can:520,hh:"М",mau:"#7355E4"}
 ];
+const ABC_ANH=[
+["A","a","ay","ây","—","Tên chữ là /eɪ/ — “ây”, không phải “a”.","apple","/ˈæpl/","apple","quả táo"],
+["B","b","bee","bi","—","/biː/ — kéo dài “i”. Đừng lẫn với chữ P khi nghe qua điện thoại.","book","/bʊk/","book","quyển sách"],
+["C","c","see","xi","—","/siː/ — đọc như “see”. Người Việt hay đọc thành “xê”.","cat","/kæt/","cat","con mèo"],
+["D","d","dee","đi","—","/diː/ — giống hệt từ “dee”. Dễ lẫn với B và T khi nghe.","dog","/dɒɡ/","dog","con chó"],
+["E","e","ee","i","—","/iː/ — đọc là “i” chứ không phải “ê”. Đây là bẫy quen thuộc nhất.","egg","/eɡ/","egg","quả trứng"],
+["F","f","ef","ép","—","/ef/ — bắt đầu bằng “e”, kết thúc bằng âm /f/ răng chạm môi.","fish","/fɪʃ/","fish","con cá"],
+["G","g","gee","gi","—","BẪY: G đọc /dʒiː/ (“gi”), còn J mới đọc /dʒeɪ/ (“giây”). Người Việt hay đọc ngược hai chữ này.","girl","/ɡɜːl/","girl","cô gái"],
+["H","h","aitch","êch","—","/eɪtʃ/ — “êch”, KHÔNG phải “hắt”. Tên chữ không chứa âm /h/ nào cả.","hat","/hæt/","hat","cái mũ"],
+["I","i","eye","ai","—","/aɪ/ — đọc đúng như từ “eye” (con mắt), không phải “i”.","ice","/aɪs/","ice","nước đá"],
+["J","j","jay","giây","—","/dʒeɪ/. Nhớ cặp: G là “gi”, J là “giây”.","jump","/dʒʌmp/","to jump","nhảy"],
+["K","k","kay","kây","—","/keɪ/ — “kây”, vần giống A.","key","/kiː/","key","chìa khoá"],
+["L","l","el","eo","—","/el/ — đuôi /l/ phải cong lưỡi chạm lợi, đừng bỏ lửng.","love","/lʌv/","love","tình yêu"],
+["M","m","em","em","—","/em/ — ngậm môi lại ở cuối.","man","/mæn/","man","người đàn ông"],
+["N","n","en","en","—","/en/ — đầu lưỡi chạm lợi. Khác M ở chỗ môi không ngậm.","name","/neɪm/","name","tên"],
+["O","o","oh","ô","—","/əʊ/ — bắt đầu bằng “ơ” rồi mới tròn môi, không phải “ô” thẳng.","open","/ˈəʊpən/","to open","mở"],
+["P","p","pee","pi","—","/piː/ — phải BẬT HƠI, không thì nghe thành B.","pen","/pen/","pen","cái bút"],
+["Q","q","cue","kiu","—","/kjuː/ — có âm /j/ ở giữa, “ki-u” liền một hơi.","queen","/kwiːn/","queen","nữ hoàng"],
+["R","r","ar","a","—","Giọng Anh-Anh đọc /ɑː/ như “a”; giọng Mỹ cong lưỡi thành /ɑːr/.","red","/red/","red","màu đỏ"],
+["S","s","ess","ét","—","/es/ — đuôi là âm /s/ xì ra, đừng nuốt.","sun","/sʌn/","sun","mặt trời"],
+["T","t","tee","ti","—","/tiː/ — bật hơi ở đầu. Dễ lẫn với D khi nghe qua điện thoại.","time","/taɪm/","time","thời gian"],
+["U","u","you","iu","—","/juː/ — đọc đúng như từ “you”.","up","/ʌp/","up","lên"],
+["V","v","vee","vi","—","/viː/ — răng trên chạm môi dưới. Khác hẳn B.","very","/ˈveri/","very","rất"],
+["W","w","double-u","đắp-bờ-iu","—","/ˈdʌbljuː/ — BA âm tiết, nghĩa đen là “u đôi”. Không gọi là “vê kép”.","water","/ˈwɔːtə/","water","nước"],
+["X","x","ex","éch","—","/eks/ — có cả /k/ và /s/ ở cuối.","box","/bɒks/","box","cái hộp"],
+["Y","y","wye","oai","—","/waɪ/ — đọc đúng như từ “why”. Không phải “i cờ-rét”.","yes","/jes/","yes","vâng"],
+["Z","z","zed","dét","—","Anh-Anh đọc /zed/, Mỹ đọc /ziː/ (“zi”). Cả hai đều đúng, tuỳ giọng bạn theo.","zoo","/zuː/","zoo","sở thú"]
+];
 const AM_ANH=[
 ["iː","sheep","sheep","i dài","—","Kéo dài và căng môi sang hai bên. Đây là âm người Việt hay đọc ngắn lại thành “ship”.","tree","/triː/","tree","cái cây"],
 ["ɪ","ship","ship","i ngắn","—","Ngắn và lỏng, lưỡi thấp hơn /iː/ một chút — nghe hơi lai giữa “i” và “ê”.","fish","/fɪʃ/","fish","con cá"],
@@ -2315,6 +2343,9 @@ var ms=[];
 ms.push({id:"alpha",kind:"L",name:"Bảng âm IPA",ru:"Sounds",items:AM_ANH.map(function(a,i){
 return {id:"alpha:"+i,t:"L",up:a[0],lo:a[1],nm:a[2],nmv:a[3],snd:a[4],tip:a[5],ex:a[6],extr:a[7],exen:a[8],exvi:a[9]};
 })});
+ms.push({id:"abc",kind:"L",name:"Bảng chữ cái A–Z",ru:"The alphabet",items:ABC_ANH.map(function(a,i){
+return {id:"abc:"+i,t:"L",up:a[0],lo:a[1],nm:a[2],nmv:a[3],snd:a[4],tip:a[5],ex:a[6],extr:a[7],exen:a[8],exvi:a[9]};
+})});
 ms.push({id:"num",kind:"V",name:"Số đếm",ru:"Numbers",items:SO_ANH.map(function(a,i){
 return {id:"num:"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 })});
@@ -2364,7 +2395,7 @@ const AM_TRUNG=[
 ["ao","好","好","ao","—","Như “ao” tiếng Việt.","小","xiǎo","small","nhỏ"],
 ["ou","走","走","âu","—","Gần “âu” tiếng Việt, bắt đầu bằng “ô” rồi chúm lại.","有","yǒu","to have","có"],
 ["an","看","看","an","—","Như “an” tiếng Việt, đầu lưỡi chạm lợi khi đóng.","饭","fàn","rice, meal","cơm"],
-["en","很","很","ân","—","Gần “ân” tiếng Việt, không phải “en”.","们","men","(số nhiều)","(hậu tố số nhiều)"],
+["en","很","很","ân","—","Gần “ân” tiếng Việt, không phải “en”.","门","mén","door","cái cửa"],
 ["ang","忙","忙","ang","—","Như “ang” tiếng Việt, đóng bằng âm mũi sau.","上","shàng","up, on","trên"],
 ["eng","冷","冷","âng","—","Gần “âng” tiếng Việt. Khác “ang” ở nguyên âm, khác “en” ở chỗ đóng.","朋友","péngyǒu","friend","bạn bè"],
 ["ong","中","中","ung","—","Gần “ung” tiếng Việt hơn là “ong”.","工作","gōngzuò","work","công việc"],
@@ -2417,7 +2448,7 @@ const CHUDE_TRUNG=[
 ["再见","zàijiàn","goodbye","tạm biệt"],
 ["拜拜","bàibai","bye","bai (thân mật)"],
 ["谢谢","xièxie","thank you","cảm ơn"],
-["不客气","bù kèqi","you're welcome","không có gì"],
+["不客气","bú kèqi","you're welcome","không có gì"],
 ["请","qǐng","please","xin mời"],
 ["对不起","duìbuqǐ","sorry","xin lỗi"],
 ["没关系","méi guānxi","it's okay","không sao"],
@@ -3090,7 +3121,7 @@ const DOITHUONG_ZH=[
 ["慢走","mànzǒu","take care","đi thong thả nhé","“đi chậm”","Chủ nhà hay chủ quán tiễn khách. Không có nghĩa bảo người ta đi chậm thật."],
 ["哪里哪里","nǎli nǎli","you flatter me","đâu có đâu có","“ở đâu ở đâu”","Khiêm tốn khi được khen. Lặp hai lần mới đúng điệu."],
 ["没想到","méi xiǎngdào","I didn't expect that","không ngờ","“không nghĩ tới”","Bất ngờ trước điều vừa xảy ra."],
-["不至于吧","bù zhìyú ba","that's a bit much","làm gì đến mức đó","“không đến nỗi chứ”","Cho rằng người kia đang làm quá. Chữ 吧 cuối làm câu mềm đi."],
+["不至于吧","bú zhìyú ba","that's a bit much","làm gì đến mức đó","“không đến nỗi chứ”","Cho rằng người kia đang làm quá. Chữ 吧 cuối làm câu mềm đi."],
 ["多大点事","duō dà diǎn shì","it's no big deal","có gì to tát đâu","“to bao nhiêu chút việc”","An ủi ai đó đang lo chuyện nhỏ. Giọng Bắc Kinh."],
 ["你说呢","nǐ shuō ne","what do you think?","bạn thấy sao?","“bạn nói thì sao”","Hỏi ngược lại ý người kia. Tuỳ giọng mà thành mỉa: “còn phải hỏi”."],
 ["好吧","hǎo ba","fine then","thôi được","“tốt chứ”","Đồng ý miễn cưỡng. Chữ 吧 làm nó thành nhượng bộ chứ không phải tán thành."],
@@ -3439,7 +3470,7 @@ function dueItems(items){var now=Date.now();return items.filter(function(it){var
 function newItems(items){return items.filter(function(it){return !rec(it.id);});}
 function unlocked(m){
 if(prog.settings.unlockAll)return true;
-if(m.id==="alpha")return true;
+if(m.id==="alpha"||m.id==="abc")return true;
 var am=mastery(modById("alpha").items);
 if(m.id==="num")return am>=.35;
 return am>=.7&&mastery(modById("num").items)>=.5;
@@ -3955,12 +3986,13 @@ function fill(node){requestAnimationFrame(function(){requestAnimationFrame(funct
 Array.prototype.forEach.call(node.querySelectorAll("[data-p]"),function(x){x.style.setProperty("--p",x.getAttribute("data-p"));});
 });});}
 const CHAPTERS=[
-{id:"c1",name:"Bước đầu giao tiếp",ru:"Первые шаги",ids:["greet","self","pron","fam","time"]},
-{id:"c2",name:"Ăn, mua, đi lại",ru:"Каждый день",ids:["food","rest","shop","move","home","cloth","city"]},
-{id:"c3",name:"Mô tả & hành động",ru:"Слова и действия",ids:["adj","verb","color","prep","survive"]},
-{id:"c4",name:"Đời sống thường ngày",ru:"Жизнь",ids:["body","weather","animal","hobby","sport","trip","phone"]},
-{id:"c5",name:"Việc làm & xã hội",ru:"Работа и общество",ids:["work","study","opinion","social","society"]}
+{id:"c1",name:"Bước đầu giao tiếp",ru:"Первые шаги",en:"First steps",zh:"初次见面",ids:["greet","self","pron","fam","time"]},
+{id:"c2",name:"Ăn, mua, đi lại",ru:"Каждый день",en:"Everyday",zh:"日常生活",ids:["food","rest","shop","move","home","cloth","city"]},
+{id:"c3",name:"Mô tả & hành động",ru:"Слова и действия",en:"Describing",zh:"描述与动作",ids:["adj","verb","color","prep","survive"]},
+{id:"c4",name:"Đời sống thường ngày",ru:"Жизнь",en:"Life",zh:"生活",ids:["body","weather","animal","hobby","sport","trip","phone"]},
+{id:"c5",name:"Việc làm & xã hội",ru:"Работа и общество",en:"Work",zh:"工作与社会",ids:["work","study","opinion","social","society"]}
 ];
+function tenChuong(ch){ return ch[monNay().ma]||ch.ru; }
 var openChap;
 try{openChap=localStorage.getItem(LS_KEY+":chap")||null;}catch(e){openChap=null;}
 const ICON={
@@ -4577,7 +4609,7 @@ return b;
 }
 h.appendChild(el('<div class="eyebrow" style="margin:2px 0 8px">Nền tảng</div>'));
 var nen=el('<div class="col2"></div>');
-["alpha","num"].forEach(function(id){var m=modById(id);if(m)nen.appendChild(modRow(m));});
+["alpha","abc","num"].forEach(function(id){var m=modById(id);if(m)nen.appendChild(modRow(m));});
 h.appendChild(nen);
 h.appendChild(el('<div class="eyebrow" style="margin:20px 0 8px">Từ vựng theo chủ đề</div>'));
 if(openChap===null){
@@ -4598,7 +4630,7 @@ var pc=items?Math.round(tot/items*100):0;
 var allDone=done===mods.length;
 var openNow=openChap===ch.id;
 var btn=el('<button class="chap'+(allDone?" alldone":"")+'" aria-expanded="'+openNow+'">'+
-'<span class="ci">'+(allDone?"✓":esc(ch.ru.charAt(0)))+'</span>'+
+'<span class="ci">'+(allDone?"✓":esc(tenChuong(ch).charAt(0)))+'</span>'+
 '<span class="cb"><span class="t">'+esc(ch.name)+'</span>'+
 '<span class="s" style="display:block">'+mods.length+' chủ đề · xong '+done+' · thuộc '+pc+'%</span>'+
 '<span class="pbar" style="display:block"><i style="width:'+pc+'%"></i></span></span>'+
@@ -7144,7 +7176,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=116"></script>
+<script type="module" src="firebase-sync.js?v=117"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
