@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-4NDIW+d3OIX8+yOK3nRk7hb+DvJaUq892FxmZD8bAIU=' 'sha256-yOAlZGa/CJhfnUl2JxGwwkuh7xUWMKCweKfHT+NxYt8=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-warMUF2Dk3XYoA7gk6FF9uCOV7Nn/wUmw/5dtQWjQSU=' 'sha256-yOAlZGa/CJhfnUl2JxGwwkuh7xUWMKCweKfHT+NxYt8=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -384,6 +384,7 @@ display:grid;place-items:center;font-size:38px;margin:4px auto 0;box-shadow:var(
 .bigspk.playing{animation:pulse 1s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:var(--sh)}50%{box-shadow:0 0 0 12px var(--accent-soft)}}
 .sv{color:var(--accent);font-weight:700}
+.sv.nhan{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
 .opt.stress{font-family:var(--f-cyr);font-size:25px;letter-spacing:.01em}
 .wsvg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto;touch-action:none}
 .wsvg .guide{stroke:var(--line);fill:none;stroke-width:.8;opacity:.75}
@@ -3350,17 +3351,30 @@ return {mods:ms,np:NGU_PHAP_RU,cap:CAP_RU};
 const MON=[
 {ma:"ru",ten:"Tiếng Nga",ban:"Русский",hh:"Р",bcp:"ru-RU",enTen:"Russian",
 mau:"#4A8BE8",chu:"Chữ Kirin, 33 ký tự",vd:"Здра́вствуйте",
-trongam:true,hat:true,viettay:true,conet:true,coAnh:true,goLatin:true,canLatin:true,
+trongam:"dau",trongamTen:"Trọng âm",trongamDong:"Trọng âm ở đây",
+tenViet:"Chữ viết tay",
+vietMo:"Người Nga viết tay gần như không dùng chữ in. Đọc thông chữ in rồi vẫn có thể bó tay trước một dòng ghi chép — vì mười chữ dưới đây đổi dạng hoàn toàn.",
+vietCuoi:"Mẫu nét và phần chấm điểm làm với CHỮ THƯỜNG — đó là chỗ chữ viết tay khác chữ in nhiều nhất.",
+hat:true,viettay:true,conet:true,coAnh:true,goLatin:true,canLatin:true,
 tenChu:"Bảng chữ cái",tenChuT:"bảng chữ cái",donVi:"chữ cái",nhanChu:"Chữ cái",nhanTen:"tên chữ",
 ctaChu:"Bắt đầu từ bảng chữ cái",moTaChu:"33 chữ Кириллица — thuộc mặt chữ và cách đọc trước đã",
 biaAm:"Trọng âm rơi vào âm tiết có dấu nhọn — đặt sai là người Nga nghe không ra.",
 nhanhChu:"Chữ dễ nhầm",nhanhMo:"12 chữ trông y như chữ Latin, một nửa đọc khác hẳn. Mỗi chữ 4,5 giây.",
 nham:null,tag:"Аа",nhan:"Tiếng Nga từ A đến Я",ban3:"Русский язык",
 loTrinh:"Алфавит → Числа → Слова и фразы",
+baiHat:{mod:"alpha",dong:[7,7,7,6,6],nhan:"Bài hát",hai:true,duoi:"nmv",
+ten:"Bài hát bảng chữ cái",
+mo:"33 chữ trên điệu “Twinkle twinkle”, nghe vài lượt là thuộc thứ tự.",
+dan:"33 chữ chia 5 dòng, trên điệu dân ca Pháp “Ah! vous dirai-je, maman” — đúng điệu “Twinkle twinkle” quen tai. Một bè hát ngân nguyên âm “a” đi theo giai điệu, chữ nào tới lượt thì sáng lên ở dưới để bạn hát tên chữ theo. Nhạc do chính app dựng ra, không lấy của ai.",
+cuoi:"Bấm một ô để mở trang chữ đó. Dòng cuối có Ъ và Ь — hai chữ không đọc thành tiếng, chỉ đổi cách đọc chữ đứng trước."},
 phienAm:"phiên âm Latin",nhom:null,nap:napMonNga},
 {ma:"en",ten:"Tiếng Anh",ban:"English",hh:"E",bcp:"en-US",enTen:"English",
 mau:"#3BA862",chu:"Chữ Latin, 44 âm IPA",vd:"Hello",
-trongam:false,hat:false,viettay:false,conet:true,coAnh:false,goLatin:false,canLatin:false,
+trongam:"nhan",trongamTen:"Trọng âm",trongamDong:"Nhấn vào âm tiết này",
+tenViet:"Tập viết",
+vietMo:"Mặt chữ Latin thì ai cũng biết, nhưng viết đúng nét lại là chuyện khác — b và d, p và q, u và v chỉ khác nhau ở nét nào đi trước. Mỗi chữ dưới đây có đường nét mẫu và chấm điểm thật.",
+vietCuoi:"Mẫu nét làm với chữ thường. Ở bảng âm IPA thì tập viết chính TỪ VÍ DỤ, vì không ai đi tập viết ký hiệu IPA.",
+hat:true,viettay:false,conet:true,coAnh:false,goLatin:false,canLatin:false,
 tenChu:"Bảng âm IPA",tenChuT:"bảng âm IPA",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
 ctaChu:"Bắt đầu từ bảng âm",moTaChu:"44 âm IPA — mặt chữ bạn biết rồi, cái khó là đọc đúng âm",
 biaAm:"Dòng trong hai gạch chéo là phiên âm IPA — đọc đúng âm quan trọng hơn đánh vần đúng chữ.",
@@ -3368,10 +3382,19 @@ nhanhChu:"Âm dễ nhầm",nhanhMo:"Những âm người Việt hay trộn vào 
 nham:["iː","ɪ","uː","ʊ","æ","e","ɑː","ʌ","ɜː","ə","θ","ð","s","z","ʃ","ʒ","tʃ","dʒ","r","l","v","ŋ"],
 tag:"æ",nhan:"Tiếng Anh từ âm đến câu",ban3:"English",
 loTrinh:"Sounds → Numbers → Words & phrases",
+baiHat:{mod:"abc",dong:[7,7,4,4,4],nhan:"Bài hát",hai:true,duoi:"nmv",
+ten:"Bài hát ABC",
+mo:"26 chữ trên điệu “Twinkle twinkle” — đúng bài trẻ con nói tiếng Anh nào cũng thuộc.",
+dan:"26 chữ chia 5 dòng. Bài ABC và “Twinkle twinkle” vốn là cùng một điệu dân ca Pháp “Ah! vous dirai-je, maman”, nên hát theo là ra đúng bài gốc. Một bè ngân nguyên âm đi theo giai điệu, chữ nào tới lượt thì sáng lên ở dưới. Nhạc do chính app dựng ra, không lấy của ai.",
+cuoi:"Bấm một ô để mở trang chữ đó. W đọc là “double-u” — tên dài nhất bảng, hát tới đó phải nhanh miệng."},
 phienAm:"phiên âm IPA",nhom:NHOM_ANH,nap:napMonAnh},
 {ma:"zh",ten:"Tiếng Trung",ban:"中文",hh:"中",bcp:"zh-CN",enTen:"Chinese",
 mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",
-trongam:false,hat:false,viettay:false,conet:true,coAnh:true,goLatin:false,goPinyin:true,
+trongam:"thanh",trongamTen:"Thanh điệu",trongamDong:"Thanh của chữ này",
+tenViet:"Tập viết chữ Hán",
+vietMo:"Chữ Hán có thứ tự nét cố định. Viết sai thứ tự thì chữ vẫn ra hình, nhưng nét không đều và tra từ điển theo nét thì chịu. Thứ tự nét dưới đây lấy từ bộ dữ liệu chữ Hán bản xứ, không phải tôi đoán.",
+vietCuoi:"Phần chấm điểm xem bạn có đi đúng đường nét, đúng chiều và đủ số nét không — sai thứ tự nét là tụt điểm ngay.",
+hat:true,viettay:false,conet:true,coAnh:true,goLatin:false,goPinyin:true,
 tenChu:"Bảng pinyin",tenChuT:"bảng pinyin",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
 ctaChu:"Bắt đầu từ pinyin",moTaChu:"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa hẳn",
 biaAm:"Dấu thanh trên pinyin quyết định nghĩa — sai thanh là ra một chữ khác hẳn.",
@@ -3379,6 +3402,11 @@ nhanhChu:"Âm dễ nhầm",nhanhMo:"Bốn thanh, cặp bật hơi và bộ cong 
 nham:["b","p","d","t","g","k","j","q","x","zh","ch","sh","r","z","c","s","ü","an","ang","en","eng","ong","mā","má","mǎ","mà"],
 tag:"中",nhan:"Tiếng Trung từ thanh đến câu",ban3:"中文",
 loTrinh:"拼音 → 数字 → 词语",
+baiHat:{mod:"alpha",dong:[5,4,4,3,3,4,3,6,4,6],nhan:"Bài đọc",hai:false,duoi:"lo",
+ten:"Bài đọc bảng pinyin",
+mo:"Bốn thanh, 21 phụ âm đầu và 16 vần — đọc theo nhịp đúng thứ tự học sinh Trung Quốc học.",
+dan:"Bốn thanh trước, rồi tới bảng phụ âm đầu chia đúng sáu nhóm b-p-m-f, d-t-n-l, g-k-h, j-q-x, zh-ch-sh-r, z-c-s — thứ tự này là thứ tự học sinh Trung Quốc đọc thuộc lòng. Ba dòng cuối là các vần. Nhạc do chính app dựng ra, không lấy của ai.",
+cuoi:"Bấm một ô để mở trang âm đó. Năm ô đầu là cùng một âm “ma” ở năm thanh khác nhau — nghe kỹ chỗ lên xuống."},
 phienAm:"pinyin",nhom:NHOM_TRUNG,nap:napMonTrung}
 ];
 function monTheoMa(ma){for(var i=0;i<MON.length;i++)if(MON[i].ma===ma)return MON[i];return null;}
@@ -3432,7 +3460,16 @@ if(f&&f.parentNode)f.parentNode.firstChild.nodeValue=dungTiengAnh()
 var fb=document.querySelector("footer b:not(.tacgia)");
 if(fb)fb.textContent=nhan;
 var ns=document.getElementById("nav-song");
-if(ns)ns.hidden=!mn.hat;
+if(ns){
+ns.hidden=!mn.hat;
+var bhN=mn.baiHat;
+if(bhN){
+ns.setAttribute("data-tip",bhN.ten);
+ns.setAttribute("aria-label",bhN.ten);
+var nb=ns.querySelector("b");
+if(nb)nb.textContent=bhN.nhan;
+}
+}
 var ftg=document.querySelector("footer .ft-brand .tag");
 if(ftg)ftg.textContent=mn.tag;
 var fn=document.querySelector("footer .ft-note");
@@ -4728,8 +4765,9 @@ var first=el('<button class="cta"><div><div class="big">'+esc(mnHome.ctaChu)+'</
 first.onclick=function(){go({n:"mod",mod:"alpha"});};
 h.appendChild(first);
 }
-var hrow=el('<div class="set"><div class="l"><div class="n">Bài hát bảng chữ cái</div>'+
-'<div class="d">33 chữ trên điệu “Twinkle twinkle”, nghe vài lượt là thuộc thứ tự.</div></div><div class="act"></div></div>');
+var bhHome=mnHome.baiHat||MON[0].baiHat;
+var hrow=el('<div class="set"><div class="l"><div class="n">'+esc(bhHome.ten)+'</div>'+
+'<div class="d">'+esc(bhHome.mo)+'</div></div><div class="act"></div></div>');
 var hbtn=el('<button class="btn sm">'+ic("nhac",18)+'<span>Nghe</span></button>');
 hbtn.onclick=function(){go({n:"song"});};
 hrow.querySelector(".act").appendChild(hbtn);
@@ -5136,6 +5174,18 @@ NET_TU[tu]={n:n,d:d,
 note:"Viết lần lượt từng chữ, trái sang phải: "+cc.join(" – ")+". Tất cả "+n+" nét."};
 return NET_TU[tu];
 }
+function laTenChu(it){
+var m=modById(it.mod);
+return !!(monNay().viettay||(m&&m.id==="abc"));
+}
+function tenDoc(it){
+var m=modById(it.mod);
+if(m&&m.id==="abc")return it.up;
+return it.nm||it.lo;
+}
+function nhanNghe(it){return laTenChu(it)?"Nghe tên chữ":("Nghe "+monNay().nhanTen);}
+function nhanChuCua(it){return laTenChu(it)?"Chữ cái":monNay().nhanChu;}
+function nhanTenCua(it){return laTenChu(it)?"tên chữ":monNay().nhanTen;}
 function netCua(k){
 if(!k)return null;
 var t=netChu()[k];
@@ -5377,8 +5427,9 @@ if(clickable){p.style.cursor="pointer";p.onclick=function(){go({n:"study",one:it
 return p;
 }
 function renderHand(m){
-app.appendChild(el('<div class="note" style="margin-top:0">Người Nga viết tay gần như không dùng chữ in. '+
-'Đọc thông chữ in rồi vẫn có thể bó tay trước một dòng ghi chép — vì mười chữ dưới đây đổi dạng hoàn toàn.</div>'));
+var mn=monNay();
+app.appendChild(el('<div class="note" style="margin-top:0">'+esc(mn.vietMo)+'</div>'));
+if(mn.viettay){
 app.appendChild(el('<div class="sec-head"><h2>Mười chữ đổi dạng nhiều nhất</h2><div class="ln"></div></div>'));
 var lst=el('<div class="lst" style="margin-top:0"></div>');
 HAND_TRAPS.forEach(function(t){
@@ -5392,6 +5443,7 @@ r.onclick=function(){go({n:"study",one:it.id,from:view});};
 lst.appendChild(r);
 });
 app.appendChild(lst);
+}
 app.appendChild(el('<div class="sec-head"><h2>Tập viết</h2><div class="ln"></div></div>'));
 var withPath=m.items.filter(function(x){return netCua(x.lo);});
 var list=withPath.concat(m.items.filter(function(x){return !netCua(x.lo);}));
@@ -5414,14 +5466,16 @@ ctr.children[2].onclick=function(){cur=(cur+1)%list.length;show();};
 app.appendChild(demoWrap);
 app.appendChild(padWrap);
 app.appendChild(ctr);
-app.appendChild(el('<div class="note">Mẫu nét và phần chấm điểm làm với CHỮ THƯỜNG — đó là chỗ chữ viết tay khác chữ in nhiều nhất. '+
-'Mười chữ khó nhất đã có đường nét mẫu nên app chấm được điểm; '+
-(33-withPath.length)+' chữ còn lại hiện mới chỉ có hình dáng chữ viết tay để bạn nhìn theo.</div>'));
+var thieu=m.items.length-withPath.length;
+app.appendChild(el('<div class="note">'+esc(mn.vietCuoi)+
+(thieu?(' Còn '+thieu+' mục chưa có đường nét mẫu — chỗ đó mới chỉ có chữ mờ để nhìn theo.'):'')+'</div>'));
 show();
+if(mn.viettay){
 app.appendChild(el('<div class="sec-head"><h2>Cả bảng chữ cái</h2><div class="ln"></div></div>'));
 var g=el('<div class="hgrid"></div>');
 m.items.forEach(function(it){g.appendChild(handPair(it,true));});
 app.appendChild(g);
+}
 }
 function renderMod(){
 var m=modById(view.mod);if(!m)return go({n:"home"});
@@ -5453,8 +5507,13 @@ act.appendChild(bg);
 }
 if(sc>3){var b3=el('<button class="btn ghost">'+ic("but",18)+'<span>Luyện gõ</span></button>');b3.onclick=function(){startSession(buildTyping(m));};act.appendChild(b3);}
 if(m.kind==="L"&&sc>3&&monNay().viettay){var b4=el('<button class="btn ghost">'+ic("sach",18)+'<span>Đọc chữ viết tay</span></button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
+if(m.kind==="L"&&monNay().conet&&!monNay().viettay){
+var b4b=el('<button class="btn ghost">'+ic("sach",18)+'<span>'+esc(monNay().tenViet)+'</span></button>');
+b4b.onclick=function(){go({n:"mod",mod:m.id,tab:"hand"});};
+act.appendChild(b4b);
+}
 if(m.kind==="V"&&sc>3&&m.items.filter(function(it){return rec(it.id)&&stressInfo(it);}).length>3){
-var b5=el('<button class="btn ghost">'+ic("nhip",18)+'<span>Trọng âm</span></button>');
+var b5=el('<button class="btn ghost">'+ic("nhip",18)+'<span>'+esc(monNay().trongamTen)+'</span></button>');
 b5.onclick=function(){startSession(buildStress(m));};act.appendChild(b5);
 }
 if(m.kind==="V"&&sc>3&&hasRu()){
@@ -5463,9 +5522,9 @@ b6.onclick=function(){startSession(buildDictation(m));};act.appendChild(b6);
 }
 app.appendChild(act);
 if(m.kind==="L"){
-var names=monNay().viettay
-? [["table","Bảng tra"],["hand","Chữ viết tay"],["groups","Nhóm dễ nhầm"]]
-: [["table","Bảng tra"],["groups","Nhóm dễ nhầm"]];
+var names=[["table","Bảng tra"]];
+if(monNay().conet)names.push(["hand",monNay().tenViet]);
+names.push(["groups","Nhóm dễ nhầm"]);
 app.appendChild(el('<div class="eyebrow" style="margin-bottom:8px">Xem '+esc(monNay().tenChuT)+' theo</div>'));
 var tabs=el('<div class="tabs"></div>');
 names.forEach(function(t){
@@ -5565,7 +5624,117 @@ var o3=shuffle([it].concat(others)).map(function(x){return {txt:NG(x),ok:x.id===
 return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:false,audio:it.ru,auto:true};
 }
 const VOWELS="аеёиоуыэюя";
+const THANH_DAT={a:"āáǎà",o:"ōóǒò",e:"ēéěè",i:"īíǐì",u:"ūúǔù","ü":"ǖǘǚǜ"};
+const THANH_TRA={};
+Object.keys(THANH_DAT).forEach(function(g){
+THANH_DAT[g].split("").forEach(function(c,i){THANH_TRA[c]=[g,i+1];});
+});
+const THANH_TEN=["thanh nhẹ","thanh 1","thanh 2","thanh 3","thanh 4"];
+const THANH_TA=["không dấu, đọc nhẹ và ngắn","cao và đều","đi lên","xuống rồi lên","đổ xuống"];
+function viTriDau(py){
+var i=py.indexOf("a");if(i>=0)return i;
+i=py.indexOf("o");if(i>=0)return i;
+i=py.indexOf("e");if(i>=0)return i;
+var cuoi=-1;
+for(var k=0;k<py.length;k++)if("iuü".indexOf(py.charAt(k))>=0)cuoi=k;
+return cuoi;
+}
+function datThanh(goc,vt,t){
+if(!t)return goc;
+var b=THANH_DAT[goc.charAt(vt)];
+if(!b)return goc;
+return goc.slice(0,vt)+b.charAt(t-1)+goc.slice(vt+1);
+}
+function thanhInfo(it){
+if(it.t!=="V")return null;
+var py=String(it.tr||"").trim().toLowerCase();
+if(!py||/\s/.test(py))return null;
+var goc="",th=0,vt=-1,i,c,d;
+for(i=0;i<py.length;i++){
+c=py.charAt(i);d=THANH_TRA[c];
+if(d){
+if(th)return null;
+goc+=d[0];th=d[1];vt=i;
+}else goc+=c;
+}
+if(!/^[a-zü]+$/.test(goc))return null;
+if(vt<0)vt=viTriDau(goc);
+if(vt<0||!THANH_DAT[goc.charAt(vt)])return null;
+return {kieu:"thanh",goc:goc,vt:vt,th:th};
+}
+function thanhStep(it){
+var si=thanhInfo(it);if(!si)return null;
+var ds=si.th?[1,2,3,4]:[0,1,2,3,4];
+var opts=ds.map(function(t){
+return {txt:THANH_TEN[t],
+html:'<b class="sv">'+esc(datThanh(si.goc,si.vt,t))+'</b> · '+esc(THANH_TEN[t]),
+ok:t===si.th};
+});
+return {k:"mc",it:it,ask:"Chữ này mang thanh nào?",big:it.ru,cyr:true,sub:NG(it),
+opts:opts,optCls:"stress",audio:it.ru};
+}
+const IPA_NGUYEN=["eɪ","aɪ","ɔɪ","aʊ","əʊ","ɪə","eə","ʊə",
+"iː","ɑː","ɔː","uː","ɜː",
+"ɪ","æ","ɒ","ʊ","ʌ","ə","ɔ","ɑ","ɜ","e","i","u"];
+function nhanInfo(it){
+if(it.t!=="V")return null;
+var raw=String(it.tr||"").replace(/^\/|\/$/g,"").trim();
+if(!raw||/\s/.test(raw))return null;
+var sach="",nuc=[],right=-1,dang=false,i=0,k,hit;
+while(i<raw.length){
+var c=raw.charAt(i);
+if(c==="ˈ"){dang=true;i++;continue;}
+if(c==="ˌ"){dang=false;i++;continue;}
+hit="";
+for(k=0;k<IPA_NGUYEN.length;k++){
+if(raw.substr(i,IPA_NGUYEN[k].length)===IPA_NGUYEN[k]){hit=IPA_NGUYEN[k];break;}
+}
+if(hit){
+if(dang&&right<0)right=nuc.length;
+nuc.push({v:hit,at:sach.length});
+sach+=hit;dang=false;i+=hit.length;continue;
+}
+sach+=c;i++;
+}
+if(nuc.length<2||right<0)return null;
+return {kieu:"nhan",ipa:sach,nuc:nuc,right:right,raw:raw};
+}
+function markNuc(si,k){
+var n=si.nuc[k];
+return esc(si.ipa.slice(0,n.at))+'<b class="sv nhan">'+esc(n.v)+'</b>'+esc(si.ipa.slice(n.at+n.v.length));
+}
+function nhanStep(it){
+var si=nhanInfo(it);if(!si)return null;
+var idxs=si.nuc.map(function(_,i){return i;});
+if(idxs.length>4){
+var wrong=shuffle(idxs.filter(function(i){return i!==si.right;})).slice(0,3);
+idxs=shuffle(wrong.concat([si.right]));
+}
+var opts=idxs.map(function(i){return {txt:si.ipa,html:markNuc(si,i),ok:i===si.right};});
+return {k:"mc",it:it,ask:"Âm tiết nào được nhấn?",big:it.ru,cyr:false,sub:NG(it),
+opts:opts,optCls:"stress",audio:it.ru};
+}
 function stressInfo(it){
+var k=monNay().trongam;
+if(k==="thanh")return thanhInfo(it);
+if(k==="nhan")return nhanInfo(it);
+if(k==="dau")return dauInfo(it);
+return null;
+}
+function stressStep(it){
+var k=monNay().trongam;
+if(k==="thanh")return thanhStep(it);
+if(k==="nhan")return nhanStep(it);
+if(k==="dau")return dauStep(it);
+return null;
+}
+function stressDap(si){
+if(si.kieu==="thanh")
+return esc(datThanh(si.goc,si.vt,si.th))+" ("+esc(THANH_TEN[si.th])+", "+esc(THANH_TA[si.th])+")";
+if(si.kieu==="nhan")return markNuc(si,si.right)+" · "+esc(si.raw||"");
+return markAt(si.plain,si.pos[si.right]);
+}
+function dauInfo(it){
 if(it.t!=="V")return null;
 var raw=it.ru, plain=plain0(raw);
 if(/\s/.test(plain.trim()))return null;
@@ -5580,14 +5749,14 @@ right=pos.indexOf(before);
 for(i=0;i<pos.length;i++)if(plain.charAt(pos[i]).toLowerCase()==="ё"){right=i;break;}
 }
 if(right<0)return null;
-return {plain:plain,pos:pos,right:right};
+return {kieu:"dau",plain:plain,pos:pos,right:right};
 }
 function plain0(s){return String(s||"").replace(/\u0301/g,"");}
 function markAt(plain,at){
 return esc(plain.slice(0,at))+'<b class="sv">'+esc(plain.charAt(at))+"\u0301</b>"+esc(plain.slice(at+1));
 }
-function stressStep(it){
-var si=stressInfo(it);if(!si)return null;
+function dauStep(it){
+var si=dauInfo(it);if(!si)return null;
 var idxs=si.pos.map(function(_,i){return i;});
 if(idxs.length>4){
 var wrong=shuffle(idxs.filter(function(i){return i!==si.right;})).slice(0,3);
@@ -5607,8 +5776,11 @@ return {k:"type",it:it,ask:"Nghe rồi gõ lại bằng "+tenmon(),big:"",sub:""
 answer:it.ru,show:it.ru};
 }
 function typeStep(it){
-if(it.t==="L")return {k:"type",it:it,ask:monNay().viettay?"Gõ chữ cái (thường)":("Gõ từ ví dụ của âm "+it.up),
-big:it.snd==="—"?it.nmv:it.snd,sub:monNay().viettay?it.nm:it.up,answer:it.lo,show:it.up+" "+it.lo};
+if(it.t==="L"&&monNay().goPinyin&&it.ex&&it.extr)
+return {k:"type",it:it,ask:"Gõ pinyin của "+it.ex+" (không cần dấu thanh)",
+big:it.ex,sub:it.exvi,answer:it.extr,show:it.ex+" "+it.extr};
+if(it.t==="L")return {k:"type",it:it,ask:laTenChu(it)?"Gõ chữ cái (thường)":("Gõ từ ví dụ của âm "+it.up),
+big:it.snd==="—"?it.nmv:it.snd,sub:laTenChu(it)?it.nm:it.up,answer:it.lo,show:it.up+" "+it.lo};
 if(monNay().goPinyin)
 return {k:"type",it:it,ask:"Gõ pinyin (không cần dấu thanh)",big:NG(it),sub:it.en,answer:it.tr,show:it.ru};
 return {k:"type",it:it,ask:"Gõ bằng "+tenmon(),big:NG(it),sub:it.en,answer:it.ru,show:it.ru};
@@ -5695,7 +5867,7 @@ return buildReview(mucYeu().slice(0,soCauOn()),"Chỗ hay sai");
 }
 function buildStress(m){
 var pool=m.items.filter(function(it){return rec(it.id)&&stressInfo(it);});
-return {title:"Trọng âm · "+m.name,steps:shuffle(pool).slice(0,14).map(stressStep).filter(Boolean)};
+return {title:monNay().trongamTen+" · "+m.name,steps:shuffle(pool).slice(0,14).map(stressStep).filter(Boolean)};
 }
 function buildDictation(m){
 var pool=m.items.filter(function(it){return rec(it.id)&&it.t==="V";});
@@ -5757,11 +5929,11 @@ function next(){ if(S.i>=S.steps.length-1){S.done=true;} else {S.i++;} render();
 function cardFor(it){
 if(it.t==="L"){
 return el('<div class="card anim">'+
-'<div class="lbl">'+esc(monNay().nhanChu)+' · '+esc(it.nm)+'</div>'+
+'<div class="lbl">'+esc(nhanChuCua(it))+' · '+esc(it.nm)+'</div>'+
 '<div class="glyph">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
-'<div class="tr">'+(monNay().viettay?"đọc tên":"đọc là")+': “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm: “'+esc(it.snd)+'”':'')+'</div>'+
+'<div class="tr">'+(laTenChu(it)?"đọc tên":"đọc là")+': “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm: “'+esc(it.snd)+'”':'')+'</div>'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
 '<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
 '<div style="min-width:0"><div class="ex">'+esc(it.ex)+'</div>'+
@@ -5958,7 +6130,7 @@ document.onkeydown=null;
 if(st&&st.optCls==="stress"){
 var si=stressInfo(it);
 var fb0=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+
-'Trọng âm ở đây: <b class="cyr">'+(si?markAt(si.plain,si.pos[si.right]):esc(plain(it.ru)))+'</b> — '+esc(NG(it))+'</div>');
+esc(monNay().trongamDong)+': <b class="cyr">'+(si?stressDap(si):esc(plain(it.ru)))+'</b> — '+esc(NG(it))+'</div>');
 app.appendChild(fb0);
 var b0=el('<button class="btn wide act-stick" style="margin-top:10px">Tiếp tục</button>');
 b0.onclick=next;app.appendChild(b0);b0.focus();
@@ -6166,11 +6338,13 @@ if(S.sai&&S.sai.length)app.appendChild(bangNgheLai(S.sai,"Nghe lại "+S.sai.len
 function theGhiNho(it){
 if(it.t==="L"){
 return el('<div class="card the">'+
-'<div class="lbl">Chữ cái</div>'+
+'<div class="lbl">'+esc(nhanChuCua(it))+'</div>'+
 '<div class="glyph">'+esc(it.up+" "+it.lo)+'</div>'+
-'<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
-'<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'+
-'<div class="tr">'+esc(monNay().nhanTen)+': “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
+(monNay().viettay
+? '<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
+'<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'
+: '')+
+'<div class="tr">'+esc(nhanTenCua(it))+': “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
 '<div class="the-an">'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
 '<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
@@ -6284,8 +6458,8 @@ c.style.transform="translateX("+(-huong*70)+"%) rotate("+(-huong*5)+"deg)";
 c.style.opacity="0";
 setTimeout(xong,250);
 }
-var b=el('<button class="btn wide" style="margin-top:14px">'+(it.t==="L"?"Nghe tên chữ":"Nghe lại")+'</button>');
-b.onclick=function(){speak(it.t==="L"?(it.nm||it.lo):it.ru);};
+var b=el('<button class="btn wide" style="margin-top:14px">'+esc(it.t==="L"?nhanNghe(it):"Nghe lại")+'</button>');
+b.onclick=function(){speak(it.t==="L"?tenDoc(it):it.ru);};
 vao.appendChild(b);
 var nav=dieuHuongChu(it,bay);
 ganVuot(c,function(){nav.truoc();},function(){nav.sau();});
@@ -6505,13 +6679,14 @@ s.start(t0);s.stop(t0+.12);
 NHAC.osc.push(s);
 }catch(e){}
 }
+function hatDong(){var b=monNay().baiHat;return (b&&b.dong)||HAT_DONG;}
 function hatSuKien(bpm){
-var q=60/bpm,t=0,ds=[],chu=0;
-for(var p=0;p<HAT_CAU.length;p++){
-var soChu=p<HAT_DONG.length?HAT_DONG[p]:0;
-for(var n=0;n<HAT_CAU[p].length;n++){
+var q=60/bpm,t=0,ds=[],chu=0,D=hatDong();
+for(var p=0;p<D.length;p++){
+var cau=HAT_CAU[p%HAT_CAU.length],soChu=D[p];
+for(var n=0;n<cau.length;n++){
 var dai=HAT_PHACH[n]*q;
-ds.push({t:t,dai:dai,f:HAT_TAN[HAT_CAU[p][n]],chu:n<soChu?chu+n:-1,dong:n===0&&soChu?p:-1});
+ds.push({t:t,dai:dai,f:HAT_TAN[cau[n]],chu:n<soChu?chu+n:-1,dong:n===0&&soChu?p:-1});
 t+=dai;
 }
 chu+=soChu;
@@ -6526,12 +6701,14 @@ NHAC.dang=false;
 }
 function renderSong(){
 dungHat();
-var LS=modById("alpha").items;
+var bh=monNay().baiHat||MON[0].baiHat;
+var modHat=modById(bh.mod)||modById("alpha");
+var LS=modHat.items;
 var back=el('<button class="back">← Lộ trình</button>');
 back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
-app.appendChild(el('<div class="eyebrow cyr">Алфавит</div><h1 style="margin-bottom:6px">Bài hát bảng chữ cái</h1>'));
-app.appendChild(el('<div class="note" style="margin-bottom:16px">33 chữ chia 5 dòng, trên điệu dân ca Pháp “Ah! vous dirai-je, maman” — đúng điệu “Twinkle twinkle” quen tai. Một bè hát ngân nguyên âm “a” đi theo giai điệu, chữ nào tới lượt thì sáng lên ở dưới để bạn hát tên chữ theo. Nhạc do chính app dựng ra, không lấy của ai.</div>'));
+app.appendChild(el('<div class="eyebrow cyr">'+esc(modHat.ru)+'</div><h1 style="margin-bottom:6px">'+esc(bh.ten)+'</h1>'));
+app.appendChild(el('<div class="note" style="margin-bottom:16px">'+esc(bh.dan)+'</div>'));
 if(!(window.AudioContext||window.webkitAudioContext))
 app.appendChild(el('<div class="tipbox" style="margin-bottom:14px"><b>Không phát được nhạc</b>Trình duyệt này không có Web Audio. Phần lời bên dưới vẫn đọc và hát theo được.</div>'));
 var khungNhac=el('<div class="chi-tiet"></div>');
@@ -6569,19 +6746,20 @@ nhip.appendChild(b);
 dk.appendChild(nhip);
 vaoN.appendChild(dk);
 vaoL.appendChild(el('<div class="sec-head"'+(rongNhac?' style="margin-top:0"':'')+'><h2>Lời</h2><div class="ln"></div></div>'));
-var o=[],k=0;
-for(var d=0;d<HAT_DONG.length;d++){
-var row=el('<div class="hat-dong"></div>');
-for(var j=0;j<HAT_DONG[d];j++){
+var o=[],k=0,D=hatDong();
+for(var d=0;d<D.length;d++){
+var row=el('<div class="hat-dong" style="grid-template-columns:repeat('+D[d]+',1fr)"></div>');
+for(var j=0;j<D[d];j++){
 var it=LS[k];
+if(!it)break;
 var chip=el('<button class="hat-o" title="'+esc(it.up+it.lo+" · "+it.nmv)+'">'+
-'<span class="c">'+esc(it.up+it.lo)+'</span><span class="v">'+esc(it.nmv)+'</span></button>');
+'<span class="c">'+esc(bh.hai?(it.up+it.lo):it.up)+'</span><span class="v">'+esc(bh.duoi==="lo"?it.lo:it.nmv)+'</span></button>');
 (function(x){chip.onclick=function(){dungHat();go({n:"study",one:x.id,from:{n:"song"}});};})(it);
 o.push(chip);row.appendChild(chip);k++;
 }
 vaoL.appendChild(row);
 }
-vaoL.appendChild(el('<div class="note">Bấm một ô để mở trang chữ đó. Dòng cuối có Ъ và Ь — hai chữ không đọc thành tiếng, chỉ đổi cách đọc chữ đứng trước.</div>'));
+vaoL.appendChild(el('<div class="note">'+esc(bh.cuoi)+'</div>'));
 function danhDau(i){
 for(var x=0;x<o.length;x++){
 o[x].classList.toggle("qua",x<i);
@@ -6590,7 +6768,7 @@ o[x].classList.toggle("nay",x===i);
 var t=LS[i];
 if(!t)return;
 oNow.textContent=t.up+" "+t.lo;
-oTen.textContent="“"+t.nm+"” — đọc “"+t.nmv+"”";
+oTen.textContent=bh.duoi==="lo"?(t.lo+" · "+t.nmv):("“"+t.nm+"” — đọc “"+t.nmv+"”");
 oNow.classList.remove("dap");void oNow.offsetWidth;oNow.classList.add("dap");
 }
 function xong(){
@@ -6598,7 +6776,7 @@ NHAC.dang=false;
 datNut(false,"Hát lại");
 oThanh.style.width="100%";
 for(var x=0;x<o.length;x++){o[x].classList.remove("nay");o[x].classList.add("qua");}
-oTen.textContent="Xong một lượt — đủ 33 chữ, đúng thứ tự.";
+oTen.textContent="Xong một lượt — đủ "+LS.length+" "+monNay().donVi+", đúng thứ tự.";
 }
 function batDau(){
 var ac=amCtx();
@@ -6613,7 +6791,8 @@ var uot=ac.createGain();uot.gain.value=.26;
 loc.connect(uot);uot.connect(hopVang);hopVang.connect(ac.destination);
 }catch(e){}
 var t0=ac.currentTime+.18;
-HAT_HOP.forEach(function(cau,p){
+hatDong().forEach(function(_,p){
+var cau=HAT_HOP[p%HAT_HOP.length];
 var dauCau=p*8*q;
 cau.forEach(function(ten,o4){
 var h=HOP_AM[ten],tc=t0+dauCau+o4*2*q;
