@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=73"></script>
+<script src="firebase-config.js?v=74"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -3438,14 +3438,26 @@ function soVan(ten){
 var m=String(ten).toLowerCase().match(/[\u0430\u0435\u0451\u0438\u043e\u0443\u044b\u044d\u044e\u044f]/g);
 return m?m.length:1;
 }
-var vanGiay=0,treGiong=70;
-function doNhipGiong(van,toc,bat,het,henLuc){
+var vanGiay=.42,treGiong=70;
+function doNhipGiong(van,toc,bat,het,henLuc,biCat){
 if(!van||!bat||het<=bat)return;
 var g=(het-bat)/1000*toc/van;
-if(g<.06||g>1)return;
-vanGiay=vanGiay?vanGiay*.6+g*.4:g;
+if(biCat){
+vanGiay=Math.min(.85,Math.max(vanGiay*1.08,g*1.05));
+return;
+}
+if(g<.08||g>1)return;
+vanGiay=vanGiay*.65+g*.35;
 var tre=bat-henLuc;
 if(tre>=0&&tre<400)treGiong=treGiong*.7+tre*.3;
+}
+function nhipChu(ten,dai){
+var van=soVan(ten);
+var can=van*(vanGiay||.42);
+var cho=dai*.82;
+var toc=Math.max(.6,Math.min(2.2,can/cho));
+var thuc=can/toc;
+return {van:van,toc:toc,som:Math.max(0,Math.min(dai*160,(thuc-cho)*1000))};
 }
 function catGiong(){
 if(!window.speechSynthesis)return;
@@ -3462,8 +3474,7 @@ catGiong();
 function docMotChu(ten,f,dai){
 if(!window.speechSynthesis||!ruV)return;
 try{
-var van=soVan(ten);
-var toc=Math.max(.5,Math.min(1.6,van*(vanGiay||.3)/(dai*.92)));
+var np=nhipChu(ten,dai),van=np.van,toc=np.toc;
 var u=new SpeechSynthesisUtterance(ten);
 u.lang="ru-RU";u.voice=ruV;
 u.pitch=Math.max(.5,Math.min(1.8,1+(f/HAT_TAN[0]-1)*.55));
@@ -3471,7 +3482,7 @@ u.rate=toc;
 var henLuc=Date.now(),batLuc=0;
 u.onstart=function(){batLuc=Date.now();};
 u.onend=function(){
-if(!u.__cat)doNhipGiong(van,toc,batLuc,Date.now(),henLuc);
+doNhipGiong(van,toc,batLuc,Date.now(),henLuc,!!u.__cat);
 if(NHAC.uDang===u)NHAC.uDang=null;
 };
 u.onerror=function(){if(NHAC.uDang===u)NHAC.uDang=null;};
@@ -3524,9 +3535,17 @@ app.appendChild(dk);
 if(hasRu()){
 var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-start;margin-top:12px;cursor:pointer">'+
 '<input type="checkbox" style="margin-top:3px;flex:none"'+(NHAC.giong?" checked":"")+'>'+
-'<span>Hát tên chữ theo nhạc — mỗi chữ rơi đúng vào nốt của nó, tên dài đọc nhanh, tên ngắn ngân dài. Vẫn là giọng đọc của máy nên không thành tiếng hát thật được.</span></label>');
+'<span>Hát tên chữ theo nhạc — mỗi chữ rơi đúng vào nốt của nó, tên dài đọc nhanh, tên ngắn ngân dài. Vẫn là giọng đọc của máy nên không thành tiếng hát thật được. Bật lên thì nhạc về nhịp <b>Chậm</b>, vì tên dài như “и кра́ткое” cần chừng ấy thời gian mới đọc trọn.</span></label>');
 lb.querySelector("input").onchange=function(){
 NHAC.giong=this.checked;
+if(NHAC.giong&&NHAC.nhip>76){
+NHAC.nhip=76;
+Array.prototype.forEach.call(nhip.children,function(x,i){
+x.classList.toggle("on",HAT_NHIP[i]&&HAT_NHIP[i].v===76);
+});
+flash("Về nhịp Chậm cho kịp đọc tên chữ.");
+if(NHAC.dang){dungHat();batDau();return;}
+}
 if(NHAC.dang&&NHAC.henGiong)NHAC.henGiong();
 else if(!NHAC.giong)dungGiong();
 };
@@ -3599,7 +3618,8 @@ dungGiong();
 if(!NHAC.giong||!NHAC.dang)return;
 cv.ds.forEach(function(e){
 if(e.chu<0)return;
-var cho=(t0+e.t-ac.currentTime)*1000-treGiong;
+var itx=LS[e.chu];
+var cho=(t0+e.t-ac.currentTime)*1000-treGiong-(itx?nhipChu(itx.nm,e.dai).som:0);
 if(cho<0)return;
 NHAC.henG.push(setTimeout(function(){
 var it=LS[e.chu];
@@ -4270,7 +4290,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=73"></script>
+<script type="module" src="firebase-sync.js?v=74"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
