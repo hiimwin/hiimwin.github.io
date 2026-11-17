@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-HyWdNzjANr8iIhcGWPVjc8zF5qO2GfS9nOl9BruL/oo=' 'sha256-yOAlZGa/CJhfnUl2JxGwwkuh7xUWMKCweKfHT+NxYt8=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-HyWdNzjANr8iIhcGWPVjc8zF5qO2GfS9nOl9BruL/oo=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -7836,7 +7836,8 @@ try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập �
 import {
 getAuth, onAuthStateChanged, signInAnonymously, signOut,
 GoogleAuthProvider,
-signInWithRedirect, linkWithRedirect, getRedirectResult, signInWithCredential
+signInWithRedirect, linkWithRedirect, getRedirectResult, signInWithCredential,
+updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 const cfg = window.FIREBASE_CONFIG;
@@ -7864,6 +7865,21 @@ await setDoc(ref, JSON.parse(JSON.stringify(value)));
 };
 }
 };
+}
+function hoSo(u, truong) {
+if (!u) return "";
+if (u[truong]) return u[truong];
+const ds = u.providerData || [];
+for (let i = 0; i < ds.length; i++) if (ds[i] && ds[i][truong]) return ds[i][truong];
+return "";
+}
+async function chepTenVaoHoSo(u) {
+if (!u || u.isAnonymous || u.displayName) return;
+const ten = hoSo(u, "displayName");
+if (!ten) return;
+const anh = hoSo(u, "photoURL");
+try { await updateProfile(u, anh ? { displayName: ten, photoURL: anh } : { displayName: ten }); }
+catch (e) { console.warn("[nga] không ghi được tên vào hồ sơ:", (e && e.code) || e); }
 }
 function settle(value) {
 if (settled) return;
@@ -7904,10 +7920,11 @@ function loi(code) {
 if (typeof window.CLOUD_LOI === "function") window.CLOUD_LOI(code);
 else bao("Không đăng nhập được" + (code ? " (" + code + ")" : "."));
 }
-getRedirectResult(auth).then(res => {
+getRedirectResult(auth).then(async res => {
 const quayVe = layDau();
 xongHuong = true; moKhachNeuCan();
 if (res && res.user) {
+await chepTenVaoHoSo(res.user);
 if (quayVe) bao("Đã đăng nhập. Tiến độ từ giờ được đồng bộ.");
 doi();
 return;
@@ -7925,6 +7942,7 @@ const cred = GoogleAuthProvider.credentialFromError(e);
 if (cred) {
 try {
 await signInWithCredential(auth, cred);
+await chepTenVaoHoSo(auth.currentUser);
 bao("Đã đăng nhập. Tiến độ hai bên sẽ được gộp lại.");
 doi();
 return;
@@ -7949,16 +7967,19 @@ await signInWithRedirect(auth, provider);
 setTimeout(() => settle(null), 15000);
 window.CLOUD = {
 ready: () => readyP,
-state: () => ({
+state: () => {
+const u = auth.currentUser || user;
+return {
 uid,
-user: user ? {
-uid: user.uid,
-isAnonymous: user.isAnonymous,
-displayName: user.displayName || "",
-email: user.email || "",
-photoURL: user.photoURL || ""
+user: u ? {
+uid: u.uid,
+isAnonymous: u.isAnonymous,
+displayName: hoSo(u, "displayName"),
+email: hoSo(u, "email"),
+photoURL: hoSo(u, "photoURL")
 } : null
-}),
+};
+},
 async signInGoogle() {
 await dangNhapGoogle();
 },
