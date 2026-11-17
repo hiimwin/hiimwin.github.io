@@ -1,7 +1,7 @@
 {
-  "name": "Tiếng Nga từ A đến Я",
-  "short_name": "Tiếng Nga",
-  "description": "Học tiếng Nga từ bảng chữ cái: Nga – Anh – Việt, có tập viết tay chấm điểm.",
+  "name": "WinSpeak — Nga · Anh · Trung",
+  "short_name": "WinSpeak",
+  "description": "Học tiếng Nga, tiếng Anh và tiếng Trung cho người Việt: bảng chữ cái và bảng âm, từ vựng theo chủ đề, ngữ pháp, luyện phát âm có chấm điểm.",
   "lang": "vi",
   "start_url": "./",
   "scope": "./",
@@ -10,7 +10,17 @@
   "background_color": "#F6F5F2",
   "theme_color": "#3D5CE0",
   "icons": [
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
   ]
 }

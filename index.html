@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=101"></script>
+<script src="firebase-config.js?v=102"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -33,7 +33,7 @@
 --sh-lift:0 2px 6px rgba(20,32,66,.06),0 26px 50px -20px rgba(20,32,66,.34),inset 0 1px 0 rgba(255,255,255,.8);
 --f-head:"Inter","Be Vietnam Pro",system-ui,sans-serif;
 --f-ui:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
---f-cyr:"PT Serif",Georgia,serif;
+--f-cyr:"PT Serif",Georgia,"Noto Serif SC","Songti SC","SimSun","Microsoft YaHei","PingFang SC",serif;
 --f-hand:"Marck Script","Segoe Script",cursive;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -2206,6 +2206,695 @@ return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 });
 return {mods:ms,np:NGU_PHAP_ANH,cap:CAP_EN};
 }
+const AM_TRUNG=[
+["mā","妈","妈","thanh 1 — cao, đều","—","Giữ cao và PHẲNG từ đầu đến cuối, không lên không xuống. Tiếng Việt không có thanh nào phẳng như vậy — gần giọng ngân một nốt nhạc.","妈妈","māma","mum","mẹ"],
+["má","麻","麻","thanh 2 — đi lên","—","Đi lên đều từ giữa lên cao, như lúc hỏi lại “hả?”. Gần thanh sắc nhưng dài và mượt hơn.","麻烦","máfan","trouble","phiền phức"],
+["mǎ","马","马","thanh 3 — xuống rồi lên","—","Hạ xuống thấp rồi mới nhấc lên. Nói chậm mới rõ cả hai nhịp; nói nhanh thì thường chỉ còn phần thấp, gần thanh hỏi.","马上","mǎshàng","at once","ngay lập tức"],
+["mà","骂","骂","thanh 4 — đổ xuống","—","Từ cao đổ thẳng xuống, dứt khoát và ngắn, như quát một tiếng. Gần thanh huyền nhưng mạnh hơn hẳn.","再见","zàijiàn","goodbye","tạm biệt"],
+["ma","吗","吗","thanh nhẹ — không dấu","—","Đọc nhẹ, ngắn, không mang thanh nào. Hay rơi vào tiếng thứ hai của từ ghép và các chữ cuối câu như 吗, 了, 的.","你好吗","nǐ hǎo ma","how are you","bạn khoẻ không"],
+["b","爸","爸","b — KHÔNG bật hơi","—","Giống “b” tiếng Việt. Không được bật hơi, nếu không sẽ thành p.","爸爸","bàba","dad","bố"],
+["p","怕","怕","p — BẬT HƠI","—","Cùng khẩu hình với b nhưng phải phụt hơi ra. Đây là cặp người Việt hay trộn nhất.","朋友","péngyǒu","friend","bạn bè"],
+["m","妈","妈","m","—","Giống “m” tiếng Việt, không có gì khác.","买","mǎi","to buy","mua"],
+["f","飞","飞","ph","—","Răng trên chạm môi dưới, như “ph” tiếng Việt.","饭","fàn","rice, meal","cơm"],
+["d","大","大","đ — không bật hơi","—","Gần “đ” tiếng Việt, đầu lưỡi chạm lợi trên, không phụt hơi.","都","dōu","all","đều"],
+["t","他","他","th — bật hơi","—","Cùng chỗ với d nhưng phụt hơi mạnh, như “th” tiếng Việt.","天","tiān","sky, day","trời"],
+["n","你","你","n","—","Giống “n” tiếng Việt.","难","nán","difficult","khó"],
+["l","来","来","l","—","Giống “l” tiếng Việt.","老师","lǎoshī","teacher","giáo viên"],
+["g","高","高","c — không bật hơi","—","Như “c” trong “cao” nhưng tuyệt đối không bật hơi.","工作","gōngzuò","work","công việc"],
+["k","看","看","kh — bật hơi","—","Cùng chỗ với g nhưng phụt hơi, gần “kh” tiếng Việt.","开","kāi","to open","mở"],
+["h","好","好","h khàn","—","Sâu trong họng hơn “h” tiếng Việt, hơi ma sát như “kh” nhẹ.","喝","hē","to drink","uống"],
+["j","几","几","ch mềm","—","Lưỡi bẹt, đầu lưỡi hạ sau răng dưới, mặt lưỡi áp lên vòm. Không bật hơi. Luôn đi với i hoặc ü.","家","jiā","home, family","nhà"],
+["q","去","去","ch mềm bật hơi","—","Y như j nhưng phụt hơi. Nghe gần “tsi” hơn là “ch”.","钱","qián","money","tiền"],
+["x","西","西","x mềm","—","Cùng khẩu hình j/q nhưng chỉ xát, không chặn. Gần “x” tiếng Việt nhưng lưỡi bẹt hơn.","谢谢","xièxie","thank you","cảm ơn"],
+["zh","中","中","tr cong lưỡi","—","CONG đầu lưỡi lên vòm rồi mới bật. Gần “tr” giọng miền Bắc đọc nặng. Không bật hơi.","知道","zhīdào","to know","biết"],
+["ch","吃","吃","tr cong bật hơi","—","Y như zh nhưng phụt hơi ra.","茶","chá","tea","trà"],
+["sh","是","是","s cong lưỡi","—","Cong đầu lưỡi rồi xát, gần “s” giọng miền Nam nhưng lưỡi cong cao hơn.","书","shū","book","sách"],
+["r","人","人","r cong lưỡi","—","Khẩu hình như sh nhưng rung thanh. Nghe lưng chừng giữa “r” và “gi”. KHÔNG rung lưỡi.","热","rè","hot","nóng"],
+["z","在","在","ts","—","Đầu lưỡi chạm răng trên rồi bật, nghe như “ts”. Không bật hơi.","早","zǎo","early","sớm"],
+["c","菜","菜","ts bật hơi","—","Y như z nhưng phụt hơi mạnh. Người Việt hay đọc thành “x”.","错","cuò","wrong","sai"],
+["s","三","三","x","—","Như “x” tiếng Việt, lưỡi bẹt, đầu lưỡi sau răng dưới.","岁","suì","years old","tuổi"],
+["a","八","八","a","—","Như “a” tiếng Việt, miệng mở to.","爸","bà","dad","bố"],
+["o","我","我","ô","—","Tròn môi, gần “ô” tiếng Việt hơn là “o”.","说","shuō","to speak","nói"],
+["e","饿","饿","ơ","—","Gần “ơ” tiếng Việt, miệng không tròn, lưỡi lùi về sau.","车","chē","car","xe"],
+["i","一","一","i","—","Như “i” tiếng Việt. Nhưng sau zh ch sh r z c s thì nó biến thành tiếng ngân trong họng, không phải “i”.","你","nǐ","you","bạn"],
+["u","五","五","u","—","Chúm môi tròn, như “u” tiếng Việt.","不","bù","not","không"],
+["ü","女","女","uy (môi tròn)","—","Đọc “i” nhưng CHÚM MÔI như đang đọc “u”. Sau j q x y thì viết thành u nhưng vẫn đọc ü.","绿","lǜ","green","màu xanh lá"],
+["ai","爱","爱","ai","—","Như “ai” tiếng Việt.","买","mǎi","to buy","mua"],
+["ei","北","北","ây","—","Gần “ây” tiếng Việt hơn là “ei”.","没","méi","not have","không có"],
+["ao","好","好","ao","—","Như “ao” tiếng Việt.","小","xiǎo","small","nhỏ"],
+["ou","走","走","âu","—","Gần “âu” tiếng Việt, bắt đầu bằng “ô” rồi chúm lại.","有","yǒu","to have","có"],
+["an","看","看","an","—","Như “an” tiếng Việt, đầu lưỡi chạm lợi khi đóng.","饭","fàn","rice, meal","cơm"],
+["en","很","很","ân","—","Gần “ân” tiếng Việt, không phải “en”.","们","men","(số nhiều)","(hậu tố số nhiều)"],
+["ang","忙","忙","ang","—","Như “ang” tiếng Việt, đóng bằng âm mũi sau.","上","shàng","up, on","trên"],
+["eng","冷","冷","âng","—","Gần “âng” tiếng Việt. Khác “ang” ở nguyên âm, khác “en” ở chỗ đóng.","朋友","péngyǒu","friend","bạn bè"],
+["ong","中","中","ung","—","Gần “ung” tiếng Việt hơn là “ong”.","工作","gōngzuò","work","công việc"],
+["er","二","二","ơ cong lưỡi","—","Đọc “ơ” rồi cong đầu lưỡi lên. Chỉ đứng một mình thành một tiếng.","儿子","érzi","son","con trai"]
+];
+const SO_TRUNG=[
+["零","líng","zero","số không — 0"],
+["一","yī","one","một — 1"],
+["二","èr","two","hai — 2"],
+["三","sān","three","ba — 3"],
+["四","sì","four","bốn — 4"],
+["五","wǔ","five","năm — 5"],
+["六","liù","six","sáu — 6"],
+["七","qī","seven","bảy — 7"],
+["八","bā","eight","tám — 8"],
+["九","jiǔ","nine","chín — 9"],
+["十","shí","ten","mười — 10"],
+["十一","shíyī","eleven","mười một — 11"],
+["十二","shí'èr","twelve","mười hai — 12"],
+["十三","shísān","thirteen","mười ba — 13"],
+["十五","shíwǔ","fifteen","mười lăm — 15"],
+["二十","èrshí","twenty","hai mươi — 20"],
+["二十一","èrshíyī","twenty-one","hai mươi mốt — 21"],
+["三十","sānshí","thirty","ba mươi — 30"],
+["四十","sìshí","forty","bốn mươi — 40"],
+["五十","wǔshí","fifty","năm mươi — 50"],
+["六十","liùshí","sixty","sáu mươi — 60"],
+["七十","qīshí","seventy","bảy mươi — 70"],
+["八十","bāshí","eighty","tám mươi — 80"],
+["九十","jiǔshí","ninety","chín mươi — 90"],
+["一百","yìbǎi","one hundred","một trăm — 100"],
+["两百","liǎngbǎi","two hundred","hai trăm — 200"],
+["一千","yìqiān","one thousand","một nghìn — 1 000"],
+["一万","yíwàn","ten thousand","một vạn — 10 000"],
+["两","liǎng","two (before a measure word)","hai (đứng trước lượng từ)"],
+["个","gè","(general measure word)","cái / người (lượng từ chung)"],
+["第一","dìyī","first","thứ nhất"],
+["第二","dì'èr","second","thứ hai"],
+["第三","dìsān","third","thứ ba"],
+["多少","duōshao","how many, how much","bao nhiêu"]
+];
+const CHUDE_TRUNG=[
+{id:"greet",name:"Chào hỏi & lịch sự",ru:"问候",items:[
+["你好","nǐ hǎo","hello","xin chào"],
+["您好","nín hǎo","hello (polite)","xin chào (lịch sự)"],
+["早上好","zǎoshang hǎo","good morning","chào buổi sáng"],
+["下午好","xiàwǔ hǎo","good afternoon","chào buổi chiều"],
+["晚上好","wǎnshang hǎo","good evening","chào buổi tối"],
+["晚安","wǎn'ān","good night","chúc ngủ ngon"],
+["再见","zàijiàn","goodbye","tạm biệt"],
+["拜拜","bàibai","bye","bai (thân mật)"],
+["谢谢","xièxie","thank you","cảm ơn"],
+["不客气","bù kèqi","you're welcome","không có gì"],
+["请","qǐng","please","xin mời"],
+["对不起","duìbuqǐ","sorry","xin lỗi"],
+["没关系","méi guānxi","it's okay","không sao"],
+["请问","qǐngwèn","excuse me","cho hỏi"],
+["认识你很高兴","rènshi nǐ hěn gāoxìng","nice to meet you","rất vui được gặp bạn"],
+["你好吗","nǐ hǎo ma","how are you","bạn khoẻ không"],
+["我很好","wǒ hěn hǎo","I'm fine","tôi khoẻ"]
+]},
+{id:"self",name:"Giới thiệu bản thân",ru:"自我介绍",items:[
+["我叫…","wǒ jiào","my name is…","tôi tên là…"],
+["你叫什么名字","nǐ jiào shénme míngzi","what's your name?","bạn tên gì?"],
+["我是越南人","wǒ shì Yuènán rén","I'm Vietnamese","tôi là người Việt Nam"],
+["你是哪国人","nǐ shì nǎ guó rén","where are you from?","bạn là người nước nào?"],
+["我二十岁","wǒ èrshí suì","I'm twenty","tôi hai mươi tuổi"],
+["你多大","nǐ duō dà","how old are you?","bạn bao nhiêu tuổi?"],
+["我住在河内","wǒ zhù zài Hénèi","I live in Hanoi","tôi sống ở Hà Nội"],
+["我是学生","wǒ shì xuésheng","I'm a student","tôi là sinh viên"],
+["我不懂","wǒ bù dǒng","I don't understand","tôi không hiểu"],
+["请再说一遍","qǐng zài shuō yí biàn","please say it again","nhắc lại giúp tôi"],
+["你会说英语吗","nǐ huì shuō Yīngyǔ ma","do you speak English?","bạn nói tiếng Anh không?"],
+["我会说一点中文","wǒ huì shuō yìdiǎn Zhōngwén","I speak a little Chinese","tôi nói được chút tiếng Trung"],
+["我在学中文","wǒ zài xué Zhōngwén","I'm learning Chinese","tôi đang học tiếng Trung"]
+]},
+{id:"pron",name:"Đại từ & từ để hỏi",ru:"代词",items:[
+["我","wǒ","I","tôi"],
+["你","nǐ","you","bạn"],
+["您","nín","you (polite)","ngài / ông / bà"],
+["他","tā","he","anh ấy"],
+["她","tā","she","cô ấy"],
+["我们","wǒmen","we","chúng tôi"],
+["他们","tāmen","they","họ"],
+["谁","shéi","who","ai"],
+["什么","shénme","what","cái gì"],
+["哪里","nǎlǐ","where","ở đâu"],
+["什么时候","shénme shíhou","when","khi nào"],
+["为什么","wèishénme","why","tại sao"],
+["怎么","zěnme","how","như thế nào"],
+["哪个","nǎge","which","cái nào"],
+["这个","zhège","this","cái này"],
+["那个","nàge","that","cái kia"]
+]},
+{id:"fam",name:"Người & gia đình",ru:"家人",items:[
+["家","jiā","family, home","gia đình"],
+["妈妈","māma","mother","mẹ"],
+["爸爸","bàba","father","bố"],
+["父母","fùmǔ","parents","bố mẹ"],
+["儿子","érzi","son","con trai"],
+["女儿","nǚ'ér","daughter","con gái"],
+["哥哥","gēge","older brother","anh trai"],
+["弟弟","dìdi","younger brother","em trai"],
+["姐姐","jiějie","older sister","chị gái"],
+["妹妹","mèimei","younger sister","em gái"],
+["丈夫","zhàngfu","husband","chồng"],
+["妻子","qīzi","wife","vợ"],
+["孩子","háizi","child","đứa trẻ"],
+["奶奶","nǎinai","grandmother","bà nội"],
+["爷爷","yéye","grandfather","ông nội"],
+["朋友","péngyǒu","friend","bạn bè"],
+["男人","nánrén","man","đàn ông"],
+["女人","nǚrén","woman","phụ nữ"]
+]},
+{id:"time",name:"Thời gian & ngày tháng",ru:"时间",items:[
+["今天","jīntiān","today","hôm nay"],
+["明天","míngtiān","tomorrow","ngày mai"],
+["昨天","zuótiān","yesterday","hôm qua"],
+["现在","xiànzài","now","bây giờ"],
+["早上","zǎoshang","morning","buổi sáng"],
+["中午","zhōngwǔ","noon","buổi trưa"],
+["下午","xiàwǔ","afternoon","buổi chiều"],
+["晚上","wǎnshang","evening","buổi tối"],
+["天","tiān","day","ngày"],
+["星期","xīngqī","week","tuần"],
+["月","yuè","month","tháng"],
+["年","nián","year","năm"],
+["小时","xiǎoshí","hour","tiếng đồng hồ"],
+["分钟","fēnzhōng","minute","phút"],
+["星期一","xīngqīyī","Monday","thứ Hai"],
+["星期二","xīngqī'èr","Tuesday","thứ Ba"],
+["星期三","xīngqīsān","Wednesday","thứ Tư"],
+["星期四","xīngqīsì","Thursday","thứ Năm"],
+["星期五","xīngqīwǔ","Friday","thứ Sáu"],
+["星期六","xīngqīliù","Saturday","thứ Bảy"],
+["星期天","xīngqītiān","Sunday","Chủ nhật"],
+["几点了","jǐ diǎn le","what time is it?","mấy giờ rồi?"]
+]},
+{id:"food",name:"Đồ ăn & thức uống",ru:"饮食",items:[
+["水","shuǐ","water","nước"],
+["茶","chá","tea","trà"],
+["咖啡","kāfēi","coffee","cà phê"],
+["牛奶","niúnǎi","milk","sữa"],
+["面包","miànbāo","bread","bánh mì"],
+["米饭","mǐfàn","cooked rice","cơm"],
+["面条","miàntiáo","noodles","mì"],
+["肉","ròu","meat","thịt"],
+["鸡肉","jīròu","chicken","thịt gà"],
+["牛肉","niúròu","beef","thịt bò"],
+["猪肉","zhūròu","pork","thịt lợn"],
+["鱼","yú","fish","cá"],
+["鸡蛋","jīdàn","egg","trứng"],
+["水果","shuǐguǒ","fruit","trái cây"],
+["蔬菜","shūcài","vegetables","rau"],
+["汤","tāng","soup","canh"],
+["盐","yán","salt","muối"],
+["糖","táng","sugar","đường"],
+["啤酒","píjiǔ","beer","bia"],
+["早饭","zǎofàn","breakfast","bữa sáng"],
+["午饭","wǔfàn","lunch","bữa trưa"],
+["晚饭","wǎnfàn","dinner","bữa tối"]
+]},
+{id:"rest",name:"Quán ăn & gọi món",ru:"在餐厅",items:[
+["菜单","càidān","menu","thực đơn"],
+["买单","mǎidān","the bill","tính tiền"],
+["两个人","liǎng ge rén","two people","hai người"],
+["我要…","wǒ yào","I'd like…","tôi muốn…"],
+["好吃","hǎochī","delicious","ngon"],
+["服务员","fúwùyuán","waiter","nhân viên phục vụ"],
+["点菜","diǎncài","to order","gọi món"],
+["辣","là","spicy","cay"],
+["甜","tián","sweet","ngọt"],
+["我吃素","wǒ chīsù","I'm vegetarian","tôi ăn chay"],
+["多少钱","duōshao qián","how much is it?","bao nhiêu tiền?"],
+["干杯","gānbēi","cheers!","cạn ly!"],
+["不要冰","bú yào bīng","no ice","đừng cho đá"]
+]},
+{id:"shop",name:"Mua sắm & tiền",ru:"购物",items:[
+["钱","qián","money","tiền"],
+["价格","jiàgé","price","giá"],
+["便宜","piányi","cheap","rẻ"],
+["贵","guì","expensive","đắt"],
+["买","mǎi","to buy","mua"],
+["卖","mài","to sell","bán"],
+["商店","shāngdiàn","shop","cửa hàng"],
+["市场","shìchǎng","market","chợ"],
+["现金","xiànjīn","cash","tiền mặt"],
+["卡","kǎ","card","thẻ"],
+["发票","fāpiào","receipt","hoá đơn"],
+["零钱","língqián","small change","tiền lẻ"],
+["打折","dǎzhé","discount","giảm giá"],
+["开门","kāimén","open","mở cửa"],
+["关门","guānmén","closed","đóng cửa"],
+["太贵了","tài guì le","too expensive!","đắt quá!"]
+]},
+{id:"move",name:"Đi lại & phương hướng",ru:"交通",items:[
+["车","chē","vehicle, car","xe"],
+["公共汽车","gōnggòng qìchē","bus","xe buýt"],
+["火车","huǒchē","train","tàu hoả"],
+["飞机","fēijī","plane","máy bay"],
+["出租车","chūzūchē","taxi","taxi"],
+["摩托车","mótuōchē","motorbike","xe máy"],
+["车站","chēzhàn","station","bến xe"],
+["机场","jīchǎng","airport","sân bay"],
+["票","piào","ticket","vé"],
+["左","zuǒ","left","bên trái"],
+["右","yòu","right","bên phải"],
+["一直走","yìzhí zǒu","straight ahead","đi thẳng"],
+["去","qù","to go","đi"],
+["来","lái","to come","đến"],
+["近","jìn","near","gần"],
+["远","yuǎn","far","xa"],
+["在哪里","zài nǎlǐ","where is it?","ở đâu?"],
+["地图","dìtú","map","bản đồ"]
+]},
+{id:"home",name:"Nhà cửa & khách sạn",ru:"家与酒店",items:[
+["房子","fángzi","house","ngôi nhà"],
+["公寓","gōngyù","flat","căn hộ"],
+["房间","fángjiān","room","căn phòng"],
+["门","mén","door","cửa"],
+["窗户","chuānghu","window","cửa sổ"],
+["桌子","zhuōzi","table","cái bàn"],
+["椅子","yǐzi","chair","cái ghế"],
+["床","chuáng","bed","cái giường"],
+["厨房","chúfáng","kitchen","nhà bếp"],
+["洗手间","xǐshǒujiān","bathroom","nhà vệ sinh"],
+["酒店","jiǔdiàn","hotel","khách sạn"],
+["钥匙","yàoshi","key","chìa khoá"],
+["预订","yùdìng","booking","đặt phòng"],
+["楼","lóu","floor, storey","tầng"],
+["电梯","diàntī","lift","thang máy"]
+]},
+{id:"body",name:"Cơ thể & sức khoẻ",ru:"身体与健康",items:[
+["头","tóu","head","đầu"],
+["眼睛","yǎnjing","eye","mắt"],
+["鼻子","bízi","nose","mũi"],
+["嘴","zuǐ","mouth","miệng"],
+["耳朵","ěrduo","ear","tai"],
+["手","shǒu","hand","tay"],
+["脚","jiǎo","foot","chân"],
+["肚子","dùzi","stomach","bụng"],
+["背","bèi","back","lưng"],
+["心","xīn","heart","tim"],
+["医生","yīshēng","doctor","bác sĩ"],
+["医院","yīyuàn","hospital","bệnh viện"],
+["药","yào","medicine","thuốc"],
+["疼","téng","pain, to ache","đau"],
+["生病","shēngbìng","to be ill","ốm"],
+["累","lèi","tired","mệt"],
+["救命","jiùmìng","help!","cứu với!"]
+]}
+];
+const CHUDE_TRUNG2=[
+{id:"adj",name:"Tính từ & cảm xúc",ru:"形容词",items:[
+["好","hǎo","good","tốt"],
+["坏","huài","bad","xấu / hỏng"],
+["大","dà","big","to"],
+["小","xiǎo","small","nhỏ"],
+["新","xīn","new","mới"],
+["旧","jiù","old (things)","cũ"],
+["热","rè","hot","nóng"],
+["冷","lěng","cold","lạnh"],
+["漂亮","piàoliang","beautiful","đẹp"],
+["高兴","gāoxìng","happy","vui"],
+["难过","nánguò","sad","buồn"],
+["饿","è","hungry","đói"],
+["渴","kě","thirsty","khát"],
+["容易","róngyì","easy","dễ"],
+["难","nán","difficult","khó"],
+["快","kuài","fast","nhanh"],
+["慢","màn","slow","chậm"],
+["生气","shēngqì","angry","tức giận"],
+["害怕","hàipà","afraid","sợ"],
+["多","duō","many, much","nhiều"],
+["少","shǎo","few, little","ít"]
+]},
+{id:"verb",name:"Động từ thông dụng",ru:"常用动词",items:[
+["是","shì","to be","là"],
+["有","yǒu","to have","có"],
+["做","zuò","to do, to make","làm"],
+["去","qù","to go","đi"],
+["来","lái","to come","đến"],
+["吃","chī","to eat","ăn"],
+["喝","hē","to drink","uống"],
+["看","kàn","to look, to watch","nhìn / xem"],
+["听","tīng","to listen","nghe"],
+["说","shuō","to speak","nói"],
+["知道","zhīdào","to know","biết"],
+["想","xiǎng","to want, to think","muốn / nghĩ"],
+["需要","xūyào","to need","cần"],
+["喜欢","xǐhuan","to like","thích"],
+["爱","ài","to love","yêu"],
+["上班","shàngbān","to go to work","đi làm"],
+["住","zhù","to live, to stay","ở"],
+["读","dú","to read aloud","đọc"],
+["写","xiě","to write","viết"],
+["睡觉","shuìjiào","to sleep","ngủ"],
+["给","gěi","to give","cho"],
+["拿","ná","to take","lấy"],
+["开始","kāishǐ","to begin","bắt đầu"],
+["等","děng","to wait","đợi"]
+]},
+{id:"survive",name:"Câu dùng hằng ngày",ru:"日常用语",items:[
+["对","duì","right, correct","đúng"],
+["不对","bú duì","wrong","không đúng"],
+["好的","hǎo de","okay","được"],
+["不","bù","no, not","không"],
+["也许","yěxǔ","maybe","có lẽ"],
+["我不知道","wǒ bù zhīdào","I don't know","tôi không biết"],
+["我迷路了","wǒ mílù le","I'm lost","tôi bị lạc"],
+["洗手间在哪里","xǐshǒujiān zài nǎlǐ","where is the toilet?","nhà vệ sinh ở đâu?"],
+["请说慢一点","qǐng shuō màn yìdiǎn","please speak slowly","nói chậm thôi"],
+["能帮我吗","néng bāng wǒ ma","can you help me?","giúp tôi được không?"],
+["没问题","méi wèntí","no problem","không vấn đề gì"],
+["当然","dāngrán","of course","tất nhiên"],
+["等一下","děng yíxià","just a moment","chờ một chút"],
+["这是什么意思","zhè shì shénme yìsi","what does it mean?","cái này nghĩa là gì?"],
+["怎么说","zěnme shuō","how do you say it?","nói thế nào?"]
+]},
+{id:"color",name:"Màu sắc",ru:"颜色",items:[
+["红色","hóngsè","red","màu đỏ"],
+["橙色","chéngsè","orange","màu cam"],
+["黄色","huángsè","yellow","màu vàng"],
+["绿色","lǜsè","green","màu xanh lá"],
+["蓝色","lánsè","blue","màu xanh dương"],
+["紫色","zǐsè","purple","màu tím"],
+["粉色","fěnsè","pink","màu hồng"],
+["棕色","zōngsè","brown","màu nâu"],
+["黑色","hēisè","black","màu đen"],
+["白色","báisè","white","màu trắng"],
+["灰色","huīsè","grey","màu xám"]
+]},
+{id:"weather",name:"Thời tiết & mùa",ru:"天气与季节",items:[
+["天气","tiānqì","weather","thời tiết"],
+["太阳","tàiyáng","sun","mặt trời"],
+["雨","yǔ","rain","mưa"],
+["雪","xuě","snow","tuyết"],
+["风","fēng","wind","gió"],
+["云","yún","cloud","mây"],
+["暖和","nuǎnhuo","warm","ấm"],
+["凉快","liángkuai","cool","mát"],
+["潮湿","cháoshī","humid","ẩm"],
+["台风","táifēng","typhoon","bão"],
+["春天","chūntiān","spring","mùa xuân"],
+["夏天","xiàtiān","summer","mùa hè"],
+["秋天","qiūtiān","autumn","mùa thu"],
+["冬天","dōngtiān","winter","mùa đông"],
+["下雨了","xià yǔ le","it's raining","trời đang mưa"]
+]},
+{id:"cloth",name:"Quần áo & mua đồ",ru:"衣服",items:[
+["衣服","yīfu","clothes","quần áo"],
+["衬衫","chènshān","shirt","áo sơ mi"],
+["毛衣","máoyī","sweater","áo len"],
+["裤子","kùzi","trousers","quần dài"],
+["裙子","qúnzi","skirt","chân váy"],
+["连衣裙","liányīqún","dress","váy liền"],
+["外套","wàitào","jacket","áo khoác"],
+["鞋","xié","shoes","giày"],
+["帽子","màozi","hat","mũ"],
+["包","bāo","bag","túi"],
+["尺寸","chǐcùn","size","cỡ"],
+["试穿","shìchuān","to try on","mặc thử"],
+["合适","héshì","to fit, suitable","vừa / hợp"],
+["太大了","tài dà le","too big","rộng quá"]
+]},
+{id:"animal",name:"Động vật",ru:"动物",items:[
+["动物","dòngwù","animal","động vật"],
+["狗","gǒu","dog","con chó"],
+["猫","māo","cat","con mèo"],
+["鸟","niǎo","bird","con chim"],
+["马","mǎ","horse","con ngựa"],
+["牛","niú","cow","con bò"],
+["猪","zhū","pig","con lợn"],
+["鸡","jī","chicken","con gà"],
+["老鼠","lǎoshǔ","mouse","con chuột"],
+["大象","dàxiàng","elephant","con voi"],
+["老虎","lǎohǔ","tiger","con hổ"],
+["猴子","hóuzi","monkey","con khỉ"],
+["蛇","shé","snake","con rắn"],
+["熊猫","xióngmāo","panda","gấu trúc"]
+]},
+{id:"work",name:"Công việc & văn phòng",ru:"工作",items:[
+["工作","gōngzuò","work, job","công việc"],
+["公司","gōngsī","company","công ty"],
+["办公室","bàngōngshì","office","văn phòng"],
+["老板","lǎobǎn","boss","sếp"],
+["同事","tóngshì","colleague","đồng nghiệp"],
+["开会","kāihuì","to have a meeting","họp"],
+["电子邮件","diànzǐ yóujiàn","email","thư điện tử"],
+["工资","gōngzī","salary","lương"],
+["忙","máng","busy","bận"],
+["假期","jiàqī","holiday","kỳ nghỉ"],
+["打电话","dǎ diànhuà","to make a call","gọi điện"],
+["发送","fāsòng","to send","gửi"],
+["加班","jiābān","to work overtime","tăng ca"]
+]},
+{id:"study",name:"Trường học & học tập",ru:"学习",items:[
+["学校","xuéxiào","school","trường học"],
+["大学","dàxué","university","trường đại học"],
+["老师","lǎoshī","teacher","giáo viên"],
+["学生","xuésheng","student","học sinh / sinh viên"],
+["课","kè","lesson, class","bài học"],
+["书","shū","book","quyển sách"],
+["笔","bǐ","pen","cái bút"],
+["作业","zuòyè","homework","bài tập về nhà"],
+["考试","kǎoshì","exam","kỳ thi"],
+["问题","wèntí","question, problem","câu hỏi / vấn đề"],
+["回答","huídá","answer","câu trả lời"],
+["学","xué","to learn","học"],
+["教","jiāo","to teach","dạy"],
+["记得","jìde","to remember","nhớ"],
+["忘记","wàngjì","to forget","quên"]
+]},
+{id:"hobby",name:"Sở thích & giải trí",ru:"爱好",items:[
+["爱好","àihào","hobby","sở thích"],
+["音乐","yīnyuè","music","âm nhạc"],
+["电影","diànyǐng","film","phim"],
+["歌","gē","song","bài hát"],
+["游戏","yóuxì","game","trò chơi"],
+["看书","kànshū","to read","đọc sách"],
+["跳舞","tiàowǔ","to dance","nhảy"],
+["唱歌","chànggē","to sing","hát"],
+["画画","huàhuà","to draw","vẽ"],
+["做饭","zuòfàn","to cook","nấu ăn"],
+["旅游","lǚyóu","to travel","đi du lịch"],
+["有意思","yǒu yìsi","interesting","thú vị"],
+["无聊","wúliáo","boring","chán"]
+]},
+{id:"sport",name:"Thể thao",ru:"运动",items:[
+["运动","yùndòng","sport","thể thao"],
+["足球","zúqiú","football","bóng đá"],
+["篮球","lánqiú","basketball","bóng rổ"],
+["网球","wǎngqiú","tennis","quần vợt"],
+["游泳","yóuyǒng","swimming","bơi lội"],
+["跑步","pǎobù","running","chạy bộ"],
+["健身房","jiànshēnfáng","gym","phòng tập"],
+["队","duì","team","đội"],
+["比赛","bǐsài","match, competition","trận đấu"],
+["赢","yíng","to win","thắng"],
+["输","shū","to lose","thua"],
+["练习","liànxí","to practise","tập luyện"]
+]},
+{id:"trip",name:"Du lịch",ru:"旅行",items:[
+["旅行","lǚxíng","travel, trip","chuyến đi"],
+["护照","hùzhào","passport","hộ chiếu"],
+["签证","qiānzhèng","visa","thị thực"],
+["行李","xíngli","luggage","hành lý"],
+["箱子","xiāngzi","suitcase","vali"],
+["海滩","hǎitān","beach","bãi biển"],
+["山","shān","mountain","núi"],
+["海","hǎi","sea","biển"],
+["相机","xiàngjī","camera","máy ảnh"],
+["导游","dǎoyóu","tour guide","hướng dẫn viên"],
+["一路平安","yílù píng'ān","have a good trip!","thượng lộ bình an!"]
+]},
+{id:"phone",name:"Điện thoại & internet",ru:"电话与网络",items:[
+["电话","diànhuà","telephone","điện thoại"],
+["手机","shǒujī","mobile phone","điện thoại di động"],
+["号码","hàomǎ","number","số"],
+["短信","duǎnxìn","text message","tin nhắn"],
+["网络","wǎngluò","internet","mạng"],
+["密码","mìmǎ","password","mật khẩu"],
+["网站","wǎngzhàn","website","trang web"],
+["应用","yìngyòng","app","ứng dụng"],
+["屏幕","píngmù","screen","màn hình"],
+["电池","diànchí","battery","pin"],
+["充电","chōngdiàn","to charge","sạc"],
+["下载","xiàzài","to download","tải về"],
+["无线网密码是多少","wúxiànwǎng mìmǎ shì duōshao","what's the wifi password?","mật khẩu wifi là gì?"]
+]},
+{id:"city",name:"Trong thành phố",ru:"在城市",items:[
+["城市","chéngshì","city","thành phố"],
+["街","jiē","street","đường phố"],
+["银行","yínháng","bank","ngân hàng"],
+["邮局","yóujú","post office","bưu điện"],
+["超市","chāoshì","supermarket","siêu thị"],
+["药店","yàodiàn","pharmacy","hiệu thuốc"],
+["公园","gōngyuán","park","công viên"],
+["博物馆","bówùguǎn","museum","bảo tàng"],
+["桥","qiáo","bridge","cây cầu"],
+["路口","lùkǒu","intersection","ngã tư"],
+["交通","jiāotōng","traffic","giao thông"],
+["红绿灯","hónglǜdēng","traffic light","đèn giao thông"]
+]},
+{id:"prep",name:"Giới từ & trạng từ",ru:"介词与副词",items:[
+["在","zài","at, in","ở"],
+["上","shàng","on, above","trên"],
+["下","xià","under, below","dưới"],
+["里","lǐ","inside","trong"],
+["旁边","pángbiān","next to","bên cạnh"],
+["中间","zhōngjiān","between, middle","ở giữa"],
+["后面","hòumiàn","behind","phía sau"],
+["前面","qiánmiàn","in front of","phía trước"],
+["和","hé","and, with","và / với"],
+["没有","méiyǒu","not have, without","không có"],
+["总是","zǒngshì","always","luôn luôn"],
+["常常","chángcháng","often","thường"],
+["有时候","yǒu shíhou","sometimes","thỉnh thoảng"],
+["从来不","cónglái bù","never","không bao giờ"],
+["已经","yǐjīng","already","đã rồi"],
+["还","hái","still, yet","vẫn còn"],
+["很","hěn","very","rất"]
+]},
+{id:"opinion",name:"Ý kiến & quan điểm",ru:"观点",items:[
+["我觉得","wǒ juéde","I think…","tôi thấy / tôi nghĩ là…"],
+["我认为","wǒ rènwéi","in my opinion","theo tôi"],
+["我同意","wǒ tóngyì","I agree","tôi đồng ý"],
+["我不同意","wǒ bù tóngyì","I disagree","tôi không đồng ý"],
+["你说得对","nǐ shuō de duì","you're right","bạn nói đúng"],
+["我不确定","wǒ bú quèdìng","I'm not sure","tôi không chắc"],
+["看情况","kàn qíngkuàng","it depends","còn tuỳ"],
+["因为","yīnwèi","because","bởi vì"],
+["但是","dànshì","but","nhưng"],
+["比如","bǐrú","for example","ví dụ"],
+["重要","zhòngyào","important","quan trọng"],
+["真的","zhēnde","really, true","thật"],
+["可能","kěnéng","maybe, possible","có lẽ"]
+]},
+{id:"social",name:"Đời sống xã hội",ru:"社交",items:[
+["聚会","jùhuì","party","bữa tiệc"],
+["邀请","yāoqǐng","to invite","mời"],
+["见面","jiànmiàn","to meet","gặp mặt"],
+["生日","shēngrì","birthday","sinh nhật"],
+["礼物","lǐwù","gift","món quà"],
+["婚礼","hūnlǐ","wedding","đám cưới"],
+["客人","kèrén","guest","khách"],
+["邻居","línjū","neighbour","hàng xóm"],
+["恭喜","gōngxǐ","congratulations","chúc mừng"],
+["生日快乐","shēngrì kuàilè","happy birthday!","chúc mừng sinh nhật!"],
+["祝你好运","zhù nǐ hǎoyùn","good luck!","chúc may mắn!"],
+["新年快乐","xīnnián kuàilè","happy new year!","chúc mừng năm mới!"]
+]},
+{id:"society",name:"Xã hội & tin tức",ru:"社会与新闻",items:[
+["新闻","xīnwén","news","tin tức"],
+["国家","guójiā","country","đất nước"],
+["政府","zhèngfǔ","government","chính phủ"],
+["法律","fǎlǜ","law","luật"],
+["经济","jīngjì","economy","kinh tế"],
+["健康","jiànkāng","health","sức khoẻ"],
+["教育","jiàoyù","education","giáo dục"],
+["环境","huánjìng","environment","môi trường"],
+["技术","jìshù","technology","công nghệ"],
+["变化","biànhuà","change","sự thay đổi"],
+["未来","wèilái","future","tương lai"],
+["社会","shèhuì","society","xã hội"],
+["世界","shìjiè","world","thế giới"]
+]}
+];
+Array.prototype.push.apply(CHUDE_TRUNG,CHUDE_TRUNG2);
+const NGU_PHAP_TRUNG=[
+{id:"g1",ten:"Gần tiếng Việt hơn bạn tưởng",mo:"Bốn điều này làm tiếng Trung dễ vào với người Việt — và một chỗ ngược hẳn.",muc:[
+{loi:1,t:"Động từ không chia, không có thì",
+d:"Giống hệt tiếng Việt: 去 là “đi”, ai đi cũng 去, hôm qua đi cũng 去. Thời gian nói bằng một chữ riêng (昨天, 明天) chứ không đổi hình động từ. Đây là chỗ nhẹ gánh nhất so với tiếng Anh và tiếng Nga.",
+vd:[["我去","wǒ qù — tôi đi"],["他去","tā qù — anh ấy đi"],["昨天我去","zuótiān wǒ qù — hôm qua tôi đi"]]},
+{loi:1,t:"Không có giống, không có số nhiều bắt buộc",
+d:"Danh từ không đổi hình. Muốn nói số nhiều thì thêm số và lượng từ, y như tiếng Việt.",
+vd:[["三本书","sān běn shū — ba quyển sách"],["两个人","liǎng ge rén — hai người"]]},
+{loi:1,t:"Lượng từ — đúng như “con, cái, quyển” tiếng Việt",
+d:"Giữa số và danh từ phải có lượng từ. 个 gè dùng được cho phần lớn trường hợp; người Việt quen lối này sẵn nên không thấy lạ.",
+vd:[["一个人","yí ge rén — một người"],["三本书","sān běn shū — ba quyển sách"],["两只猫","liǎng zhī māo — hai con mèo"]]},
+{loi:1,t:"NGƯỢC tiếng Việt: phần bổ nghĩa đứng TRƯỚC",
+d:"Tiếng Việt nói “hoa đỏ”, tiếng Trung nói “đỏ hoa”. Mọi thứ bổ nghĩa — tính từ, sở hữu, cả một mệnh đề — đều đứng trước danh từ. Đây là chỗ người Việt sai nhiều nhất.",
+vd:[["红色的花","hóngsè de huā — hoa màu đỏ"],["我的书","wǒ de shū — sách của tôi"],["中国朋友","Zhōngguó péngyǒu — bạn người Trung Quốc"]]}
+]},
+{id:"g2",ten:"Thanh điệu và biến điệu",mo:"Sai thanh là sai nghĩa, không phải sai giọng. Phần này không học thì không nói được.",muc:[
+{loi:1,t:"Bốn thanh, một âm bốn nghĩa",
+d:"Cùng âm “ma” mà đổi thanh là đổi hẳn chữ và nghĩa. Người Việt có lợi thế vì tiếng Việt cũng có thanh — chỉ cần nhớ tiếng Trung chỉ có bốn, và thanh 1 PHẲNG chứ không như thanh ngang tiếng Việt.",
+vd:[["妈 mā","mẹ — cao đều"],["麻 má","cây gai — đi lên"],["马 mǎ","con ngựa — xuống rồi lên"],["骂 mà","mắng — đổ xuống"]]},
+{loi:1,t:"Hai thanh 3 liền nhau: chữ trước đổi thành thanh 2",
+d:"Viết vẫn là nǐ hǎo nhưng đọc thành ní hǎo. Đây là quy tắc gặp ngay từ câu chào đầu tiên.",
+vd:[["你好","nǐ hǎo → đọc ní hǎo"],["很好","hěn hǎo → đọc hén hǎo"],["老板","lǎobǎn → đọc láobǎn"]]},
+{loi:1,t:"不 bù đổi thành bú trước thanh 4",
+d:"Chữ phủ định 不 vốn thanh 4. Đứng trước một chữ thanh 4 nữa thì nó đổi thành thanh 2.",
+vd:[["不是","bú shì — không phải"],["不要","bú yào — đừng"],["不好","bù hǎo — không tốt (giữ nguyên)"]]},
+{loi:2,t:"一 yī đổi theo chữ đứng sau",
+d:"Đứng một mình đọc yī. Trước thanh 1, 2, 3 thì đọc yì; trước thanh 4 thì đọc yí.",
+vd:[["一百","yìbǎi — một trăm"],["一直","yìzhí — thẳng"],["一下","yíxià — một chút"]]},
+{loi:2,t:"Thanh nhẹ",
+d:"Nhiều tiếng thứ hai trong từ ghép và các chữ cuối câu đọc nhẹ, ngắn, không mang thanh: 妈妈 māma, 谢谢 xièxie, 吗 ma, 了 le, 的 de.",
+vd:[["妈妈","māma — mẹ"],["谢谢","xièxie — cảm ơn"],["你好吗","nǐ hǎo ma — bạn khoẻ không"]]}
+]},
+{id:"g3",ten:"Mấy chữ nhỏ quyết định cả câu",mo:"Tiếng Trung không đổi hình từ, nên nghĩa nằm ở mấy chữ hư này.",muc:[
+{loi:1,t:"的 de — của, và mọi thứ bổ nghĩa",
+d:"Nối phần bổ nghĩa với danh từ đứng sau. Quan hệ thân thiết thì bỏ được: 我妈妈.",
+vd:[["我的书","wǒ de shū — sách của tôi"],["漂亮的花","piàoliang de huā — bông hoa đẹp"],["我妈妈","wǒ māma — mẹ tôi"]]},
+{loi:1,t:"很 hěn — tính từ làm vị ngữ phải có nó",
+d:"Nói 我好 nghe cụt và như đang so sánh. Phải là 我很好. Ở đây 很 gần như chỉ để đỡ câu, không hẳn mang nghĩa “rất”.",
+vd:[["我很好","wǒ hěn hǎo — tôi khoẻ"],["天气很热","tiānqì hěn rè — trời nóng"]]},
+{loi:1,t:"吗 ma — thêm vào cuối là thành câu hỏi",
+d:"Không đảo trật tự gì cả, chỉ thêm 吗 vào cuối câu kể.",
+vd:[["你好吗","nǐ hǎo ma — bạn khoẻ không?"],["你是学生吗","nǐ shì xuésheng ma — bạn là sinh viên à?"]]},
+{loi:2,t:"了 le — việc đã xảy ra hoặc có thay đổi",
+d:"Không phải thì quá khứ. Nó báo một việc đã hoàn tất, hoặc tình hình vừa đổi khác.",
+vd:[["我吃了","wǒ chī le — tôi ăn rồi"],["下雨了","xià yǔ le — trời mưa rồi"],["太贵了","tài guì le — đắt quá"]]},
+{loi:2,t:"Hỏi chính-phản: ghép khẳng định với phủ định",
+d:"Cách hỏi rất hay gặp, thay cho 吗.",
+vd:[["好不好","hǎo bu hǎo — được không?"],["是不是","shì bu shì — phải không?"],["你去不去","nǐ qù bu qù — bạn đi không?"]]}
+]},
+{id:"g4",ten:"Mẫu câu dùng ngay",mo:"Nói được ngay mà không cần học hết chữ Hán.",muc:[
+{loi:1,t:"Trật tự: Thời gian → Nơi chốn → Động từ",
+d:"Đây là khác biệt lớn với tiếng Việt: nơi chốn phải đứng TRƯỚC động từ, không đứng sau như “ăn cơm ở nhà”.",
+vd:[["我明天在家吃饭","wǒ míngtiān zài jiā chīfàn — mai tôi ăn cơm ở nhà"],["他在公司工作","tā zài gōngsī gōngzuò — anh ấy làm việc ở công ty"]]},
+{loi:1,t:"是 shì — là, dùng nối hai danh từ",
+d:"Chỉ dùng khi hai bên đều là danh từ. Với tính từ thì dùng 很, không dùng 是.",
+vd:[["我是学生","wǒ shì xuésheng — tôi là sinh viên"],["这是什么","zhè shì shénme — cái này là gì?"]]},
+{loi:1,t:"有 yǒu / 没有 méiyǒu — có và không có",
+d:"Phủ định của 有 là 没有, không bao giờ là 不有.",
+vd:[["我有钱","wǒ yǒu qián — tôi có tiền"],["我没有时间","wǒ méiyǒu shíjiān — tôi không có thời gian"]]},
+{loi:2,t:"要 / 想 / 会 / 能",
+d:"要 yào là muốn và sẽ làm; 想 xiǎng là muốn, nghĩ tới; 会 huì là biết làm (do học); 能 néng là có điều kiện để làm.",
+vd:[["我要去","wǒ yào qù — tôi muốn đi / tôi sẽ đi"],["我想喝茶","wǒ xiǎng hē chá — tôi muốn uống trà"],["我会说中文","wǒ huì shuō Zhōngwén — tôi biết nói tiếng Trung"]]},
+{loi:2,t:"Hỏi giá và số lượng",
+d:"多少 duōshao hỏi số lớn, 几 jǐ hỏi số nhỏ (dưới mười) và phải đi kèm lượng từ.",
+vd:[["多少钱","duōshao qián — bao nhiêu tiền?"],["几点了","jǐ diǎn le — mấy giờ rồi?"],["几个人","jǐ ge rén — mấy người?"]]}
+]}
+];
+const CAP_ZH=[
+{ten:"Mới bắt đầu",ban:"新手",can:0,hh:"新",mau:"#6E93D6"},
+{ten:"Thuộc pinyin",ban:"拼音",can:20,hh:"拼",mau:"#4A8BE8"},
+{ten:"Biết đếm",ban:"数字",can:45,hh:"数",mau:"#1FADA4"},
+{ten:"Chào hỏi được",ban:"问候",can:80,hh:"问",mau:"#3BA862"},
+{ten:"Đủ sống sót",ban:"生存",can:130,hh:"生",mau:"#C79A1E"},
+{ten:"Nói chuyện thường ngày",ban:"日常",can:195,hh:"日",mau:"#E08534"},
+{ten:"Khá vững",ban:"熟练",can:280,hh:"熟",mau:"#DC5A50"},
+{ten:"Thạo",ban:"流利",can:380,hh:"流",mau:"#A855C9"},
+{ten:"Hết kho từ",ban:"大师",can:480,hh:"师",mau:"#7355E4"}
+];
+const NHOM_TRUNG=[
+["Bốn thanh — sai thanh là sai chữ","妈 mā mẹ · 麻 má cây gai · 马 mǎ con ngựa · 骂 mà mắng. Cùng một âm, bốn chữ khác hẳn nhau. Đây không phải chuyện giọng, mà là chuyện nghĩa."],
+["Bật hơi hay không bật hơi","b–p · d–t · g–k · j–q · z–c. Cùng khẩu hình, chỉ khác ở chỗ có phụt hơi ra hay không. Tiếng Việt không phân biệt kiểu này nên phải tập riêng."],
+["Bốn âm cong lưỡi","zh ch sh r — phải CONG đầu lưỡi lên vòm rồi mới phát. Đọc bẹt lưỡi là thành z c s, ra chữ khác."],
+["Cặp hay trộn nhất: s và sh","四 sì (bốn) ≠ 是 shì (là). Cả z–zh và c–ch cũng vậy. Nghe kỹ chỗ lưỡi cong hay bẹt."],
+["ü phải chúm môi","女 nǚ (nữ) ≠ 努 nǔ (gắng sức). Sau j q x y thì viết là u nhưng vẫn đọc ü: 去 qù đọc như “qü”."],
+["Biến điệu — viết một đằng đọc một nẻo","Hai thanh 3 liền nhau thì chữ trước đọc thành thanh 2: 你好 viết nǐ hǎo, đọc ní hǎo. 不 trước thanh 4 đọc bú: 不是 bú shì."]
+];
+function napMonTrung(){
+var ms=[];
+ms.push({id:"alpha",kind:"L",name:"Bảng pinyin",ru:"拼音",items:AM_TRUNG.map(function(a,i){
+return {id:"alpha:"+i,t:"L",up:a[0],lo:a[1],nm:a[2],nmv:a[3],snd:a[4],tip:a[5],ex:a[6],extr:a[7],exen:a[8],exvi:a[9]};
+})});
+ms.push({id:"num",kind:"V",name:"Số đếm",ru:"数字",items:SO_TRUNG.map(function(a,i){
+return {id:"num:"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
+})});
+CHUDE_TRUNG.forEach(function(t){
+ms.push({id:t.id,kind:"V",name:t.name,ru:t.ru,items:t.items.map(function(a,i){
+return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
+})});
+});
+return {mods:ms,np:NGU_PHAP_TRUNG,cap:CAP_ZH};
+}
 function napMonNga(){
 var ms=[];
 ms.push({id:"alpha",kind:"L",name:"Bảng chữ cái",ru:"Алфавит",items:LETTERS.map(function(a,i){
@@ -2243,13 +2932,14 @@ loTrinh:"Sounds → Numbers → Words & phrases",
 phienAm:"phiên âm IPA",nhom:NHOM_ANH,nap:napMonAnh},
 {ma:"zh",ten:"Tiếng Trung",ban:"中文",hh:"中",bcp:"zh-CN",enTen:"Chinese",
 mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",
-trongam:false,hat:false,viettay:false,coAnh:true,goLatin:false,canLatin:false,
+trongam:false,hat:false,viettay:false,coAnh:true,goLatin:false,goPinyin:true,
 tenChu:"Bảng pinyin",tenChuT:"bảng pinyin",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
-ctaChu:"Bắt đầu từ pinyin",moTaChu:"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa",
-nhanhChu:"Thanh dễ nhầm",nhanhMo:"Bốn thanh nghe gần nhau. Mỗi âm 4,5 giây.",
-nham:null,tag:"中",nhan:"Tiếng Trung từ thanh đến câu",ban3:"中文",
+ctaChu:"Bắt đầu từ pinyin",moTaChu:"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa hẳn",
+nhanhChu:"Âm dễ nhầm",nhanhMo:"Bốn thanh, cặp bật hơi và bộ cong lưỡi — những chỗ người Việt hay trộn. Mỗi âm 4,5 giây.",
+nham:["b","p","d","t","g","k","j","q","x","zh","ch","sh","r","z","c","s","ü","an","ang","en","eng","ong","mā","má","mǎ","mà"],
+tag:"中",nhan:"Tiếng Trung từ thanh đến câu",ban3:"中文",
 loTrinh:"拼音 → 数字 → 词语",
-phienAm:"pinyin",nhom:null,nap:null}
+phienAm:"pinyin",nhom:NHOM_TRUNG,nap:napMonTrung}
 ];
 function monTheoMa(ma){for(var i=0;i<MON.length;i++)if(MON[i].ma===ma)return MON[i];return null;}
 function TenMon(){return monNay().ten;}
@@ -2301,6 +2991,19 @@ var fb=document.querySelector("footer b:not(.tacgia)");
 if(fb)fb.textContent=mn.nhan;
 var ns=document.getElementById("nav-song");
 if(ns)ns.hidden=!mn.hat;
+var ftg=document.querySelector("footer .ft-brand .tag");
+if(ftg)ftg.textContent=mn.tag;
+var fn=document.querySelector("footer .ft-note");
+if(fn){
+var alp=modById("alpha"),nm=modById("num");
+var soTu=ALL_ITEMS.filter(function(x){return x.t==="V";}).length;
+var soCd=MODULES.filter(function(x){return x.kind==="V"&&x.id!=="num";}).length;
+var o=["<span><b>"+((alp&&alp.items.length)||0)+"</b> "+mn.donVi+" · "+mn.ban3+"</span>",
+"<span><b>"+((nm&&nm.items.length)||0)+"</b> mục số đếm</span>",
+"<span><b>"+soTu+"</b> từ · <b>"+soCd+"</b> chủ đề</span>",
+"<span>"+(mn.viettay?"chữ viết tay có chấm điểm":"mẹo đọc riêng cho người Việt")+"</span>"];
+fn.innerHTML=o.join("");
+}
 }
 function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)return MODULES[i];return null;}
 const LS_KEY="rus-az-v1";
@@ -2507,6 +3210,11 @@ if(m.id==="num")return "Mở khi "+tc+" đạt 35% — hiện "+am+"%";
 var nm=Math.round(mastery(modById("num").items)*100);
 return "Mở khi "+tc+" ≥70% ("+am+"%) và Số đếm ≥50% ("+nm+"%)";
 }
+function khongThanh(x){
+return String(x||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+.toLowerCase().replace(/[^a-z ]/g," ").replace(/\s+/g," ").trim();
+}
+function chuanGo(x){return monNay().goPinyin?khongThanh(x):norm(x);}
 function norm(s){
 return String(s||"").replace(/́/g,"").toLowerCase().replace(/ё/g,"е")
 .replace(/[^0-9a-zа-яёÀ-ỹ ]/gi," ").replace(/\s+/g," ").trim();
@@ -3890,13 +4598,18 @@ return {k:"mc",it:it,ask:"Trọng âm rơi vào đâu?",big:si.plain,cyr:true,su
 opts:opts,optCls:"stress",audio:it.ru};
 }
 function dictStep(it){
+if(monNay().goPinyin)
+return {k:"type",it:it,ask:"Nghe rồi gõ lại bằng pinyin",big:"",sub:"",dict:true,
+answer:it.tr,show:it.ru};
 return {k:"type",it:it,ask:"Nghe rồi gõ lại bằng "+tenmon(),big:"",sub:"",dict:true,
 answer:it.ru,show:it.ru};
 }
 function typeStep(it){
 if(it.t==="L")return {k:"type",it:it,ask:monNay().viettay?"Gõ chữ cái (thường)":("Gõ từ ví dụ của âm "+it.up),
 big:it.snd==="—"?it.nmv:it.snd,sub:monNay().viettay?it.nm:it.up,answer:it.lo,show:it.up+" "+it.lo};
-return {k:"type",it:it,ask:"Gõ bằng tiếng Nga",big:it.vi,sub:it.en,answer:it.ru,show:it.ru};
+if(monNay().goPinyin)
+return {k:"type",it:it,ask:"Gõ pinyin (không cần dấu thanh)",big:it.vi,sub:it.en,answer:it.tr,show:it.ru};
+return {k:"type",it:it,ask:"Gõ bằng "+tenmon(),big:it.vi,sub:it.en,answer:it.ru,show:it.ru};
 }
 function buildLearn(m,nw){
 var batch=nw.slice(0,6),pool=m.items,steps=[];
@@ -4338,7 +5051,7 @@ if(done){next();return;}
 done=true;
 var typed=latin?trRu(inp.value):inp.value;
 if(latin&&typed!==inp.value)inp.value=typed;
-var ok=norm(typed)===norm(st.answer);
+var ok=chuanGo(typed)===chuanGo(st.answer);
 grade(st.it.id,ok);
 if(ok)S.right++;else{S.wrong++;ghiSai(st.it);}
 inp.disabled=true;kb.style.opacity=".4";kb.style.pointerEvents="none";
@@ -5834,7 +6547,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=101"></script>
+<script type="module" src="firebase-sync.js?v=102"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
