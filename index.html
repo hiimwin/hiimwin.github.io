@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=77"></script>
+<script src="firebase-config.js?v=78"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -432,6 +432,14 @@ transition:opacity .22s,transform .22s cubic-bezier(.22,1,.36,1)}
 .len-dau:active{transform:scale(.96)}
 .len-dau b{font-weight:600}
 @media(max-width:560px){.len-dau b{display:none}.len-dau{padding:11px}}
+body.nhe{--blur:none;--surface:rgba(255,255,255,.9);--surface-2:rgba(255,255,255,.74)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.nhe{
+--surface:rgba(255,255,255,.14);--surface-2:rgba(255,255,255,.1)}}
+:root[data-theme="dark"] body.nhe{--surface:rgba(255,255,255,.14);--surface-2:rgba(255,255,255,.1)}
+body.nhe::after{animation:none;filter:none}
+body.nhe .floaty{display:none}
+body.nhe .mod::after,body.nhe .chap::after,body.nhe .cell::after,body.nhe .opt::after{display:none}
+body.nhe .prog-bar .run{animation:none}
 .toast{position:fixed;z-index:20;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));
 bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:648px;margin:0 auto;animation:rise .25s both}
 .topnote{margin-bottom:16px;cursor:pointer;animation:rise .25s both}
@@ -1353,7 +1361,7 @@ function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)retu
 const LS_KEY="rus-az-v1";
 const INTERVALS=[0,1,2,4,8,16,32,64];
 const DAY=86400000;
-let prog={items:{},stats:{streak:0,last:"",hist:{}},settings:{unlockAll:false,translit:true,latinType:true,anh:true,soCau:12,rate:.85,wspeed:"cham"},v:0};
+let prog={items:{},stats:{streak:0,last:"",hist:{}},settings:{unlockAll:false,translit:true,latinType:true,anh:true,soCau:12,nhe:"tu",rate:.85,wspeed:"cham"},v:0};
 let dirty=false,cloud=null,saveTimer=null,saving=false;
 function todayKey(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function badKey(k){return k==="__proto__"||k==="constructor"||k==="prototype";}
@@ -1605,7 +1613,31 @@ if(bg)bg.setAttribute("aria-expanded","false");
 window.scrollTo(0,0);render();
 }
 var khoaManTruoc="",vuaDoiMan=false,laVeDau=true;
+function laDangApp(){
+try{
+return matchMedia("(display-mode: standalone)").matches
+|| matchMedia("(display-mode: window-controls-overlay)").matches
+|| matchMedia("(display-mode: minimal-ui)").matches
+|| !!navigator.standalone;
+}catch(e){return false;}
+}
+function nenNhe(){
+var v=prog.settings&&prog.settings.nhe;
+if(v==="nhe")return true;
+if(v==="day")return false;
+return laDangApp();
+}
+function datNhe(){
+try{document.body.classList.toggle("nhe",nenNhe());}catch(e){}
+}
+try{
+["(display-mode: standalone)","(display-mode: window-controls-overlay)"].forEach(function(q){
+var m=matchMedia(q);
+if(m.addEventListener)m.addEventListener("change",datNhe);
+});
+}catch(e){}
 function render(){
+datNhe();
 dungHat();
 app.innerHTML="";
 var khoaMan=view.n+"|"+(view.one||"")+"|"+(view.mod||"")+"|"+(view.tab||"");
@@ -4022,6 +4054,16 @@ toggle("Hiện phiên âm Latin","Dòng “máma”, “spasíbo” dưới ch�
 toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
 toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều Nga → Anh và Anh → Nga, học một công đôi việc.","anh");
 toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng chữ cái. Không khuyến khích.","unlockAll");
+var hu=el('<div class="set"><div class="l"><div class="n">Hiệu ứng nền</div>'+
+'<div class="d">Nền chuyển màu và lớp làm mờ sau các thẻ nhìn đẹp nhưng tốn sức máy. Cửa sổ app cài về máy có lúc không được tăng tốc phần cứng như tab trình duyệt, nên ở đó app mặc định chạy chế độ nhẹ: nền đứng yên, không làm mờ. Hiện đang: <b>'+(nenNhe()?"nhẹ":"đầy đủ")+'</b>.</div></div></div>');
+var hur=el('<div class="row" style="flex:none"></div>');
+[["Tự động","tu"],["Luôn nhẹ","nhe"],["Luôn đầy đủ","day"]].forEach(function(o){
+var cur=(prog.settings.nhe||"tu")===o[1];
+var b=el('<button class="btn sm '+(cur?"":"ghost")+'">'+o[0]+'</button>');
+b.onclick=function(){prog.settings.nhe=o[1];touch();datNhe();render();};
+hur.appendChild(b);
+});
+hu.appendChild(hur);app.appendChild(hu);
 var sc=el('<div class="set"><div class="l"><div class="n">Số câu mỗi bài ôn</div>'+
 '<div class="d">Bài ôn lấy những mục đã đến hạn nhắc lại. Hôm nào chưa tới hạn mấy mục thì app lấy thêm mục hay sai và mục sắp đến hạn cho đủ chừng này câu — chứ mở ra làm đúng một câu rồi đóng lại thì chẳng bõ.</div></div></div>');
 var scr=el('<div class="row" style="flex:none"></div>');
@@ -4297,7 +4339,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=77"></script>
+<script type="module" src="firebase-sync.js?v=78"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
