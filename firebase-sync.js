@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
 getAuth, onAuthStateChanged, signInAnonymously, signOut,
-GoogleAuthProvider, signInWithPopup, linkWithPopup,
+GoogleAuthProvider,
 signInWithRedirect, linkWithRedirect, getRedirectResult, signInWithCredential
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -90,16 +90,9 @@ return;
 console.warn("[nga] đăng nhập chuyển hướng hỏng:", code || e);
 bao("Không đăng nhập được" + (code ? " (" + code + ")" : "."));
 });
-function nenChuyenHuong() {
-const ua = navigator.userAgent || "";
-const ios = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-const safari = /Safari/.test(ua) && !/Chrome|CriOS|FxiOS|EdgiOS|Edg\/|Android|OPR/.test(ua);
-return ios || safari;
-}
-async function dangNhapGoogle(kieu) {
+async function dangNhapGoogle() {
 const provider = new GoogleAuthProvider();
 const khach = auth.currentUser && auth.currentUser.isAnonymous;
-if (kieu === "huong") {
 datDau();
 try {
 if (khach) await linkWithRedirect(auth.currentUser, provider);
@@ -108,45 +101,13 @@ else await signInWithRedirect(auth, provider);
 if (!khach) throw e;
 await signInWithRedirect(auth, provider);
 }
-return;
-}
-if (khach) await linkWithPopup(auth.currentUser, provider);
-else await signInWithPopup(auth, provider);
 }
 setTimeout(() => settle(null), 15000);
 window.CLOUD = {
 ready: () => readyP,
 state: () => ({ uid, user }),
 async signInGoogle() {
-if (nenChuyenHuong()) { await dangNhapGoogle("huong"); return; }
-try {
-await dangNhapGoogle("hop");
-} catch (e) {
-const code = (e && e.code) || "";
-if (/popup-closed-by-user|cancelled-popup-request|user-cancelled/.test(code)) throw e;
-if (/already-in-use|credential-already/.test(code)) {
-const cred = GoogleAuthProvider.credentialFromError(e);
-if (cred) {
-await signInWithCredential(auth, cred);
-doi();
-return;
-}
-try {
-await signInWithPopup(auth, new GoogleAuthProvider());
-} catch (e2) {
-await dangNhapGoogle("huong");
-return;
-}
-} else {
-try {
-await dangNhapGoogle("huong");
-return;
-} catch (e3) {
-throw e3 || e;
-}
-}
-}
-doi();
+await dangNhapGoogle();
 },
 async signOutNow() {
 await signOut(auth);
