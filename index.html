@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=70"></script>
+<script src="firebase-config.js?v=71"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -390,6 +390,18 @@ display:grid;place-items:center;font-size:16px;line-height:1}
 background:var(--surface-2);transition:color .15s,background .15s}
 .ft-nav button:hover,.ft-nav a:hover{color:var(--ink);background:var(--sunken)}
 .ft-note{font-size:13px;color:var(--muted);line-height:1.6}
+.len-dau{position:fixed;z-index:12;right:max(16px,env(safe-area-inset-right,0px));
+display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border-radius:var(--r-pill);
+background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line),var(--sh-lift);
+-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+font-size:14px;font-weight:600;line-height:1;
+opacity:0;transform:translateY(12px) scale(.94);pointer-events:none;
+transition:opacity .22s,transform .22s cubic-bezier(.22,1,.36,1)}
+.len-dau.hien{opacity:1;transform:none;pointer-events:auto}
+.len-dau:hover{box-shadow:inset 0 0 0 1px var(--accent),var(--sh-lift)}
+.len-dau:active{transform:scale(.96)}
+.len-dau b{font-weight:600}
+@media(max-width:560px){.len-dau b{display:none}.len-dau{padding:11px}}
 .toast{position:fixed;z-index:20;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));
 bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:648px;margin:0 auto;animation:rise .25s both}
 .topnote{margin-bottom:16px;cursor:pointer;animation:rise .25s both}
@@ -497,10 +509,40 @@ position:sticky;bottom:0;z-index:9;-webkit-backdrop-filter:var(--blur);backdrop-
 body.hep #app{max-width:780px;margin-inline:auto}
 body.cover-on .burger,body.cover-on .ft-nav{display:none}
 .col2{display:grid;gap:10px}
+@media(min-width:900px){
+.hang-luyen{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));
+gap:12px;align-items:stretch;margin-bottom:12px}
+.hang-luyen .set{margin-bottom:0;height:100%;padding:20px 20px 18px;
+flex-direction:column;align-items:stretch;gap:0}
+.hang-luyen .set .l{flex:1 1 auto}
+.hang-luyen .set .n{font-size:17px}
+.hang-luyen .set .d{margin-top:5px}
+.hang-luyen .set .act{margin:14px 0 0;flex:none;width:100%}
+.hang-luyen .set .act>.btn{width:100%;justify-content:center}
+.hang-luyen .set .row>.btn{flex:1 1 auto;justify-content:center}
+.hang-luyen .set{transition:transform .18s,box-shadow .2s}
+.hang-luyen .set:hover{transform:translateY(-3px);box-shadow:var(--sh-lift)}
+}
 @media(min-width:1024px){
 .col2{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.hero{padding:34px 32px}
+.chapbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;
+margin-left:19px;padding-left:14px}
+.chapbody .mod{margin-bottom:0}
+.hero{padding:34px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);
+gap:20px 44px;align-items:start}
 .hero h1{font-size:38px}
+.h-c{grid-column:1;grid-row:2;align-self:end}
+.h-b{grid-column:2;grid-row:1 / span 2;align-self:center}
+.h-b .astrip{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin-top:0}
+.h-b .astrip button{width:auto;height:44px;font-size:19px;border-radius:var(--r-sm)}
+.h-b .alegend{margin-top:12px}
+.stats{margin-top:0}
+.stat+.stat{border-left:1px solid var(--line-soft);padding-left:26px}
+.stat b{font-size:30px}
+}
+@media(min-width:1400px){
+.col2{grid-template-columns:repeat(3,minmax(0,1fr))}
+.chapbody{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(min-width:1500px){.wrap{max-width:1440px}}
 #nav-login{flex:none;min-height:40px;padding:9px 18px;font-size:15px}
@@ -1513,7 +1555,8 @@ tai:'<path d="M4.4 14.4v-2.2a7.6 7.6 0 0 1 15.2 0v2.2"/><rect x="2.9" y="13.6" w
 nhip:'<path d="M3 12.2h4.2L9.6 6l4.2 12 2.4-5.8H21"/>',
 nhac:'<path d="M9.3 18.1V5.7l9.3-1.9v12.2"/><ellipse cx="6.8" cy="18.3" rx="2.5" ry="2.1"/><ellipse cx="16.1" cy="16" rx="2.5" ry="2.1"/>',
 ra:'<path d="M9.5 3.5h-3a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3"/><path d="M15.5 8.5 19 12l-3.5 3.5"/><path d="M19 12h-9"/>',
-but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>'
+but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>',
+len:'<path d="M12 18.8V5.8"/><path d="M6.2 11.6 12 5.8l5.8 5.8"/>'
 };
 function ic(n,sz){
 return '<svg class="ic-svg" viewBox="0 0 24 24" width="'+(sz||20)+'" height="'+(sz||20)+'" fill="none" '+
@@ -1848,23 +1891,29 @@ var alpha=modById("alpha");
 var h=el('<div></div>');
 var hero=el(
 '<section class="hero">'+
+'<div class="h-a">'+
 '<div class="eyebrow"><span class="cyr">Русский язык</span> · Nga — Anh — Việt</div>'+
 '<h1>Học từ bảng chữ cái trở đi</h1>'+
 '<div class="ru">Алфавит → Числа → Слова и фразы</div>'+
+'</div>'+
+'<div class="h-b">'+
 '<div class="astrip"></div>'+
 '<div class="alegend">'+
 '<span><i style="background:var(--deep)"></i>đã thuộc</span>'+
 '<span><i style="background:var(--deep-soft)"></i>đang học</span>'+
 '<span><i style="background:var(--surface-2)"></i>chưa học</span>'+
 '</div>'+
+'</div>'+
+'<div class="h-c">'+
 '<div class="stats">'+
 '<div class="stat"><b><i data-to="'+seen+'">0</i><span class="muted" style="font-size:15px;font-weight:400">/'+ALL_ITEMS.length+'</span></b><small>Đã học</small></div>'+
 '<div class="stat"><b><i data-to="'+learned+'">0</i></b><small>Đã thuộc</small></div>'+
 '<div class="stat"><b><i data-to="'+(prog.stats.streak||0)+'">0</i></b><small>Ngày liên tiếp</small></div>'+
 '</div>'+
+'</div>'+
 '</section>');
 var a0=acctState();
-if(a0&&a0.signed)hero.appendChild(el('<div class="syncline"><i></i>Đang đồng bộ với <b>'+esc(a0.ten)+'</b></div>'));
+if(a0&&a0.signed)hero.querySelector(".h-c").appendChild(el('<div class="syncline"><i></i>Đang đồng bộ với <b>'+esc(a0.ten)+'</b></div>'));
 var strip=hero.querySelector(".astrip");
 alpha.items.forEach(function(it){
 var p=rec(it.id),cls=p?(p.b>=3?"known":"seen"):"";
@@ -1894,7 +1943,8 @@ var hrow=el('<div class="set"><div class="l"><div class="n">Bài hát bảng ch�
 var hbtn=el('<button class="btn sm">'+ic("nhac",18)+'<span>Nghe</span></button>');
 hbtn.onclick=function(){go({n:"song"});};
 hrow.querySelector(".act").appendChild(hbtn);
-h.appendChild(hrow);
+var hangLuyen=el('<div class="hang-luyen"></div>');
+hangLuyen.appendChild(hrow);
 var yeu=mucYeu();
 if(yeu.length>=4){
 var yrow=el('<div class="set"><div class="l"><div class="n">Luyện chỗ hay sai</div>'+
@@ -1903,7 +1953,7 @@ var yrow=el('<div class="set"><div class="l"><div class="n">Luyện chỗ hay sa
 var ybtn=el('<button class="btn sm">'+ic("velai",18)+'<span>Luyện</span></button>');
 ybtn.onclick=function(){startSession(buildYeu());};
 yrow.querySelector(".act").appendChild(ybtn);
-h.appendChild(yrow);
+hangLuyen.appendChild(yrow);
 }
 var nrow=el('<div class="set" style="display:block"><div class="l"><div class="n">Luyện nhanh</div>'+
 '<div class="d">Có tính giờ, ép phản xạ thay vì ngồi nghĩ. Đúng sai đều tính vào tiến độ như bài thường.</div></div>'+
@@ -1914,7 +1964,7 @@ nb1.onclick=function(){go({n:"nhanh",kieu:"chu"});};
 var nb2=el('<button class="btn sm ghost">'+ic("tim",18)+'<span>Đọc nhanh</span></button>');
 nb2.onclick=function(){go({n:"nhanh",kieu:"doc"});};
 nr.appendChild(nb1);nr.appendChild(nb2);
-h.appendChild(nrow);
+hangLuyen.appendChild(nrow);
 var soCho=tuChoKhong().length;
 if(soCho>=10){
 var arow=el('<div class="set"><div class="l"><div class="n">Từ cho không</div>'+
@@ -1923,8 +1973,9 @@ var arow=el('<div class="set"><div class="l"><div class="n">Từ cho không</div
 var abtn=el('<button class="btn sm ghost">'+ic("sach",18)+'<span>Xem</span></button>');
 abtn.onclick=function(){go({n:"anhnga"});};
 arow.querySelector(".act").appendChild(abtn);
-h.appendChild(arow);
+hangLuyen.appendChild(arow);
 }
+h.appendChild(hangLuyen);
 var ac=accountCard(seen);
 if(ac)h.appendChild(ac);
 h.appendChild(el('<div class="sec-head"><h2>Lộ trình</h2><div class="ln"></div></div>'));
@@ -2244,11 +2295,10 @@ var inner=g
 : '<text class="ghost-text" x="52" y="71">'+esc(it.up+" "+it.lo)+'</text><g class="userg"></g><g class="missg"></g>';
 var box=el('<div class="wbox"><div class="sheet">'+sheetSvg(inner)+'</div>'+
 '<div class="row" style="margin-top:12px">'+
-(g?'<button class="btn sm" style="flex:none">Chấm điểm</button>':'')+
 '<button class="btn sm ghost" style="flex:none">Viết lại</button>'+
 '</div>'+
 '<div class="note">'+
-(g?"Viết đè lên nét mờ bằng chuột hoặc ngón tay, xong bấm Chấm điểm.":"Chữ này chưa có nét mẫu nên app không chấm được, bạn cứ viết thử.")+
+(g?"Viết đè lên nét mờ bằng chuột hoặc ngón tay. Nhấc bút lên là app tự chấm, viết thêm nét thì chấm lại.":"Chữ này chưa có nét mẫu nên app không chấm được, bạn cứ viết thử.")+
 '</div><div class="res"></div></div>');
 var svg=box.querySelector("svg"),art=svg.querySelector(".art"),
 ug=svg.querySelector(".userg"),mg=svg.querySelector(".missg"),res=box.querySelector(".res");
@@ -2265,7 +2315,7 @@ drawing=true;try{svg.setPointerCapture(e.pointerId);}catch(err){}
 cur=[p];curEl=document.createElementNS(SVGNS,"path");
 curEl.setAttribute("class","usr");curEl.setAttribute("d","M "+p[0].toFixed(1)+","+p[1].toFixed(1));
 ug.appendChild(curEl);strokes.push(cur);
-mg.innerHTML="";e.preventDefault();
+mg.innerHTML="";res.innerHTML="";huyCham();e.preventDefault();
 });
 svg.addEventListener("pointermove",function(e){
 if(!drawing||!cur)return;
@@ -2277,23 +2327,28 @@ curEl.setAttribute("d",curEl.getAttribute("d")+" L "+p[0].toFixed(1)+","+p[1].to
 e.preventDefault();
 });
 ["pointerup","pointercancel","pointerleave"].forEach(function(t){
-svg.addEventListener(t,function(){drawing=false;cur=null;curEl=null;});
+svg.addEventListener(t,function(){
+var dangVe=drawing;
+drawing=false;cur=null;curEl=null;
+if(dangVe)henCham();
 });
-function reset(){strokes=[];ug.innerHTML="";mg.innerHTML="";res.innerHTML="";}
-var btns=box.querySelectorAll(".row > button");
-if(g){
-btns[0].onclick=function(){
+});
+function reset(){huyCham();strokes=[];ug.innerHTML="";mg.innerHTML="";res.innerHTML="";}
+var henId=0;
+function huyCham(){ if(henId){clearTimeout(henId);henId=0;} }
+function henCham(){ huyCham(); if(g)henId=setTimeout(cham,900); }
+function cham(){
+henId=0;
 var r=scoreWriting(refPoints(svg),strokes);
-if(!r){res.innerHTML='<div class="fb neutral" style="margin-top:14px">Bạn chưa viết gì, hoặc nét quá ngắn để chấm.</div>';return;}
+if(!r){res.innerHTML="";return;}
 mg.innerHTML=r.miss.map(function(p){return '<circle class="miss" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="1.8"/>';}).join("");
 var col=r.score>=80?"var(--ok)":(r.score>=55?"var(--warn)":"var(--bad)");
 var bg=r.score>=80?"var(--ok-bg)":(r.score>=55?"var(--surface-2)":"var(--bad-bg)");
 res.innerHTML='<div class="scorebar"><div class="scoredot" style="background:'+bg+';color:'+col+'">'+r.score+'</div>'+
 '<ul>'+r.tips.map(function(t){return "<li>"+esc(t)+"</li>";}).join("")+
 '<li style="opacity:.75">Phủ nét '+Math.round(r.cov*100)+"% · bám mẫu "+Math.round(r.prec*100)+"% · chiều nét "+Math.round(r.dir*100)+"% · độ gọn "+Math.round(r.lenR*100)+'%</li></ul></div>';
-};
-btns[1].onclick=reset;
-}else{ btns[0].onclick=reset; }
+}
+box.querySelectorAll(".row > button")[0].onclick=reset;
 box.reset=reset;
 setTimeout(function(){centerArt(svg);},120);
 box.swap=function(nit){
@@ -2303,9 +2358,12 @@ var ni=g
 : '<text class="ghost-text" x="52" y="71">'+esc(it.up+" "+it.lo)+'</text>';
 art.innerHTML=ni+'<g class="userg"></g><g class="missg"></g>';
 ug=svg.querySelector(".userg");mg=svg.querySelector(".missg");
-strokes=[];res.innerHTML="";
+huyCham();strokes=[];res.innerHTML="";
+var nt=box.querySelector(".note");
+if(nt)nt.textContent=g
+? "Viết đè lên nét mờ bằng chuột hoặc ngón tay. Nhấc bút lên là app tự chấm, viết thêm nét thì chấm lại."
+: "Chữ này chưa có nét mẫu nên app không chấm được, bạn cứ viết thử.";
 setTimeout(function(){centerArt(svg);},60);
-if(g)btns[0].removeAttribute("disabled");else btns[0].setAttribute("disabled","");
 };
 return box;
 }
@@ -3917,6 +3975,31 @@ if(con>0){setTimeout(catManCho,con);return;}
 m.classList.add("xong");
 setTimeout(function(){if(m.parentNode)m.parentNode.removeChild(m);},400);
 }
+var nutLen=null,henLen=0;
+function layNutLen(){
+if(nutLen)return;
+nutLen=el('<button class="len-dau" aria-label="Lên đầu trang" title="Lên đầu trang">'+ic("len",17)+'<b>Lên đầu</b></button>');
+nutLen.onclick=function(){
+var em=matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+try{window.scrollTo({top:0,behavior:em?"auto":"smooth"});}catch(e){window.scrollTo(0,0);}
+nutLen.classList.remove("hien");
+};
+document.body.appendChild(nutLen);
+addEventListener("scroll",function(){
+if(henLen)return;
+henLen=setTimeout(function(){henLen=0;soatNutLen();},120);
+},{passive:true});
+addEventListener("resize",soatNutLen);
+soatNutLen();
+}
+function soatNutLen(){
+if(!nutLen)return;
+var f=document.querySelector("footer"),h=0;
+if(f&&getComputedStyle(f).display!=="none"&&getComputedStyle(f).position==="sticky")
+h=f.getBoundingClientRect().height;
+nutLen.style.bottom="calc("+Math.round(h+16)+"px + env(safe-area-inset-bottom,0px))";
+nutLen.classList.toggle("hien",(window.pageYOffset||document.documentElement.scrollTop||0)>620);
+}
 (function doiFont(){
 var het=false,t0=Date.now();
 setTimeout(function(){het=true;catManCho();},3000);
@@ -3931,6 +4014,7 @@ setTimeout(xem,60);
 })();
 })();
 dungChuBay();
+layNutLen();
 prog=normProg(loadLocal()||prog);
 nhanGoiTienDo();
 if(donNha()){}else{
@@ -3940,7 +4024,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=70"></script>
+<script type="module" src="firebase-sync.js?v=71"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
