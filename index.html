@@ -2,17 +2,26 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-ISrSOuxv5c4d1a3b7r7pGSiLgd7feo1nHI/jGv79RUA=' 'sha256-AL6TIbi19yzzShTXU55EK6TIwpAekj8j0mFzdxFHHKE=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="Học tiếng Nga từ bảng chữ cái: Nga - Anh - Việt, có trọng âm, nghe chép và tập viết tay chấm điểm.">
+<meta name="description" content="WinSpeak — học tiếng Nga, tiếng Anh và tiếng Trung từ bảng chữ cái: phát âm, nghe chép, tập viết tay chấm điểm, câu đời thường và ghép câu.">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts.css" as="style" onload="this.onload=null;this.rel='stylesheet';window.__fontXong=1">
+<link rel="preload" href="fonts.css" as="style" id="fcss">
+<script>(function(){var l=document.getElementById("fcss");function x(){if(l.rel!=="stylesheet"){l.rel="stylesheet";window.__fontXong=1;}}l.addEventListener("load",x);l.addEventListener("error",x);setTimeout(x,2500);})();</script>
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:16px;font-weight:700;letter-spacing:-.01em;opacity:.9}#manCho .mc3{display:flex;align-items:center;gap:9px;margin-top:-7px;opacity:.6}#manCho .mc3 b{font-size:15px;font-weight:600;font-family:Georgia,serif}#manCho .mc3 i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.55}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=121"></script>
+<script>window.FIREBASE_CONFIG = {
+apiKey: "AIzaSyDz_psmgkSbw62sYZwd3hZupr1vuabLwYQ",
+authDomain: "winspeak.web.app",
+projectId: "hoc-tieng-nga",
+storageBucket: "hoc-tieng-nga.firebasestorage.app",
+messagingSenderId: "497797224730",
+appId: "1:497797224730:web:0ec30e77a7e66d675434a3"
+};</script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">W</div><div class="tn">WinSpeak</div><div class="mc3"><b>Аа</b><i></i><b>æ</b><i></i><b>中</b></div><div class="th"><i></i></div></div>
@@ -3173,7 +3182,33 @@ const CAU_NGA=[
 ["Я люблю́ э́ту пе́сню.","Ya lyublyú étu pésnyu.","I love this song.","Tôi thích bài hát này.","Я|люблю́|э́ту|пе́сню","Tân ngữ giống cái đổi sang cách đối: пе́сня → пе́сню, э́та → э́ту."],
 ["Сего́дня хоро́шая пого́да.","Sevódnya harósha pagóda.","The weather is nice today.","Hôm nay trời đẹp.","Сего́дня|хоро́шая|пого́да","Tính từ đứng trước danh từ và phải theo giống: пого́да giống cái → хоро́шая."],
 ["Он рабо́тает в Москве́.","On rabótayet v Maskvé.","He works in Moscow.","Anh ấy làm việc ở Moskva.","Он|рабо́тает|в|Москве́","Động từ ngôi thứ ba số ít kết thúc -ет."],
-["Я бу́ду чай.","Ya búdu chay.","I'll have tea.","Tôi uống trà.","Я|бу́ду|чай","Khi gọi món, бу́ду + món là đủ, khỏi cần động từ “uống”."]
+["Я бу́ду чай.","Ya búdu chay.","I'll have tea.","Tôi uống trà.","Я|бу́ду|чай","Khi gọi món, бу́ду + món là đủ, khỏi cần động từ “uống”."],
+["Как вас зову́т?","Kak vas zavút?","What is your name?","Bạn tên là gì?","Как|вас|зову́т","Nghĩa đen: “người ta gọi bạn thế nào”. Câu này không có chủ ngữ."],
+["Меня́ зову́т Вин.","Menyá zavút Vin.","My name is Win.","Tôi tên Win.","Меня́|зову́т|Вин","Người được gọi đứng ở cách đối (меня́), không phải я."],
+["О́чень прия́тно.","Óchen' priyátna.","Nice to meet you.","Rất vui được gặp bạn.","О́чень|прия́тно","Cụm xã giao cố định: không chủ ngữ, không động từ."],
+["Ско́лько вре́мени?","Skól'ka vrémeni?","What time is it?","Mấy giờ rồi?","Ско́лько|вре́мени","Sau ско́лько, вре́мя chuyển sang cách sở hữu: вре́мени."],
+["Я не говорю́ по-ру́сски.","Ya ne gavaryú pa-rúski.","I don't speak Russian.","Tôi không nói được tiếng Nga.","Я|не|говорю́|по-ру́сски","Ngôi “tôi” của говори́ть kết thúc bằng -ю."],
+["Повтори́те, пожа́луйста.","Paftaríte, pazhálusta.","Please repeat.","Làm ơn nhắc lại.","Повтори́те|пожа́луйста","Mệnh lệnh lịch sự với người lạ kết thúc bằng -ите."],
+["Я хочу́ есть.","Ya hachú yest'.","I am hungry.","Tôi đói.","Я|хочу́|есть","Nghĩa đen “tôi muốn ăn” — tiếng Nga không nói “tôi đói” như tiếng Việt."],
+["Где нахо́дится вокза́л?","Gde nahóditsa vagzál?","Where is the station?","Nhà ga ở đâu?","Где|нахо́дится|вокза́л","Нахо́дится = “toạ lạc”, hỏi đường kiểu này nghe lịch sự hơn."],
+["Иди́те пря́мо.","Idíte pryáma.","Go straight.","Cứ đi thẳng.","Иди́те|пря́мо","Пря́мо là trạng từ, đứng sau động từ."],
+["Напра́во и́ли нале́во?","Napráva íli naléva?","Right or left?","Rẽ phải hay rẽ trái?","Напра́во|и́ли|нале́во","Có -о ở cuối là hướng đi; напра́ве mới là “ở bên phải”."],
+["Я бу́ду здесь за́втра.","Ya búdu zdes' záftra.","I will be here tomorrow.","Mai tôi sẽ ở đây.","Я|бу́ду|здесь|за́втра","Hiện tại bỏ trống động từ “là”, nhưng tương lai thì phải có бу́ду."],
+["Вчера́ я был до́ма.","Fchirá ya byl dóma.","Yesterday I was at home.","Hôm qua tôi ở nhà.","Вчера́|я|был|до́ма","Quá khứ chia theo GIỐNG chứ không theo ngôi: nam был, nữ была́."],
+["Она́ была́ на рабо́те.","Aná bylá na rabóte.","She was at work.","Cô ấy đã ở chỗ làm.","Она́|была́|на|рабо́те","На + cách giới ngữ chỉ nơi chốn: рабо́та → рабо́те."],
+["Мне ну́жен врач.","Mne núzhen vrach.","I need a doctor.","Tôi cần bác sĩ.","Мне|ну́жен|врач","Nghĩa đen “với tôi cần thiết bác sĩ”; ну́жен đổi theo giống của thứ mình cần."],
+["У меня́ боли́т голова́.","U menyá balít galavá.","I have a headache.","Tôi đau đầu.","У|меня́|боли́т|голова́","Nghĩa đen: “ở chỗ tôi cái đầu đang đau” — cái đau mới là chủ ngữ."],
+["Э́то сли́шком до́рого.","Éta slíshkam dóraga.","This is too expensive.","Cái này đắt quá.","Э́то|сли́шком|до́рого","Сли́шком là “quá mức chịu nổi”, khác о́чень chỉ là “rất”."],
+["Есть что-нибу́дь деше́вле?","Yest' shto-nibút' deshévle?","Is there anything cheaper?","Có cái nào rẻ hơn không?","Есть|что-нибу́дь|деше́вле","Деше́вле là dạng so sánh của дешёвый, không thêm бо́лее."],
+["Я рабо́таю программи́стом.","Ya rabótayu pragramístam.","I work as a programmer.","Tôi làm lập trình viên.","Я|рабо́таю|программи́стом","Nghề nghiệp sau рабо́тать đứng ở cách công cụ, đuôi -ом."],
+["Мы идём в кино́.","My idyóm v kinó.","We are going to the cinema.","Chúng tôi đi xem phim.","Мы|идём|в|кино́","Có hướng đi thì в đi với cách đối; кино́ là từ mượn nên không đổi."],
+["Он не мо́жет прийти́.","On ne mózhet priytí.","He cannot come.","Anh ấy không đến được.","Он|не|мо́жет|прийти́","Sau мо́жет là động từ nguyên thể, giữ nguyên đuôi -ти."],
+["Помоги́те мне, пожа́луйста.","Pamagíte mne, pazhálusta.","Please help me.","Làm ơn giúp tôi với.","Помоги́те|мне|пожа́луйста","Помо́чь đi với cách tặng: giúp AI thì người đó là мне, не меня́."],
+["Я чита́ю кни́гу ка́ждый день.","Ya chitáyu knígu kázhdyy den'.","I read a book every day.","Ngày nào tôi cũng đọc sách.","Я|чита́ю|кни́гу|ка́ждый|день","Tân ngữ giống cái đổi sang cách đối: кни́га → кни́гу."],
+["У нас есть вре́мя.","U nas yest' vrémya.","We have time.","Chúng ta còn thời gian.","У|нас|есть|вре́мя","Vẫn công thức “ở chỗ chúng tôi có”: у + cách sở hữu."],
+["Э́то мой лу́чший друг.","Éta moy lútshyy druk.","This is my best friend.","Đây là bạn thân nhất của tôi.","Э́то|мой|лу́чший|друг","Друг giống đực nên mọi từ bổ nghĩa đều ở dạng đực: мой, лу́чший."],
+["Ско́лько сто́ит биле́т?","Skól'ka stóit bilét?","How much is a ticket?","Vé bao nhiêu tiền?","Ско́лько|сто́ит|биле́т","Сто́ит là ngôi thứ ba số ít; nhiều vé thì đổi thành сто́ят."],
+["Я живу́ здесь три го́да.","Ya zhivú zdes' tri góda.","I have lived here for three years.","Tôi sống ở đây ba năm rồi.","Я|живу́|здесь|три|го́да","Sau 2–4 thì danh từ ở số ít cách sở hữu: три го́да, nhưng пять лет."]
 ];
 const CAU_ANH=[
 ["I am a student.","/aɪ əm ə ˈstjuːdnt/","I am a student.","Tôi là sinh viên.","I|am|a|student","Danh từ đếm được phải có “a” — bỏ đi là câu sai."],
@@ -3199,7 +3234,33 @@ const CAU_ANH=[
 ["He has two children.","/hi hæz tuː ˈtʃɪldrən/","He has two children.","Anh ấy có hai đứa con.","He|has|two|children","Ngôi thứ ba đổi have → has; children là số nhiều bất quy tắc."],
 ["I will call you tomorrow.","/aɪ wɪl kɔːl juː təˈmɒrəʊ/","I will call you tomorrow.","Mai tôi sẽ gọi cho bạn.","I|will|call|you|tomorrow","Sau “will” động từ để nguyên."],
 ["This book is more interesting.","/ðɪs bʊk ɪz mɔːr ˈɪntrəstɪŋ/","This book is more interesting.","Quyển sách này thú vị hơn.","This|book|is|more|interesting","Tính từ dài so sánh bằng “more”, không thêm -er."],
-["She is the best student.","/ʃi ɪz ðə best ˈstjuːdnt/","She is the best student.","Cô ấy là học sinh giỏi nhất.","She|is|the|best|student","So sánh nhất luôn đi với “the”."]
+["She is the best student.","/ʃi ɪz ðə best ˈstjuːdnt/","She is the best student.","Cô ấy là học sinh giỏi nhất.","She|is|the|best|student","So sánh nhất luôn đi với “the”."],
+["What is your name?","/wɒt ɪz jɔː neɪm/","What is your name?","Bạn tên là gì?","What|is|your|name","Phải dùng “your” chứ không phải “you” trước danh từ."],
+["My name is Win.","/maɪ neɪm ɪz wɪn/","My name is Win.","Tôi tên Win.","My|name|is|Win","Tiếng Anh nói “tên tôi là…”, không nói “tôi tên là…”."],
+["Nice to meet you.","/naɪs tə miːt juː/","Nice to meet you.","Rất vui được gặp bạn.","Nice|to|meet|you","Câu xã giao rút gọn, lược hẳn “It is”."],
+["What time is it?","/wɒt taɪm ɪz ɪt/","What time is it?","Mấy giờ rồi?","What|time|is|it","“It” là chủ ngữ rỗng — tiếng Anh bắt buộc có chủ ngữ, dù chẳng chỉ ai."],
+["I do not speak English well.","/aɪ duː nɒt spiːk ˈɪŋɡlɪʃ wel/","I do not speak English well.","Tôi nói tiếng Anh không tốt.","I|do|not|speak|English|well","Bổ nghĩa cho động từ là “well”, không phải “good”."],
+["Could you say that again?","/kʊd juː seɪ ðæt əˈɡen/","Could you say that again?","Bạn nhắc lại được không?","Could|you|say|that|again","“Could” nghe lịch sự hơn “can”, nhưng vẫn là chuyện hiện tại."],
+["I am hungry.","/aɪ əm ˈhʌŋɡri/","I am hungry.","Tôi đói.","I|am|hungry","Đói là TRẠNG THÁI nên dùng “be”; “I have hunger” là sai."],
+["Excuse me, where is the station?","/ɪkˈskjuːz miː weər ɪz ðə ˈsteɪʃn/","Excuse me, where is the station?","Xin lỗi, nhà ga ở đâu ạ?","Excuse|me|where|is|the|station","Mở lời bằng “excuse me” trước khi hỏi người lạ."],
+["Go straight and turn left.","/ɡəʊ streɪt ənd tɜːn left/","Go straight and turn left.","Đi thẳng rồi rẽ trái.","Go|straight|and|turn|left","Câu mệnh lệnh bỏ chủ ngữ; nối hai lệnh bằng “and”."],
+["It is on your right.","/ɪt ɪz ɒn jɔː raɪt/","It is on your right.","Nó nằm bên phải bạn.","It|is|on|your|right","Chỉ phía thì dùng “on”, kèm sở hữu: on your right."],
+["I will be here tomorrow.","/aɪ wɪl bi hɪə təˈmɒrəʊ/","I will be here tomorrow.","Mai tôi sẽ ở đây.","I|will|be|here|tomorrow","Sau “will” là “be”, không phải “am”."],
+["I was at home yesterday.","/aɪ wɒz ət həʊm ˈjestədeɪ/","I was at home yesterday.","Hôm qua tôi ở nhà.","I|was|at|home|yesterday","Quá khứ của “am” là “was”; “I” và “he/she/it” dùng was, còn lại were."],
+["She was at work.","/ʃi wɒz ət wɜːk/","She was at work.","Cô ấy đã ở chỗ làm.","She|was|at|work","“At work” là cụm cố định, không có mạo từ."],
+["I need to see a doctor.","/aɪ niːd tə siː ə ˈdɒktə/","I need to see a doctor.","Tôi cần đi khám.","I|need|to|see|a|doctor","Sau “need” là “to + động từ”."],
+["I have a headache.","/aɪ hæv ə ˈhedeɪk/","I have a headache.","Tôi bị đau đầu.","I|have|a|headache","Đau ốm thì dùng “have a”, không dùng “be”."],
+["This is too expensive.","/ðɪs ɪz tuː ɪkˈspensɪv/","This is too expensive.","Cái này đắt quá.","This|is|too|expensive","“Too” mang nghĩa quá mức chấp nhận được, khác hẳn “very”."],
+["Do you have anything cheaper?","/duː juː hæv ˈeniθɪŋ ˈtʃiːpə/","Do you have anything cheaper?","Có cái nào rẻ hơn không?","Do|you|have|anything|cheaper","Tính từ đứng SAU “anything”, ngược với trật tự thường."],
+["I work as a programmer.","/aɪ wɜːk əz ə ˈprəʊɡræmə/","I work as a programmer.","Tôi làm lập trình viên.","I|work|as|a|programmer","Nghề nghiệp đi sau “as a”, và vẫn phải có mạo từ."],
+["We are going to the cinema.","/wi ɑː ˈɡəʊɪŋ tə ðə ˈsɪnəmə/","We are going to the cinema.","Chúng tôi đi xem phim.","We|are|going|to|the|cinema","Kế hoạch gần thì dùng thì tiếp diễn, không dùng “will”."],
+["He cannot come today.","/hi ˈkænɒt kʌm təˈdeɪ/","He cannot come today.","Hôm nay anh ấy không đến được.","He|cannot|come|today","Sau “cannot” động từ để trần, không thêm -s."],
+["Please help me.","/pliːz help miː/","Please help me.","Làm ơn giúp tôi.","Please|help|me","Tân ngữ của câu là “me”, không phải “I”."],
+["I read a book every day.","/aɪ riːd ə bʊk ˈevri deɪ/","I read a book every day.","Ngày nào tôi cũng đọc sách.","I|read|a|book|every|day","“Every day” hai chữ là trạng ngữ; “everyday” một chữ lại là tính từ."],
+["We have enough time.","/wi hæv ɪˈnʌf taɪm/","We have enough time.","Chúng ta đủ thời gian.","We|have|enough|time","“Enough” đứng TRƯỚC danh từ nhưng lại đứng SAU tính từ: good enough."],
+["This is my best friend.","/ðɪs ɪz maɪ best frend/","This is my best friend.","Đây là bạn thân nhất của tôi.","This|is|my|best|friend","Đã có “my” thì không dùng thêm “the” trước “best”."],
+["How much is a ticket?","/haʊ ˈmʌtʃ ɪz ə ˈtɪkɪt/","How much is a ticket?","Vé bao nhiêu tiền?","How|much|is|a|ticket","Tiền là thứ không đếm được nên dùng “how much”."],
+["I have lived here for three years.","/aɪ həv lɪvd hɪə fə θriː jɪəz/","I have lived here for three years.","Tôi sống ở đây ba năm rồi.","I|have|lived|here|for|three|years","Việc bắt đầu trong quá khứ mà còn kéo dài: have + V3, kèm “for”."]
 ];
 const CAU_TRUNG=[
 ["我是学生。","wǒ shì xuésheng","I am a student.","Tôi là sinh viên.","我|是|学生","是 nối hai danh từ. Với tính từ thì dùng 很, không dùng 是."],
@@ -3225,7 +3286,33 @@ const CAU_TRUNG=[
 ["他有两个孩子。","tā yǒu liǎng ge háizi","He has two children.","Anh ấy có hai đứa con.","他|有|两个|孩子","Đếm thì dùng 两 chứ không dùng 二."],
 ["我明天给你打电话。","wǒ míngtiān gěi nǐ dǎ diànhuà","I will call you tomorrow.","Mai tôi gọi điện cho bạn.","我|明天|给你|打电话","Không có thì tương lai — 明天 đã nói rõ là mai rồi."],
 ["这本书很有意思。","zhè běn shū hěn yǒu yìsi","This book is very interesting.","Quyển sách này rất thú vị.","这本|书|很|有意思","本 là lượng từ của sách: 这本书 = quyển sách này."],
-["我想喝茶。","wǒ xiǎng hē chá","I want to drink tea.","Tôi muốn uống trà.","我|想|喝|茶","想 là muốn, nghĩ tới; 要 thì dứt khoát hơn."]
+["我想喝茶。","wǒ xiǎng hē chá","I want to drink tea.","Tôi muốn uống trà.","我|想|喝|茶","想 là muốn, nghĩ tới; 要 thì dứt khoát hơn."],
+["你叫什么名字？","nǐ jiào shénme míngzi","What is your name?","Bạn tên là gì?","你|叫|什么|名字","什么 đứng đúng chỗ của câu trả lời, không nhảy lên đầu câu."],
+["我叫阿文。","wǒ jiào Ā Wén","My name is Win.","Tôi tên Win.","我|叫|阿文","叫 dùng cho tên gọi thân mật; họ tên đầy đủ thì nói 我姓…."],
+["很高兴认识你。","hěn gāoxìng rènshi nǐ","Nice to meet you.","Rất vui được quen bạn.","很|高兴|认识|你","高兴 là tính từ nên vẫn cần 很 đỡ câu."],
+["现在几点？","xiànzài jǐ diǎn","What time is it?","Mấy giờ rồi?","现在|几点","Hỏi giờ không cần động từ nào cả."],
+["我中文说得不好。","wǒ Zhōngwén shuō de bù hǎo","I don't speak Chinese well.","Tôi nói tiếng Trung không tốt.","我|中文|说得|不好","得 nối động từ với lời nhận xét về mức độ làm việc đó."],
+["请再说一遍。","qǐng zài shuō yí biàn","Please say it again.","Làm ơn nhắc lại.","请|再|说|一遍","遍 đếm số lần làm trọn vẹn từ đầu tới cuối. 一 trước thanh 4 đọc yí."],
+["我饿了。","wǒ è le","I am hungry.","Tôi đói rồi.","我|饿|了","了 ở đây báo trạng thái MỚI đổi: nãy chưa đói, giờ đói."],
+["请问，火车站在哪里？","qǐngwèn, huǒchēzhàn zài nǎlǐ","Excuse me, where is the train station?","Xin hỏi, ga tàu ở đâu ạ?","请问，|火车站|在|哪里","请问 là câu mở lời bắt buộc khi hỏi người lạ."],
+["一直走，然后左转。","yìzhí zǒu, ránhòu zuǒ zhuǎn","Go straight, then turn left.","Đi thẳng, rồi rẽ trái.","一直走，|然后|左转","一 trước thanh 2 đọc yì. 然后 nối hai việc theo thứ tự."],
+["在你的右边。","zài nǐ de yòubian","It is on your right.","Ở bên phải bạn.","在|你的|右边","Từ chỉ phương hướng đứng SAU: 你的右边 = phía bên phải của bạn."],
+["我明天会在这里。","wǒ míngtiān huì zài zhèlǐ","I will be here tomorrow.","Mai tôi sẽ ở đây.","我|明天|会|在|这里","会 báo việc chắc sẽ xảy ra, thay cho thì tương lai."],
+["我昨天在家。","wǒ zuótiān zài jiā","I was at home yesterday.","Hôm qua tôi ở nhà.","我|昨天|在|家","Động từ không đổi hình; 昨天 một mình đủ báo chuyện đã qua."],
+["她昨天上班了。","tā zuótiān shàngbān le","She was at work yesterday.","Hôm qua cô ấy đi làm.","她|昨天|上班|了","了 cuối câu chốt rằng việc đã xong."],
+["我需要看医生。","wǒ xūyào kàn yīshēng","I need to see a doctor.","Tôi cần đi khám.","我|需要|看|医生","看医生 nghĩa đen là “xem bác sĩ”, tức đi khám bệnh."],
+["我头疼。","wǒ tóu téng","I have a headache.","Tôi đau đầu.","我|头|疼","Nói thẳng “tôi đầu đau”, không cần động từ “có” như tiếng Anh."],
+["太贵了。","tài guì le","It is too expensive.","Đắt quá.","太|贵|了","太…了 là cặp đi liền để chê quá mức; thiếu 了 là câu cụt."],
+["有便宜一点的吗？","yǒu piányi yìdiǎn de ma","Do you have a cheaper one?","Có cái nào rẻ hơn không?","有|便宜|一点|的|吗","的 đứng cuối thay cho danh từ mà cả hai đều đã hiểu."],
+["我是程序员。","wǒ shì chéngxùyuán","I am a programmer.","Tôi là lập trình viên.","我|是|程序员","Nghề nghiệp đi với 是 và không cần “một” như tiếng Anh."],
+["我们去看电影。","wǒmen qù kàn diànyǐng","We are going to see a movie.","Chúng tôi đi xem phim.","我们|去|看|电影","Hai động từ nối tiếp theo đúng thứ tự xảy ra: đi trước, xem sau."],
+["他今天不能来。","tā jīntiān bù néng lái","He cannot come today.","Hôm nay anh ấy không đến được.","他|今天|不能|来","不 trước thanh 2 (能) vẫn đọc bù; chỉ trước thanh 4 mới đổi thành bú."],
+["请帮我一下。","qǐng bāng wǒ yíxià","Please help me.","Làm ơn giúp tôi một chút.","请|帮|我|一下","一下 làm lời nhờ nhẹ đi, nghe bớt ra lệnh."],
+["我每天看书。","wǒ měitiān kàn shū","I read every day.","Ngày nào tôi cũng đọc sách.","我|每天|看|书","Từ chỉ thời gian lặp lại đứng TRƯỚC động từ."],
+["我们有时间。","wǒmen yǒu shíjiān","We have time.","Chúng ta còn thời gian.","我们|有|时间","有 vừa là “có” sở hữu, vừa là “tồn tại”."],
+["这是我最好的朋友。","zhè shì wǒ zuì hǎo de péngyou","This is my best friend.","Đây là bạn thân nhất của tôi.","这|是|我|最好的|朋友","最 + tính từ + 的 là khối bổ nghĩa đứng trước danh từ."],
+["一张票多少钱？","yì zhāng piào duōshao qián","How much is a ticket?","Một vé bao nhiêu tiền?","一张|票|多少|钱","张 là lượng từ cho vật mỏng và phẳng: vé, giấy, bàn."],
+["我在这里住了三年。","wǒ zài zhèlǐ zhù le sān nián","I have lived here for three years.","Tôi ở đây ba năm rồi.","我|在这里|住了|三年","Khoảng thời gian kéo dài đứng SAU động từ, không đứng trước."]
 ];
 function moGhepCau(ds,tenBan){
 return {id:"cau",kind:"C",name:"Ghép câu",ru:tenBan,
@@ -7362,7 +7449,135 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=121"></script>
+<script type="module">import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+getAuth, onAuthStateChanged, signInAnonymously, signOut,
+GoogleAuthProvider,
+signInWithRedirect, linkWithRedirect, getRedirectResult, signInWithCredential
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+const cfg = window.FIREBASE_CONFIG;
+if (!cfg || !cfg.apiKey || /DÁN|PASTE|XXX/.test(cfg.apiKey)) {
+console.warn("[nga] Chưa điền firebase-config.js — app chạy offline, tiến độ chỉ lưu trong trình duyệt.");
+} else {
+const app = initializeApp(cfg);
+const auth = getAuth(app);
+const fs = getFirestore(app);
+let uid = null, user = null, settled = false, resolveReady;
+const readyP = new Promise(r => { resolveReady = r; });
+function namespace() {
+return {
+doc(path) {
+const parts = String(path).split("/").filter(Boolean);
+const ref = doc(fs, "users", uid, ...parts);
+return {
+async get() {
+const snap = await getDoc(ref);
+return { exists: snap.exists(), data: () => snap.data() };
+},
+async set(value) {
+await setDoc(ref, JSON.parse(JSON.stringify(value)));
+}
+};
+}
+};
+}
+function settle(value) {
+if (settled) return;
+settled = true;
+resolveReady(value);
+}
+let daHoiKhach = false, xongHuong = false;
+function moKhachNeuCan() {
+if (daHoiKhach || !xongHuong) return;
+if (auth.currentUser) return;
+daHoiKhach = true;
+signInAnonymously(auth).catch(e => {
+console.warn("[nga] Không bật được tài khoản khách:", e.code || e);
+settle(null);
+});
+}
+setTimeout(() => { xongHuong = true; moKhachNeuCan(); }, 6000);
+onAuthStateChanged(auth, u => {
+const truoc = uid;
+user = u || null;
+uid = u ? u.uid : null;
+if (uid) settle(namespace());
+if (!u) moKhachNeuCan();
+const laKhach = !!(u && u.isAnonymous);
+if (truoc !== uid && (truoc !== null || !laKhach) && typeof window.CLOUD_CHANGED === "function") {
+window.CLOUD_CHANGED();
+}
+});
+const DAU_DN = "nga:dangdangnhap";
+function datDau() { try { sessionStorage.setItem(DAU_DN, "1"); } catch (e) {} }
+function layDau() {
+try { const v = sessionStorage.getItem(DAU_DN); sessionStorage.removeItem(DAU_DN); return v === "1"; }
+catch (e) { return false; }
+}
+function bao(m) { if (typeof window.CLOUD_FLASH === "function") window.CLOUD_FLASH(m); }
+function doi() { if (typeof window.CLOUD_CHANGED === "function") window.CLOUD_CHANGED(); }
+function loi(code) {
+if (typeof window.CLOUD_LOI === "function") window.CLOUD_LOI(code);
+else bao("Không đăng nhập được" + (code ? " (" + code + ")" : "."));
+}
+getRedirectResult(auth).then(res => {
+const quayVe = layDau();
+xongHuong = true; moKhachNeuCan();
+if (res && res.user) {
+if (quayVe) bao("Đã đăng nhập. Tiến độ từ giờ được đồng bộ.");
+doi();
+return;
+}
+if (quayVe) setTimeout(() => {
+const u = auth.currentUser;
+if (!u || u.isAnonymous) loi("huong-khong-co-ket-qua");
+}, 2000);
+}).catch(async e => {
+xongHuong = true; moKhachNeuCan();
+layDau();
+const code = (e && e.code) || "";
+if (/already-in-use|credential-already/.test(code)) {
+const cred = GoogleAuthProvider.credentialFromError(e);
+if (cred) {
+try {
+await signInWithCredential(auth, cred);
+bao("Đã đăng nhập. Tiến độ hai bên sẽ được gộp lại.");
+doi();
+return;
+} catch (e2) { console.warn("[nga] gộp tài khoản hỏng:", (e2 && e2.code) || e2); }
+}
+}
+console.warn("[nga] đăng nhập chuyển hướng hỏng:", code || e);
+loi(code);
+});
+async function dangNhapGoogle() {
+const provider = new GoogleAuthProvider();
+const khach = auth.currentUser && auth.currentUser.isAnonymous;
+datDau();
+try {
+if (khach) await linkWithRedirect(auth.currentUser, provider);
+else await signInWithRedirect(auth, provider);
+} catch (e) {
+if (!khach) throw e;
+await signInWithRedirect(auth, provider);
+}
+}
+setTimeout(() => settle(null), 15000);
+window.CLOUD = {
+ready: () => readyP,
+state: () => ({ uid, user }),
+async signInGoogle() {
+await dangNhapGoogle();
+},
+async signOutNow() {
+await signOut(auth);
+await signInAnonymously(auth).catch(() => {});
+if (typeof window.CLOUD_CHANGED === "function") window.CLOUD_CHANGED();
+}
+};
+if (typeof window.CLOUD_CHANGED === "function") window.CLOUD_CHANGED();
+}</script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
