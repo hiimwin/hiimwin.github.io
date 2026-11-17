@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=67"></script>
+<script src="firebase-config.js?v=68"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -3030,7 +3030,8 @@ const HOP_AM={C:{tram:130.81,bes:[261.63,329.63,392.00]},
 F:{tram:174.61,bes:[261.63,349.23,440.00]},
 G7:{tram:196.00,bes:[293.66,349.23,392.00]}};
 const HAT_NHIP=[{t:"Chậm",v:76},{t:"Vừa",v:100},{t:"Nhanh",v:124}];
-var NHAC={ac:null,osc:[],hen:[],raf:0,dang:false,nhip:100,giong:false,bufVang:null,bufOn:null};
+var NHAC={ac:null,osc:[],hen:[],henG:[],henGiong:null,uDang:null,giuSong:0,
+raf:0,dang:false,nhip:100,giong:false,bufVang:null,bufOn:null};
 function amCtx(){
 if(!NHAC.ac){
 var C=window.AudioContext||window.webkitAudioContext;
@@ -3146,42 +3147,45 @@ function soVan(ten){
 var m=String(ten).toLowerCase().match(/[\u0430\u0435\u0451\u0438\u043e\u0443\u044b\u044d\u044e\u044f]/g);
 return m?m.length:1;
 }
-var vanGiay=0,treGiong=70,dangDo=false;
-function doGiong(){
-if(vanGiay||dangDo||!window.speechSynthesis||!ruV)return;
-dangDo=true;
-var mau=[["\u0430",1],["\u0431\u044d",1],["\u0438 \u043a\u0440\u0430\u0301\u0442\u043a\u043e\u0435",4]],i=0,tongVan=0,tongGiay=0,tre=[];
-function tiep(){
-if(i>=mau.length){
-if(tongVan&&tongGiay>0)vanGiay=Math.max(.12,Math.min(.6,tongGiay/tongVan));
-if(tre.length){
-var c=0;tre.forEach(function(x){c+=x;});
-treGiong=Math.max(40,Math.min(400,c/tre.length));
+var vanGiay=0,treGiong=70;
+function doNhipGiong(van,toc,bat,het,henLuc){
+if(!van||!bat||het<=bat)return;
+var g=(het-bat)/1000*toc/van;
+if(g<.06||g>1)return;
+vanGiay=vanGiay?vanGiay*.6+g*.4:g;
+var tre=bat-henLuc;
+if(tre>=0&&tre<400)treGiong=treGiong*.7+tre*.3;
 }
-dangDo=false;return;
-}
-var m=mau[i++],t0=Date.now(),batLuc=0,het=false;
-function sang(){if(het)return;het=true;tiep();}
+function catGiong(){
+if(!window.speechSynthesis)return;
 try{
-var u=new SpeechSynthesisUtterance(m[0]);
-u.lang="ru-RU";u.voice=ruV;u.volume=0;u.rate=1;
-u.onstart=function(){batLuc=Date.now();tre.push(batLuc-t0);};
-u.onend=function(){if(batLuc){tongGiay+=(Date.now()-batLuc)/1000;tongVan+=m[1];}sang();};
-u.onerror=sang;
-speechSynthesis.speak(u);
-}catch(e){dangDo=false;return;}
-setTimeout(sang,2500);
+if(NHAC.uDang)NHAC.uDang.__cat=true;
+NHAC.uDang=null;
+if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();
+}catch(e){}
 }
-tiep();
+function dungGiong(){
+NHAC.henG.forEach(function(h){clearTimeout(h);});NHAC.henG=[];
+catGiong();
 }
 function docMotChu(ten,f,dai){
 if(!window.speechSynthesis||!ruV)return;
 try{
-var toc=Math.max(.5,Math.min(1.6,soVan(ten)*(vanGiay||.3)/(dai*.92)));
+var van=soVan(ten);
+var toc=Math.max(.5,Math.min(1.6,van*(vanGiay||.3)/(dai*.92)));
 var u=new SpeechSynthesisUtterance(ten);
 u.lang="ru-RU";u.voice=ruV;
 u.pitch=Math.max(.5,Math.min(1.8,1+(f/HAT_TAN[0]-1)*.55));
 u.rate=toc;
+var henLuc=Date.now(),batLuc=0;
+u.onstart=function(){batLuc=Date.now();};
+u.onend=function(){
+if(!u.__cat)doNhipGiong(van,toc,batLuc,Date.now(),henLuc);
+if(NHAC.uDang===u)NHAC.uDang=null;
+};
+u.onerror=function(){if(NHAC.uDang===u)NHAC.uDang=null;};
+catGiong();
+NHAC.uDang=u;
 speechSynthesis.speak(u);
 }catch(e){}
 }
@@ -3189,7 +3193,9 @@ function dungHat(){
 if(NHAC.raf){cancelAnimationFrame(NHAC.raf);NHAC.raf=0;}
 NHAC.hen.forEach(function(h){clearTimeout(h);});NHAC.hen=[];
 NHAC.osc.forEach(function(o){try{o.stop();}catch(e){}});NHAC.osc=[];
-if(NHAC.giong&&window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+if(NHAC.giuSong){clearInterval(NHAC.giuSong);NHAC.giuSong=0;}
+dungGiong();
+NHAC.henGiong=null;
 NHAC.dang=false;
 }
 function renderSong(){
@@ -3230,8 +3236,8 @@ var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-star
 '<span>Hát tên chữ theo nhạc — mỗi chữ rơi đúng vào nốt của nó, tên dài đọc nhanh, tên ngắn ngân dài. Vẫn là giọng đọc của máy nên không thành tiếng hát thật được.</span></label>');
 lb.querySelector("input").onchange=function(){
 NHAC.giong=this.checked;
-if(NHAC.giong)doGiong();
-else if(window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
+if(NHAC.dang&&NHAC.henGiong)NHAC.henGiong();
+else if(!NHAC.giong)dungGiong();
 };
 app.appendChild(lb);
 }
@@ -3279,10 +3285,6 @@ var hopVang=ac.createConvolver();hopVang.buffer=buffVang(ac);
 var uot=ac.createGain();uot.gain.value=.26;
 loc.connect(uot);uot.connect(hopVang);hopVang.connect(ac.destination);
 }catch(e){}
-if(NHAC.giong){
-doGiong();
-if(window.speechSynthesis){try{speechSynthesis.cancel();}catch(e){}}
-}
 var t0=ac.currentTime+.18;
 HAT_HOP.forEach(function(cau,p){
 var dauCau=p*8*q;
@@ -3300,15 +3302,26 @@ oThanh.style.width=(e.t/cv.tong*100).toFixed(1)+"%";
 if(e.chu<0)return;
 danhDau(e.chu);
 },Math.max(0,(t0+e.t-ac.currentTime)*1000)));
-if(NHAC.giong&&e.chu>=0){
-NHAC.hen.push(setTimeout(function(){
+});
+NHAC.henGiong=function(){
+dungGiong();
+if(!NHAC.giong||!NHAC.dang)return;
+cv.ds.forEach(function(e){
+if(e.chu<0)return;
+var cho=(t0+e.t-ac.currentTime)*1000-treGiong;
+if(cho<0)return;
+NHAC.henG.push(setTimeout(function(){
 var it=LS[e.chu];
 if(it)docMotChu(it.nm,e.f,e.dai);
-},Math.max(0,(t0+e.t-ac.currentTime)*1000-treGiong)));
-}
+},cho));
 });
+};
 NHAC.hen.push(setTimeout(xong,Math.max(0,(t0+cv.tong-ac.currentTime)*1000)));
 NHAC.dang=true;
+NHAC.henGiong();
+if(window.speechSynthesis)NHAC.giuSong=setInterval(function(){
+try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.resume();}catch(e){}
+},7000);
 nhanPlay.textContent="Dừng";
 (function chay(){
 if(!NHAC.dang)return;
@@ -3833,7 +3846,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=67"></script>
+<script type="module" src="firebase-sync.js?v=68"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
