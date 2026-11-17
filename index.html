@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=75"></script>
+<script src="firebase-config.js?v=76"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1353,7 +1353,7 @@ function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)retu
 const LS_KEY="rus-az-v1";
 const INTERVALS=[0,1,2,4,8,16,32,64];
 const DAY=86400000;
-let prog={items:{},stats:{streak:0,last:"",hist:{}},settings:{unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham"},v:0};
+let prog={items:{},stats:{streak:0,last:"",hist:{}},settings:{unlockAll:false,translit:true,latinType:true,anh:true,soCau:12,rate:.85,wspeed:"cham"},v:0};
 let dirty=false,cloud=null,saveTimer=null,saving=false;
 function todayKey(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function badKey(k){return k==="__proto__"||k==="constructor"||k==="prototype";}
@@ -2064,11 +2064,14 @@ strip.appendChild(b);
 });
 h.appendChild(hero);
 if(due.length){
-var n=Math.min(due.length,20);
+var n=Math.min(due.length,soCauOn());
+var bo=buNhungMucOn(due),them=bo.length-due.length;
 var c=el('<button class="cta"><div><div class="big">Ôn tập hôm nay</div><div class="sm2">'+
-(due.length>20?('Đến hạn '+due.length+' mục — làm '+n+' mục một lượt'):'Những mục đã đến hạn nhắc lại')+
-'</div></div><div class="cnt">'+n+'</div></button>');
-c.onclick=function(){startSession(buildReview(due));};
+(due.length>bo.length?('Đến hạn '+due.length+' mục — làm '+bo.length+' mục một lượt')
+:them>0?('Đến hạn '+due.length+' mục, thêm '+them+' mục hay sai cho đủ bài')
+:'Những mục đã đến hạn nhắc lại')+
+'</div></div><div class="cnt">'+bo.length+'</div></button>');
+c.onclick=function(){startSession(buildReview(bo));};
 h.appendChild(c);
 }else if(seen>0){
 h.appendChild(el('<div class="set"><div class="l"><div class="n">Không có gì phải ôn</div><div class="d">Hôm nay bạn đã ôn hết. Học tiếp mục mới bên dưới.</div></div></div>'));
@@ -2572,7 +2575,11 @@ var act=el('<div class="row" style="margin-bottom:20px"></div>');
 var b1=el('<button class="btn">'+(nw.length?"Học mục mới":"Luyện lại")+'</button>');
 b1.onclick=function(){ startSession(nw.length?buildLearn(m,nw):buildReview(shuffle(m.items).slice(0,12))); };
 act.appendChild(b1);
-if(du.length){var b2=el('<button class="btn ghost">Ôn '+Math.min(du.length,20)+' mục</button>');b2.onclick=function(){startSession(buildReview(du));};act.appendChild(b2);}
+if(du.length){
+var b2=el('<button class="btn ghost">Ôn '+Math.min(du.length,soCauOn())+' mục</button>');
+b2.onclick=function(){startSession(buildReview(du));};
+act.appendChild(b2);
+}
 if(sc>3){var b3=el('<button class="btn ghost">Luyện gõ</button>');b3.onclick=function(){startSession(buildTyping(m));};act.appendChild(b3);}
 if(m.kind==="L"&&sc>3){var b4=el('<button class="btn ghost">Đọc chữ viết tay</button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
 if(m.kind==="V"&&sc>3&&m.items.filter(function(it){return rec(it.id)&&stressInfo(it);}).length>3){
@@ -2738,11 +2745,29 @@ if(prog.settings.anh)quiz.push(mcVocab(it,Math.random()<.5?"ru2en":"en2ru",pool)
 });
 return {title:m.name,steps:steps.concat(shuffle(quiz))};
 }
+function soCauOn(){
+var n=prog.settings&&prog.settings.soCau;
+return (n===8||n===12||n===20)?n:12;
+}
+function buNhungMucOn(du){
+var can=soCauOn();
+if(du.length>=can)return du.slice();
+var co={};du.forEach(function(it){co[it.id]=1;});
+var them=ALL_ITEMS.filter(function(it){
+if(co[it.id])return false;
+var p=rec(it.id);return !!(p&&p.seen);
+}).sort(function(a,b){
+var ya=diemYeu(a),yb=diemYeu(b);
+if(ya!==yb)return yb-ya;
+return (rec(a.id).due||0)-(rec(b.id).due||0);
+});
+return du.concat(them.slice(0,can-du.length));
+}
 function buildReview(items,tieuDe){
 var steps=[];
 var gh=pairStep(items);
 if(gh)steps.push(gh);
-shuffle(items).slice(0,20).forEach(function(it){
+shuffle(items).slice(0,soCauOn()).forEach(function(it){
 var pool=modById(it.mod).items;
 var r=Math.random();
 if(it.t==="L")steps.push(r<.33?mcLetter(it,"snd",pool):(r<.58?mcLetter(it,"pick",pool):(r<.78?mcLetter(it,"hand",pool):(hasRu()?mcLetter(it,"listen",pool):typeStep(it)))));
@@ -3323,8 +3348,7 @@ const HOP_AM={C:{tram:130.81,bes:[261.63,329.63,392.00]},
 F:{tram:174.61,bes:[261.63,349.23,440.00]},
 G7:{tram:196.00,bes:[293.66,349.23,392.00]}};
 const HAT_NHIP=[{t:"Chậm",v:76},{t:"Vừa",v:100},{t:"Nhanh",v:124}];
-var NHAC={ac:null,osc:[],hen:[],henG:[],henGiong:null,uDang:null,giuSong:0,
-raf:0,dang:false,nhip:100,giong:false,bufVang:null,bufOn:null};
+var NHAC={ac:null,osc:[],hen:[],raf:0,dang:false,nhip:100,bufVang:null,bufOn:null};
 function amCtx(){
 if(!NHAC.ac){
 var C=window.AudioContext||window.webkitAudioContext;
@@ -3365,10 +3389,11 @@ var n=Math.floor(ac.sampleRate*.25),b=ac.createBuffer(1,n,ac.sampleRate),d=b.get
 for(var i=0;i<n;i++)d[i]=Math.random()*2-1;
 NHAC.bufOn=b;return b;
 }
-function beChuong(ac,ra,f,t0,dai){
-[{k:"triangle",he:1,to:.22,tat:dai*1.1},
-{k:"sine",he:2,to:.08,tat:dai*.5},
-{k:"sine",he:3,to:.03,tat:dai*.3}].forEach(function(L,i){
+function beChuong(ac,ra,f,t0,dai,muc){
+muc=muc===undefined?1:muc;
+[{k:"triangle",he:1,to:.22*muc,tat:dai*1.1},
+{k:"sine",he:2,to:.08*muc,tat:dai*.5},
+{k:"sine",he:3,to:.03*muc,tat:dai*.3}].forEach(function(L,i){
 try{
 var o=ac.createOscillator(),g=ac.createGain();
 o.type=L.k;
@@ -3383,6 +3408,55 @@ NHAC.osc.push(o);
 }catch(e){}
 });
 }
+const NGUYEN_AM={a:[730,1090,2440],o:[570,840,2410],e:[530,1840,2480],u:[320,870,2240]};
+function beHat(ac,ra,f,t0,dai,am){
+var F=NGUYEN_AM[am]||NGUYEN_AM.a;
+var kt=Math.max(.2,dai*.9);
+try{
+var bao=ac.createGain();
+bao.gain.setValueAtTime(.0001,t0);
+bao.gain.exponentialRampToValueAtTime(1,t0+.075);
+bao.gain.setValueAtTime(1,t0+kt-.1);
+bao.gain.exponentialRampToValueAtTime(.0001,t0+kt);
+var muc=ac.createGain();muc.gain.value=.2;
+bao.connect(muc);muc.connect(ra);
+var lfo=ac.createOscillator(),lg=ac.createGain();
+lfo.frequency.setValueAtTime(5.3,t0);
+lg.gain.setValueAtTime(0,t0);
+lg.gain.linearRampToValueAtTime(f*.008,t0+Math.min(.4,kt*.6));
+lfo.connect(lg);
+lfo.start(t0);lfo.stop(t0+kt+.05);NHAC.osc.push(lfo);
+var tron=ac.createGain();tron.gain.value=.5;
+[0,-8].forEach(function(cent,i){
+var o=ac.createOscillator();
+o.type="sawtooth";
+o.frequency.setValueAtTime(f,t0);
+o.detune.setValueAtTime(cent,t0);
+lg.connect(o.frequency);
+var og=ac.createGain();og.gain.value=i?.45:1;
+o.connect(og);og.connect(tron);
+o.start(t0);o.stop(t0+kt+.05);NHAC.osc.push(o);
+});
+var manh=[1,.7,.45];
+F.forEach(function(ff,i){
+var bp=ac.createBiquadFilter();
+bp.type="bandpass";bp.frequency.setValueAtTime(ff,t0);bp.Q.value=5;
+var fg=ac.createGain();fg.gain.value=manh[i]*5;
+tron.connect(bp);bp.connect(fg);fg.connect(bao);
+});
+var lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.setValueAtTime(1300,t0);lp.Q.value=.7;
+var tg=ac.createGain();tg.gain.value=.3;
+tron.connect(lp);lp.connect(tg);tg.connect(bao);
+var s=ac.createBufferSource(),sg=ac.createGain(),sh=ac.createBiquadFilter();
+s.buffer=buffOn(ac);
+sh.type="bandpass";sh.frequency.value=1700;sh.Q.value=1.1;
+sg.gain.setValueAtTime(.0001,t0);
+sg.gain.exponentialRampToValueAtTime(.015,t0+.012);
+sg.gain.exponentialRampToValueAtTime(.0001,t0+.1);
+s.connect(sh);sh.connect(sg);sg.connect(ra);
+s.start(t0);s.stop(t0+.14);NHAC.osc.push(s);
+}catch(e){}
+}
 function beNen(ac,ra,fs,t0,dai){
 fs.forEach(function(f,i){
 try{
@@ -3390,7 +3464,7 @@ var o=ac.createOscillator(),g=ac.createGain(),l=ac.createBiquadFilter();
 o.type="sawtooth";o.frequency.setValueAtTime(f*(i%2?1.003:0.997),t0);
 l.type="lowpass";l.frequency.setValueAtTime(900,t0);l.Q.value=.6;
 g.gain.setValueAtTime(.0001,t0);
-g.gain.linearRampToValueAtTime(.035,t0+dai*.3);
+g.gain.linearRampToValueAtTime(.026,t0+dai*.3);
 g.gain.linearRampToValueAtTime(.0001,t0+dai);
 o.connect(l);l.connect(g);g.connect(ra);
 o.start(t0);o.stop(t0+dai+.05);
@@ -3403,7 +3477,7 @@ try{
 var o=ac.createOscillator(),g=ac.createGain();
 o.type="triangle";o.frequency.setValueAtTime(f,t0);
 g.gain.setValueAtTime(.0001,t0);
-g.gain.exponentialRampToValueAtTime(.16,t0+.02);
+g.gain.exponentialRampToValueAtTime(.11,t0+.02);
 g.gain.exponentialRampToValueAtTime(.0001,t0+dai*.85);
 o.connect(g);g.connect(ra);
 o.start(t0);o.stop(t0+dai);
@@ -3436,70 +3510,10 @@ chu+=soChu;
 }
 return {ds:ds,tong:t+q*.8,q:q};
 }
-function soVan(ten){
-var m=String(ten).toLowerCase().match(/[\u0430\u0435\u0451\u0438\u043e\u0443\u044b\u044d\u044e\u044f]/g);
-return m?m.length:1;
-}
-var vanGiay=.42,treGiong=70;
-function doNhipGiong(van,toc,bat,het,henLuc,biCat){
-if(!van||!bat||het<=bat)return;
-var g=(het-bat)/1000*toc/van;
-if(biCat){
-vanGiay=Math.min(.85,Math.max(vanGiay*1.08,g*1.05));
-return;
-}
-if(g<.08||g>1)return;
-vanGiay=vanGiay*.65+g*.35;
-var tre=bat-henLuc;
-if(tre>=0&&tre<400)treGiong=treGiong*.7+tre*.3;
-}
-function nhipChu(ten,dai){
-var van=soVan(ten);
-var can=van*(vanGiay||.42);
-var cho=dai*.82;
-var toc=Math.max(.6,Math.min(2.2,can/cho));
-var thuc=can/toc;
-return {van:van,toc:toc,som:Math.max(0,Math.min(dai*160,(thuc-cho)*1000))};
-}
-function catGiong(){
-if(!window.speechSynthesis)return;
-try{
-if(NHAC.uDang)NHAC.uDang.__cat=true;
-NHAC.uDang=null;
-if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();
-}catch(e){}
-}
-function dungGiong(){
-NHAC.henG.forEach(function(h){clearTimeout(h);});NHAC.henG=[];
-catGiong();
-}
-function docMotChu(ten,f,dai){
-if(!window.speechSynthesis||!ruV)return;
-try{
-var np=nhipChu(ten,dai),van=np.van,toc=np.toc;
-var u=new SpeechSynthesisUtterance(ten);
-u.lang="ru-RU";u.voice=ruV;
-u.pitch=Math.max(.5,Math.min(1.8,1+(f/HAT_TAN[0]-1)*.55));
-u.rate=toc;
-var henLuc=Date.now(),batLuc=0;
-u.onstart=function(){batLuc=Date.now();};
-u.onend=function(){
-doNhipGiong(van,toc,batLuc,Date.now(),henLuc,!!u.__cat);
-if(NHAC.uDang===u)NHAC.uDang=null;
-};
-u.onerror=function(){if(NHAC.uDang===u)NHAC.uDang=null;};
-catGiong();
-NHAC.uDang=u;
-speechSynthesis.speak(u);
-}catch(e){}
-}
 function dungHat(){
 if(NHAC.raf){cancelAnimationFrame(NHAC.raf);NHAC.raf=0;}
 NHAC.hen.forEach(function(h){clearTimeout(h);});NHAC.hen=[];
 NHAC.osc.forEach(function(o){try{o.stop();}catch(e){}});NHAC.osc=[];
-if(NHAC.giuSong){clearInterval(NHAC.giuSong);NHAC.giuSong=0;}
-dungGiong();
-NHAC.henGiong=null;
 NHAC.dang=false;
 }
 function renderSong(){
@@ -3509,7 +3523,7 @@ var back=el('<button class="back">← Lộ trình</button>');
 back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
 app.appendChild(el('<div class="eyebrow cyr">Алфавит</div><h1 style="margin-bottom:6px">Bài hát bảng chữ cái</h1>'));
-app.appendChild(el('<div class="note" style="margin-bottom:16px">33 chữ chia 5 dòng, hát trên điệu dân ca Pháp “Ah! vous dirai-je, maman” — đúng điệu “Twinkle twinkle” quen tai. Nhạc do chính app dựng ra, không lấy của ai.</div>'));
+app.appendChild(el('<div class="note" style="margin-bottom:16px">33 chữ chia 5 dòng, trên điệu dân ca Pháp “Ah! vous dirai-je, maman” — đúng điệu “Twinkle twinkle” quen tai. Một bè hát ngân nguyên âm “a” đi theo giai điệu, chữ nào tới lượt thì sáng lên ở dưới để bạn hát tên chữ theo. Nhạc do chính app dựng ra, không lấy của ai.</div>'));
 if(!(window.AudioContext||window.webkitAudioContext))
 app.appendChild(el('<div class="tipbox" style="margin-bottom:14px"><b>Không phát được nhạc</b>Trình duyệt này không có Web Audio. Phần lời bên dưới vẫn đọc và hát theo được.</div>'));
 var card=el('<div class="card"><div class="lbl">Đang hát</div><div class="glyph hat-now">♪</div><div class="tr hat-ten">Bấm “Hát” để bắt đầu</div></div>');
@@ -3538,25 +3552,6 @@ nhip.appendChild(b);
 });
 dk.appendChild(nhip);
 app.appendChild(dk);
-if(hasRu()){
-var lb=el('<label class="note" style="display:flex;gap:9px;align-items:flex-start;margin-top:12px;cursor:pointer">'+
-'<input type="checkbox" style="margin-top:3px;flex:none"'+(NHAC.giong?" checked":"")+'>'+
-'<span>Hát tên chữ theo nhạc — mỗi chữ rơi đúng vào nốt của nó, tên dài đọc nhanh, tên ngắn ngân dài. Vẫn là giọng đọc của máy nên không thành tiếng hát thật được. Bật lên thì nhạc về nhịp <b>Chậm</b>, vì tên dài như “и кра́ткое” cần chừng ấy thời gian mới đọc trọn.</span></label>');
-lb.querySelector("input").onchange=function(){
-NHAC.giong=this.checked;
-if(NHAC.giong&&NHAC.nhip>76){
-NHAC.nhip=76;
-Array.prototype.forEach.call(nhip.children,function(x,i){
-x.classList.toggle("on",HAT_NHIP[i]&&HAT_NHIP[i].v===76);
-});
-flash("Về nhịp Chậm cho kịp đọc tên chữ.");
-if(NHAC.dang){dungHat();batDau();return;}
-}
-if(NHAC.dang&&NHAC.henGiong)NHAC.henGiong();
-else if(!NHAC.giong)dungGiong();
-};
-app.appendChild(lb);
-}
 app.appendChild(el('<div class="sec-head"><h2>Lời</h2><div class="ln"></div></div>'));
 var o=[],k=0;
 for(var d=0;d<HAT_DONG.length;d++){
@@ -3611,34 +3606,20 @@ beTram(ac,ra,h.tram,tc,2*q*.9);
 });
 for(var b=0;b<8;b++)beLac(ac,ra,t0+dauCau+b*q,b%2?.016:.03);
 });
+var AM_DONG=["a","o","a","e","a"];
+var dongNay=0,moc=0;
 cv.ds.forEach(function(e){
-beChuong(ac,ra,e.f,t0+e.t,e.dai);
+if(e.dong>=0)dongNay=e.dong;
+beHat(ac,ra,e.f,t0+e.t,e.dai,AM_DONG[dongNay%AM_DONG.length]);
+beChuong(ac,ra,e.f,t0+e.t,e.dai,.4);
 NHAC.hen.push(setTimeout(function(){
 oThanh.style.width=(e.t/cv.tong*100).toFixed(1)+"%";
 if(e.chu<0)return;
 danhDau(e.chu);
 },Math.max(0,(t0+e.t-ac.currentTime)*1000)));
 });
-NHAC.henGiong=function(){
-dungGiong();
-if(!NHAC.giong||!NHAC.dang)return;
-cv.ds.forEach(function(e){
-if(e.chu<0)return;
-var itx=LS[e.chu];
-var cho=(t0+e.t-ac.currentTime)*1000-treGiong-(itx?nhipChu(itx.nm,e.dai).som:0);
-if(cho<0)return;
-NHAC.henG.push(setTimeout(function(){
-var it=LS[e.chu];
-if(it)docMotChu(it.nm,e.f,e.dai);
-},cho));
-});
-};
 NHAC.hen.push(setTimeout(xong,Math.max(0,(t0+cv.tong-ac.currentTime)*1000)));
 NHAC.dang=true;
-NHAC.henGiong();
-if(window.speechSynthesis)NHAC.giuSong=setInterval(function(){
-try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.resume();}catch(e){}
-},7000);
 datNut(true,"Dừng");
 (function chay(){
 if(!NHAC.dang)return;
@@ -4030,6 +4011,15 @@ toggle("Hiện phiên âm Latin","Dòng “máma”, “spasíbo” dưới ch�
 toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
 toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều Nga → Anh và Anh → Nga, học một công đôi việc.","anh");
 toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng chữ cái. Không khuyến khích.","unlockAll");
+var sc=el('<div class="set"><div class="l"><div class="n">Số câu mỗi bài ôn</div>'+
+'<div class="d">Bài ôn lấy những mục đã đến hạn nhắc lại. Hôm nào chưa tới hạn mấy mục thì app lấy thêm mục hay sai và mục sắp đến hạn cho đủ chừng này câu — chứ mở ra làm đúng một câu rồi đóng lại thì chẳng bõ.</div></div></div>');
+var scr=el('<div class="row" style="flex:none"></div>');
+[["Ngắn",8],["Vừa",12],["Dài",20]].forEach(function(o){
+var b=el('<button class="btn sm '+(soCauOn()===o[1]?"":"ghost")+'">'+o[0]+' · '+o[1]+'</button>');
+b.onclick=function(){prog.settings.soCau=o[1];touch();render();};
+scr.appendChild(b);
+});
+sc.appendChild(scr);app.appendChild(sc);
 var rate=el('<div class="set"><div class="l"><div class="n">Tốc độ đọc</div><div class="d">Hiện tại: '+prog.settings.rate.toFixed(2)+'×</div></div></div>');
 var rr=el('<div class="row" style="flex:none"></div>');
 [["Chậm",.7],["Vừa",.85],["Thường",1]].forEach(function(o){
@@ -4296,7 +4286,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=75"></script>
+<script type="module" src="firebase-sync.js?v=76"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
