@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=108"></script>
+<script src="firebase-config.js?v=109"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -395,7 +395,7 @@ font-family:var(--f-head);font-weight:700;font-size:21px;font-variant-numeric:ta
 .more summary:hover{color:var(--ink)}
 @keyframes cvUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes cvPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
-.cover{text-align:center;padding-block:6px 10px}
+.cover{text-align:center;padding-block:6px 10px;position:relative}
 .cover>*{animation:cvUp .6s cubic-bezier(.22,1,.36,1) both}
 .cover .eyebrow{animation-delay:.04s}
 .cover h1{font-size:40px;margin:10px 0 0;animation-delay:.12s}
@@ -491,6 +491,33 @@ body.hep.rong #app{max-width:1340px}
 .cv-mon .monthe .g{font-size:24px}
 .cv-mon .monthe .n{font-size:13.5px}
 .cv-mon .monthe .s{display:none}
+.the-chong{position:relative;isolation:isolate;margin:6px 18px 20px}
+.the-chong .lop{position:absolute;inset:0;border-radius:30px;pointer-events:none;z-index:-1;
+background:var(--surface);box-shadow:inset 0 0 0 1px var(--line-soft),var(--sh);
+transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s}
+.the-chong .lop1{transform:rotate(-4.6deg) translate(-15px,9px);opacity:.92}
+.the-chong .lop2{transform:rotate(6.2deg) translate(18px,16px);opacity:.6}
+.the-chong>.canvas{position:relative;z-index:1;
+transform:rotate(-1.4deg);transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.the-chong:hover>.canvas,.the-chong:focus-within>.canvas{transform:none}
+.the-chong:hover .lop1{transform:rotate(-5.6deg) translate(-15px,10px);opacity:.8}
+.the-chong:hover .lop2{transform:rotate(6.8deg) translate(18px,17px);opacity:.5}
+.lap{--s:1;position:absolute;pointer-events:none;z-index:0;
+clip-path:polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+animation:nhapNhay 3.6s ease-in-out infinite}
+@keyframes nhapNhay{
+0%,100%{opacity:.22;transform:scale(calc(.75*var(--s))) rotate(0deg)}
+50%{opacity:.85;transform:scale(calc(1.12*var(--s))) rotate(22deg)}
+}
+body.nhe .lap{display:none}
+@media(prefers-reduced-motion:reduce){.lap{animation:none;opacity:.45}}
+@media(max-width:620px){
+.the-chong{margin:4px 9px 13px}
+.the-chong .lop1{transform:rotate(-3deg) translate(-7px,5px)}
+.the-chong .lop2{transform:rotate(3.8deg) translate(8px,9px)}
+.the-chong>.canvas{transform:rotate(-1deg)}
+.lap{--s:.6}
+}
 .mondai{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
 .monthe{position:relative;display:flex;flex-direction:column;gap:11px;padding:16px 16px 14px;
 border-radius:20px;text-align:left;min-width:0;overflow:hidden;color:#fff;isolation:isolate;
@@ -4103,6 +4130,8 @@ var box=el('<section class="cover cov3">'+
 : 'Nghĩa tiếng Việt và mẹo đọc cho người Việt ở từng mục đều tự soạn — không phải bản dịch máy. Đổi môn lúc nào cũng được, tiến độ mỗi thứ tiếng giữ riêng.')+'</div>'+
 '</div>'+
 '<div class="cv-col cv-mid">'+
+'<div class="the-chong">'+
+'<i class="lop lop2"></i><i class="lop lop1"></i>'+
 '<div class="canvas">'+
 '<div class="cvhead">'+
 '<div class="cvbig"></div>'+
@@ -4114,6 +4143,7 @@ var box=el('<section class="cover cov3">'+
 '<button class="spk-big" aria-label="Nghe cách đọc"><span class="wv"><s></s><s></s><s></s><s></s><s></s></span></button>'+
 '<button class="btn sm ghost">'+ic("choi",17)+' Xem cách viết</button>'+
 '<div class="cvnote" style="flex:1;min-width:150px">Bấm một chữ bên dưới để đổi.</div>'+
+'</div>'+
 '</div>'+
 '</div>'+
 '<div class="abc-wrap"><div class="abc"></div><div class="abc-rail"><i></i></div></div>'+
@@ -4241,6 +4271,19 @@ stopStrokes(svg);centerArt(svg);
 if(cur&&CURSIVE[cur.lo])animateStrokes(svg,WSPEED[prog.settings.wspeed||"cham"]);
 else flash("Chữ này app chưa dựng được đường nét mẫu.");
 };
+var SAO=[[5,14,13],[15,5,9],[27,24,8],[45,7,11],[61,15,8],[73,5,12],[88,19,10],
+[95,46,8],[9,58,11],[21,83,9],[40,74,8],[55,92,12],[69,68,9],[84,86,11],
+[33,45,7],[78,38,8]];
+var mauSao=MON.map(function(m){return m.mau;}).concat(["var(--accent)","#E8B33A"]);
+SAO.forEach(function(v,i){
+var sao=el('<i class="lap"></i>');
+sao.style.left=v[0]+"%";sao.style.top=v[1]+"%";
+sao.style.width=v[2]+"px";sao.style.height=v[2]+"px";
+sao.style.background=mauSao[i%mauSao.length];
+sao.style.animationDelay=(i*0.37).toFixed(2)+"s";
+sao.style.animationDuration=(3.1+(i%5)*0.42).toFixed(2)+"s";
+box.appendChild(sao);
+});
 var oMon=box.querySelector(".cv-mon");
 if(oMon)oMon.appendChild(veDaiMon(function(){render();}));
 var than=box.querySelector(".tabbody");
@@ -7056,7 +7099,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=108"></script>
+<script type="module" src="firebase-sync.js?v=109"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
