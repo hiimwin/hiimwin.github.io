@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=88"></script>
+<script src="firebase-config.js?v=89"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -447,7 +447,11 @@ body.nhe .prog-bar .run{animation:none}
 body.hep.rong #app{max-width:1200px}
 .chi-tiet{display:grid;grid-template-columns:minmax(0,430px) minmax(0,1fr);
 gap:16px 40px;align-items:start}
-.ct-trai{position:sticky;top:calc(env(safe-area-inset-top,0px) + 74px)}
+.ct-trai{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);
+max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:none;
+padding-right:2px;margin-right:-2px}
+.ct-trai::-webkit-scrollbar{width:0;display:none}
+.ct-trai .back{margin-top:0}
 .ct-phai .wsvg{max-width:420px}
 .ct-phai .wbox{padding:18px}
 }
@@ -3395,18 +3399,6 @@ node.addEventListener("click",function(e){ if(xa>8){e.stopPropagation();e.preven
 var huongThe=0;
 function renderOne(it){
 var mod=modById(it.mod),ds=mod?mod.items:[],vt=ds.indexOf(it);
-var back=el('<button class="back">← '+esc(mod?mod.name:"Quay lại")+'</button>');
-back.onclick=function(){go(view.from||{n:"home"});};
-app.appendChild(back);
-if(vt>=0&&ds.length>1){
-var rail=el('<div class="rail"></div>');
-ds.forEach(function(x,i){
-var pr=rec(x.id);
-rail.appendChild(el('<i class="'+(i===vt?"cur":(pr&&pr.b>=4?"on":(pr?"ro":"")))+'"></i>'));
-});
-app.appendChild(rail);
-}
-app.appendChild(dongTrangThai(it));
 var khung=el('<div class="chi-tiet"></div>');
 var cotT=el('<div class="ct-trai"></div>'),cotP=el('<div class="ct-phai"></div>');
 khung.appendChild(cotT);khung.appendChild(cotP);
@@ -3415,6 +3407,19 @@ if(hai)document.body.classList.add("rong");
 var vao=hai?cotT:app;
 var rongMan=false;
 try{rongMan=matchMedia("(min-width:1100px)").matches;}catch(e){}
+var dau=(hai&&rongMan)?cotT:app;
+var back=el('<button class="back">← '+esc(mod?mod.name:"Quay lại")+'</button>');
+back.onclick=function(){go(view.from||{n:"home"});};
+dau.appendChild(back);
+if(vt>=0&&ds.length>1){
+var rail=el('<div class="rail"></div>');
+ds.forEach(function(x,i){
+var pr=rec(x.id);
+rail.appendChild(el('<i class="'+(i===vt?"cur":(pr&&pr.b>=4?"on":(pr?"ro":"")))+'"></i>'));
+});
+dau.appendChild(rail);
+}
+dau.appendChild(dongTrangThai(it));
 var c=theGhiNho(it);
 if(huongThe){c.classList.add(huongThe>0?"vaoPhai":"vaoTrai");huongThe=0;}
 c.querySelector(".spk").onclick=function(e){e.stopPropagation();speak(it.t==="L"?it.ex:it.ru);};
@@ -4505,7 +4510,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=88"></script>
+<script type="module" src="firebase-sync.js?v=89"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
