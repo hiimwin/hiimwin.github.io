@@ -1,0 +1,20 @@
+Nguồn dữ liệu bên thứ ba dùng trong app này
+===========================================
+
+Thứ tự và đường tâm nét của chữ Hán (CURSIVE_ZH trong index.html)
+-----------------------------------------------------------------
+Lấy từ bộ dữ liệu "Make Me a Hanzi" (https://github.com/skishore/makemeahanzi),
+phân phối qua gói hanzi-writer-data. Bộ này dẫn xuất từ các phông chữ của
+Arphic Technology Co., Ltd. và mang giấy phép ARPHIC PUBLIC LICENSE.
+
+Theo giấy phép đó:
+ - Phải ghi rõ nguồn gốc (đã ghi ở chân trang app và tại đây).
+ - Bản dẫn xuất phải giữ nguyên thông báo giấy phép này.
+
+Toàn văn giấy phép: https://github.com/skishore/makemeahanzi/blob/master/ARPHICPL.TXT
+
+Dữ liệu đã được chuyển đổi: lấy phần "medians" (đường tâm nét), đổi từ hệ toạ độ
+1024 (gốc dưới-trái) sang khung 112x100 của bảng tập viết, và làm mượt bằng
+đường Bezier. Không dùng phần outline của phông.
+
+Nét chữ cái tiếng Nga và tiếng Anh trong app là do tác giả app tự dựng.
