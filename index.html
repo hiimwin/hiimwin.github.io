@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:16px;font-weight:700;letter-spacing:-.01em;opacity:.9}#manCho .mc3{display:flex;align-items:center;gap:9px;margin-top:-7px;opacity:.6}#manCho .mc3 b{font-size:15px;font-weight:600;font-family:Georgia,serif}#manCho .mc3 i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.55}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=120"></script>
+<script src="firebase-config.js?v=121"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">W</div><div class="tn">WinSpeak</div><div class="mc3"><b>Аа</b><i></i><b>æ</b><i></i><b>中</b></div><div class="th"><i></i></div></div>
@@ -494,6 +494,24 @@ body.hep.rong #app{max-width:1340px}
 .ct-phai .wsvg{max-width:470px}
 }
 .cv-mon .mondai{margin-bottom:0}
+.cau-cho{min-height:66px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;
+padding:13px;border-radius:var(--r-sm);background:var(--sunken);
+box-shadow:inset 0 0 0 1px var(--line-soft)}
+.cau-cho.trong::after{content:attr(data-goi);color:var(--muted);font-size:14px;align-self:center}
+.cau-manh{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center;min-height:48px}
+.cau-o{padding:10px 14px;border-radius:var(--r-sm);background:var(--surface);
+box-shadow:var(--sh),inset 0 0 0 1px var(--line);
+font-family:var(--f-cyr);font-size:19px;line-height:1.3;
+transition:transform .13s cubic-bezier(.34,1.4,.64,1),box-shadow .18s,color .18s}
+.cau-o:hover{transform:translateY(-2px);box-shadow:var(--sh-lift)}
+.cau-o:active{transform:scale(.96)}
+.cau-o.sai{box-shadow:inset 0 0 0 2px var(--bad);color:var(--bad);background:var(--bad-bg)}
+.cau-o.dung{box-shadow:inset 0 0 0 2px var(--ok);color:var(--ok);background:var(--ok-bg)}
+.cau-dap{font-family:var(--f-cyr);font-size:21px;line-height:1.4;margin-top:4px}
+@media(min-width:1100px){
+body.vua .cau-o{font-size:22px;padding:12px 17px}
+body.vua .cau-cho{min-height:78px}
+}
 .the-chong{position:relative;isolation:isolate;margin:6px 18px 20px}
 .the-chong .lop{position:absolute;inset:0;border-radius:30px;pointer-events:none;z-index:-1;
 background:var(--surface);box-shadow:inset 0 0 0 1px var(--line-soft),var(--sh);
@@ -2357,6 +2375,7 @@ return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 })});
 });
 ms.push(moDoiThuong(DOITHUONG_EN,"Everyday speech"));
+ms.push(moGhepCau(CAU_ANH,"Sentences"));
 return {mods:ms,np:NGU_PHAP_ANH,cap:CAP_EN};
 }
 const AM_TRUNG=[
@@ -3047,6 +3066,7 @@ return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 })});
 });
 ms.push(moDoiThuong(DOITHUONG_ZH,"口语"));
+ms.push(moGhepCau(CAU_TRUNG,"造句"));
 return {mods:ms,np:NGU_PHAP_TRUNG,cap:CAP_ZH};
 }
 const DOITHUONG_RU=[
@@ -3129,6 +3149,90 @@ const DOITHUONG_ZH=[
 ["好吧","hǎo ba","fine then","thôi được","“tốt chứ”","Đồng ý miễn cưỡng. Chữ 吧 làm nó thành nhượng bộ chứ không phải tán thành."],
 ["干嘛","gànmá","what are you doing? / why?","làm gì đấy? / chi vậy?","“làm cái gì”","Thân mật, hơi cộc. Hỏi bạn bè thì bình thường, hỏi người lạ thì khiếm nhã."]
 ];
+const CAU_NGA=[
+["Я студе́нт.","Ya studént.","I am a student.","Tôi là sinh viên.","Я|студе́нт","Hiện tại không có từ “là”: chủ ngữ đứng cạnh vị ngữ là thành câu."],
+["Э́то моя́ кни́га.","Éto mayá kníga.","This is my book.","Đây là sách của tôi.","Э́то|моя́|кни́га","Кни́га giống cái nên “của tôi” phải là моя́, không phải мой."],
+["Он до́ма.","On dóma.","He is at home.","Anh ấy ở nhà.","Он|до́ма","До́ма là trạng từ “ở nhà”, không cần giới từ nào cả."],
+["Я не понима́ю.","Ya ne panimáyu.","I don't understand.","Tôi không hiểu.","Я|не|понима́ю","Phủ định chỉ cần đặt не ngay trước động từ."],
+["Где туале́т?","Gde tualét?","Where is the toilet?","Nhà vệ sinh ở đâu?","Где|туале́т","Câu hỏi không đảo gì cả, cũng không cần động từ."],
+["Ско́лько э́то сто́ит?","Skól'ka éta stóit?","How much does this cost?","Cái này bao nhiêu tiền?","Ско́лько|э́то|сто́ит","Câu hỏi giá cố định, học thuộc cả cụm là dùng được."],
+["Я хочу́ пить.","Ya hachú pit'.","I want to drink.","Tôi muốn uống.","Я|хочу́|пить","Sau хочу́ là động từ nguyên thể, giữ nguyên đuôi -ть."],
+["Она́ лю́бит ко́фе.","Aná lyúbit kófe.","She likes coffee.","Cô ấy thích cà phê.","Она́|лю́бит|ко́фе","Ко́фе là từ mượn, không đổi đuôi dù làm tân ngữ."],
+["Мы живём в Москве́.","My zhivyóm v Maskvé.","We live in Moscow.","Chúng tôi sống ở Moskva.","Мы|живём|в|Москве́","В chỉ nơi chốn thì danh từ đi với cách giới ngữ: Москва́ → Москве́."],
+["Ты говори́шь по-ру́сски?","Ty gavarísh pa-rúski?","Do you speak Russian?","Bạn nói tiếng Nga không?","Ты|говори́шь|по-ру́сски","Nói thứ tiếng nào thì dùng по- + ...ски, không phải tên nước."],
+["Э́то о́чень вку́сно.","Éta óchen' fkúsna.","This is very tasty.","Cái này rất ngon.","Э́то|о́чень|вку́сно","Вку́сно ở dạng trung tính vì đang nói về “cái này” chung chung."],
+["У меня́ есть вопро́с.","U menyá yest' vaprós.","I have a question.","Tôi có một câu hỏi.","У|меня́|есть|вопро́с","Tiếng Nga không nói “tôi có”, mà nói “ở chỗ tôi có”."],
+["Я из Вьетна́ма.","Ya iz V'yetnáma.","I am from Vietnam.","Tôi đến từ Việt Nam.","Я|из|Вьетна́ма","Из đi với cách sở hữu: Вьетна́м → Вьетна́ма."],
+["Я не зна́ю.","Ya ne znáyu.","I don't know.","Tôi không biết.","Я|не|зна́ю","Câu cứu nguy hay dùng nhất khi mới học."],
+["Дай мне воды́.","Day mne vadý.","Give me some water.","Cho tôi ít nước.","Дай|мне|воды́","Xin MỘT PHẦN thì dùng cách sở hữu: вода́ → воды́."],
+["Мне нра́вится э́тот го́род.","Mne nrávitsa état górat.","I like this city.","Tôi thích thành phố này.","Мне|нра́вится|э́тот|го́род","Nghĩa đen là “thành phố này làm vừa lòng tôi” — người thích đứng ở cách tặng."],
+["Ско́лько тебе́ лет?","Skól'ka tibé let?","How old are you?","Bạn bao nhiêu tuổi?","Ско́лько|тебе́|лет","Nghĩa đen: “với bạn bao nhiêu năm”. Không có chủ ngữ."],
+["Он идёт домо́й.","On idyót damóy.","He is going home.","Anh ấy đang về nhà.","Он|идёт|домо́й","Домо́й là “về nhà” (có hướng), khác до́ма là “ở nhà”."],
+["Э́то моя́ сестра́.","Éta mayá sistrá.","This is my sister.","Đây là chị tôi.","Э́то|моя́|сестра́","Э́то mở đầu câu giới thiệu thì không đổi dạng."],
+["Мо́жно посмотре́ть?","Mózhna pasmatrét'?","May I take a look?","Cho tôi xem được không?","Мо́жно|посмотре́ть","Мо́жно + nguyên thể là cách xin phép gọn nhất."],
+["Я люблю́ э́ту пе́сню.","Ya lyublyú étu pésnyu.","I love this song.","Tôi thích bài hát này.","Я|люблю́|э́ту|пе́сню","Tân ngữ giống cái đổi sang cách đối: пе́сня → пе́сню, э́та → э́ту."],
+["Сего́дня хоро́шая пого́да.","Sevódnya harósha pagóda.","The weather is nice today.","Hôm nay trời đẹp.","Сего́дня|хоро́шая|пого́да","Tính từ đứng trước danh từ và phải theo giống: пого́да giống cái → хоро́шая."],
+["Он рабо́тает в Москве́.","On rabótayet v Maskvé.","He works in Moscow.","Anh ấy làm việc ở Moskva.","Он|рабо́тает|в|Москве́","Động từ ngôi thứ ba số ít kết thúc -ет."],
+["Я бу́ду чай.","Ya búdu chay.","I'll have tea.","Tôi uống trà.","Я|бу́ду|чай","Khi gọi món, бу́ду + món là đủ, khỏi cần động từ “uống”."]
+];
+const CAU_ANH=[
+["I am a student.","/aɪ əm ə ˈstjuːdnt/","I am a student.","Tôi là sinh viên.","I|am|a|student","Danh từ đếm được phải có “a” — bỏ đi là câu sai."],
+["This is my book.","/ðɪs ɪz maɪ bʊk/","This is my book.","Đây là sách của tôi.","This|is|my|book","Sở hữu đứng TRƯỚC danh từ, ngược với tiếng Việt."],
+["She is at home.","/ʃi ɪz ət həʊm/","She is at home.","Cô ấy ở nhà.","She|is|at|home","“At home” là cụm cố định, không có “the”."],
+["I don't understand.","/aɪ dəʊnt ˌʌndəˈstænd/","I don't understand.","Tôi không hiểu.","I|don't|understand","Phủ định động từ thường phải mượn “do”."],
+["Where is the toilet?","/weər ɪz ðə ˈtɔɪlət/","Where is the toilet?","Nhà vệ sinh ở đâu?","Where|is|the|toilet","Từ hỏi đứng đầu, rồi mới tới động từ."],
+["How much is this?","/haʊ ˈmʌtʃ ɪz ðɪs/","How much is this?","Cái này bao nhiêu tiền?","How|much|is|this","Hỏi giá dùng “how much”, không phải “how many”."],
+["I would like a coffee.","/aɪ wʊd laɪk ə ˈkɒfi/","I would like a coffee.","Cho tôi một cà phê.","I|would|like|a|coffee","Lịch sự hơn hẳn “I want”."],
+["He works in an office.","/hi wɜːks ɪn ən ˈɒfɪs/","He works in an office.","Anh ấy làm việc ở văn phòng.","He|works|in|an|office","Ngôi thứ ba thêm -s; “an” vì office bắt đầu bằng âm nguyên âm."],
+["We live in Hanoi.","/wi lɪv ɪn hæˈnɔɪ/","We live in Hanoi.","Chúng tôi sống ở Hà Nội.","We|live|in|Hanoi","Tên thành phố không có mạo từ."],
+["Do you speak English?","/duː juː spiːk ˈɪŋɡlɪʃ/","Do you speak English?","Bạn có nói tiếng Anh không?","Do|you|speak|English","Câu hỏi với động từ thường phải mở đầu bằng “Do”."],
+["It is very delicious.","/ɪt ɪz ˈveri dɪˈlɪʃəs/","It is very delicious.","Món này rất ngon.","It|is|very|delicious","Tính từ đứng sau “to be”, không cần gì thêm."],
+["I have a question.","/aɪ hæv ə ˈkwestʃən/","I have a question.","Tôi có một câu hỏi.","I|have|a|question","“Have” ở đây là sở hữu, không phải trợ động từ."],
+["I am from Vietnam.","/aɪm frəm ˌvjetˈnæm/","I am from Vietnam.","Tôi đến từ Việt Nam.","I|am|from|Vietnam","Dùng “be from”, không dịch thẳng “đến từ” thành “come from”."],
+["The weather is nice today.","/ðə ˈweðə ɪz naɪs təˈdeɪ/","The weather is nice today.","Hôm nay trời đẹp.","The|weather|is|nice|today","“Weather” luôn đi với “the”. Trạng từ thời gian đứng cuối."],
+["I did not go yesterday.","/aɪ dɪd nɒt ɡəʊ ˈjestədeɪ/","I did not go yesterday.","Hôm qua tôi đã không đi.","I|did|not|go|yesterday","Đã có “did” thì động từ chính TRỞ VỀ dạng gốc: go, không phải went."],
+["She does not like coffee.","/ʃi dʌz nɒt laɪk ˈkɒfi/","She does not like coffee.","Cô ấy không thích cà phê.","She|does|not|like|coffee","Chữ -s chuyển sang “does”, nên “like” để trần."],
+["There is a bank near here.","/ðeər ɪz ə bæŋk nɪə hɪə/","There is a bank near here.","Gần đây có một ngân hàng.","There|is|a|bank|near|here","Nói “có cái gì ở đâu” thì mở đầu bằng “There is”."],
+["Can you help me?","/kən juː help miː/","Can you help me?","Bạn giúp tôi được không?","Can|you|help|me","Sau “can” động từ để nguyên, không “to”, không -s."],
+["What time does it open?","/wɒt taɪm dʌz ɪt ˈəʊpən/","What time does it open?","Mấy giờ mở cửa?","What|time|does|it|open","Cụm hỏi đứng đầu, rồi mới tới trợ động từ."],
+["I am learning English.","/aɪm ˈlɜːnɪŋ ˈɪŋɡlɪʃ/","I am learning English.","Tôi đang học tiếng Anh.","I|am|learning|English","Việc đang diễn ra: be + V-ing."],
+["He has two children.","/hi hæz tuː ˈtʃɪldrən/","He has two children.","Anh ấy có hai đứa con.","He|has|two|children","Ngôi thứ ba đổi have → has; children là số nhiều bất quy tắc."],
+["I will call you tomorrow.","/aɪ wɪl kɔːl juː təˈmɒrəʊ/","I will call you tomorrow.","Mai tôi sẽ gọi cho bạn.","I|will|call|you|tomorrow","Sau “will” động từ để nguyên."],
+["This book is more interesting.","/ðɪs bʊk ɪz mɔːr ˈɪntrəstɪŋ/","This book is more interesting.","Quyển sách này thú vị hơn.","This|book|is|more|interesting","Tính từ dài so sánh bằng “more”, không thêm -er."],
+["She is the best student.","/ʃi ɪz ðə best ˈstjuːdnt/","She is the best student.","Cô ấy là học sinh giỏi nhất.","She|is|the|best|student","So sánh nhất luôn đi với “the”."]
+];
+const CAU_TRUNG=[
+["我是学生。","wǒ shì xuésheng","I am a student.","Tôi là sinh viên.","我|是|学生","是 nối hai danh từ. Với tính từ thì dùng 很, không dùng 是."],
+["这是我的书。","zhè shì wǒ de shū","This is my book.","Đây là sách của tôi.","这|是|我的|书","的 nối phần sở hữu với danh từ đứng sau."],
+["她在家。","tā zài jiā","She is at home.","Cô ấy ở nhà.","她|在|家","在 + nơi chốn là đủ, không cần thêm động từ nào."],
+["我不懂。","wǒ bù dǒng","I don't understand.","Tôi không hiểu.","我|不|懂","不 đứng ngay trước động từ, y như “không” tiếng Việt."],
+["洗手间在哪里？","xǐshǒujiān zài nǎlǐ","Where is the toilet?","Nhà vệ sinh ở đâu?","洗手间|在|哪里","Từ hỏi đứng ĐÚNG chỗ của câu trả lời, không nhảy lên đầu."],
+["这个多少钱？","zhège duōshao qián","How much is this?","Cái này bao nhiêu tiền?","这个|多少|钱","多少 hỏi số lớn; 几 mới dùng cho số dưới mười."],
+["我要一杯咖啡。","wǒ yào yì bēi kāfēi","I would like a coffee.","Cho tôi một ly cà phê.","我|要|一杯|咖啡","Giữa số và danh từ phải có lượng từ: 一杯 (một ly)."],
+["他在公司工作。","tā zài gōngsī gōngzuò","He works at a company.","Anh ấy làm việc ở công ty.","他|在|公司|工作","NƠI CHỐN ĐỨNG TRƯỚC ĐỘNG TỪ — ngược hẳn tiếng Việt."],
+["我们住在河内。","wǒmen zhù zài Hénèi","We live in Hanoi.","Chúng tôi sống ở Hà Nội.","我们|住在|河内","住在 đi liền thành một khối “sống ở”."],
+["你会说中文吗？","nǐ huì shuō Zhōngwén ma","Do you speak Chinese?","Bạn biết nói tiếng Trung không?","你|会|说|中文|吗","会 là biết làm nhờ học. Thêm 吗 cuối là thành câu hỏi."],
+["这个很好吃。","zhège hěn hǎochī","This is very tasty.","Món này rất ngon.","这个|很|好吃","Tính từ làm vị ngữ phải có 很 đỡ câu, không thì nghe cụt."],
+["我有一个问题。","wǒ yǒu yí ge wèntí","I have a question.","Tôi có một câu hỏi.","我|有|一个|问题","一 trước thanh 4 (个) đọc thành yí."],
+["我是越南人。","wǒ shì Yuènán rén","I am Vietnamese.","Tôi là người Việt Nam.","我|是|越南|人","Tên nước + 人 là thành “người nước đó”."],
+["今天天气很好。","jīntiān tiānqì hěn hǎo","The weather is nice today.","Hôm nay trời đẹp.","今天|天气|很|好","Thời gian đứng đầu câu, trước cả chủ ngữ."],
+["我昨天没去。","wǒ zuótiān méi qù","I didn't go yesterday.","Hôm qua tôi không đi.","我|昨天|没|去","Việc đã qua mà KHÔNG xảy ra thì phủ định bằng 没, không dùng 不."],
+["她不喜欢咖啡。","tā bù xǐhuan kāfēi","She doesn't like coffee.","Cô ấy không thích cà phê.","她|不|喜欢|咖啡","Động từ không chia theo ngôi — 喜欢 giữ nguyên."],
+["这里有银行。","zhèlǐ yǒu yínháng","There is a bank here.","Ở đây có ngân hàng.","这里|有|银行","Nói “chỗ nào có gì” thì đặt nơi chốn trước 有."],
+["你能帮我吗？","nǐ néng bāng wǒ ma","Can you help me?","Bạn giúp tôi được không?","你|能|帮|我|吗","能 là có điều kiện để làm; 会 là biết làm."],
+["几点开门？","jǐ diǎn kāimén","What time does it open?","Mấy giờ mở cửa?","几点|开门","几 hỏi số nhỏ. Câu này không cần chủ ngữ."],
+["我在学中文。","wǒ zài xué Zhōngwén","I am learning Chinese.","Tôi đang học tiếng Trung.","我|在|学|中文","在 đứng trước động từ là đang làm việc đó."],
+["他有两个孩子。","tā yǒu liǎng ge háizi","He has two children.","Anh ấy có hai đứa con.","他|有|两个|孩子","Đếm thì dùng 两 chứ không dùng 二."],
+["我明天给你打电话。","wǒ míngtiān gěi nǐ dǎ diànhuà","I will call you tomorrow.","Mai tôi gọi điện cho bạn.","我|明天|给你|打电话","Không có thì tương lai — 明天 đã nói rõ là mai rồi."],
+["这本书很有意思。","zhè běn shū hěn yǒu yìsi","This book is very interesting.","Quyển sách này rất thú vị.","这本|书|很|有意思","本 là lượng từ của sách: 这本书 = quyển sách này."],
+["我想喝茶。","wǒ xiǎng hē chá","I want to drink tea.","Tôi muốn uống trà.","我|想|喝|茶","想 là muốn, nghĩ tới; 要 thì dứt khoát hơn."]
+];
+function moGhepCau(ds,tenBan){
+return {id:"cau",kind:"C",name:"Ghép câu",ru:tenBan,
+items:ds.map(function(a,i){
+return {id:"cau:"+i,t:"C",ru:a[0],tr:a[1],en:a[2],vi:a[3],manh:a[4],ghi:a[5]};
+})};
+}
 function moDoiThuong(ds,tenBan){
 return {id:"doithuong",kind:"V",name:"Câu nói đời thường",ru:tenBan,
 items:ds.map(function(a,i){
@@ -3149,6 +3253,7 @@ return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 })});
 });
 ms.push(moDoiThuong(DOITHUONG_RU,"Разговорная речь"));
+ms.push(moGhepCau(CAU_NGA,"Предложения"));
 return {mods:ms,np:NGU_PHAP_RU,cap:CAP_RU};
 }
 const MON=[
@@ -3679,6 +3784,10 @@ TU_DIEN={
 "Tiếng Nga từ A đến Я":"Russian from A to Я",
 "Tiếng Anh từ âm đến câu":"English from sounds to sentences",
 "Tiếng Trung từ thanh đến câu":"Chinese from tones to sentences",
+"Ghép câu":"Build a sentence","Xếp các mảnh thành câu":"Put the pieces in order",
+"Chạm mảnh bên dưới để xếp vào đây":"Tap the pieces below to place them here",
+"Kiểm tra":"Check","Tiếp tục":"Continue","Nghe câu":"Hear it",
+"Đáng nhớ":"Worth remembering","Chưa đúng. Câu đúng là:":"Not quite. The correct sentence is:",
 "Câu nói đời thường":"Everyday speech","Câu đời thường":"Everyday speech",
 "Nghĩa đen":"Literally","Khi nào dùng":"When to use it",
 "Vào học":"Start learning","Nhớ nhanh":"Quick hook","Từ mới":"New word"
@@ -3762,7 +3871,7 @@ var r=String(h);
 r=r.replace(/(^|>)([^<>]+)(?=<|$)/g,function(_,truoc,chu){
 return truoc+dichCau(chu);
 });
-r=r.replace(/\b(title|aria-label|data-tip|placeholder|alt)="([^"]*)"/g,function(_,k,v){
+r=r.replace(/\b(title|aria-label|data-tip|data-goi|placeholder|alt)="([^"]*)"/g,function(_,k,v){
 return k+'="'+dichCau(v)+'"';
 });
 return r;
@@ -4649,6 +4758,13 @@ mods.forEach(function(m){body.appendChild(modRow(m));});
 h.appendChild(body);
 }
 });
+var mCau=modById("cau");
+if(mCau){
+h.appendChild(el('<div class="eyebrow" style="margin:20px 0 8px">Ghép câu</div>'));
+var wc=el('<div class="col2"></div>');
+wc.appendChild(modRow(mCau));
+h.appendChild(wc);
+}
 if(!hasRu()){
 var warn=el('<div class="set" style="margin-top:14px">'+
 '<div class="l"><div class="n">Chưa phát được '+esc(tenmon())+'</div>'+
@@ -5243,7 +5359,8 @@ var batch=nw.slice(0,6),pool=m.items,steps=[];
 batch.forEach(function(it){steps.push(introStep(it));});
 var quiz=[];
 batch.forEach(function(it){
-if(it.t==="L"){quiz.push(mcLetter(it,"snd",pool));quiz.push(mcLetter(it,"pick",pool));if(hasRu())quiz.push(mcLetter(it,"listen",pool));}
+if(it.t==="C"){quiz.push(cauStep(it));}
+else if(it.t==="L"){quiz.push(mcLetter(it,"snd",pool));quiz.push(mcLetter(it,"pick",pool));if(hasRu())quiz.push(mcLetter(it,"listen",pool));}
 else{
 quiz.push(mcVocab(it,"ru2vi",pool));quiz.push(mcVocab(it,"vi2ru",pool));
 if(hoiAnh())quiz.push(mcVocab(it,Math.random()<.5?"ru2en":"en2ru",pool));
@@ -5286,6 +5403,7 @@ if(gh)steps.push(gh);
 shuffle(items).slice(0,soCauOn()).forEach(function(it){
 var pool=modById(it.mod).items;
 var r=Math.random();
+if(it.t==="C"){steps.push(cauStep(it));return;}
 if(it.t==="L")steps.push(r<.33?mcLetter(it,"snd",pool):(r<.58?mcLetter(it,"pick",pool):((r<.78&&monNay().viettay)?mcLetter(it,"hand",pool):(hasRu()?mcLetter(it,"listen",pool):typeStep(it)))));
 else{
 var ss=(r>=.62&&r<.78)?stressStep(it):null;
@@ -5373,6 +5491,7 @@ if(st.k==="intro")return stepIntro(st);
 if(st.k==="pair")return stepPair(st);
 if(st.k==="mc")return stepMC(st);
 if(st.k==="type")return stepType(st);
+if(st.k==="cau")return stepCau(st);
 }
 function confirmLeave(){return true;}
 function next(){ if(S.i>=S.steps.length-1){S.done=true;} else {S.i++;} render(); }
@@ -5626,6 +5745,71 @@ return trRu(v);
 }
 var TRHINT="zh=ж · ch=ч · sh=ш · sch=щ · yo=ё · yu=ю · ya=я · y=ы/й · c=ц · h=х · j=й · q=ъ · '=ь · đầu từ e=э";
 var KB=[["й","ц","у","к","е","н","г","ш","щ","з","х","ъ"],["ф","ы","в","а","п","р","о","л","д","ж","э"],["я","ч","с","м","и","т","ь","б","ю","ё"]];
+function cauStep(it){return {k:"cau",it:it};}
+function stepCau(st){
+var it=st.it, dung=String(it.manh||"").split("|").filter(Boolean);
+var khacCau=it.en&&it.en!==it.ru;
+var goi=(dungTiengAnh()&&khacCau)?it.en:it.vi;
+var phu=(!dungTiengAnh()&&khacCau)?it.en:"";
+var q=el('<div class="q anim"><div class="ask">Xếp các mảnh thành câu</div>'+
+'<div class="big lat">'+esc(goi)+'</div>'+
+(phu?'<div class="sub">'+esc(phu)+'</div>':'')+'</div>');
+app.appendChild(q);
+var khung=el('<div class="cau-khung anim">'+
+'<div class="cau-cho trong" data-goi="Chạm mảnh bên dưới để xếp vào đây"></div>'+
+'<div class="cau-manh"></div></div>');
+app.appendChild(khung);
+var oCho=khung.querySelector(".cau-cho"), oManh=khung.querySelector(".cau-manh");
+var daChon=[],khoa=false;
+function veLai(){
+oCho.innerHTML="";oManh.innerHTML="";
+oCho.classList.toggle("trong",!daChon.length);
+daChon.forEach(function(m,i){
+var b=el('<button class="cau-o"></button>');
+b.textContent=m.t;
+if(!khoa)b.onclick=function(){daChon.splice(i,1);conLai.push(m);veLai();};
+oCho.appendChild(b);
+});
+conLai.forEach(function(m,i){
+var b=el('<button class="cau-o"></button>');
+b.textContent=m.t;
+if(!khoa)b.onclick=function(){conLai.splice(i,1);daChon.push(m);veLai();};
+oManh.appendChild(b);
+});
+nut.disabled=khoa||daChon.length!==dung.length;
+}
+var conLai=shuffle(dung.map(function(t,i){return {t:t,i:i};}));
+var hang=el('<div class="row" style="margin-top:18px"></div>');
+var nut=el('<button class="btn wide">Kiểm tra</button>');
+hang.appendChild(nut);app.appendChild(hang);
+nut.onclick=function(){
+if(khoa)return;
+khoa=true;
+var ok=daChon.every(function(m,i){return m.t===dung[i];});
+grade(it.id,ok);
+if(ok)S.right++;else{S.wrong++;ghiSai(it);}
+Array.prototype.forEach.call(oCho.children,function(b,i){
+b.classList.add(daChon[i]&&daChon[i].t===dung[i]?"dung":"sai");
+b.onclick=null;
+});
+Array.prototype.forEach.call(oManh.children,function(b){b.onclick=null;});
+if(ok)tingDung();
+var fb=el('<div class="fb '+(ok?"ok":"no")+'" style="margin-top:14px">'+
+(ok?"Chính xác. ":"Chưa đúng. Câu đúng là:")+
+'<div class="cau-dap">'+esc(it.ru)+'</div>'+
+(it.tr?'<div class="muted" style="font-size:14px;margin-top:3px">'+esc(it.tr)+'</div>':'')+
+(it.ghi?'<div class="tipbox" style="margin-top:12px"><b>Đáng nhớ</b>'+esc(it.ghi)+'</div>':'')+
+'</div>');
+app.insertBefore(fb,hang);
+var nghe=el('<button class="btn sm ghost" style="margin-top:12px">'+ic("loa",17)+'<span>Nghe câu</span></button>');
+nghe.onclick=function(){speak(it.ru);};
+fb.appendChild(nghe);
+speak(it.ru);
+nut.textContent="Tiếp tục";nut.disabled=false;
+nut.onclick=function(){next();};
+};
+veLai();
+}
 function stepType(st){
 var q=el('<div class="q anim"><div class="ask">'+esc(st.ask)+'</div>'+
 (st.dict?'':'<div class="big lat">'+esc(st.big)+'</div>')+
@@ -7178,7 +7362,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=120"></script>
+<script type="module" src="firebase-sync.js?v=121"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
