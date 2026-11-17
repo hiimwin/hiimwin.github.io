@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=81"></script>
+<script src="firebase-config.js?v=82"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1694,6 +1694,7 @@ nhac:'<path d="M9.3 18.1V5.7l9.3-1.9v12.2"/><ellipse cx="6.8" cy="18.3" rx="2.5"
 ra:'<path d="M9.5 3.5h-3a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3"/><path d="M15.5 8.5 19 12l-3.5 3.5"/><path d="M19 12h-9"/>',
 but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>',
 len:'<path d="M12 18.8V5.8"/><path d="M6.2 11.6 12 5.8l5.8 5.8"/>',
+noi:'<path d="M10.3 13.7a3.7 3.7 0 0 0 5.5.4l2.4-2.4a3.7 3.7 0 0 0-5.2-5.2l-1.4 1.4"/><path d="M13.7 10.3a3.7 3.7 0 0 0-5.5-.4l-2.4 2.4a3.7 3.7 0 0 0 5.2 5.2l1.4-1.4"/>',
 dunglai:'<rect x="7" y="5.4" width="3.4" height="13.2" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.6" y="5.4" width="3.4" height="13.2" rx="1.2" fill="currentColor" stroke="none"/>'
 };
 function ic(n,sz){
@@ -2137,6 +2138,19 @@ var nb2=el('<button class="btn sm ghost">'+ic("tim",18)+'<span>Đọc nhanh</spa
 nb2.onclick=function(){go({n:"nhanh",kieu:"doc"});};
 nr.appendChild(nb1);nr.appendChild(nb2);
 hangLuyen.appendChild(nrow);
+var soGhep=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.vi&&rec(it.id);}).length;
+if(soGhep>=8){
+var grow=el('<div class="set"><div class="l"><div class="n">Ghép từ</div>'+
+'<div class="d">Nối từ Nga với nghĩa tiếng Việt, năm cặp một lượt. Nhìn cả cụm cùng lúc nên nhận ra từ nào là từ nào nhanh hơn hỏi lẻ từng câu.</div></div>'+
+'<div class="act"></div></div>');
+var gbtn=el('<button class="btn sm ghost">'+ic("noi",18)+'<span>Ghép</span></button>');
+gbtn.onclick=function(){
+var ss=buildGhep();
+if(ss)startSession(ss);else flash("Cần học thêm vài từ nữa đã.");
+};
+grow.querySelector(".act").appendChild(gbtn);
+hangLuyen.appendChild(grow);
+}
 var soCho=tuChoKhong().length;
 if(soCho>=10){
 var arow=el('<div class="set"><div class="l"><div class="n">Từ cho không</div>'+
@@ -3008,6 +3022,22 @@ thay[x.vi]=1;tu.push(x);
 if(tu.length<4)return null;
 return {k:"pair",tu:tu,it:tu[0]};
 }
+function buildGhep(){
+var tu=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.ru&&it.vi&&rec(it.id);});
+if(tu.length<4)return null;
+tu.sort(function(a,b){
+var ya=diemYeu(a),yb=diemYeu(b);
+if(ya!==yb)return yb-ya;
+return (rec(a.id).due||0)-(rec(b.id).due||0);
+});
+var lay=shuffle(tu.slice(0,Math.max(soCauOn(),15)));
+var steps=[];
+for(var i=0;i+3<lay.length;i+=5){
+var g=pairStep(lay.slice(i,i+5));
+if(g)steps.push(g);
+}
+return steps.length?{title:"Ghép từ",steps:steps}:null;
+}
 function stepPair(st){
 app.appendChild(el('<div class="q anim"><div class="ask">Ghép từ với nghĩa</div></div>'));
 var tiep=el('<button class="btn wide act-stick" style="margin-top:14px" disabled>Còn '+st.tu.length+' cặp</button>');
@@ -3050,7 +3080,7 @@ S.wrong++;ghiSai(st.it);b.classList.add("wrong");
 Array.prototype.forEach.call(wrap.children,function(x,j){if(st.opts[j].ok)x.classList.add("right");});
 }
 Array.prototype.forEach.call(wrap.children,function(x){x.disabled=true;});
-var docLen=function(){speak(st.it.t==="L"?st.it.lo:st.it.ru);};
+var docLen=function(){speak(st.it.t==="L"?(st.it.nm||st.it.lo):st.it.ru);};
 if(o.ok){tingDung();setTimeout(docLen,380);}else docLen();
 showAfter(o.ok,st.it,st);
 };
@@ -3171,7 +3201,7 @@ var ok=norm(typed)===norm(st.answer);
 grade(st.it.id,ok);
 if(ok)S.right++;else{S.wrong++;ghiSai(st.it);}
 inp.disabled=true;kb.style.opacity=".4";kb.style.pointerEvents="none";
-var docLen=function(){speak(st.it.t==="L"?st.it.lo:st.it.ru);};
+var docLen=function(){speak(st.it.t==="L"?(st.it.nm||st.it.lo):st.it.ru);};
 if(ok){tingDung();setTimeout(docLen,380);}else docLen();
 var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Đáp án đúng: ")+'<b>'+esc(st.show)+'</b>'+
 (st.it.t==="V"?' <span style="font-weight:400">— '+esc(st.it.tr)+' — '+esc(st.it.vi)+'</span>':'')+'</div>');
@@ -3797,7 +3827,7 @@ oGio.style.transition="width "+ct.han+"ms linear";
 oGio.style.width="0%";
 hen=setTimeout(function(){chon(null);},ct.han);
 }
-function docDap(c){ speak(c.it.t==="L"?c.it.lo:c.it.ru); }
+function docDap(c){ speak(c.it.t==="L"?(c.it.nm||c.it.lo):c.it.ru); }
 function oPhanHoi(c,ok,hetGio){
 var it=c.it;
 var nhan=ok?"Chính xác.":(hetGio?"Hết giờ.":"Chưa đúng.");
@@ -3820,7 +3850,7 @@ x.disabled=true;
 if(c.opt[k]===c.dap)x.classList.add("right");
 else if(x===nut)x.classList.add("wrong");
 });
-if(ok)setTimeout(function(){docDap(c);},380); else docDap(c);
+setTimeout(function(){docDap(c);},ok?380:90);
 var fb=oPhanHoi(c,ok,hetGio);
 than.appendChild(fb);
 veMeta();
@@ -4342,7 +4372,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=81"></script>
+<script type="module" src="firebase-sync.js?v=82"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>

@@ -125,6 +125,12 @@ await dangNhapGoogle("hop");
 const code = (e && e.code) || "";
 if (/popup-closed-by-user|cancelled-popup-request|user-cancelled/.test(code)) throw e;
 if (/already-in-use|credential-already/.test(code)) {
+const cred = GoogleAuthProvider.credentialFromError(e);
+if (cred) {
+await signInWithCredential(auth, cred);
+doi();
+return;
+}
 try {
 await signInWithPopup(auth, new GoogleAuthProvider());
 } catch (e2) {
