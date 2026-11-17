@@ -1,6 +1,6 @@
 window.FIREBASE_CONFIG = {
 apiKey: "AIzaSyDz_psmgkSbw62sYZwd3hZupr1vuabLwYQ",
-authDomain: "hoc-tieng-nga.firebaseapp.com",
+authDomain: "winspeak.web.app",
 projectId: "hoc-tieng-nga",
 storageBucket: "hoc-tieng-nga.firebasestorage.app",
 messagingSenderId: "497797224730",
