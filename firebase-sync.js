@@ -96,16 +96,18 @@ const ios = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.ma
 const safari = /Safari/.test(ua) && !/Chrome|CriOS|FxiOS|EdgiOS|Edg\/|Android|OPR/.test(ua);
 return ios || safari;
 }
-function hopBiChan(e) {
-return /popup-blocked|operation-not-supported-in-this-environment|web-storage-unsupported/.test((e && e.code) || "");
-}
 async function dangNhapGoogle(kieu) {
 const provider = new GoogleAuthProvider();
 const khach = auth.currentUser && auth.currentUser.isAnonymous;
 if (kieu === "huong") {
 datDau();
+try {
 if (khach) await linkWithRedirect(auth.currentUser, provider);
 else await signInWithRedirect(auth, provider);
+} catch (e) {
+if (!khach) throw e;
+await signInWithRedirect(auth, provider);
+}
 return;
 }
 if (khach) await linkWithPopup(auth.currentUser, provider);
@@ -121,12 +123,22 @@ try {
 await dangNhapGoogle("hop");
 } catch (e) {
 const code = (e && e.code) || "";
+if (/popup-closed-by-user|cancelled-popup-request|user-cancelled/.test(code)) throw e;
 if (/already-in-use|credential-already/.test(code)) {
+try {
 await signInWithPopup(auth, new GoogleAuthProvider());
-} else if (hopBiChan(e)) {
+} catch (e2) {
 await dangNhapGoogle("huong");
 return;
-} else throw e;
+}
+} else {
+try {
+await dangNhapGoogle("huong");
+return;
+} catch (e3) {
+throw e3 || e;
+}
+}
 }
 doi();
 },
