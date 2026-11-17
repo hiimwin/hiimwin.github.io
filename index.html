@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=71"></script>
+<script src="firebase-config.js?v=72"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -297,6 +297,33 @@ background:conic-gradient(var(--accent) calc(var(--p)*3.6deg),var(--sunken) 0);t
 .srch{width:100%;background:var(--surface);border:0;box-shadow:inset 0 0 0 1px var(--line);border-radius:var(--r-sm);padding:14px 16px;font-size:17px;color:var(--ink)}
 .srch:focus{outline:none;box-shadow:inset 0 0 0 2px var(--accent)}
 .lst{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);margin-top:14px;overflow:hidden}
+.xem-them{margin-top:12px}
+.xem-them .note{text-align:center;margin-top:0}
+.gr-toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.gr-toc button{padding:9px 14px;border-radius:var(--r-pill);background:var(--surface);
+box-shadow:inset 0 0 0 1px var(--line),var(--sh);font-size:14px;font-weight:600;color:var(--muted);
+transition:color .15s,box-shadow .15s,transform .15s;text-align:left}
+.gr-toc button:hover{color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent),var(--sh);transform:translateY(-1px)}
+.gr-toc button span{opacity:.65;font-weight:500}
+.gr-ds{display:grid;gap:10px}
+.gr-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+box-shadow:var(--sh);padding:18px 20px}
+.gr-card .t{font-family:var(--f-head);font-size:17px;font-weight:700;letter-spacing:-.01em;
+line-height:1.3;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.gr-card .d{font-size:15px;line-height:1.65;margin-top:7px}
+.gr-sao{flex:none;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+padding:4px 9px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent)}
+.gr-vd{margin-top:13px;border-top:1px solid var(--line-soft);padding-top:11px;display:grid;gap:9px}
+.gr-vd .v{display:flex;align-items:center;gap:10px}
+.gr-vd .l{flex:1 1 auto;min-width:0}
+.gr-vd .ru{font-family:var(--f-cyr);font-size:17.5px;line-height:1.35}
+.gr-vd .vi{color:var(--muted);font-size:14px;margin-top:1px}
+.gr-vd .spk{width:34px;height:34px}
+.gr-vd .spk .ic-svg{width:17px;height:17px}
+@media(min-width:900px){
+.gr-ds{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.gr-toc button{font-size:14.5px}
+}
 .li{display:flex;gap:12px;align-items:center;padding:12px 15px}
 .li+.li{border-top:1px solid var(--line-soft)}
 .li.known{background:var(--deep-soft)}
@@ -549,6 +576,19 @@ gap:20px 44px;align-items:start}
 header .hrow{gap:10px}
 body.cover-on header .hbtn{display:none}
 .icb[aria-current="true"]{background:var(--accent-soft);color:var(--accent)}
+@media(hover:hover) and (pointer:fine){
+.tip{position:relative}
+.tip::after{content:attr(data-tip);position:absolute;top:calc(100% + 9px);right:0;
+background:var(--ink);color:var(--paper);font-size:12.5px;font-weight:500;line-height:1.3;
+white-space:nowrap;padding:7px 10px;border-radius:var(--r-xs);box-shadow:var(--sh-lift);
+opacity:0;pointer-events:none;transform:translateY(-4px);
+transition:opacity .14s ease,transform .14s cubic-bezier(.22,1,.36,1);z-index:30}
+.tip::before{content:"";position:absolute;top:calc(100% + 3px);right:15px;
+border:6px solid transparent;border-bottom-color:var(--ink);
+opacity:0;pointer-events:none;transition:opacity .14s ease;z-index:30}
+.tip:hover::after,.tip:focus-visible::after{opacity:1;transform:none}
+.tip:hover::before,.tip:focus-visible::before{opacity:1}
+}
 .tabs3{display:flex;gap:6px;background:var(--surface-2);border-radius:999px;padding:4px;margin-top:4px}
 .tabs3 button{flex:1;min-height:44px;padding:9px 10px;border-radius:999px;font-size:14px;font-weight:500;
 color:var(--muted);transition:.2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -842,13 +882,13 @@ font-weight:600;font-size:14.5px;line-height:1.2;transition:transform .12s,box-s
     <button class="icb burger" id="nav-burger" aria-label="Mở menu" aria-expanded="false"><span></span></button>
     <div class="hbtn" id="nav-menu">
       <button class="btn sm" id="nav-login" hidden><svg class="ic-svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-3"/><path d="M10 8.5 13.5 12 10 15.5"/><path d="M13.5 12H4.5"/></svg><b>Đăng nhập</b></button>
-      <button class="icb" id="nav-acct" title="Tài khoản" aria-label="Tài khoản" hidden></button>
-      <button class="icb" id="nav-out" title="Đăng xuất" aria-label="Đăng xuất" hidden><i data-ic="ra"></i><b>Đăng xuất</b></button>
-      <button class="icb" id="nav-song" title="Bài hát bảng chữ cái" aria-label="Bài hát bảng chữ cái"><i data-ic="nhac"></i><b>Bài hát</b></button>
-      <button class="icb" id="nav-gram" title="Ngữ pháp" aria-label="Ngữ pháp"><i data-ic="sach"></i><b>Ngữ pháp</b></button>
-      <button class="icb" id="nav-browse" title="Tra cứu" aria-label="Tra cứu"><i data-ic="tim"></i><b>Tra cứu</b></button>
-      <button class="icb" id="nav-set" title="Cài đặt" aria-label="Cài đặt"><i data-ic="caidat"></i><b>Cài đặt</b></button>
-      <button class="icb" id="nav-theme" title="Đổi nền sáng/tối" aria-label="Đổi nền sáng tối"><i data-ic="sangtoi"></i><b>Sáng / tối</b></button>
+      <button class="icb tip" id="nav-acct" data-tip="Tài khoản" aria-label="Tài khoản" hidden></button>
+      <button class="icb tip" id="nav-out" data-tip="Đăng xuất" aria-label="Đăng xuất" hidden><i data-ic="ra"></i><b>Đăng xuất</b></button>
+      <button class="icb tip" id="nav-song" data-tip="Bài hát bảng chữ cái" aria-label="Bài hát bảng chữ cái"><i data-ic="nhac"></i><b>Bài hát</b></button>
+      <button class="icb tip" id="nav-gram" data-tip="Ngữ pháp" aria-label="Ngữ pháp"><i data-ic="sach"></i><b>Ngữ pháp</b></button>
+      <button class="icb tip" id="nav-browse" data-tip="Tra cứu" aria-label="Tra cứu"><i data-ic="tim"></i><b>Tra cứu</b></button>
+      <button class="icb tip" id="nav-set" data-tip="Cài đặt" aria-label="Cài đặt"><i data-ic="caidat"></i><b>Cài đặt</b></button>
+      <button class="icb tip" id="nav-theme" data-tip="Đổi nền sáng / tối" aria-label="Đổi nền sáng tối"><i data-ic="sangtoi"></i><b>Sáng / tối</b></button>
     </div>
   </div>
 </header>
@@ -1207,20 +1247,89 @@ const TOPICS=[
 ]}
 ];
 const GRAMMAR=[
-["Không có “a / the”, và bỏ luôn “là”","Tiếng Nga không có mạo từ. Ở thì hiện tại cũng không nói “là”: «Я студе́нт» = “Tôi (là) sinh viên”, «Он до́ма» = “Anh ấy (đang) ở nhà”. Đừng cố dịch chữ “là” sang."],
-["Mọi danh từ đều có giống","Kết thúc bằng phụ âm → giống đực (дом). Kết thúc -а/-я → giống cái (ма́ма). Kết thúc -о/-е → giống trung (окно́). Giống quyết định đuôi của tính từ và của động từ ở quá khứ, nên học từ mới là phải nhớ luôn giống."],
-["Số nhiều","Giống đực và giống cái thường thêm -ы/-и: дом → дома́, кни́га → кни́ги. Giống trung đổi sang -а/-я: окно́ → о́кна."],
-["Sáu cách — linh hồn của tiếng Nga","Danh từ đổi đuôi theo vai trò trong câu, không theo vị trí. 1 Ai/cái gì (chủ ngữ) · 2 của ai (sở hữu, phủ định) · 3 cho ai · 4 tân ngữ trực tiếp · 5 bằng cái gì, với ai · 6 nói về cái gì, ở đâu. Vì vậy trật tự từ tự do hơn tiếng Việt rất nhiều."],
-["Cách 4 — tân ngữ trực tiếp","Vật gì bị tác động thì đổi đuôi: кни́га → «Я чита́ю кни́гу» (Tôi đọc sách). Giống cái -а đổi thành -у, -я đổi thành -ю."],
-["Cách 2 — sở hữu và phủ định","“của ai”: «кни́га бра́та» (sách của anh trai). Và sau «нет» luôn dùng cách 2: «нет вре́мени» (không có thời gian), «нет де́нег» (không có tiền)."],
-["Cách 6 — luôn đi sau в / на","Nói ở đâu thì dùng в hoặc на + cách 6: «в Москве́» (ở Moskva), «на рабо́те» (ở chỗ làm). Đuôi thường thành -е."],
-["Động từ chia theo ngôi","Hiện tại đổi đuôi theo người nói: рабо́тать → я рабо́таю, ты рабо́таешь, он рабо́тает, мы рабо́таем, вы рабо́таете, они́ рабо́тают. Không có “to be” đi kèm."],
-["Quá khứ chia theo GIỐNG, không theo ngôi","Bỏ -ть, thêm -л (nam), -ла (nữ), -ло (trung), -ли (số nhiều): «Я чита́л» (nam nói) nhưng «Я чита́ла» (nữ nói). Người Việt rất hay quên chỗ này."],
-["Thể hoàn thành và chưa hoàn thành","Gần như mọi động từ đi theo cặp: де́лать (đang làm, làm thường xuyên) ↔ сде́лать (làm xong). Chưa hoàn thành nói về quá trình, hoàn thành nói về kết quả."],
-["Động từ chuyển động","идти́ = đang đi bộ, một hướng cụ thể. ходи́ть = hay đi, đi đi về về. е́хать / е́здить cũng vậy nhưng là đi bằng xe. Chọn sai là người Nga nghe ra ngay."],
-["Trọng âm đổi cả cách đọc","Chữ о không mang trọng âm đọc thành “a”: молоко́ nghe như “ma-la-kó”. Trọng âm không có quy tắc cố định, phải nhớ theo từng từ — trong app dấu ́ chỉ chỗ nhấn."],
-["Câu hỏi không cần đảo từ","Chỉ cần lên giọng cuối câu: «Вы говори́те по-ру́сски?» Hoặc đặt từ để hỏi lên đầu: «Где вы живёте?»"],
-["Ты hay Вы","ты dùng với bạn bè, người thân, trẻ con. вы dùng với người lạ, người lớn tuổi, nơi công sở — và luôn dùng khi nói với nhiều người. Lỡ dùng ты với người lạ là bất lịch sự."]
+{id:"g1",ten:"Ba điều đổi cách bạn đọc mọi câu",mo:"Chưa nắm ba điều này thì câu tiếng Nga nào cũng thấy lạ.",muc:[
+{loi:1,t:"Không có “a / the”, và bỏ luôn “là”",
+d:"Tiếng Nga không có mạo từ. Ở thì hiện tại cũng không nói “là” — chủ ngữ đứng cạnh vị ngữ là thành câu. Đừng đi tìm chữ “là” để dịch.",
+vd:[["Я студе́нт.","Tôi là sinh viên."],["Он до́ма.","Anh ấy đang ở nhà."],["Э́то моя́ кни́га.","Đây là sách của tôi."]]},
+{loi:1,t:"Mọi danh từ đều có giống",
+d:"Kết thúc bằng phụ âm → giống đực. Kết thúc -а/-я → giống cái. Kết thúc -о/-е → giống trung. Giống quyết định đuôi của tính từ đi kèm và của động từ ở quá khứ, nên học từ mới là nhớ luôn giống của nó.",
+vd:[["дом","nhà — giống đực"],["ма́ма","mẹ — giống cái"],["окно́","cửa sổ — giống trung"]]},
+{loi:1,t:"Trọng âm đổi cả cách đọc",
+d:"Chữ о không mang trọng âm đọc thành “a”. Trọng âm không có quy tắc cố định, phải nhớ theo từng từ. Dấu ́ trong app chỉ chỗ nhấn; người Nga viết bình thường không đánh dấu này.",
+vd:[["молоко́","sữa — nghe như “ma-la-kó”"],["хорошо́","tốt — “kha-ra-shó”"],["Москва́","Moskva — “Mask-vá”"]]}
+]},
+{id:"g2",ten:"Danh từ và sáu cách",mo:"Đuôi danh từ nói lên vai trò của nó trong câu. Đây là phần dài nhất, nhưng cũng là phần trả công nhiều nhất.",muc:[
+{loi:1,t:"Sáu cách — linh hồn của tiếng Nga",
+d:"Danh từ đổi đuôi theo vai trò chứ không theo chỗ đứng: 1 ai/cái gì · 2 của ai · 3 cho ai · 4 tác động lên cái gì · 5 bằng cái gì, với ai · 6 ở đâu, nói về cái gì. Vì đuôi đã nói rõ vai trò nên đổi chỗ các từ không làm đổi nghĩa.",
+vd:[["Брат чита́ет кни́гу.","Anh trai đọc sách."],["Кни́гу чита́ет брат.","Vẫn là “anh trai đọc sách”."]]},
+{t:"Cách 4 — vật bị tác động",
+d:"Tân ngữ trực tiếp đổi đuôi. Giống cái -а thành -у, -я thành -ю. Giống đực chỉ đồ vật thì giữ nguyên.",
+vd:[["Я чита́ю кни́гу.","Tôi đọc sách. (кни́га → кни́гу)"],["Я люблю́ му́зыку.","Tôi thích âm nhạc."]]},
+{t:"Cách 2 — của ai, và sau “không có”",
+d:"Chỉ sở hữu, và luôn đi sau нет. Giống đực thêm -а, giống cái -а đổi thành -ы.",
+vd:[["кни́га бра́та","sách của anh trai"],["нет вре́мени","không có thời gian"],["У меня́ нет де́нег.","Tôi không có tiền."]]},
+{t:"Cách 3 — cho ai, ai thấy thế nào",
+d:"Người nhận. Đại từ nhớ nguyên cụm: мне, тебе́, ему́, ей, нам, вам, им. Rất nhiều câu nói hằng ngày mở đầu bằng cách 3.",
+vd:[["Я дал ему́ кни́гу.","Tôi đưa anh ấy quyển sách."],["Мне нра́вится э́та пе́сня.","Tôi thích bài hát này."],["Ей два́дцать лет.","Cô ấy hai mươi tuổi."]]},
+{t:"Cách 5 — bằng cái gì, cùng với ai",
+d:"Công cụ để làm việc gì, hoặc đi sau с nghĩa là “cùng với”. Giống đực và trung thêm -ом, giống cái -а đổi thành -ой.",
+vd:[["Я пишу́ ру́чкой.","Tôi viết bằng bút."],["ча́й с молоко́м","trà với sữa"],["Я иду́ с дру́гом.","Tôi đi cùng bạn."]]},
+{t:"Cách 6 — ở đâu, nói về cái gì",
+d:"Cách duy nhất không bao giờ đứng một mình, luôn phải có giới từ đi trước. Đuôi thường thành -е.",
+vd:[["в Москве́","ở Moskva"],["на рабо́те","ở chỗ làm"],["Я ду́маю о тебе́.","Tôi nghĩ về bạn."]]},
+{loi:1,t:"в / на: đi đâu dùng cách 4, ở đâu dùng cách 6",
+d:"Cùng một giới từ, đổi cách là đổi nghĩa. Có chuyển động đến nơi thì cách 4; đứng yên tại nơi đó thì cách 6. Đây là chỗ người mới sai nhiều nhất.",
+vd:[["Я иду́ в шко́лу.","Tôi đi đến trường. (cách 4)"],["Я в шко́ле.","Tôi đang ở trường. (cách 6)"]]},
+{t:"Số nhiều",
+d:"Giống đực và giống cái thường thêm -ы/-и. Giống trung đổi sang -а/-я.",
+vd:[["дом — дома́","một ngôi nhà — những ngôi nhà"],["кни́га — кни́ги","quyển sách — những quyển sách"],["окно́ — о́кна","cửa sổ — những cửa sổ"]]},
+{t:"Số đếm kéo theo cách của danh từ",
+d:"Số 1 giữ nguyên. Số 2, 3, 4 kéo danh từ về cách 2 số ít. Từ 5 trở lên kéo về cách 2 số nhiều.",
+vd:[["оди́н дом","một ngôi nhà"],["два до́ма","hai ngôi nhà"],["пять домо́в","năm ngôi nhà"]]}
+]},
+{id:"g3",ten:"Động từ",mo:"Chia theo ngôi ở hiện tại, theo giống ở quá khứ, và mỗi việc có hai cách nói tuỳ xong hay chưa xong.",muc:[
+{loi:1,t:"Hiện tại chia theo ngôi",
+d:"Đuôi đổi theo người nói, và không có động từ “to be” đi kèm. рабо́тать: я рабо́таю, ты рабо́таешь, он рабо́тает, мы рабо́таем, вы рабо́таете, они́ рабо́тают.",
+vd:[["Я рабо́таю здесь.","Tôi làm việc ở đây."],["Ты говори́шь по-ру́сски.","Bạn nói tiếng Nga."],["Они́ рабо́тают.","Họ đang làm việc."]]},
+{loi:1,t:"Quá khứ chia theo GIỐNG, không theo ngôi",
+d:"Bỏ -ть rồi thêm -л (nam), -ла (nữ), -ло (trung), -ли (số nhiều). Cùng một chữ “tôi” mà nam nữ nói khác nhau — người Việt hay quên đúng chỗ này.",
+vd:[["Я чита́л.","Tôi đã đọc. (nam nói)"],["Я чита́ла.","Tôi đã đọc. (nữ nói)"],["Мы чита́ли.","Chúng tôi đã đọc."]]},
+{loi:1,t:"Thể chưa hoàn thành và thể hoàn thành",
+d:"Gần như mọi động từ đi thành cặp. Thể chưa hoàn thành nói về quá trình hoặc việc làm thường xuyên; thể hoàn thành nói về kết quả, việc đã xong hẳn.",
+vd:[["Я чита́л кни́гу.","Tôi đã đọc sách — không rõ xong chưa."],["Я прочита́л кни́гу.","Tôi đã đọc xong quyển sách."]]},
+{t:"Tương lai có hai lối",
+d:"Thể chưa hoàn thành dùng бу́ду cộng nguyên thể. Thể hoàn thành thì chia y như hiện tại nhưng lại mang nghĩa tương lai.",
+vd:[["Я бу́ду чита́ть.","Tôi sẽ đọc, sẽ ngồi đọc một lúc."],["Я прочита́ю.","Tôi sẽ đọc xong."]]},
+{t:"Động từ chuyển động",
+d:"идти́ là đang đi bộ về một hướng cụ thể; ходи́ть là hay đi, đi rồi về. е́хать và е́здить cũng vậy nhưng đi bằng xe. Chọn sai là người Nga nghe ra ngay.",
+vd:[["Я иду́ в шко́лу.","Tôi đang đi đến trường."],["Я хожу́ в шко́лу.","Tôi vẫn đi học hằng ngày."]]},
+{t:"Sai khiến, nhờ vả",
+d:"Bỏ đuôi của ngôi они́ rồi thêm -й hoặc -и; nói với người lạ hoặc nhiều người thì thêm -те. Kèm пожа́луйста cho lịch sự.",
+vd:[["Скажи́те, пожа́луйста…","Làm ơn cho hỏi…"],["Иди́ сюда́.","Lại đây."],["Чита́йте.","Mời đọc."]]}
+]},
+{id:"g4",ten:"Mẫu câu dùng hằng ngày",mo:"Những khuôn nói ra là dùng được ngay, không cần học hết sáu cách mới nói được.",muc:[
+{loi:1,t:"“Tôi có” nói vòng qua “ở chỗ tôi”",
+d:"Tiếng Nga không nói “tôi có” mà nói “ở chỗ tôi có”. Phủ định thì dùng нет cộng cách 2, và есть biến mất.",
+vd:[["У меня́ есть брат.","Tôi có anh trai."],["У тебя́ есть вре́мя?","Bạn có thời gian không?"],["У меня́ нет бра́та.","Tôi không có anh trai."]]},
+{t:"Của tôi, của bạn — đổi theo giống của vật",
+d:"Từ sở hữu hợp với giống và số của vật được sở hữu, chứ không theo người sở hữu như tiếng Anh.",
+vd:[["мой брат","anh trai tôi"],["моя́ сестра́","chị gái tôi"],["моё окно́","cửa sổ của tôi"],["мои́ друзья́","bạn bè của tôi"]]},
+{t:"Tính từ phải hợp giống",
+d:"Tính từ đứng trước danh từ và đổi đuôi theo danh từ nó bổ nghĩa.",
+vd:[["но́вый дом","ngôi nhà mới"],["но́вая кни́га","quyển sách mới"],["но́вое окно́","cửa sổ mới"],["но́вые дома́","những ngôi nhà mới"]]},
+{t:"Э́то — “đây là”, không đổi theo gì cả",
+d:"Dùng để giới thiệu, chỉ trỏ, và giữ nguyên hình dù vật là giống gì.",
+vd:[["Э́то мой друг.","Đây là bạn tôi."],["Э́то что?","Cái này là gì?"]]},
+{t:"Muốn, cần, thích",
+d:"хоте́ть chia theo ngôi như động từ thường. Còn ну́жно và нра́виться bắt người nói đứng ở cách 3 — nói theo kiểu “với tôi thì cần”, “với tôi thì dễ chịu”.",
+vd:[["Я хочу́ есть.","Tôi muốn ăn."],["Мне ну́жно рабо́тать.","Tôi cần làm việc."],["Мне нра́вится Москва́.","Tôi thích Moskva."]]},
+{t:"Câu hỏi không cần đảo từ",
+d:"Chỉ cần lên giọng ở cuối câu, hoặc đặt từ để hỏi lên đầu. Không có trợ động từ kiểu “do / does”.",
+vd:[["Вы говори́те по-ру́сски?","Bạn có nói tiếng Nga không?"],["Где вы живёте?","Bạn sống ở đâu?"]]},
+{loi:1,t:"Ты hay Вы",
+d:"ты dùng với bạn bè, người thân, trẻ con. вы dùng với người lạ, người lớn tuổi, nơi công sở — và luôn dùng khi nói với nhiều người. Lỡ dùng ты với người lạ là bất lịch sự.",
+vd:[["Как ты?","Bạn khoẻ không? — thân mật"],["Как вы пожива́ете?","Anh/chị khoẻ không? — lịch sự"]]}
+]}
 ];
 const MODULES=[];
 MODULES.push({id:"alpha",kind:"L",name:"Bảng chữ cái",ru:"Алфавит",items:LETTERS.map(function(a,i){
@@ -1640,7 +1749,7 @@ var a=acctState();
 if(!a||!a.signed){b.hidden=true;return;}
 b.hidden=false;
 b.innerHTML='<span class="ava">'+esc((a.ten||"?").charAt(0).toUpperCase())+'</span><b>'+esc(a.ten||"Tài khoản")+'</b>';
-b.title="Tài khoản: "+(a.mail||a.ten);
+b.setAttribute("data-tip","Tài khoản: "+(a.mail||a.ten));
 }
 function accountCard(seen){
 var a=acctState();
@@ -3531,8 +3640,7 @@ app.appendChild(el('<div class="note" style="margin-bottom:14px">'+ds.length+' t
 var bt=el('<button class="btn wide" style="margin-bottom:16px">'+ic("velai",18)+'<span>Luyện những từ này</span></button>');
 bt.onclick=function(){startSession(buildReview(ds,"Từ cho không"));};
 app.appendChild(bt);
-var lst=el('<div class="lst"></div>');
-ds.forEach(function(it){
+app.appendChild(danhSachDan(ds,function(it){
 var g=giongAnh(it);
 var r=el('<div class="li"><div class="l">'+
 '<div class="r1">'+esc(it.ru)+'</div>'+
@@ -3540,9 +3648,8 @@ var r=el('<div class="li"><div class="l">'+
 '<div class="r3">'+esc(it.vi)+'</div></div>'+
 '<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(){speak(it.ru);};
-lst.appendChild(r);
-});
-app.appendChild(lst);
+return r;
+},12,"từ"));
 }
 const CHU_GIONG_LATIN=["\u0430","\u0432","\u0435","\u043a","\u043c","\u043d","\u043e","\u0440","\u0441","\u0442","\u0443","\u0445"];
 const NHANH_SO=20;
@@ -3699,6 +3806,28 @@ gio.style.display="none";meta.style.display="none";
 }
 ve();
 }
+function danhSachDan(ds,veMot,buoc,tenMuc){
+var hop=el('<div></div>');
+var lst=el('<div class="lst"></div>');
+var duoi=el('<div class="xem-them"></div>');
+var i=0;
+function them(){
+var het=Math.min(i+buoc,ds.length);
+for(;i<het;i++)lst.appendChild(veMot(ds[i],i));
+duoi.innerHTML="";
+if(i<ds.length){
+var con=ds.length-i;
+var b=el('<button class="btn ghost wide">Xem thêm '+Math.min(buoc,con)+' '+(tenMuc||"mục")+' · còn '+con+'</button>');
+b.onclick=them;
+duoi.appendChild(b);
+}else if(ds.length>buoc){
+duoi.appendChild(el('<div class="note">Hết '+ds.length+' '+(tenMuc||"mục")+'.</div>'));
+}
+}
+them();
+hop.appendChild(lst);hop.appendChild(duoi);
+return hop;
+}
 function renderBrowse(){
 var back=el('<button class="back">← Lộ trình</button>');back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
@@ -3734,12 +3863,46 @@ function renderGram(){
 var back=el('<button class="back">← Lộ trình</button>');back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
 app.appendChild(el('<div class="eyebrow cyr">Грамматика</div><h1 style="margin-bottom:6px">Ngữ pháp cốt lõi</h1>'));
-app.appendChild(el('<div class="note" style="margin-bottom:16px">Phần tham khảo, không tính điểm. Đọc lướt một lượt trước, rồi quay lại mỗi khi gặp chỗ khó.</div>'));
-GRAMMAR.forEach(function(g,i){
-var c=el('<div class="card" style="text-align:left;margin-bottom:9px;padding:18px">'+
-'<div style="font-family:var(--f-head);font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px">'+esc(g[0])+'</div>'+
-'<div style="font-size:15px">'+esc(g[1])+'</div></div>');
-app.appendChild(c);
+var tong=0;GRAMMAR.forEach(function(x){tong+=x.muc.length;});
+app.appendChild(el('<div class="note" style="margin-bottom:14px">'+tong+' mục chia làm bốn phần, theo đúng thứ tự nên đọc. Mục gắn nhãn <b>cốt lõi</b> là thứ phải nắm trước, chưa có nó thì câu nào cũng thấy lạ. Mỗi mục có câu ví dụ bấm nghe được. Phần này tham khảo, không tính điểm.</div>'));
+var toc=el('<div class="gr-toc"></div>');
+var neo={};
+GRAMMAR.forEach(function(sec){
+var b=el('<button></button>');
+b.appendChild(document.createTextNode(sec.ten+" "));
+var sp=el('<span></span>');sp.textContent=sec.muc.length;b.appendChild(sp);
+b.onclick=function(){
+var n=neo[sec.id];
+if(!n)return;
+var em=matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+try{n.scrollIntoView({behavior:em?"auto":"smooth",block:"start"});}catch(e){n.scrollIntoView();}
+};
+toc.appendChild(b);
+});
+app.appendChild(toc);
+GRAMMAR.forEach(function(sec){
+var sh=el('<div class="sec-head"><h2>'+esc(sec.ten)+'</h2><div class="ln"></div></div>');
+app.appendChild(sh);neo[sec.id]=sh;
+if(sec.mo)app.appendChild(el('<div class="note" style="margin:0 0 11px">'+esc(sec.mo)+'</div>'));
+var ds=el('<div class="gr-ds"></div>');
+sec.muc.forEach(function(m){
+var c=el('<div class="gr-card"><div class="t">'+(m.loi?'<span class="gr-sao">cốt lõi</span>':'')+
+'<span class="tn"></span></div><div class="d"></div>'+
+(m.vd&&m.vd.length?'<div class="gr-vd"></div>':'')+'</div>');
+c.querySelector(".tn").textContent=m.t;
+c.querySelector(".d").textContent=m.d;
+var vd=c.querySelector(".gr-vd");
+if(vd)m.vd.forEach(function(v){
+var r=el('<div class="v"><div class="l"><div class="ru"></div><div class="vi"></div></div>'+
+'<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
+r.querySelector(".ru").textContent=v[0];
+r.querySelector(".vi").textContent=v[1];
+r.querySelector(".spk").onclick=function(){speak(v[0]);};
+vd.appendChild(r);
+});
+ds.appendChild(c);
+});
+app.appendChild(ds);
 });
 }
 function renderSet(){
@@ -4024,7 +4187,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=71"></script>
+<script type="module" src="firebase-sync.js?v=72"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
