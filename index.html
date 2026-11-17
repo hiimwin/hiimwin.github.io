@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=102"></script>
+<script src="firebase-config.js?v=105"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -485,6 +485,46 @@ body.rong .lst.doi .li+.li{border-top:1px solid var(--line)}
 body.hep.rong #app{max-width:1340px}
 .chi-tiet{grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:16px 52px}
 .ct-phai .wsvg{max-width:470px}
+}
+.mondai{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.monthe{position:relative;display:flex;flex-direction:column;gap:7px;padding:14px 14px 13px;
+border-radius:var(--r);text-align:left;min-width:0;overflow:hidden;
+background:var(--surface);box-shadow:inset 0 0 0 1px var(--line),var(--sh);
+transition:transform .16s,box-shadow .22s}
+.monthe::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+background:linear-gradient(145deg,color-mix(in srgb,var(--mm) 16%,transparent),transparent 62%);
+transition:opacity .22s}
+.monthe:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--mm),var(--sh-lift)}
+.monthe:hover::before{opacity:.7}
+.monthe.dang{box-shadow:inset 0 0 0 2px var(--mm),var(--sh-lift)}
+.monthe.dang::before{opacity:1}
+.monthe .g{font-family:var(--f-cyr);font-size:30px;line-height:1;color:var(--mm);
+letter-spacing:-.02em;position:relative}
+.monthe .n{font-size:14.5px;font-weight:650;color:var(--ink);position:relative;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.monthe .c b{font-weight:600;color:var(--ink)}
+.monthe .c{font-size:12.5px;color:var(--muted);position:relative;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.monthe .bar{position:relative;height:5px;border-radius:99px;background:var(--sunken);overflow:hidden}
+.monthe .bar i{display:block;height:100%;border-radius:99px;background:var(--mm);
+transition:width .5s cubic-bezier(.4,0,.2,1)}
+.monthe .s{font-size:11.5px;color:var(--muted);position:relative;font-variant-numeric:tabular-nums}
+.monthe .dau{position:absolute;top:12px;right:12px;width:7px;height:7px;border-radius:50%;
+background:var(--mm);box-shadow:0 0 0 3px color-mix(in srgb,var(--mm) 22%,transparent)}
+@media(max-width:560px){
+.mondai{gap:7px}
+.monthe{padding:11px 10px 10px;gap:5px}
+.monthe .g{font-size:24px}
+.monthe .n{font-size:13px}
+.monthe .c{font-size:11.5px}
+.monthe .s,.monthe .ct{display:none}
+.monthe .dau{top:9px;right:9px}
+}
+@media(min-width:1100px){
+body.rong .mondai{gap:14px;margin-bottom:24px}
+body.rong .monthe{padding:18px 18px 16px;gap:9px}
+body.rong .monthe .g{font-size:38px}
+body.rong .monthe .n{font-size:16.5px}
 }
 .set.col{flex-direction:column;align-items:stretch;gap:14px}
 .mon-ds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -2979,16 +3019,18 @@ try{datNhanMon();}catch(e){}
 return true;
 }
 function datNhanMon(){
-var mn=monNay();
-try{document.title=mn.nhan;}catch(e){}
+var mn=monNay(),nhan=D(mn.nhan);
+try{document.title=nhan;}catch(e){}
 var b=document.querySelector("#nav-home .tag");
 if(b)b.textContent=mn.tag;
 var t=document.querySelector("#nav-home span:not(.tag)");
-if(t)t.textContent=mn.nhan;
+if(t)t.textContent=nhan;
 var f=document.querySelector("footer .tacgia");
-if(f&&f.parentNode)f.parentNode.firstChild.nodeValue=mn.ten.replace("Tiếng ","")+" · Việt — ";
+if(f&&f.parentNode)f.parentNode.firstChild.nodeValue=dungTiengAnh()
+? D(mn.ten)+" · Vietnamese — "
+: mn.ten.replace("Tiếng ","")+" · Việt — ";
 var fb=document.querySelector("footer b:not(.tacgia)");
-if(fb)fb.textContent=mn.nhan;
+if(fb)fb.textContent=nhan;
 var ns=document.getElementById("nav-song");
 if(ns)ns.hidden=!mn.hat;
 var ftg=document.querySelector("footer .ft-brand .tag");
@@ -3002,10 +3044,35 @@ var o=["<span><b>"+((alp&&alp.items.length)||0)+"</b> "+mn.donVi+" · "+mn.ban3+
 "<span><b>"+((nm&&nm.items.length)||0)+"</b> mục số đếm</span>",
 "<span><b>"+soTu+"</b> từ · <b>"+soCd+"</b> chủ đề</span>",
 "<span>"+(mn.viettay?"chữ viết tay có chấm điểm":"mẹo đọc riêng cho người Việt")+"</span>"];
-fn.innerHTML=o.join("");
+fn.innerHTML=dichHTML(o.join(""));
 }
 }
 function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)return MODULES[i];return null;}
+var _tomMon={};
+function tomMon(ma){
+if(_tomMon[ma])return _tomMon[ma];
+var m=monTheoMa(ma);
+if(!m||!m.nap)return null;
+var d=m.nap(),n=0;
+d.mods.forEach(function(x){n+=x.items.length;});
+return _tomMon[ma]={tong:n,cap:d.cap};
+}
+function tienDoMon(ma){
+var t=tomMon(ma);
+if(!t)return null;
+var pre=ma==="ru"?"":ma+".",hoc=0,thuoc=0;
+ownKeys(prog.items).forEach(function(k){
+var la=ma==="ru"?k.indexOf(".")<0:k.indexOf(pre)===0;
+if(!la)return;
+var r=prog.items[k];
+if(!r)return;
+hoc++;
+if(r.b>=4)thuoc++;
+});
+var i=0;
+for(var k2=0;k2<t.cap.length;k2++)if(thuoc>=t.cap[k2].can)i=k2;
+return {hoc:hoc,thuoc:thuoc,tong:t.tong,capSo:i+1,cap:t.cap[i],tile:Math.max(0,Math.min(1,thuoc/t.tong))};
+}
 const LS_KEY="rus-az-v1";
 const INTERVALS=[0,1,2,4,8,16,32,64];
 const DAY=86400000;
@@ -3081,9 +3148,10 @@ if(v&&typeof v==="object")clean[k]={b:+v.b||0,due:+v.due||0,c:+v.c||0,w:+v.w||0,
 });
 p.items=clean;
 p.stats=Object.assign({streak:0,last:"",hist:{}},p.stats||{});
-p.settings=Object.assign({unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham",mon:"ru"},p.settings||{});
+p.settings=Object.assign({unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham",mon:"ru",ui:"vi"},p.settings||{});
 var mm=monTheoMa(p.settings.mon);
 if(!mm||!mm.nap)p.settings.mon="ru";
+if(p.settings.ui!=="en")p.settings.ui="vi";
 if(typeof p.settings.giong==="string")p.settings.giong=p.settings.giong?{ru:p.settings.giong}:{};
 if(!p.settings.giong||typeof p.settings.giong!=="object")p.settings.giong={};
 p.v=p.v||0;return p;
@@ -3121,7 +3189,7 @@ prog.stats.last=k;
 touch();
 }
 function veHuy(c,trangThai){
-var h=el('<span class="huy '+trangThai+'" title="'+esc(c.ten+" · "+c.ban)+'"><b class="cyr"></b></span>');
+var h=el('<span class="huy '+trangThai+'" title="'+esc(D(c.ten)+" · "+c.ban)+'"><b class="cyr"></b></span>');
 h.style.setProperty("--hm",c.mau);
 h.querySelector("b").textContent=c.hh;
 return h;
@@ -3162,7 +3230,9 @@ dong.appendChild(el('<div class="td-ten"><b>'+esc(c.cap.ten)+'</b>'+
 box.appendChild(dong);
 box.appendChild(el('<div class="td-bar"><i style="width:'+Math.round(c.tile*100)+'%"></i></div>'));
 box.appendChild(el('<div class="td-note">'+(c.sau
-? 'Thuộc <b>'+c.thuoc+'</b> mục — còn <b>'+(c.sau.can-c.thuoc)+'</b> mục nữa lên <b>'+esc(c.sau.ten)+'</b>'
+? (dungTiengAnh()
+? '<b>'+c.thuoc+'</b> known — <b>'+(c.sau.can-c.thuoc)+'</b> more to reach <b>'+esc(D(c.sau.ten))+'</b>'
+: 'Thuộc <b>'+c.thuoc+'</b> mục — còn <b>'+(c.sau.can-c.thuoc)+'</b> mục nữa lên <b>'+esc(c.sau.ten)+'</b>')
 : 'Thuộc <b>'+c.thuoc+'</b> mục — đã đi hết lộ trình')+'</div>'));
 var hang=el('<div class="td-huy"></div>');
 CAP.forEach(function(x,i){
@@ -3228,8 +3298,272 @@ return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"")
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function pick(a,n,not){var p=shuffle(a.filter(function(x){return x!==not;}));return p.slice(0,n);}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+var TU_DIEN={},MAU_DICH=[];
+TU_DIEN={
+"Lộ trình":"Home","← Lộ trình":"← Home","Cài đặt":"Settings","Tra cứu":"Search",
+"Tiến độ":"Progress","Tiến độ & huy hiệu":"Progress & badges","Ngữ pháp cốt lõi":"Core grammar",
+"Bài hát bảng chữ cái":"Alphabet song","Luyện nhanh":"Speed drill","Tập đọc":"Pronunciation",
+"Luyện nói":"Speaking","Ghép từ":"Matching","Ghép":"Match","Luyện":"Drill","Chép":"Copy",
+"Xoá":"Clear","Viết lại":"Redo","Nghe lại":"Replay","Nghe mẫu":"Hear it","Hát":"Sing",
+"Lời":"Lyrics","Từ khác":"Another word","Đọc thử":"Try it","Đọc từ này":"Read this word",
+"Bấm rồi đọc":"Tap, then speak","Chữ trước":"Previous","Chữ sau":"Next",
+"Học mục mới":"Learn new items","Luyện lại":"Practise again","Luyện gõ":"Typing drill",
+"Đọc chữ viết tay":"Read handwriting","Luyện chỗ hay sai":"Drill your weak spots",
+"Luyện chủ đề này":"Practise this topic","Luyện những từ này":"Drill these words",
+"Ôn tập hôm nay":"Today's review","Những mục đã đến hạn nhắc lại":"Items due for review",
+"Bảng tra":"Table","Nhóm dễ nhầm":"Easily confused","Cả bảng chữ cái":"The whole alphabet",
+"Chưa đủ mục":"Not enough items","Hết giờ.":"Time's up.","Thuộc":"Known",
+"Đã thuộc":"Known","đã thuộc":"known","đang học":"learning","chưa học":"not started",
+"Đã học":"Seen","Cấp độ":"Level","Chuỗi hiện tại":"Current streak",
+"Đang dùng:":"Currently:","đầy đủ":"full","Nền tảng":"Foundations",
+"Bước đầu giao tiếp":"First conversations","Ăn, mua, đi lại":"Eating, buying, getting around",
+"Việc làm &amp; xã hội":"Work &amp; society","Mô tả &amp; hành động":"Describing &amp; doing",
+"Từ vựng theo chủ đề":"Vocabulary by topic","cốt lõi":"core",
+"Xem bảng chữ cái theo":"View the alphabet as","Xem bảng âm IPA theo":"View the sound chart as",
+"Xem bảng pinyin theo":"View the pinyin chart as",
+"Học từ bảng chữ cái trở đi":"Start from the alphabet",
+"Học từ bảng âm IPA trở đi":"Start from the sound chart",
+"Học từ bảng pinyin trở đi":"Start from pinyin",
+"Bắt đầu từ bảng chữ cái":"Start with the alphabet",
+"Bắt đầu từ bảng âm":"Start with the sound chart","Bắt đầu từ pinyin":"Start with pinyin",
+"· Nga — Việt":"· Russian — Vietnamese","· Anh — Việt":"· English — Vietnamese",
+"· Trung — Việt":"· Chinese — Vietnamese",
+"Chữ này đọc là gì?":"What sound does this letter make?",
+"Chữ này đọc là âm gì?":"What sound is this letter?",
+"Âm này đọc thế nào?":"How is this sound pronounced?",
+"Âm này là chữ nào?":"Which letter makes this sound?",
+"Chữ viết tay này là chữ gì?":"Which letter is this in handwriting?",
+"Nghe rồi chọn chữ":"Listen, then pick the letter",
+"Nghe rồi chọn nghĩa":"Listen, then pick the meaning",
+"Nghĩa tiếng Việt là gì?":"What does it mean?",
+"Tiếng Anh là gì?":"What is it in English?",
+"Từ tiếng Anh này nghĩa là gì?":"What does this English word mean?",
+"Từ này nghĩa là gì?":"What does this word mean?",
+"Gõ chữ cái (thường)":"Type the letter (lower case)",
+"Gõ pinyin (không cần dấu thanh)":"Type the pinyin (tone marks not needed)",
+"Nghe rồi gõ lại bằng pinyin":"Listen, then type it back in pinyin",
+"Bấm loa để nghe lại":"Tap the speaker to hear it again",
+"Chính xác. ":"Correct. ","Chưa đúng. ":"Not quite. ","Đáp án đúng: ":"Correct answer: ",
+"Chưa có mục nào để luyện.":"Nothing to practise yet.",
+"Cần học thêm vài từ nữa đã.":"Learn a few more words first.",
+"Lờ mờ":"Shaky","Thường":"Normal","Chậm":"Slow","Vừa":"Medium","Ngắn":"Short","Dài":"Long",
+"Tự động":"Automatic","Luôn nhẹ":"Always light","Luôn đầy đủ":"Always full",
+"Hiện phiên âm Latin":"Show Latin transcription","Hiện phiên âm IPA":"Show IPA transcription",
+"Hiện pinyin":"Show pinyin","Dòng phiên âm nhỏ dưới mỗi từ.":"A small transcription line under every word.",
+"Dòng “máma”, “spasíbo” dưới chữ Nga.":"The “máma”, “spasíbo” line under the Russian.",
+"Gõ bằng bàn phím Latin":"Type on a Latin keyboard",
+"Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.":"In typing drills, “privet” turns into “привет” — no Russian keyboard needed.",
+"Bỏ khoá lộ trình":"Unlock everything",
+"Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng chữ cái. Không khuyến khích.":"Lets you jump straight to vocabulary without knowing the alphabet. Not recommended.",
+"Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng âm IPA. Không khuyến khích.":"Lets you jump straight to vocabulary without knowing the sound chart. Not recommended.",
+"Cho phép vào thẳng phần từ vựng mà chưa thuộc bảng pinyin. Không khuyến khích.":"Lets you jump straight to vocabulary without knowing pinyin. Not recommended.",
+"Hiệu ứng nền":"Background effects","Số câu mỗi bài ôn":"Questions per review",
+"Tốc độ đọc":"Speech rate","Giọng đọc":"Voice","Đồng bộ":"Sync","Sao lưu tiến độ":"Back up progress",
+"Xoá toàn bộ tiến độ":"Erase all progress",
+"Đặt lại về trạng thái chưa học gì. Không khôi phục được.":"Resets everything to untouched. This cannot be undone.",
+"Chép ra một đoạn mã để dán sang máy khác, phòng khi chưa dùng tài khoản.":"Copies a code you can paste on another device, for when you are not signed in.",
+"Chưa bật đồng bộ — tiến độ chỉ nằm trong trình duyệt này. Dùng nút chép bên dưới để mang sang máy khác.":"Sync is off — your progress lives only in this browser. Use the copy button below to carry it to another device.",
+"Bài ôn lấy những mục đã đến hạn nhắc lại. Hôm nào chưa tới hạn mấy mục thì app lấy thêm mục hay sai và mục sắp đến hạn cho đủ chừng này câu — chứ mở ra làm đúng một câu rồi đóng lại thì chẳng bõ.":"A review takes the items that are due. On a day when few are due, the app tops it up with your weak items and ones coming up soon, so a session is worth opening — one question and done is not.",
+"Nền chuyển màu và lớp làm mờ sau các thẻ nhìn đẹp nhưng tốn sức máy. Cửa sổ app cài về máy có lúc không được tăng tốc phần cứng như tab trình duyệt, nên ở đó app mặc định chạy chế độ nhẹ: nền đứng yên, không làm mờ. Hiện đang:":"The moving gradient and the blur behind cards look good but cost the machine work. An installed app window does not always get the same hardware acceleration as a browser tab, so there the app runs light by default: a still background, no blur. Currently:",
+"Mỗi thứ tiếng có kho từ, bảng chữ cái, ngữ pháp và lịch nhắc lại riêng. Đổi môn không đụng gì tới tiến độ của môn kia.":"Each language has its own word bank, letter chart, grammar and review schedule. Switching leaves the other languages' progress untouched.",
+"Môn đang học":"Language you are learning","Đang học":"Learning","Đang soạn nội dung":"Content in progress",
+"Ngôn ngữ giao diện":"Interface language","Tiếng Việt":"Vietnamese",
+"Chữ trên nút, nhãn và lời giải thích của app. Nghĩa của từ vẫn giữ tiếng Việt khi môn đó chưa có sẵn nghĩa tiếng Anh.":"Buttons, labels and the app's own explanations. Word meanings stay in Vietnamese where the language has no English gloss.",
+"Đọc gần giống chữ Latin":"Read almost like Latin letters",
+"BẪY nguy hiểm nhất":"The nastiest traps","Bốn âm xì xoà":"The four hushing sounds",
+"Nguyên âm đôi":"Iotated vowels","Hai dấu không đọc":"Two signs with no sound of their own",
+"Âm khó nhất với người Việt":"Hardest sounds for Vietnamese speakers",
+"Dài và ngắn là hai âm khác nhau":"Long and short are different sounds",
+"Hai âm phải thè lưỡi":"The two tongue-between-teeth sounds",
+"Âm cuối không được nuốt":"Never swallow the final consonant",
+"/æ/ và /e/":"/æ/ versus /e/",
+"Ba âm người Việt hay thay bằng âm quen":"Three sounds Vietnamese speakers swap for familiar ones",
+"/ə/ — vần không nhấn":"/ə/ — the unstressed syllable",
+"Bốn thanh — sai thanh là sai chữ":"Four tones — wrong tone, wrong word",
+"Bật hơi hay không bật hơi":"Aspirated or not",
+"Bốn âm cong lưỡi":"The four retroflex sounds",
+"Cặp hay trộn nhất: s và sh":"The pair most often mixed up: s and sh",
+"ü phải chúm môi":"ü needs rounded lips",
+"Biến điệu — viết một đằng đọc một nẻo":"Tone sandhi — written one way, said another",
+"Mười chữ đổi dạng nhiều nhất":"The ten letters that change most",
+"Người Nga viết tay gần như không dùng chữ in. Đọc thông chữ in rồi vẫn có thể bó tay trước một dòng ghi chép — vì mười chữ dưới đây đổi dạng hoàn toàn.":"Russians almost never write in print. You can read print fluently and still be stuck in front of a handwritten note, because the ten letters below change shape completely.",
+"Viết đè lên nét mờ bằng chuột hoặc ngón tay. Nhấc bút lên là app tự chấm, viết thêm nét thì chấm lại.":"Trace over the faint guide with a mouse or a finger. The app scores as soon as you lift the pen, and scores again if you add a stroke.",
+"Đọc to một từ, máy nghe lại rồi dóng từng vần với từ mẫu — vần nào lệch thì tô đỏ và chỉ ra nghe thành gì.":"Say a word out loud; the app listens, lines your syllables up against the model, and marks in red any that drifted — showing what it heard instead.",
+"Bấm micrô rồi đọc to từ hiện trên màn. Máy nghe lại rồi dóng từng vần với từ mẫu — vần nào lệch sẽ tô đỏ kèm chỗ nghe thành gì. Cần mạng, và lần đầu trình duyệt sẽ hỏi quyền dùng micrô.":"Tap the microphone and say the word on screen. The app lines your syllables up against the model and marks in red any that drifted, with what it heard instead. Needs a connection, and the browser will ask for microphone permission the first time.",
+"Có tính giờ, ép phản xạ thay vì ngồi nghĩ. Đúng sai đều tính vào tiến độ như bài thường.":"Timed, so you answer on reflex instead of thinking it through. Right or wrong still counts towards your progress.",
+"Chữ dễ nhầm":"Confusable letters","Âm dễ nhầm":"Confusable sounds",
+"Gõ kiểu gì cũng được: spasibo, спасибо, “cảm ơn”…":"Type it any way you like: spasibo, спасибо, “thank you”…",
+"Chín chặng của lộ trình, huy hiệu đã đạt và chuỗi ngày học trong tuần.":"The nine stages, the badges you have earned, and this week's streak.",
+"Nối từ với nghĩa tiếng Việt, năm cặp một lượt — cách nhẹ nhất để gặp những từ đầu tiên.":"Match words to their meanings, five pairs at a time — the gentlest way to meet your first words.",
+"Nối từ với nghĩa tiếng Việt, năm cặp một lượt. Nhìn cả cụm cùng lúc nên nhận ra từ nào là từ nào nhanh hơn hỏi lẻ từng câu.":"Match words to their meanings, five pairs at a time. Seeing the whole set at once makes them click faster than one question at a time.",
+"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa hẳn":"Pinyin and the four tones — a wrong tone is a different word",
+"44 âm IPA — mặt chữ bạn biết rồi, cái khó là đọc đúng âm":"44 IPA sounds — you know the letters already; the hard part is the sounds",
+"Chưa phát được tiếng Nga":"No Russian speech yet","Chưa phát được tiếng Anh":"No English speech yet",
+"Chưa phát được tiếng Trung":"No Chinese speech yet",
+"Cách cài trên Windows":"How to install on Windows","Cách cài trên iPhone / iPad":"How to install on iPhone / iPad",
+"Đang chuyển sang Google…":"Taking you to Google…","Đang hoàn tất đăng nhập…":"Finishing sign-in…",
+"Bạn đã đóng cửa sổ đăng nhập":"You closed the sign-in window",
+"Mỗi mục đều có tiếng Nga, tiếng Anh và tiếng Việt — chỗ mà hầu hết app học tiếng Nga bỏ trống. Phần tiếng Việt, mẹo đọc cho người Việt và toàn bộ nét chữ viết tay đều tự soạn.":"Every item carries Russian, English and Vietnamese — the part most Russian apps leave empty. The Vietnamese, the pronunciation tips and every handwriting stroke were written by hand.",
+"Nghĩa tiếng Việt và mẹo đọc cho người Việt ở từng mục đều tự soạn — không phải bản dịch máy. Đổi môn lúc nào cũng được, tiến độ mỗi thứ tiếng giữ riêng.":"The meanings and the pronunciation tips were written by hand, not run through a translator. Switch language whenever you like; each one keeps its own progress.",
+"mẹo đọc riêng cho người Việt":"pronunciation tips for Vietnamese speakers",
+"chữ viết tay có chấm điểm":"handwriting with scoring",
+"Mới bắt đầu":"Just starting","Thuộc mặt chữ":"Knows the letters","Thuộc bảng âm":"Knows the sounds",
+"Thuộc pinyin":"Knows pinyin","Biết đếm":"Can count","Chào hỏi được":"Can greet",
+"Đủ sống sót":"Survival level","Nói chuyện thường ngày":"Everyday conversation",
+"Khá vững":"Fairly solid","Thạo":"Fluent","Hết kho từ":"Finished the word bank",
+"Bảng chữ cái":"Alphabet","Bảng âm IPA":"IPA sound chart","Bảng pinyin":"Pinyin chart",
+"Số đếm":"Numbers","Chào hỏi &amp; lịch sự":"Greetings &amp; politeness",
+"Giới thiệu bản thân":"Introducing yourself","Đại từ &amp; từ để hỏi":"Pronouns &amp; question words",
+"Người &amp; gia đình":"People &amp; family","Thời gian &amp; ngày tháng":"Time &amp; dates",
+"Đồ ăn &amp; thức uống":"Food &amp; drink","Quán ăn &amp; gọi món":"Restaurant &amp; ordering",
+"Mua sắm &amp; tiền":"Shopping &amp; money","Đi lại &amp; phương hướng":"Getting around &amp; directions",
+"Nhà cửa &amp; khách sạn":"Home &amp; hotel","Cơ thể &amp; sức khoẻ":"Body &amp; health",
+"Tính từ &amp; cảm xúc":"Adjectives &amp; feelings","Động từ thông dụng":"Common verbs",
+"Câu dùng hằng ngày":"Everyday phrases","Màu sắc":"Colours","Thời tiết &amp; mùa":"Weather &amp; seasons",
+"Quần áo &amp; mua đồ":"Clothes &amp; shopping","Động vật":"Animals",
+"Công việc &amp; văn phòng":"Work &amp; office","Trường học &amp; học tập":"School &amp; study",
+"Sở thích &amp; giải trí":"Hobbies &amp; leisure","Thể thao":"Sport","Du lịch":"Travel",
+"Điện thoại &amp; internet":"Phone &amp; internet","Trong thành phố":"In the city",
+"Giới từ &amp; trạng từ":"Prepositions &amp; adverbs","Ý kiến &amp; quan điểm":"Opinions",
+"Đời sống xã hội":"Social life","Xã hội &amp; tin tức":"Society &amp; news",
+"Từ cho không":"Words for free",
+"Tiếng Nga":"Russian","Tiếng Anh":"English","Tiếng Trung":"Chinese",
+"Chữ Kirin, 33 ký tự":"Cyrillic, 33 letters",
+"Chữ Latin, 44 âm IPA":"Latin script, 44 IPA sounds",
+"Chữ Hán + pinyin, 4 thanh":"Hanzi + pinyin, 4 tones",
+"Bấm “Hát” để bắt đầu":"Tap “Sing” to start","Đang hát":"Now singing",
+"А К М О Т — nhìn sao đọc vậy, an toàn.":"А К М О Т — what you see is what you say. Safe ones.",
+"В = v · Н = n · Р = r (rung) · С = s · У = u · Х = kh — nhìn quen mắt nhưng đọc khác hẳn.":"В = v · Н = n · Р = rolled r · С = s · У = u · Х = kh — familiar shapes, completely different sounds.",
+"Ж = “gi” nặng · Ш = “s” cong lưỡi · Щ = “s” mềm kéo dài · Ч = “ch”.":"Ж = a buzzing “zh” · Ш = a retroflex “sh” · Щ = a long soft “shch” · Ч = “ch”.",
+"Е = ye · Ё = yo · Ю = yu · Я = ya — luôn có âm “y” phía trước.":"Е = ye · Ё = yo · Ю = yu · Я = ya — all of them carry a “y” in front.",
+"Ъ tách âm · Ь làm mềm phụ âm trước nó.":"Ъ splits the syllable · Ь softens the consonant before it.",
+"Ы (gần “ư”) · Р (phải rung lưỡi) · З (âm “z” thật, đừng đọc thành “d”).":"Ы (a deep “uh-ee”) · Р (a properly rolled r) · З (a real “z”, not a “d”).",
+"/iː/ sheep ≠ /ɪ/ ship · /uː/ fool ≠ /ʊ/ full · /ɑː/ cart ≠ /ʌ/ cut. Tiếng Việt không phân biệt độ dài nên đây là chỗ sai nhiều nhất.":"/iː/ sheep ≠ /ɪ/ ship · /uː/ fool ≠ /ʊ/ full · /ɑː/ cart ≠ /ʌ/ cut. Vietnamese does not use vowel length, so this is where most mistakes happen.",
+"/θ/ think · /ð/ this — đầu lưỡi ra giữa hai hàm răng. Đọc thành “th”, “t” hay “s” tiếng Việt là lộ ngay.":"/θ/ think · /ð/ this — the tongue tip goes between the teeth. Substituting a Vietnamese “th”, “t” or “s” gives you away instantly.",
+"Tiếng Việt không có phụ âm cuối bật ra, nên /s/ /z/ /t/ /d/ /k/ hay bị bỏ. “cat” mất /t/ thành “ca”, “books” mất /s/ là mất luôn số nhiều.":"Vietnamese has no released final consonants, so /s/ /z/ /t/ /d/ /k/ get dropped. “cat” without its /t/ becomes “ca”; “books” without its /s/ loses the plural.",
+"cat /kæt/ ≠ ket · bad /bæd/ ≠ bed. /æ/ miệng bè ngang, /e/ như “e” tiếng Việt.":"cat /kæt/ ≠ ket · bad /bæd/ ≠ bed. /æ/ spreads the mouth wide; /e/ is the Vietnamese “e”.",
+"/r/ KHÔNG rung lưỡi, chỉ cong lên · /z/ đừng đọc thành “d” · /v/ phải để răng chạm môi.":"/r/ is NOT rolled, just curled back · /z/ is not a “d” · /v/ needs teeth on lip.",
+"Từ dài nghe khó phần nhiều vì vần không nhấn bị đọc rõ quá: about, teacher, banana. Nhấn đúng một vần, các vần còn lại thả lỏng thành /ə/.":"Long words sound hard mostly because unstressed syllables are pronounced too clearly: about, teacher, banana. Stress one syllable and let the rest relax into /ə/.",
+"妈 mā mẹ · 麻 má cây gai · 马 mǎ con ngựa · 骂 mà mắng. Cùng một âm, bốn chữ khác hẳn nhau. Đây không phải chuyện giọng, mà là chuyện nghĩa.":"妈 mā mother · 麻 má hemp · 马 mǎ horse · 骂 mà to scold. One syllable, four different words. This is not accent — it is meaning.",
+"b–p · d–t · g–k · j–q · z–c. Cùng khẩu hình, chỉ khác ở chỗ có phụt hơi ra hay không. Tiếng Việt không phân biệt kiểu này nên phải tập riêng.":"b–p · d–t · g–k · j–q · z–c. Same mouth shape; the only difference is the puff of air. Vietnamese does not split them this way, so it needs separate practice.",
+"zh ch sh r — phải CONG đầu lưỡi lên vòm rồi mới phát. Đọc bẹt lưỡi là thành z c s, ra chữ khác.":"zh ch sh r — curl the tongue tip up to the palate before you release. A flat tongue turns them into z c s, which are different words.",
+"四 sì (bốn) ≠ 是 shì (là). Cả z–zh và c–ch cũng vậy. Nghe kỹ chỗ lưỡi cong hay bẹt.":"四 sì (four) ≠ 是 shì (to be). The same goes for z–zh and c–ch. Listen for whether the tongue is curled or flat.",
+"女 nǚ (nữ) ≠ 努 nǔ (gắng sức). Sau j q x y thì viết là u nhưng vẫn đọc ü: 去 qù đọc như “qü”.":"女 nǚ (woman) ≠ 努 nǔ (to strive). After j q x y it is written u but still said ü: 去 qù sounds like “qü”.",
+"Người Nga viết tay gần như không dùng chữ in. Đọc thông chữ in rồi vẫn có thể bó tay trước một dòng ghi chép — vì mười chữ dưới đây đổi dạng hoàn toàn.":"Russians almost never write in print. You can read print fluently and still be stuck in front of a handwritten note, because the ten letters below change shape completely.",
+"Hai nét, trông như chữ “n” Latin.":"Two strokes, looks like a Latin “n”.",
+"Nét đầu hất lên rồi vòng xuống — rất dễ lẫn với д.":"An upstroke then a loop down — very easy to confuse with д.",
+"Có đuôi vòng xuống dưới dòng kẻ, nhìn như chữ “g”.":"A tail that loops below the line, like a “g”.",
+"Viết tay thành ba nét, nhìn hệt chữ “m”.":"Three strokes by hand, exactly like an “m”.",
+"Giống “m” nhưng cũng mở đầu bằng nét hất lên.":"Like an “m”, but it also opens with an upstroke.",
+"Giống “n” nhưng mở đầu bằng một nét hất lên.":"Like an “n”, but it opens with an upstroke.",
+"Một nét cong nhỏ, nhìn như chữ “r” thường.":"One small curve, like a lower-case “r”.",
+"Ba nét như chữ “w”, nhiều người gạch một vạch dưới để khỏi lẫn với т.":"Three strokes like a “w”; many people underline it so it is not mistaken for т.",
+"Viết tay trông đúng như chữ “u” Latin.":"By hand it looks exactly like a Latin “u”.",
+"Vẫn là “u”, thêm dấu móc cong ở trên.":"Still a “u”, with a curved hook on top.",
+"Viết bụng tròn trước như chữ “o”, đóng kín, rồi kéo thẳng xuống đáy và thoát ra.":"Draw the round belly first like an “o”, close it, then pull straight down to the baseline and out.",
+"Mười chữ đổi dạng nhiều nhất":"The ten letters that change most",
+"Không cài được cũng không sao: mọi từ trong app đều có dòng phiên âm kiểu tiếng Việt để đọc theo.":"If you cannot install one, no harm done: every word in the app carries a written pronunciation line to follow.",
+"Máy có giọng Nga nhưng không ra tiếng — kiểm tra lại âm lượng và quyền phát tiếng của trình duyệt.":"A Russian voice is installed but nothing comes out — check the volume and the browser's permission to play sound.",
+"Máy chưa có giọng tiếng Nga nào, nên nút loa không kêu. Giọng đọc là gói riêng — thêm tiếng Nga vào danh sách ngôn ngữ giao diện không tính.":"There is no Russian voice on this device, so the speaker button stays silent. A voice is a separate package — adding Russian to your interface languages does not count.",
+"— danh sách giọng chỉ nạp lúc khởi động.":"— the voice list is only read at start-up.",
+"— phát âm tiếng Nga hoạt động bình thường.":"— Russian speech is working normally.",
+"tắt hẳn Claude và mở lại":"quit the app completely and reopen it",
+"Cách cài trên Windows":"How to install on Windows",
+"là thứ phải nắm trước, chưa có nó thì câu nào cũng thấy lạ. Mỗi mục có câu ví dụ bấm nghe được. Phần này tham khảo, không tính điểm.":"is what you need first; without it every sentence feels strange. Each entry has an example you can tap to hear. This section is reference only and is not scored.",
+"Bấm một ô để mở trang chữ đó. Dòng cuối có Ъ và Ь — hai chữ không đọc thành tiếng, chỉ đổi cách đọc chữ đứng trước.":"Tap a cell to open that letter. The last row has Ъ and Ь — two letters with no sound of their own; they only change the letter before them.",
+"Bấm vào từng chữ để xem cách đọc, mẹo cho người Việt, từ ví dụ và dạng viết tay. Ô nền xanh là đã thuộc.":"Tap a letter for its sound, a pronunciation tip, an example word and its handwritten shape. Green cells are the ones you know.",
+"Tiếng Nga từ A đến Я":"Russian from A to Я",
+"Tiếng Anh từ âm đến câu":"English from sounds to sentences",
+"Tiếng Trung từ thanh đến câu":"Chinese from tones to sentences"
+};
+MAU_DICH=[
+[/^Ôn (\d+) mục$/,"Review $1 items"],
+[/^Ôn (\d+) mục · (.+)$/,"Review $1 items · $2"],
+[/^Cấp (\d+)$/,"Level $1"],
+[/^Cấp (\d+) ·$/,"Level $1 ·"],
+[/^(\d+) thuộc · (\d+)\/(\d+) đã gặp$/,"$1 known · $2/$3 seen"],
+[/^(\d+)\/(\d+) mục · thuộc (\d+)%$/,"$1/$2 items · $3% known"],
+[/^(\d+) chủ đề · xong (\d+) · thuộc (\d+)%$/,"$1 topics · $2 done · $3% known"],
+[/^Xem thêm (\d+) từ · còn (\d+)$/,"Show $1 more · $2 left"],
+[/^Mở khi (.+) đạt 35% — hiện (\d+)%$/,"Unlocks when $1 reaches 35% — now $2%"],
+[/^Mở khi (.+) ≥70% \((\d+)%\) và Số đếm ≥50% \((\d+)%\)$/,"Unlocks at $1 ≥70% ($2%) and Numbers ≥50% ($3%)"],
+[/^Cần học ít nhất (\d+) từ trước đã\. Học vài chủ đề rồi quay lại\.$/,"Learn at least $1 words first. Come back after a few topics."],
+[/^(\d+) mục bạn hay trả lời sai nhất, gom từ khắp các chủ đề vào một bài\.$/,"The $1 items you get wrong most, gathered from every topic into one session."],
+[/^Gõ để tìm trong (\d+) mục\..*$/,"Search all $1 items. A Latin keyboard works, accents are optional, and near-misses still match — the closest results come first."],
+[/^Máy bạn có (\d+) giọng (.+)\. Bấm một giọng để nghe thử và chọn luôn\. Mỗi môn nhớ giọng riêng\.$/,"Your device has $1 $2 voices. Tap one to hear it and pick it. Each language remembers its own."],
+[/^Xem (\d+) giọng máy đang có$/,"See the $1 voices on this device"],
+[/^Giọng đọc tiếng (.+)$/,"Voice"],
+[/^(\d+) chữ trên điệu “Twinkle twinkle”, nghe vài lượt là thuộc thứ tự\.$/,"$1 letters to the tune of “Twinkle twinkle” — a few listens and the order sticks."],
+[/^(\d+) chữ trông y như chữ Latin, một nửa đọc khác hẳn\. Mỗi chữ (\d+),(\d+) giây\.$/,"$1 letters that look just like Latin ones; half of them sound nothing alike. $2.$3 seconds each."],
+[/^Những âm người Việt hay trộn vào nhau: dài\/ngắn, thè lưỡi, rung không rung\. Mỗi âm (\d+),(\d+) giây\.$/,"The sounds Vietnamese speakers blur together: long/short, tongue-out, voiced or not. $1.$2 seconds each."],
+[/^Bốn thanh, cặp bật hơi và bộ cong lưỡi — những chỗ người Việt hay trộn\. Mỗi âm (\d+),(\d+) giây\.$/,"The four tones, the aspirated pairs and the retroflex set — where Vietnamese speakers slip. $1.$2 seconds each."],
+[/^(\d+) từ tiếng Nga đọc gần như tiếng Anh — học một công được cả hai thứ tiếng\.$/,"$1 Russian words that sound almost like English — learn one, get both."],
+[/^(\d+) từ tiếng Nga đọc lên gần như tiếng Anh — đây là chỗ học nhanh nhất trong cả kho từ\. Biết một bên là gần như biết bên kia\.$/,"$1 Russian words that sound almost like English — the fastest stretch in the whole word bank. Know one side and you nearly know the other."],
+[/^Chín chặng, mỗi chặng là một mốc làm được việc gì đó bằng (.+)\..*$/,"Nine stages, each one a point where you can actually do something in $1. An item counts as “known” once you have answered it right often enough for the app to push its review further out."],
+[/^(\d+) chữ cái · (.+)$/,"$1 letters · $2"],
+[/^(\d+) âm · (.+)$/,"$1 sounds · $2"],
+[/^(\d+) mục số đếm$/,"$1 number items"],
+[/^(\d+) từ · (\d+) chủ đề$/,"$1 words · $2 topics"],
+[/^Đã thuộc$/,"Known"],
+[/^Hiện tại: ([\d.]+)×$/,"Currently: $1×"],
+[/^· giống (\d+)%$/,"· $1% match"],
+[/^Mỗi từ đều có sẵn nghĩa tiếng Anh\. Bật lên thì bài ôn hỏi thêm chiều (.+) → Anh và Anh → (.+), học một công đôi việc\.$/,"Every word already carries an English meaning. Turn this on and reviews also ask $1 → English and English → $2."],
+[/^Máy bạn chưa có giọng (.+) nào nên app không đọc được\..*$/,"Your device has no $1 voice, so the app cannot speak. Add the voice pack in your system's Language settings, then reopen the app."],
+[/^Máy chưa cài giọng đọc tiếng (.+)\. Mở Cài đặt để xem cách khắc phục cho đúng loại máy bạn đang dùng\.$/,"No $1 voice is installed. Open Settings for the fix that matches your device."],
+[/^Máy chưa có giọng đọc tiếng (.+) nên nút loa chưa kêu\. Bấm vào đây để xem cách cài\.$/,"No $1 voice, so the speaker button stays silent. Tap here to see how to install one."],
+[/^chữ cái · (.+)$/,"letters · $1"],
+[/^âm · (.+)$/,"sounds · $1"],
+[/^mục số đếm$/,"number items"],
+[/^từ ·$/,"words ·"],
+[/^chủ đề$/,"topics"],
+[/^Ngắn · (\d+)$/,"Short · $1"],
+[/^Vừa · (\d+)$/,"Medium · $1"],
+[/^Dài · (\d+)$/,"Long · $1"],
+[/^(\d+)\. Mở Settings → Time &amp; language → Speech$/,"$1. Open Settings → Time &amp; language → Speech"],
+[/^(\d+)\. Manage voices → Add voices → chọn$/,"$1. Manage voices → Add voices → pick"],
+[/^(\d+)\. Đợi tải xong, rồi$/,"$1. Wait for the download, then"],
+[/^(\d+) mục chia làm bốn phần, theo đúng thứ tự nên đọc\. Mục gắn nhãn$/,"$1 entries in four parts, in the order worth reading. Entries marked"],
+[/^Nội dung: (\d+) chữ cái Кириллица, (\d+) mục số đếm và (\d+) từ\/câu theo (\d+) chủ đề.*$/,"Inside: $1 Cyrillic letters, $2 number items and $3 words and phrases across $4 topics — each one with Russian, English and Vietnamese. The alphabet comes with handwritten forms and a tracing board."],
+[/^(\d+) chữ chia (\d+) dòng, trên điệu dân ca Pháp.*$/,"$1 letters in $2 lines, to the French folk tune “Ah! vous dirai-je, maman” — the one everyone knows as “Twinkle twinkle”. A voice hums the melody on an “a” while the letter due next lights up below, so you can sing the names along. The music is generated by the app itself."],
+[/^Mẫu nét và phần chấm điểm làm với CHỮ THƯỜNG.*$/,"The stroke guides and the scoring use LOWER CASE — that is where handwriting differs most from print. The ten hardest letters have guide paths the app can score; the rest currently show only the handwritten shape to copy."],
+[/^Hai thanh (\d+) liền nhau thì chữ trước đọc thành thanh (\d+).*$/,"Two third tones in a row: the first is said as a second tone. 你好 is written nǐ hǎo and said ní hǎo. 不 before a fourth tone becomes bú: 不是 bú shì."]
+];
+var GOM_THIEU=null;
+function dungTiengAnh(){
+try{return prog&&prog.settings&&prog.settings.ui==="en";}catch(e){return false;}
+}
+function dichCau(t){
+var g=t.replace(/\s+/g," ").trim();
+if(!g)return t;
+var d=TU_DIEN[g];
+if(d===undefined){
+for(var i=0;i<MAU_DICH.length;i++){
+var m=g.match(MAU_DICH[i][0]);
+if(m){d=g.replace(MAU_DICH[i][0],MAU_DICH[i][1]);break;}
+}
+}
+if(d===undefined){
+if(GOM_THIEU&&/[\u00c0-\u1ef9\u0110\u0111]/.test(g))GOM_THIEU[g]=(GOM_THIEU[g]||0)+1;
+return t;
+}
+var dau=t.match(/^\s*/)[0],cuoi=t.match(/\s*$/)[0];
+return dau+d+cuoi;
+}
+function dichHTML(h){
+if(!dungTiengAnh())return h;
+var r=String(h);
+r=r.replace(/(^|>)([^<>]+)(?=<|$)/g,function(_,truoc,chu){
+return truoc+dichCau(chu);
+});
+r=r.replace(/\b(title|aria-label|data-tip|placeholder|alt)="([^"]*)"/g,function(_,k,v){
+return k+'="'+dichCau(v)+'"';
+});
+return r;
+}
+function D(t){return dungTiengAnh()?dichCau(String(t==null?"":t)):t;}
+function NG(it){return (dungTiengAnh()&&it&&it.en)?it.en:(it?it.vi:"");}
 function el(h){
-var d=document.createElement("div");d.innerHTML=h.trim();
+var d=document.createElement("div");d.innerHTML=dichHTML(h).trim();
 if(d.children.length<2)return d.firstElementChild;
 var f=document.createDocumentFragment();
 while(d.firstChild)f.appendChild(d.firstChild);
@@ -3859,6 +4193,29 @@ var learned=ALL_ITEMS.filter(function(it){var p=rec(it.id);return p&&p.b>=4;}).l
 var seen=ALL_ITEMS.filter(function(it){return rec(it.id);}).length;
 var alpha=modById("alpha");
 var h=el('<div></div>');
+var dai=el('<div class="mondai"></div>');
+MON.forEach(function(m){
+if(!m.nap)return;
+var td=tienDoMon(m.ma),dang=m.ma===mnHome.ma;
+var o=el('<button class="monthe'+(dang?" dang":"")+'">'+
+(dang?'<span class="dau"></span>':'')+
+'<span class="g"></span><span class="n"></span>'+
+'<span class="c"><b></b><span class="ct"></span></span>'+
+'<span class="bar"><i></i></span><span class="s"></span></button>');
+o.style.setProperty("--mm",m.mau);
+o.querySelector(".g").textContent=m.tag;
+o.querySelector(".n").textContent=D(m.ten);
+o.querySelector(".c b").textContent=td?D("Cấp "+td.capSo):D(m.chu);
+o.querySelector(".c .ct").textContent=td?(" · "+D(td.cap.ten)):"";
+o.querySelector(".bar i").style.width=td?(Math.round(td.tile*100)+"%"):"0%";
+o.querySelector(".s").textContent=td?D(td.thuoc+" thuộc · "+td.hoc+"/"+td.tong+" đã gặp"):"";
+o.title=D(m.ten)+" — "+D(m.chu);
+if(!dang)o.onclick=function(){
+prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();datNhanMon();go({n:"home"});
+};
+dai.appendChild(o);
+});
+h.appendChild(dai);
 var hero=el(
 '<section class="hero">'+
 '<div class="h-a">'+
@@ -4493,7 +4850,7 @@ var p=rec(it.id);
 var r=el('<div class="li'+(p&&p.b>=4?" known":"")+'">'+
 '<div class="l"><div class="r1">'+esc(it.ru)+'</div>'+
 (prog.settings.translit?'<div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div>':'<div class="r2">'+esc(it.en)+'</div>')+
-'<div class="r3">'+esc(it.vi)+'</div></div>'+
+'<div class="r3">'+esc(NG(it))+'</div></div>'+
 '<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(){speak(it.ru);};
 lst.appendChild(r);
@@ -4537,12 +4894,12 @@ return {k:"mc",it:it,ask:"Nghe rồi chọn chữ",big:"\u0000loa",cyr:false,sub
 function mcVocab(it,mode,pool){
 var others=pick(pool.filter(function(x){return x.id!==it.id;}),3);
 if(mode==="ru2vi"){
-var o=shuffle([it].concat(others)).map(function(x){return {txt:x.vi,ok:x.id===it.id};});
+var o=shuffle([it].concat(others)).map(function(x){return {txt:NG(x),ok:x.id===it.id};});
 return {k:"mc",it:it,ask:"Nghĩa tiếng Việt là gì?",big:it.ru,cyr:true,sub:prog.settings.translit?it.tr:"",opts:o,optCyr:false,audio:it.ru};
 }
 if(mode==="vi2ru"){
 var o2=shuffle([it].concat(others)).map(function(x){return {txt:x.ru,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:TenMon()+" nói thế nào?",big:it.vi,cyr:false,sub:it.en,opts:o2,optCyr:true,audio:null};
+return {k:"mc",it:it,ask:TenMon()+" nói thế nào?",big:NG(it),cyr:false,sub:it.en,opts:o2,optCyr:true,audio:null};
 }
 if(mode==="ru2en"){
 var ke=pick(pool.filter(function(x){return x.id!==it.id&&x.en!==it.en;}),3);
@@ -4552,14 +4909,14 @@ return {k:"mc",it:it,ask:"Tiếng Anh là gì?",big:it.ru,cyr:true,sub:prog.sett
 if(mode==="en2ru"){
 var kr=pick(pool.filter(function(x){return x.id!==it.id&&x.ru!==it.ru;}),3);
 var or2=shuffle([it].concat(kr)).map(function(x){return {txt:x.ru,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Từ tiếng Anh này, "+tenmon()+" nói thế nào?",big:it.en,cyr:false,sub:it.vi,opts:or2,optCyr:true,audio:null};
+return {k:"mc",it:it,ask:"Từ tiếng Anh này, "+tenmon()+" nói thế nào?",big:it.en,cyr:false,sub:NG(it),opts:or2,optCyr:true,audio:null};
 }
 if(mode==="en2vi"){
-var kv=pick(pool.filter(function(x){return x.id!==it.id&&x.vi!==it.vi;}),3);
-var ov=shuffle([it].concat(kv)).map(function(x){return {txt:x.vi,ok:x.id===it.id};});
+var kv=pick(pool.filter(function(x){return x.id!==it.id&&NG(x)!==NG(it);}),3);
+var ov=shuffle([it].concat(kv)).map(function(x){return {txt:NG(x),ok:x.id===it.id};});
 return {k:"mc",it:it,ask:"Từ tiếng Anh này nghĩa là gì?",big:it.en,cyr:false,sub:"",opts:ov,optCyr:false,audio:null};
 }
-var o3=shuffle([it].concat(others)).map(function(x){return {txt:x.vi,ok:x.id===it.id};});
+var o3=shuffle([it].concat(others)).map(function(x){return {txt:NG(x),ok:x.id===it.id};});
 return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:false,audio:it.ru,auto:true};
 }
 const VOWELS="аеёиоуыэюя";
@@ -4594,7 +4951,7 @@ idxs=shuffle(wrong.concat([si.right]));
 var opts=idxs.map(function(i){
 return {txt:si.plain,html:markAt(si.plain,si.pos[i]),ok:i===si.right};
 });
-return {k:"mc",it:it,ask:"Trọng âm rơi vào đâu?",big:si.plain,cyr:true,sub:it.vi,
+return {k:"mc",it:it,ask:"Trọng âm rơi vào đâu?",big:si.plain,cyr:true,sub:NG(it),
 opts:opts,optCls:"stress",audio:it.ru};
 }
 function dictStep(it){
@@ -4608,8 +4965,8 @@ function typeStep(it){
 if(it.t==="L")return {k:"type",it:it,ask:monNay().viettay?"Gõ chữ cái (thường)":("Gõ từ ví dụ của âm "+it.up),
 big:it.snd==="—"?it.nmv:it.snd,sub:monNay().viettay?it.nm:it.up,answer:it.lo,show:it.up+" "+it.lo};
 if(monNay().goPinyin)
-return {k:"type",it:it,ask:"Gõ pinyin (không cần dấu thanh)",big:it.vi,sub:it.en,answer:it.tr,show:it.ru};
-return {k:"type",it:it,ask:"Gõ bằng "+tenmon(),big:it.vi,sub:it.en,answer:it.ru,show:it.ru};
+return {k:"type",it:it,ask:"Gõ pinyin (không cần dấu thanh)",big:NG(it),sub:it.en,answer:it.tr,show:it.ru};
+return {k:"type",it:it,ask:"Gõ bằng "+tenmon(),big:NG(it),sub:it.en,answer:it.ru,show:it.ru};
 }
 function buildLearn(m,nw){
 var batch=nw.slice(0,6),pool=m.items,steps=[];
@@ -4718,7 +5075,7 @@ var lst=el('<div class="lst"></div>');
 ds.forEach(function(it){
 var r=it.t==="L"
 ? el('<div class="li"><div class="l"><div class="r1">'+esc(it.up+" "+it.lo)+'</div><div class="r2">'+esc(it.nm)+' · âm “'+esc(it.snd)+'”</div><div class="r3">'+esc(it.ex)+' — '+esc(it.exvi)+'</div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>')
-: el('<div class="li"><div class="l"><div class="r1">'+esc(it.ru)+'</div><div class="r2">'+esc(it.tr)+'</div><div class="r3">'+esc(it.vi)+'</div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
+: el('<div class="li"><div class="l"><div class="r1">'+esc(it.ru)+'</div><div class="r2">'+esc(it.tr)+'</div><div class="r3">'+esc(NG(it))+'</div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(){speak(it.t==="L"?it.lo:it.ru);};
 lst.appendChild(r);
 });
@@ -4769,7 +5126,7 @@ return el('<div class="card anim">'+
 '<div class="word">'+esc(it.ru)+'</div>'+
 '<div class="tr">'+esc(it.tr)+'</div>'+
 '<div class="mean-en">'+esc(it.en)+'</div>'+
-'<div class="mean-vi">'+esc(it.vi)+'</div>'+
+'<div class="mean-vi">'+esc(NG(it))+'</div>'+
 '<div class="exrow" style="justify-content:center;border:0;padding-top:10px;margin-top:10px"><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>'+
 '</div>');
 }
@@ -4853,8 +5210,8 @@ return hop;
 function pairStep(items){
 var tu=[],thay={};
 shuffle(items.filter(function(x){return x.t==="V"&&x.ru&&x.vi;})).forEach(function(x){
-if(tu.length>=5||thay[x.vi])return;
-thay[x.vi]=1;tu.push(x);
+if(tu.length>=5||thay[NG(x)])return;
+thay[NG(x)]=1;tu.push(x);
 });
 if(tu.length<4)return null;
 return {k:"pair",tu:tu,it:tu[0]};
@@ -4893,7 +5250,7 @@ function stepPair(st){
 app.appendChild(el('<div class="q anim"><div class="ask">Ghép từ với nghĩa</div></div>'));
 var tiep=el('<button class="btn wide act-stick" style="margin-top:14px" disabled>Còn '+st.tu.length+' cặp</button>');
 app.appendChild(veGhepTu(
-st.tu.map(function(x){return {ru:x.ru,vi:x.vi,it:x};}),
+st.tu.map(function(x){return {ru:x.ru,vi:NG(x),it:x};}),
 function(){
 tiep.disabled=false;tiep.textContent="Tiếp tục";tiep.focus();
 document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
@@ -4951,7 +5308,7 @@ document.onkeydown=null;
 if(st&&st.optCls==="stress"){
 var si=stressInfo(it);
 var fb0=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+
-'Trọng âm ở đây: <b class="cyr">'+(si?markAt(si.plain,si.pos[si.right]):esc(plain(it.ru)))+'</b> — '+esc(it.vi)+'</div>');
+'Trọng âm ở đây: <b class="cyr">'+(si?markAt(si.plain,si.pos[si.right]):esc(plain(it.ru)))+'</b> — '+esc(NG(it))+'</div>');
 app.appendChild(fb0);
 var b0=el('<button class="btn wide act-stick" style="margin-top:10px">Tiếp tục</button>');
 b0.onclick=next;app.appendChild(b0);b0.focus();
@@ -4960,8 +5317,8 @@ return;
 }
 var txt=it.t==="L"
 ? (it.up+" "+it.lo+" — đọc “"+(it.snd==="—"?it.nmv:it.snd)+"”")
-: (plain(it.ru)+" — "+it.vi);
-var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+'<b>'+esc(it.t==="L"?it.up+" "+it.lo:it.ru)+'</b> '+esc(it.t==="L"?("đọc “"+(it.snd==="—"?it.nmv:it.snd)+"”"):("= "+it.vi))+'</div>');
+: (plain(it.ru)+" — "+NG(it));
+var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+'<b>'+esc(it.t==="L"?it.up+" "+it.lo:it.ru)+'</b> '+esc(it.t==="L"?("đọc “"+(it.snd==="—"?it.nmv:it.snd)+"”"):("= "+NG(it)))+'</div>');
 app.appendChild(fb);
 var b=el('<button class="btn wide act-stick" style="margin-top:10px">Tiếp tục</button>');
 b.onclick=next;app.appendChild(b);b.focus();
@@ -5058,7 +5415,7 @@ inp.disabled=true;kb.style.opacity=".4";kb.style.pointerEvents="none";
 var docLen=function(){speak(st.it.t==="L"?(st.it.nm||st.it.lo):st.it.ru);};
 if(ok){tingDung();setTimeout(docLen,380);}else docLen();
 var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Đáp án đúng: ")+'<b>'+esc(st.show)+'</b>'+
-(st.it.t==="V"?' <span style="font-weight:400">— '+esc(st.it.tr)+' — '+esc(st.it.vi)+'</span>':'')+'</div>');
+(st.it.t==="V"?' <span style="font-weight:400">— '+esc(st.it.tr)+' — '+esc(NG(st.it))+'</span>':'')+'</div>');
 app.insertBefore(fb,chk);
 chk.textContent="Tiếp tục";chk.focus();
 };
@@ -5114,7 +5471,7 @@ return el('<div class="card the">'+
 '<div class="lbl">Từ mới</div>'+
 '<div class="word">'+esc(it.ru)+'</div>'+
 '<div class="tr">'+esc(it.tr)+'</div>'+
-'<div class="mean-vi">'+esc(it.vi)+'</div>'+
+'<div class="mean-vi">'+esc(NG(it))+'</div>'+
 '<div class="the-an">'+
 '<div class="mean-en">'+esc(it.en)+'</div>'+
 (giongAnh(it)?'<div class="tipbox" style="margin-top:12px"><b>Nhớ nhanh</b>Đọc lên gần như tiếng Anh “'+esc(giongAnh(it).tu)+'” — khỏi học thuộc lòng.</div>':'')+
@@ -5625,7 +5982,7 @@ var g=giongAnh(it);
 var r=el('<div class="li"><div class="l">'+
 '<div class="r1">'+esc(it.ru)+'</div>'+
 '<div class="r2">'+esc(it.tr)+' ≈ <b>'+esc(g.tu)+'</b> · giống '+Math.round(g.ti*100)+'%</div>'+
-'<div class="r3">'+esc(it.vi)+'</div></div>'+
+'<div class="r3">'+esc(NG(it))+'</div></div>'+
 '<button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(){speak(it.ru);};
 return r;
@@ -5647,9 +6004,9 @@ if(kieu==="doc"){
 var tu=ALL_ITEMS.filter(function(it){return it.t==="V"&&rec(it.id);});
 if(tu.length<8)return ds;
 shuffle(tu).slice(0,NHANH_SO).forEach(function(it){
-var sai=shuffle(tu.filter(function(x){return x.id!==it.id&&x.vi!==it.vi;})).slice(0,3);
-ds.push({it:it,to:it.ru,cyr:true,dap:it.vi,
-opt:shuffle([it.vi].concat(sai.map(function(x){return x.vi;})))});
+var sai=shuffle(tu.filter(function(x){return x.id!==it.id&&NG(x)!==NG(it);})).slice(0,3);
+ds.push({it:it,to:it.ru,cyr:true,dap:NG(it),
+opt:shuffle([NG(it)].concat(sai.map(function(x){return NG(x);})))});
 });
 return ds;
 }
@@ -5715,7 +6072,7 @@ var it=c.it;
 var nhan=ok?"Chính xác.":(hetGio?"Hết giờ.":"Chưa đúng.");
 var noi=it.t==="L"
 ? '<b class="cyr">'+esc(it.up+" "+it.lo)+'</b> đọc “'+esc(it.snd==="—"?it.nmv:it.snd)+'”'
-: '<b class="cyr">'+esc(it.ru)+'</b> '+esc(it.tr)+' — '+esc(it.vi);
+: '<b class="cyr">'+esc(it.ru)+'</b> '+esc(it.tr)+' — '+esc(NG(it));
 var fb=el('<div class="fb '+(ok?"ok":"no")+' nh-fb"><div class="l">'+nhan+' '+noi+'</div>'+
 '<button class="spk" aria-label="Nghe lại">'+ic("loa",19)+'</button></div>');
 return fb;
@@ -5884,7 +6241,7 @@ function veHang(o){
 var it=o.it,m=modById(it.mod),ten=m?m.name:"";
 var r=it.t==="L"
 ? el('<div class="li bam"><div class="l"><div class="r1">'+esc(it.up+" "+it.lo)+'<span class="hw">'+esc(it.up+" "+it.lo)+'</span></div><div class="r2">'+esc(it.nm)+' · âm “'+esc(it.snd)+'”</div><div class="r3">'+esc(it.ex)+' — '+esc(it.exvi)+' <span class="mn">· '+esc(ten)+'</span></div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>')
-: el('<div class="li bam"><div class="l"><div class="r1">'+esc(it.ru)+'</div><div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div><div class="r3">'+esc(it.vi)+' <span class="mn">· '+esc(ten)+'</span></div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
+: el('<div class="li bam"><div class="l"><div class="r1">'+esc(it.ru)+'</div><div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div><div class="r3">'+esc(NG(it))+' <span class="mn">· '+esc(ten)+'</span></div></div><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
 r.querySelector(".spk").onclick=function(e){e.stopPropagation();speak(it.t==="L"?it.ex:it.ru);};
 r.onclick=function(){go({n:"study",one:it.id,from:view});};
 return r;
@@ -6050,7 +6407,7 @@ var c=el('<div class="card" style="text-align:center">'+
 '<div class="lbl">Đọc từ này</div>'+
 '<div class="word cyr">'+esc(it.ru)+'</div>'+
 '<div class="tr">'+esc(it.tr)+'</div>'+
-'<div class="mean-vi">'+esc(it.vi)+'</div>'+
+'<div class="mean-vi">'+esc(NG(it))+'</div>'+
 '<div class="row" style="justify-content:center;margin-top:14px"><button class="btn sm ghost">'+ic("loa",17)+'<span>Nghe mẫu</span></button></div>'+
 '</div>');
 c.querySelector("button").onclick=function(){speak(it.ru);};
@@ -6170,14 +6527,25 @@ var o=el('<button class="mon-o'+(dang?" dang":"")+(san?"":" soan")+'"'+(san?"":"
 '><b></b><span class="t"></span><span class="s"></span></button>');
 o.style.setProperty("--mm",m.mau);
 o.querySelector("b").textContent=m.ban;
-o.querySelector(".t").textContent=m.ten;
-o.querySelector(".s").textContent=san?(dang?"Đang học":m.chu):"Đang soạn nội dung";
+o.querySelector(".t").textContent=D(m.ten);
+o.querySelector(".s").textContent=san?(dang?D("Đang học"):D(m.chu)):D("Đang soạn nội dung");
 if(san&&!dang)o.onclick=function(){
 prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();go({n:"home"});
 };
 mg.appendChild(o);
 });
 mw.appendChild(mg);app.appendChild(mw);
+var nn=el('<div class="set"><div class="l"><div class="n">Ngôn ngữ giao diện</div>'+
+'<div class="d">Chữ trên nút, nhãn và lời giải thích của app. Nghĩa của từ vẫn giữ tiếng Việt khi môn đó chưa có sẵn nghĩa tiếng Anh.</div></div></div>');
+var nnr=el('<div class="row" style="flex:none"></div>');
+[["Tiếng Việt","vi"],["English","en"]].forEach(function(o){
+var cur=(prog.settings.ui||"vi")===o[1];
+var b=el('<button class="btn sm '+(cur?"":"ghost")+'"></button>');
+b.textContent=o[0];
+b.onclick=function(){prog.settings.ui=o[1];touch();datNhanMon();render();};
+nnr.appendChild(b);
+});
+nn.appendChild(nnr);app.appendChild(nn);
 function toggle(name,desc,key){
 var row=el('<div class="set"><div class="l"><div class="n">'+esc(name)+'</div><div class="d">'+esc(desc)+'</div></div>'+
 '<button class="sw" aria-pressed="'+(prog.settings[key]?"true":"false")+'" aria-label="'+esc(name)+'"><i></i></button></div>');
@@ -6220,7 +6588,7 @@ app.appendChild(td);
 if(window.speechSynthesis){
 loadVoices();
 var mn=monNay(),tenM=mn.ten.replace(/^Tiếng /,"");
-var gm=el('<div class="set"><div class="l"><div class="n">Giọng đọc '+esc(mn.ten.toLowerCase())+'</div>'+
+var gm=el('<div class="set"><div class="l"><div class="n">Giọng đọc '+esc(tenmon())+'</div>'+
 '<div class="d">'+(giongRu.length>1
 ? 'Máy bạn có '+giongRu.length+' giọng '+esc(tenM)+'. Bấm một giọng để nghe thử và chọn luôn. Mỗi môn nhớ giọng riêng.'
 : (giongRu.length===1
@@ -6547,7 +6915,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=102"></script>
+<script type="module" src="firebase-sync.js?v=105"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
