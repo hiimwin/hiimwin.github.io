@@ -36,19 +36,23 @@ if (settled) return;
 settled = true;
 resolveReady(value);
 }
-let daHoiKhach = false;
+let daHoiKhach = false, xongHuong = false;
+function moKhachNeuCan() {
+if (daHoiKhach || !xongHuong) return;
+if (auth.currentUser) return;
+daHoiKhach = true;
+signInAnonymously(auth).catch(e => {
+console.warn("[nga] Không bật được tài khoản khách:", e.code || e);
+settle(null);
+});
+}
+setTimeout(() => { xongHuong = true; moKhachNeuCan(); }, 6000);
 onAuthStateChanged(auth, u => {
 const truoc = uid;
 user = u || null;
 uid = u ? u.uid : null;
 if (uid) settle(namespace());
-if (!daHoiKhach) {
-daHoiKhach = true;
-if (!u) signInAnonymously(auth).catch(e => {
-console.warn("[nga] Không bật được tài khoản khách:", e.code || e);
-settle(null);
-});
-}
+if (!u) moKhachNeuCan();
 const laKhach = !!(u && u.isAnonymous);
 if (truoc !== uid && (truoc !== null || !laKhach) && typeof window.CLOUD_CHANGED === "function") {
 window.CLOUD_CHANGED();
@@ -62,8 +66,13 @@ catch (e) { return false; }
 }
 function bao(m) { if (typeof window.CLOUD_FLASH === "function") window.CLOUD_FLASH(m); }
 function doi() { if (typeof window.CLOUD_CHANGED === "function") window.CLOUD_CHANGED(); }
+function loi(code) {
+if (typeof window.CLOUD_LOI === "function") window.CLOUD_LOI(code);
+else bao("Không đăng nhập được" + (code ? " (" + code + ")" : "."));
+}
 getRedirectResult(auth).then(res => {
 const quayVe = layDau();
+xongHuong = true; moKhachNeuCan();
 if (res && res.user) {
 if (quayVe) bao("Đã đăng nhập. Tiến độ từ giờ được đồng bộ.");
 doi();
@@ -71,9 +80,10 @@ return;
 }
 if (quayVe) setTimeout(() => {
 const u = auth.currentUser;
-if (!u || u.isAnonymous) bao("Google báo đăng nhập xong nhưng trình duyệt chặn bước cuối. Tiến độ vẫn được lưu trên máy này như thường.");
-}, 2500);
+if (!u || u.isAnonymous) loi("huong-khong-co-ket-qua");
+}, 2000);
 }).catch(async e => {
+xongHuong = true; moKhachNeuCan();
 layDau();
 const code = (e && e.code) || "";
 if (/already-in-use|credential-already/.test(code)) {
@@ -88,7 +98,7 @@ return;
 }
 }
 console.warn("[nga] đăng nhập chuyển hướng hỏng:", code || e);
-bao("Không đăng nhập được" + (code ? " (" + code + ")" : "."));
+loi(code);
 });
 async function dangNhapGoogle() {
 const provider = new GoogleAuthProvider();
