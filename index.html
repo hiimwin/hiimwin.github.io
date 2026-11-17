@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=105"></script>
+<script src="firebase-config.js?v=106"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -486,6 +486,11 @@ body.hep.rong #app{max-width:1340px}
 .chi-tiet{grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:16px 52px}
 .ct-phai .wsvg{max-width:470px}
 }
+.cv-mon .mondai{margin-bottom:0}
+.cv-mon .monthe{padding:11px 11px 10px;gap:5px}
+.cv-mon .monthe .g{font-size:24px}
+.cv-mon .monthe .n{font-size:13.5px}
+.cv-mon .monthe .s{display:none}
 .mondai{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px}
 .monthe{position:relative;display:flex;flex-direction:column;gap:7px;padding:14px 14px 13px;
 border-radius:var(--r);text-align:left;min-width:0;overflow:hidden;
@@ -2956,6 +2961,7 @@ mau:"#4A8BE8",chu:"Chữ Kirin, 33 ký tự",vd:"Здра́вствуйте",
 trongam:true,hat:true,viettay:true,coAnh:true,goLatin:true,canLatin:true,
 tenChu:"Bảng chữ cái",tenChuT:"bảng chữ cái",donVi:"chữ cái",nhanChu:"Chữ cái",nhanTen:"tên chữ",
 ctaChu:"Bắt đầu từ bảng chữ cái",moTaChu:"33 chữ Кириллица — thuộc mặt chữ và cách đọc trước đã",
+biaAm:"Trọng âm rơi vào âm tiết có dấu nhọn — đặt sai là người Nga nghe không ra.",
 nhanhChu:"Chữ dễ nhầm",nhanhMo:"12 chữ trông y như chữ Latin, một nửa đọc khác hẳn. Mỗi chữ 4,5 giây.",
 nham:null,tag:"Аа",nhan:"Tiếng Nga từ A đến Я",ban3:"Русский язык",
 loTrinh:"Алфавит → Числа → Слова и фразы",
@@ -2965,6 +2971,7 @@ mau:"#3BA862",chu:"Chữ Latin, 44 âm IPA",vd:"Hello",
 trongam:false,hat:false,viettay:false,coAnh:false,goLatin:false,canLatin:false,
 tenChu:"Bảng âm IPA",tenChuT:"bảng âm IPA",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
 ctaChu:"Bắt đầu từ bảng âm",moTaChu:"44 âm IPA — mặt chữ bạn biết rồi, cái khó là đọc đúng âm",
+biaAm:"Dòng trong hai gạch chéo là phiên âm IPA — đọc đúng âm quan trọng hơn đánh vần đúng chữ.",
 nhanhChu:"Âm dễ nhầm",nhanhMo:"Những âm người Việt hay trộn vào nhau: dài/ngắn, thè lưỡi, rung không rung. Mỗi âm 4,5 giây.",
 nham:["iː","ɪ","uː","ʊ","æ","e","ɑː","ʌ","ɜː","ə","θ","ð","s","z","ʃ","ʒ","tʃ","dʒ","r","l","v","ŋ"],
 tag:"æ",nhan:"Tiếng Anh từ âm đến câu",ban3:"English",
@@ -2975,6 +2982,7 @@ mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",
 trongam:false,hat:false,viettay:false,coAnh:true,goLatin:false,goPinyin:true,
 tenChu:"Bảng pinyin",tenChuT:"bảng pinyin",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
 ctaChu:"Bắt đầu từ pinyin",moTaChu:"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa hẳn",
+biaAm:"Dấu thanh trên pinyin quyết định nghĩa — sai thanh là ra một chữ khác hẳn.",
 nhanhChu:"Âm dễ nhầm",nhanhMo:"Bốn thanh, cặp bật hơi và bộ cong lưỡi — những chỗ người Việt hay trộn. Mỗi âm 4,5 giây.",
 nham:["b","p","d","t","g","k","j","q","x","zh","ch","sh","r","z","c","s","ü","an","ang","en","eng","ong","mā","má","mǎ","mà"],
 tag:"中",nhan:"Tiếng Trung từ thanh đến câu",ban3:"中文",
@@ -3971,6 +3979,7 @@ var soChuDe=MODULES.filter(function(m){return m.kind==="V"&&m.id!=="num";}).leng
 var soTu=ALL_ITEMS.filter(function(x){return x.t==="V";}).length;
 var box=el('<section class="cover cov3">'+
 '<div class="cv-col cv-left">'+
+'<div class="cv-mon"></div>'+
 '<div><div class="eyebrow cyr">'+esc(mnBia.ban3)+'</div>'+
 '<h1>'+esc(mnBia.nhan)+'</h1></div>'+
 '<p class="lead" style="margin:0">'+(mnBia.ma==="ru"
@@ -4123,21 +4132,33 @@ stopStrokes(svg);centerArt(svg);
 if(cur&&CURSIVE[cur.lo])animateStrokes(svg,WSPEED[prog.settings.wspeed||"cham"]);
 else flash("Chữ này app chưa dựng được đường nét mẫu.");
 };
+var oMon=box.querySelector(".cv-mon");
+if(oMon)oMon.appendChild(veDaiMon(function(){render();}));
 var than=box.querySelector(".tabbody");
-var MAU=[["приве́т","xin chào"],["спаси́бо","cảm ơn"],["вода́","nước"],["хорошо́","tốt"]];
+var MAU=(function(){
+var ds=[];
+["greet","food","adj","survive"].forEach(function(id){
+var m=modById(id);if(m)ds=ds.concat(m.items);
+});
+if(!ds.length)ds=ALL_ITEMS.filter(function(x){return x.t==="V";});
+var ok=ds.filter(function(x){return x.ru&&plain(x.ru).length<=14&&NG(x)&&NG(x).length<=22;});
+var r=shuffle(ok).slice(0,4).map(function(x){return [x.ru,NG(x)];});
+return r.length>=3?r:[["приве́т","xin chào"],["спаси́бо","cảm ơn"],["вода́","nước"],["хорошо́","tốt"]];
+})();
 function veTab(ten){
 than.innerHTML="";
 than.style.animation="none";void than.offsetWidth;than.style.animation="";
 if(ten==="ghep"){
 var cap=shuffle(MAU).slice(0,3).map(function(c){return {ru:c[0],vi:c[1]};});
 than.appendChild(veGhepTu(cap,function(){
-setTimeout(function(){flash("Đúng hết. Đăng nhập để học tiếp 472 từ.");},350);
+var conLai=ALL_ITEMS.filter(function(x){return x.t==="V";}).length;
+setTimeout(function(){flash("Đúng hết. Đăng nhập để học tiếp "+conLai+" từ.");},350);
 }));
-than.appendChild(el('<div class="cvnote" style="margin-top:10px">Bấm một từ Nga để nghe, rồi bấm nghĩa tiếng Việt tương ứng.</div>'));
+than.appendChild(el('<div class="cvnote" style="margin-top:10px">Bấm một từ bên trái để nghe, rồi bấm nghĩa tương ứng bên phải.</div>'));
 }else if(ten==="am"){
 var c2=MAU[0];
 var w=el('<div class="ctx"><div class="ru">'+esc(c2[0])+'</div>'+
-'<div class="vi">Trọng âm rơi vào âm tiết có dấu nhọn — đặt sai là người Nga nghe không ra.</div>'+
+'<div class="vi">'+esc(monNay().biaAm)+'</div>'+
 '<div class="row" style="margin-top:14px"><button class="btn sm">'+ic("loa",17)+' Nghe</button>'+
 '<button class="btn sm ghost">Đổi từ khác</button></div></div>');
 var i2=0;
@@ -4186,17 +4207,12 @@ var b=abc.querySelector('[data-lo="'+dau.lo+'"]');
 if(b&&b.scrollIntoView)b.scrollIntoView({block:"nearest",inline:"center"});
 },900);
 }
-function renderHome(){
-var mnHome=monNay();
-var due=dueItems(ALL_ITEMS);
-var learned=ALL_ITEMS.filter(function(it){var p=rec(it.id);return p&&p.b>=4;}).length;
-var seen=ALL_ITEMS.filter(function(it){return rec(it.id);}).length;
-var alpha=modById("alpha");
-var h=el('<div></div>');
+function veDaiMon(sauKhiDoi){
+var nay=monNay();
 var dai=el('<div class="mondai"></div>');
 MON.forEach(function(m){
 if(!m.nap)return;
-var td=tienDoMon(m.ma),dang=m.ma===mnHome.ma;
+var td=tienDoMon(m.ma),dang=m.ma===nay.ma;
 var o=el('<button class="monthe'+(dang?" dang":"")+'">'+
 (dang?'<span class="dau"></span>':'')+
 '<span class="g"></span><span class="n"></span>'+
@@ -4211,11 +4227,21 @@ o.querySelector(".bar i").style.width=td?(Math.round(td.tile*100)+"%"):"0%";
 o.querySelector(".s").textContent=td?D(td.thuoc+" thuộc · "+td.hoc+"/"+td.tong+" đã gặp"):"";
 o.title=D(m.ten)+" — "+D(m.chu);
 if(!dang)o.onclick=function(){
-prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();datNhanMon();go({n:"home"});
+prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();datNhanMon();
+if(sauKhiDoi)sauKhiDoi();else go({n:"home"});
 };
 dai.appendChild(o);
 });
-h.appendChild(dai);
+return dai;
+}
+function renderHome(){
+var mnHome=monNay();
+var due=dueItems(ALL_ITEMS);
+var learned=ALL_ITEMS.filter(function(it){var p=rec(it.id);return p&&p.b>=4;}).length;
+var seen=ALL_ITEMS.filter(function(it){return rec(it.id);}).length;
+var alpha=modById("alpha");
+var h=el('<div></div>');
+h.appendChild(veDaiMon());
 var hero=el(
 '<section class="hero">'+
 '<div class="h-a">'+
@@ -6915,7 +6941,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=105"></script>
+<script type="module" src="firebase-sync.js?v=106"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
