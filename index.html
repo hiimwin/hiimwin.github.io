@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=74"></script>
+<script src="firebase-config.js?v=75"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -824,6 +824,7 @@ background:linear-gradient(90deg,var(--accent),var(--deep))}
 .hat-ten{min-height:1.6em}
 .hat-thanh{height:5px;border-radius:var(--r-pill);background:var(--sunken);overflow:hidden;margin:16px 0 4px}
 .hat-thanh i{display:block;height:100%;width:0;border-radius:var(--r-pill);background:var(--accent)}
+.bi{display:inline-flex;align-items:center;flex:none}
 .hat-dk{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
 .hat-nhip{display:flex;gap:3px;background:var(--sunken);border-radius:var(--r-pill);padding:3px;flex:none}
 .hat-nhip button{font-size:14px;padding:8px 14px;min-height:40px;border-radius:var(--r-pill);color:var(--muted)}
@@ -1668,7 +1669,8 @@ nhip:'<path d="M3 12.2h4.2L9.6 6l4.2 12 2.4-5.8H21"/>',
 nhac:'<path d="M9.3 18.1V5.7l9.3-1.9v12.2"/><ellipse cx="6.8" cy="18.3" rx="2.5" ry="2.1"/><ellipse cx="16.1" cy="16" rx="2.5" ry="2.1"/>',
 ra:'<path d="M9.5 3.5h-3a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3"/><path d="M15.5 8.5 19 12l-3.5 3.5"/><path d="M19 12h-9"/>',
 but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 10.6"/>',
-len:'<path d="M12 18.8V5.8"/><path d="M6.2 11.6 12 5.8l5.8 5.8"/>'
+len:'<path d="M12 18.8V5.8"/><path d="M6.2 11.6 12 5.8l5.8 5.8"/>',
+dunglai:'<rect x="7" y="5.4" width="3.4" height="13.2" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.6" y="5.4" width="3.4" height="13.2" rx="1.2" fill="currentColor" stroke="none"/>'
 };
 function ic(n,sz){
 return '<svg class="ic-svg" viewBox="0 0 24 24" width="'+(sz||20)+'" height="'+(sz||20)+'" fill="none" '+
@@ -3516,8 +3518,12 @@ var oNow=card.querySelector(".hat-now"),oTen=card.querySelector(".hat-ten");
 var thanh=el('<div class="hat-thanh"><i></i></div>');app.appendChild(thanh);
 var oThanh=thanh.querySelector("i");
 var dk=el('<div class="hat-dk"></div>');
-var bPlay=el('<button class="btn" style="flex:1 1 150px">'+ic("choi",18)+'<span>Hát</span></button>');
-var nhanPlay=bPlay.querySelector("span");
+var bPlay=el('<button class="btn" style="flex:1 1 150px"><span class="bi">'+ic("choi",18)+'</span><span>Hát</span></button>');
+var icPlay=bPlay.querySelector(".bi"),nhanPlay=bPlay.querySelectorAll("span")[1];
+function datNut(dangHat,nhan){
+icPlay.innerHTML=ic(dangHat?"dunglai":"choi",18);
+nhanPlay.textContent=nhan;
+}
 dk.appendChild(bPlay);
 var nhip=el('<div class="hat-nhip"></div>');
 HAT_NHIP.forEach(function(n){
@@ -3578,7 +3584,7 @@ oNow.classList.remove("dap");void oNow.offsetWidth;oNow.classList.add("dap");
 }
 function xong(){
 NHAC.dang=false;
-nhanPlay.textContent="Hát lại";
+datNut(false,"Hát lại");
 oThanh.style.width="100%";
 for(var x=0;x<o.length;x++){o[x].classList.remove("nay");o[x].classList.add("qua");}
 oTen.textContent="Xong một lượt — đủ 33 chữ, đúng thứ tự.";
@@ -3633,7 +3639,7 @@ NHAC.henGiong();
 if(window.speechSynthesis)NHAC.giuSong=setInterval(function(){
 try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.resume();}catch(e){}
 },7000);
-nhanPlay.textContent="Dừng";
+datNut(true,"Dừng");
 (function chay(){
 if(!NHAC.dang)return;
 var tl=Math.max(0,Math.min(1,(ac.currentTime-t0)/cv.tong));
@@ -3642,7 +3648,7 @@ NHAC.raf=requestAnimationFrame(chay);
 })();
 }
 bPlay.onclick=function(){
-if(NHAC.dang){dungHat();nhanPlay.textContent="Hát tiếp";oTen.textContent="Đã dừng.";return;}
+if(NHAC.dang){dungHat();datNut(false,"Hát tiếp");oTen.textContent="Đã dừng.";return;}
 batDau();
 };
 document.onkeydown=function(e){
@@ -4290,7 +4296,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=74"></script>
+<script type="module" src="firebase-sync.js?v=75"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
