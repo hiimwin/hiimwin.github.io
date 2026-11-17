@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=99"></script>
+<script src="firebase-config.js?v=100"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -485,6 +485,26 @@ body.rong .lst.doi .li+.li{border-top:1px solid var(--line)}
 body.hep.rong #app{max-width:1340px}
 .chi-tiet{grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:16px 52px}
 .ct-phai .wsvg{max-width:470px}
+}
+.set.col{flex-direction:column;align-items:stretch;gap:14px}
+.mon-ds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mon-o{display:flex;flex-direction:column;align-items:flex-start;gap:3px;
+padding:14px 14px 13px;border-radius:var(--r-sm);text-align:left;min-width:0;
+background:var(--sunken);box-shadow:inset 0 0 0 1px var(--line);
+transition:transform .15s,box-shadow .2s,background .2s}
+.mon-o b{font-family:var(--f-cyr);font-size:21px;font-weight:600;line-height:1.15;
+color:var(--mm);letter-spacing:-.01em}
+.mon-o .t{font-size:14.5px;font-weight:600;color:var(--ink)}
+.mon-o .s{font-size:12.5px;color:var(--muted);line-height:1.35}
+.mon-o:not(.soan):hover{transform:translateY(-1px);background:var(--surface);
+box-shadow:inset 0 0 0 1px var(--mm),var(--sh)}
+.mon-o.dang{background:var(--surface);box-shadow:inset 0 0 0 2px var(--mm),var(--sh)}
+.mon-o.dang .s{color:var(--mm);font-weight:600}
+.mon-o.soan{opacity:.5;cursor:default}
+@media(max-width:520px){
+.mon-ds{grid-template-columns:1fr}
+.mon-o{flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap}
+.mon-o .s{flex:1 0 100%}
 }
 .doc-khung{margin-top:4px}
 .mic{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;
@@ -1388,7 +1408,7 @@ const TOPICS=[
 ["наро́д","naród","people, nation","nhân dân"],["страна́","straná","country","đất nước"]
 ]}
 ];
-const GRAMMAR=[
+const NGU_PHAP_RU=[
 {id:"g1",ten:"Ba điều đổi cách bạn đọc mọi câu",mo:"Chưa nắm ba điều này thì câu tiếng Nga nào cũng thấy lạ.",muc:[
 {loi:1,t:"Không có “a / the”, và bỏ luôn “là”",
 d:"Tiếng Nga không có mạo từ. Ở thì hiện tại cũng không nói “là” — chủ ngữ đứng cạnh vị ngữ là thành câu. Đừng đi tìm chữ “là” để dịch.",
@@ -1473,20 +1493,74 @@ d:"ты dùng với bạn bè, người thân, trẻ con. вы dùng với ngư�
 vd:[["Как ты?","Bạn khoẻ không? — thân mật"],["Как вы пожива́ете?","Anh/chị khoẻ không? — lịch sự"]]}
 ]}
 ];
-const MODULES=[];
-MODULES.push({id:"alpha",kind:"L",name:"Bảng chữ cái",ru:"Алфавит",items:LETTERS.map(function(a,i){
+const CAP_RU=[
+{ten:"Mới bắt đầu",ban:"Новичок",can:0,hh:"Н",mau:"#6E93D6"},
+{ten:"Thuộc mặt chữ",ban:"Алфавит",can:20,hh:"А",mau:"#4A8BE8"},
+{ten:"Biết đếm",ban:"Числа",can:45,hh:"Ч",mau:"#1FADA4"},
+{ten:"Chào hỏi được",ban:"Приветствие",can:80,hh:"П",mau:"#3BA862"},
+{ten:"Đủ sống sót",ban:"Выживание",can:130,hh:"В",mau:"#C79A1E"},
+{ten:"Nói chuyện thường ngày",ban:"Беседа",can:200,hh:"Б",mau:"#E08534"},
+{ten:"Khá vững",ban:"Уверенно",can:290,hh:"У",mau:"#DC5A50"},
+{ten:"Thạo",ban:"Свободно",can:400,hh:"С",mau:"#A855C9"},
+{ten:"Hết kho từ",ban:"Мастер",can:520,hh:"М",mau:"#7355E4"}
+];
+function napMonNga(){
+var ms=[];
+ms.push({id:"alpha",kind:"L",name:"Bảng chữ cái",ru:"Алфавит",items:LETTERS.map(function(a,i){
 return {id:"alpha:"+i,t:"L",up:a[0],lo:a[1],nm:a[2],nmv:a[3],snd:a[4],tip:a[5],ex:a[6],extr:a[7],exen:a[8],exvi:a[9]};
 })});
-MODULES.push({id:"num",kind:"V",name:"Số đếm",ru:"Числа",items:NUMBERS.map(function(a,i){
+ms.push({id:"num",kind:"V",name:"Số đếm",ru:"Числа",items:NUMBERS.map(function(a,i){
 return {id:"num:"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 })});
 TOPICS.forEach(function(t){
-MODULES.push({id:t.id,kind:"V",name:t.name,ru:t.ru,items:t.items.map(function(a,i){
+ms.push({id:t.id,kind:"V",name:t.name,ru:t.ru,items:t.items.map(function(a,i){
 return {id:t.id+":"+i,t:"V",ru:a[0],tr:a[1],en:a[2],vi:a[3]};
 })});
 });
-const ALL_ITEMS=[];const BY_ID={};
-MODULES.forEach(function(m){m.items.forEach(function(it){it.mod=m.id;ALL_ITEMS.push(it);BY_ID[it.id]=it;});});
+return {mods:ms,np:NGU_PHAP_RU,cap:CAP_RU};
+}
+const MON=[
+{ma:"ru",ten:"Tiếng Nga",ban:"Русский",hh:"Р",bcp:"ru-RU",enTen:"Russian",
+mau:"#4A8BE8",chu:"Chữ Kirin, 33 ký tự",vd:"Здра́вствуйте",trongam:true,nap:napMonNga},
+{ma:"en",ten:"Tiếng Anh",ban:"English",hh:"E",bcp:"en-US",enTen:"English",
+mau:"#3BA862",chu:"Chữ Latin, phiên âm IPA",vd:"Hello",trongam:true,nap:null},
+{ma:"zh",ten:"Tiếng Trung",ban:"中文",hh:"中",bcp:"zh-CN",enTen:"Chinese",
+mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",trongam:false,nap:null}
+];
+function monTheoMa(ma){for(var i=0;i<MON.length;i++)if(MON[i].ma===ma)return MON[i];return null;}
+function monNay(){
+var ma="";
+try{ma=(prog&&prog.settings&&prog.settings.mon)||"";}catch(e){}
+var m=monTheoMa(ma);
+return (m&&m.nap)?m:MON[0];
+}
+const MODULES=[];const ALL_ITEMS=[];const BY_ID={};const GRAMMAR=[];const CAP=[];
+var monDangDung="";
+function dungMon(ma){
+var m=monTheoMa(ma);
+if(!m||!m.nap)m=MON[0];
+if(monDangDung===m.ma)return m;
+var d=m.nap(),pre=m.ma==="ru"?"":m.ma+".";
+MODULES.length=0;ALL_ITEMS.length=0;GRAMMAR.length=0;CAP.length=0;
+Object.keys(BY_ID).forEach(function(k){delete BY_ID[k];});
+d.mods.forEach(function(mo){
+mo.id=pre+mo.id;mo.mon=m.ma;
+mo.items.forEach(function(it){it.id=pre+it.id;it.mod=mo.id;ALL_ITEMS.push(it);BY_ID[it.id]=it;});
+MODULES.push(mo);
+});
+(d.np||[]).forEach(function(x){GRAMMAR.push(x);});
+(d.cap||[]).forEach(function(x){CAP.push(x);});
+monDangDung=m.ma;
+return m;
+}
+dungMon("ru");
+function dongBoMon(){
+var ma=(prog&&prog.settings&&prog.settings.mon)||"ru";
+if(ma===monDangDung)return false;
+dungMon(ma);
+try{loadVoices();}catch(e){}
+return true;
+}
 function modById(id){for(var i=0;i<MODULES.length;i++)if(MODULES[i].id===id)return MODULES[i];return null;}
 const LS_KEY="rus-az-v1";
 const INTERVALS=[0,1,2,4,8,16,32,64];
@@ -1549,7 +1623,7 @@ if(snap&&snap.exists){
 var remote=snap.data();
 if(remote&&remote.items){
 var merged=mergeProg(prog,remote);
-if(merged!==prog){prog=normProg(merged);saveLocal();render();}
+if(merged!==prog){prog=normProg(merged);dongBoMon();saveLocal();render();}
 }
 }
 }catch(e){}
@@ -1563,7 +1637,11 @@ if(v&&typeof v==="object")clean[k]={b:+v.b||0,due:+v.due||0,c:+v.c||0,w:+v.w||0,
 });
 p.items=clean;
 p.stats=Object.assign({streak:0,last:"",hist:{}},p.stats||{});
-p.settings=Object.assign({unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham"},p.settings||{});
+p.settings=Object.assign({unlockAll:false,translit:true,latinType:true,anh:true,rate:.85,wspeed:"cham",mon:"ru"},p.settings||{});
+var mm=monTheoMa(p.settings.mon);
+if(!mm||!mm.nap)p.settings.mon="ru";
+if(typeof p.settings.giong==="string")p.settings.giong=p.settings.giong?{ru:p.settings.giong}:{};
+if(!p.settings.giong||typeof p.settings.giong!=="object")p.settings.giong={};
 p.v=p.v||0;return p;
 }
 function rec(id){return prog.items[id]||null;}
@@ -1598,19 +1676,8 @@ prog.stats.last=k;
 }
 touch();
 }
-const CAP=[
-{ten:"Mới bắt đầu",ru:"Новичок",can:0,hh:"Н",mau:"#6E93D6"},
-{ten:"Thuộc mặt chữ",ru:"Алфавит",can:20,hh:"А",mau:"#4A8BE8"},
-{ten:"Biết đếm",ru:"Числа",can:45,hh:"Ч",mau:"#1FADA4"},
-{ten:"Chào hỏi được",ru:"Приветствие",can:80,hh:"П",mau:"#3BA862"},
-{ten:"Đủ sống sót",ru:"Выживание",can:130,hh:"В",mau:"#C79A1E"},
-{ten:"Nói chuyện thường ngày",ru:"Беседа",can:200,hh:"Б",mau:"#E08534"},
-{ten:"Khá vững",ru:"Уверенно",can:290,hh:"У",mau:"#DC5A50"},
-{ten:"Thạo",ru:"Свободно",can:400,hh:"С",mau:"#A855C9"},
-{ten:"Hết kho từ",ru:"Мастер",can:520,hh:"М",mau:"#7355E4"}
-];
 function veHuy(c,trangThai){
-var h=el('<span class="huy '+trangThai+'" title="'+esc(c.ten+" · "+c.ru)+'"><b class="cyr"></b></span>');
+var h=el('<span class="huy '+trangThai+'" title="'+esc(c.ten+" · "+c.ban)+'"><b class="cyr"></b></span>');
 h.style.setProperty("--hm",c.mau);
 h.querySelector("b").textContent=c.hh;
 return h;
@@ -1647,7 +1714,7 @@ var c=capDo(),box=el('<div class="tiendo"></div>');
 var dong=el('<div class="td-cap"></div>');
 dong.appendChild(veHuy(c.cap,"dat nay"));
 dong.appendChild(el('<div class="td-ten"><b>'+esc(c.cap.ten)+'</b>'+
-'<span>Cấp '+c.so+' · <i class="cyr">'+esc(c.cap.ru)+'</i></span></div>'));
+'<span>Cấp '+c.so+' · <i class="cyr">'+esc(c.cap.ban)+'</i></span></div>'));
 box.appendChild(dong);
 box.appendChild(el('<div class="td-bar"><i style="width:'+Math.round(c.tile*100)+'%"></i></div>'));
 box.appendChild(el('<div class="td-note">'+(c.sau
@@ -1724,7 +1791,7 @@ if(daMoiGiong||!window.speechSynthesis)return;
 daMoiGiong=true;
 try{
 var m=new SpeechSynthesisUtterance("\u00a0");
-m.volume=0;m.rate=2;m.lang="ru-RU";
+m.volume=0;m.rate=2;m.lang=monNay().bcp;
 speechSynthesis.speak(m);
 }catch(e){}
 }
@@ -1732,9 +1799,10 @@ addEventListener("pointerdown",moiGiongDoc,{once:true,capture:true});
 addEventListener("keydown",moiGiongDoc,{once:true,capture:true});
 function loadVoices(){
 try{voices=window.speechSynthesis?speechSynthesis.getVoices()||[]:[];}catch(e){voices=[];}
-giongRu=voices.filter(function(v){return /^ru/i.test(v.lang||"");});
+var ma=monNay().ma,tien=new RegExp("^"+ma,"i");
+giongRu=voices.filter(function(v){return tien.test(v.lang||"");});
 var chon="";
-try{chon=(prog&&prog.settings&&prog.settings.giong)||"";}catch(e){}
+try{chon=(prog&&prog.settings&&prog.settings.giong&&prog.settings.giong[ma])||"";}catch(e){}
 ruV=null;
 if(chon){
 for(var i=0;i<giongRu.length;i++){
@@ -1746,7 +1814,7 @@ if(!ruV)ruV=giongRu[0]||null;
 function tenGiong(v){
 var t=String((v&&v.name)||"")
 .replace(/^(Microsoft|Google|Apple)\s+/i,"")
-.replace(/\s*[-\u2013]\s*Russian.*$/i,"")
+.replace(new RegExp("\\s*[-\\u2013]\\s*"+monNay().enTen+".*$","i"),"")
 .replace(/\([^)]*\)/g,"")
 .replace(/\s+/g," ").trim();
 return t||(v&&v.name)||"Giọng";
@@ -1766,13 +1834,13 @@ try{
 if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();
 if(speechSynthesis.paused)speechSynthesis.resume();
 var u=new SpeechSynthesisUtterance(plain(text));
-u.lang="ru-RU";if(ruV)u.voice=ruV;
+u.lang=monNay().bcp;if(ruV)u.voice=ruV;
 u.rate=prog.settings.rate||.85;
 if(!daMoiGiong){
 daMoiGiong=true;
 try{
 var moi=new SpeechSynthesisUtterance("\u00a0");
-moi.volume=0;moi.rate=2;moi.lang="ru-RU";if(ruV)moi.voice=ruV;
+moi.volume=0;moi.rate=2;moi.lang=monNay().bcp;if(ruV)moi.voice=ruV;
 speechSynthesis.speak(moi);
 }catch(e){}
 }
@@ -1781,7 +1849,7 @@ setTimeout(function(){
 try{
 if(speechSynthesis.speaking||speechSynthesis.pending)return;
 var u2=new SpeechSynthesisUtterance(plain(text));
-u2.lang="ru-RU";u2.rate=prog.settings.rate||.85;
+u2.lang=monNay().bcp;u2.rate=prog.settings.rate||.85;
 speechSynthesis.speak(u2);
 setTimeout(function(){
 if(!speechSynthesis.speaking&&!speechSynthesis.pending)warnCongTacTat();
@@ -4529,7 +4597,7 @@ mic.onclick=function(){
 if(dangNghe){try{r.stop();}catch(e){}return;}
 kq.innerHTML="";
 try{r=new SR();}catch(e){kq.appendChild(el('<div class="fb no">Không mở được micrô.</div>'));return;}
-r.lang="ru-RU";r.interimResults=false;r.maxAlternatives=5;
+r.lang=monNay().bcp;r.interimResults=false;r.maxAlternatives=5;
 dangNghe=true;mic.classList.add("nghe");mic.querySelector("b").textContent="Đang nghe… bấm để dừng";
 r.onresult=function(e){
 var ds=[],res=e.results[0];
@@ -4616,6 +4684,24 @@ function renderSet(){
 var back=el('<button class="back">← Lộ trình</button>');back.onclick=function(){go({n:"home"});};
 app.appendChild(back);
 app.appendChild(el('<h1 style="margin-bottom:14px">Cài đặt</h1>'));
+var mNay=monNay();
+var mw=el('<div class="set col"><div class="l" style="width:100%"><div class="n">Môn đang học</div>'+
+'<div class="d">Mỗi thứ tiếng có kho từ, bảng chữ cái, ngữ pháp và lịch nhắc lại riêng. Đổi môn không đụng gì tới tiến độ của môn kia.</div></div></div>');
+var mg=el('<div class="mon-ds"></div>');
+MON.forEach(function(m){
+var dang=m.ma===mNay.ma,san=!!m.nap;
+var o=el('<button class="mon-o'+(dang?" dang":"")+(san?"":" soan")+'"'+(san?"":" disabled")+
+'><b></b><span class="t"></span><span class="s"></span></button>');
+o.style.setProperty("--mm",m.mau);
+o.querySelector("b").textContent=m.ban;
+o.querySelector(".t").textContent=m.ten;
+o.querySelector(".s").textContent=san?(dang?"Đang học":m.chu):"Đang soạn nội dung";
+if(san&&!dang)o.onclick=function(){
+prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();go({n:"home"});
+};
+mg.appendChild(o);
+});
+mw.appendChild(mg);app.appendChild(mw);
 function toggle(name,desc,key){
 var row=el('<div class="set"><div class="l"><div class="n">'+esc(name)+'</div><div class="d">'+esc(desc)+'</div></div>'+
 '<button class="sw" aria-pressed="'+(prog.settings[key]?"true":"false")+'" aria-label="'+esc(name)+'"><i></i></button></div>');
@@ -4656,23 +4742,25 @@ td.querySelector(".act").appendChild(tdb);
 app.appendChild(td);
 if(window.speechSynthesis){
 loadVoices();
-var gm=el('<div class="set"><div class="l"><div class="n">Giọng đọc</div>'+
+var mn=monNay(),tenM=mn.ten.replace(/^Tiếng /,"");
+var gm=el('<div class="set"><div class="l"><div class="n">Giọng đọc '+esc(mn.ten.toLowerCase())+'</div>'+
 '<div class="d">'+(giongRu.length>1
-? 'Máy bạn có '+giongRu.length+' giọng Nga. Bấm một giọng để nghe thử và chọn luôn.'
+? 'Máy bạn có '+giongRu.length+' giọng '+esc(tenM)+'. Bấm một giọng để nghe thử và chọn luôn. Mỗi môn nhớ giọng riêng.'
 : (giongRu.length===1
-? 'Máy bạn có một giọng Nga: <b>'+esc(tenGiong(giongRu[0]))+'</b>. Cài thêm giọng trong phần Ngôn ngữ của hệ điều hành thì ở đây sẽ có nhiều lựa chọn hơn.'
-: 'Máy bạn chưa có giọng tiếng Nga nào nên app không đọc được. Thêm gói giọng nói tiếng Nga trong phần Ngôn ngữ của hệ điều hành rồi mở lại app.'))+
+? 'Máy bạn có một giọng '+esc(tenM)+': <b>'+esc(tenGiong(giongRu[0]))+'</b>. Cài thêm giọng trong phần Ngôn ngữ của hệ điều hành thì ở đây sẽ có nhiều lựa chọn hơn.'
+: 'Máy bạn chưa có giọng '+esc(tenM)+' nào nên app không đọc được. Thêm gói giọng nói '+esc(mn.ten.toLowerCase())+' trong phần Ngôn ngữ của hệ điều hành rồi mở lại app.'))+
 '</div></div></div>');
 if(giongRu.length){
 var gr=el('<div class="row" style="flex:none;flex-wrap:wrap;justify-content:flex-end;max-width:100%"></div>');
-var dangChon=prog.settings.giong||"";
+var dangChon=(prog.settings.giong&&prog.settings.giong[mn.ma])||"";
 var ds=[{t:"Tự động",v:""}].concat(giongRu.map(function(v){return {t:tenGiong(v),v:v.voiceURI||v.name};}));
 ds.forEach(function(o){
 var b=el('<button class="btn sm '+(dangChon===o.v?"":"ghost")+'"></button>');
 b.textContent=o.t;
 b.onclick=function(){
-prog.settings.giong=o.v;touch();loadVoices();render();
-speak("Здра́вствуйте");
+if(!prog.settings.giong||typeof prog.settings.giong!=="object")prog.settings.giong={};
+prog.settings.giong[mn.ma]=o.v;touch();loadVoices();render();
+speak(mn.vd);
 };
 gr.appendChild(b);
 });
@@ -4869,7 +4957,7 @@ function nhanGoiTienDo(){
 if(location.hash.indexOf("#mang=")!==0)return;
 try{
 var goi=JSON.parse(decodeURIComponent(location.hash.slice(6)));
-if(goi&&goi.items)prog=normProg(mergeProg(prog,goi));
+if(goi&&goi.items){prog=normProg(mergeProg(prog,goi));dongBoMon();}
 saveLocal();
 }catch(e){}
 try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}
@@ -4964,6 +5052,7 @@ n.innerHTML='<span><b>'+chu+'</b> chữ cái Кириллица</span>'+
 '<span>chữ viết tay có chấm điểm</span>';
 })();
 prog=normProg(loadLocal()||prog);
+dongBoMon();
 nhanGoiTienDo();
 if(donNha()){}else{
 render();
@@ -4980,7 +5069,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=99"></script>
+<script type="module" src="firebase-sync.js?v=100"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
