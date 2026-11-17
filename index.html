@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=110"></script>
+<script src="firebase-config.js?v=111"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1145,6 +1145,7 @@ font-weight:600;font-size:14.5px;line-height:1.2;transition:transform .12s,box-s
       <button class="icb tip" id="nav-out" data-tip="Đăng xuất" aria-label="Đăng xuất" hidden><i data-ic="ra"></i><b>Đăng xuất</b></button>
       <button class="icb tip napcap" id="nav-cap" data-tip="Tiến độ" aria-label="Tiến độ"></button>
       <button class="icb tip" id="nav-song" data-tip="Bài hát bảng chữ cái" aria-label="Bài hát bảng chữ cái"><i data-ic="nhac"></i><b>Bài hát</b></button>
+      <button class="icb tip" id="nav-bia" data-tip="Trang giới thiệu" aria-label="Trang giới thiệu"><i data-ic="sao"></i><b>Giới thiệu</b></button>
       <button class="icb tip" id="nav-gram" data-tip="Ngữ pháp" aria-label="Ngữ pháp"><i data-ic="sach"></i><b>Ngữ pháp</b></button>
       <button class="icb tip" id="nav-browse" data-tip="Tra cứu" aria-label="Tra cứu"><i data-ic="tim"></i><b>Tra cứu</b></button>
       <button class="icb tip" id="nav-set" data-tip="Cài đặt" aria-label="Cài đặt"><i data-ic="caidat"></i><b>Cài đặt</b></button>
@@ -3898,8 +3899,9 @@ app.classList.remove("swap");void app.offsetWidth;app.classList.add("swap");
 }
 laVeDau=false;
 document.body.classList.remove("cover-on");
-var bia=canDangNhap();
-if(bia)view={n:"home"};
+var biaTuDong=canDangNhap();
+var bia=biaTuDong||view.n==="bia";
+if(biaTuDong)view={n:"home"};
 document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song","nhanh","anhnga","tiendo","doc"].indexOf(view.n)>=0);
 document.body.classList.remove("rong");
 document.body.classList.remove("vua");
@@ -3941,6 +3943,7 @@ loa:'<path d="M4 9.4v5.2h3.3L12 18.6V5.4L7.3 9.4z"/><path d="M15.6 9.1a4 4 0 0 1
 khoa:'<rect x="4.6" y="10.4" width="14.8" height="9.6" rx="2.5"/><path d="M8.1 10.4V7.7a3.9 3.9 0 0 1 7.8 0v2.7"/>',
 maybay:'<path d="M21.3 2.7 2.9 9.9c-.8.3-.8 1.5.1 1.7l6.2 1.9 1.9 6.2c.3.9 1.5.9 1.8.1l7.2-18.4c.2-.6-.3-1.1-.8-.7z" fill="currentColor" stroke="none"/>',
 choi:'<path d="M8.2 5.4v13.2L19 12z" fill="currentColor" stroke="none"/>',
+sao:'<path d="M12 3.2 14.1 9l5.9 2.1-5.9 2.1L12 19l-2.1-5.8L4 11.1 9.9 9z" stroke-linejoin="round"/>',
 trai:'<path d="M14.6 5.8 8.8 12l5.8 6.2"/>',
 phai:'<path d="M9.4 5.8 15.2 12l-5.8 6.2"/>',
 caidat:'<path d="M3.6 7.4h8.2M16.6 7.4h3.8M3.6 16.6h5.2M13.6 16.6h6.8"/><circle cx="14.2" cy="7.4" r="2.4"/><circle cx="11.2" cy="16.6" r="2.4"/>',
@@ -4344,10 +4347,16 @@ veTab(t.getAttribute("data-tab"));
 };
 });
 setTimeout(function(){veTab("ghep");},200);
+if(canDangNhap()){
 box.querySelector(".cv-cta").appendChild(googleBtn("Đăng nhập với Google"));
 var vao=el('<button class="btn sm ghost wide">Vào học luôn, chưa cần đăng nhập</button>');
 vao.onclick=function(){boQuaBia();go({n:"home"});};
 box.querySelector(".cv-cta").appendChild(vao);
+}else{
+var vaoHoc=el('<button class="btn wide">'+ic("choi",18)+'<span>Vào học</span></button>');
+vaoHoc.onclick=function(){go({n:"home"});};
+box.querySelector(".cv-cta").appendChild(vaoHoc);
+}
 app.appendChild(box);
 var pc=Math.round(thuoc/33*100);
 setTimeout(function(){
@@ -6973,6 +6982,7 @@ x.innerHTML=ic(x.getAttribute("data-ic"),19);
 document.getElementById("nav-home").onclick=function(){go({n:"home"});};
 document.getElementById("nav-acct").onclick=function(){go({n:"set"});};
 document.getElementById("nav-song").onclick=function(){go({n:"song"});};
+document.getElementById("nav-bia").onclick=function(){go({n:"bia"});};
 document.getElementById("nav-gram").onclick=function(){go({n:"gram"});};
 document.getElementById("nav-browse").onclick=function(){go({n:"browse"});};
 document.getElementById("nav-set").onclick=function(){go({n:"set"});};
@@ -7103,7 +7113,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=110"></script>
+<script type="module" src="firebase-sync.js?v=111"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
