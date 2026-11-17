@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=109"></script>
+<script src="firebase-config.js?v=110"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -343,6 +343,10 @@ padding:4px 9px;border-radius:var(--r-pill);background:var(--accent-soft);color:
 .set{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh),inset 0 0 0 1px var(--line-soft);padding:15px 16px;margin-bottom:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .set .l{flex:1 1 200px;min-width:0}
 .set .act{flex:none;margin-left:auto}
+@media(max-width:420px){
+.set>.row{flex:1 1 100%!important;min-width:0;justify-content:flex-start}
+.set>.row>.btn{flex:0 1 auto;min-width:0}
+}
 @media(max-width:560px){
 .set .act{flex:1 0 100%;margin-left:0}
 .set .act>.gbtn,.set .act>.btn{width:100%;justify-content:center}
@@ -395,7 +399,7 @@ font-family:var(--f-head);font-weight:700;font-size:21px;font-variant-numeric:ta
 .more summary:hover{color:var(--ink)}
 @keyframes cvUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes cvPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
-.cover{text-align:center;padding-block:6px 10px;position:relative}
+.cover{text-align:center;padding-block:6px 10px;position:relative;overflow-x:clip}
 .cover>*{animation:cvUp .6s cubic-bezier(.22,1,.36,1) both}
 .cover .eyebrow{animation-delay:.04s}
 .cover h1{font-size:40px;margin:10px 0 0;animation-delay:.12s}
@@ -495,13 +499,13 @@ body.hep.rong #app{max-width:1340px}
 .the-chong .lop{position:absolute;inset:0;border-radius:30px;pointer-events:none;z-index:-1;
 background:var(--surface);box-shadow:inset 0 0 0 1px var(--line-soft),var(--sh);
 transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s}
-.the-chong .lop1{transform:rotate(-4.6deg) translate(-15px,9px);opacity:.92}
-.the-chong .lop2{transform:rotate(6.2deg) translate(18px,16px);opacity:.6}
+.the-chong .lop1{transform:rotate(-4.6deg) scale(.955) translate(-15px,9px);opacity:.92}
+.the-chong .lop2{transform:rotate(6.2deg) scale(.93) translate(18px,16px);opacity:.6}
 .the-chong>.canvas{position:relative;z-index:1;
 transform:rotate(-1.4deg);transition:transform .45s cubic-bezier(.22,1,.36,1)}
 .the-chong:hover>.canvas,.the-chong:focus-within>.canvas{transform:none}
-.the-chong:hover .lop1{transform:rotate(-5.6deg) translate(-15px,10px);opacity:.8}
-.the-chong:hover .lop2{transform:rotate(6.8deg) translate(18px,17px);opacity:.5}
+.the-chong:hover .lop1{transform:rotate(-5.6deg) scale(.95) translate(-18px,11px);opacity:.86}
+.the-chong:hover .lop2{transform:rotate(7.2deg) scale(.925) translate(22px,18px);opacity:.55}
 .lap{--s:1;position:absolute;pointer-events:none;z-index:0;
 clip-path:polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
 animation:nhapNhay 3.6s ease-in-out infinite}
@@ -513,8 +517,8 @@ body.nhe .lap{display:none}
 @media(prefers-reduced-motion:reduce){.lap{animation:none;opacity:.45}}
 @media(max-width:620px){
 .the-chong{margin:4px 9px 13px}
-.the-chong .lop1{transform:rotate(-3deg) translate(-7px,5px)}
-.the-chong .lop2{transform:rotate(3.8deg) translate(8px,9px)}
+.the-chong .lop1{transform:rotate(-3deg) scale(.96) translate(-7px,5px)}
+.the-chong .lop2{transform:rotate(3.8deg) scale(.94) translate(8px,9px)}
 .the-chong>.canvas{transform:rotate(-1deg)}
 .lap{--s:.6}
 }
@@ -7099,7 +7103,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=109"></script>
+<script type="module" src="firebase-sync.js?v=110"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
