@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=97"></script>
+<script src="firebase-config.js?v=98"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1947,6 +1947,7 @@ but:'<path d="M15.6 4.2 19.8 8.4 8.6 19.6l-5 .8.8-5z"/><path d="M13.4 6.4 17.6 1
 len:'<path d="M12 18.8V5.8"/><path d="M6.2 11.6 12 5.8l5.8 5.8"/>',
 noi:'<path d="M10.3 13.7a3.7 3.7 0 0 0 5.5.4l2.4-2.4a3.7 3.7 0 0 0-5.2-5.2l-1.4 1.4"/><path d="M13.7 10.3a3.7 3.7 0 0 0-5.5-.4l-2.4 2.4a3.7 3.7 0 0 0 5.2 5.2l1.4-1.4"/>',
 moc:'<path d="M5.2 19.6V13.4"/><path d="M12 19.6V8.2"/><path d="M18.8 19.6V4.6"/>',
+mic:'<rect x="9.2" y="2.9" width="5.6" height="10.4" rx="2.8"/><path d="M5.6 11.2a6.4 6.4 0 0 0 12.8 0"/><path d="M12 17.6v3.5"/>',
 dunglai:'<rect x="7" y="5.4" width="3.4" height="13.2" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.6" y="5.4" width="3.4" height="13.2" rx="1.2" fill="currentColor" stroke="none"/>'
 };
 function ic(n,sz){
@@ -2409,7 +2410,7 @@ var drow=el('<div class="set'+(ngheDuoc?"":" khoa")+'"><div class="l"><div class
 ? 'Đọc to một từ, máy nghe lại rồi dóng từng vần với từ mẫu — vần nào lệch thì tô đỏ và chỉ ra nghe thành gì.'
 : 'Đọc to một từ rồi máy chấm từng vần. Trình duyệt này chưa có bộ nhận dạng giọng nói — mở bằng Chrome hoặc Edge để dùng.')+
 '</div></div><div class="act"></div></div>');
-var dbtn=el('<button class="btn sm ghost"'+(ngheDuoc?"":" disabled")+'>'+ic(ngheDuoc?"tai":"khoa",18)+'<span>Đọc thử</span></button>');
+var dbtn=el('<button class="btn sm ghost"'+(ngheDuoc?"":" disabled")+'>'+ic(ngheDuoc?"mic":"khoa",18)+'<span>Đọc thử</span></button>');
 if(ngheDuoc)dbtn.onclick=function(){go({n:"doc"});};
 drow.querySelector(".act").appendChild(dbtn);
 hangLuyen.appendChild(drow);
@@ -2892,39 +2893,41 @@ var back=el('<button class="back">← Lộ trình</button>');back.onclick=functi
 app.appendChild(back);
 app.appendChild(el('<div class="eyebrow cyr">'+esc(m.ru)+'</div><h1 style="margin-bottom:16px">'+esc(m.name)+'</h1>'));
 var nw=newItems(m.items),du=dueItems(m.items),sc=seenCount(m.items);
+app.appendChild(el('<div class="eyebrow" style="margin-bottom:9px">Luyện chủ đề này</div>'));
 var act=el('<div class="row" style="margin-bottom:20px"></div>');
-var b1=el('<button class="btn">'+(nw.length?"Học mục mới":"Luyện lại")+'</button>');
+var b1=el('<button class="btn">'+ic(nw.length?"choi":"velai",18)+'<span>'+(nw.length?"Học mục mới":"Luyện lại")+'</span></button>');
 b1.onclick=function(){ startSession(nw.length?buildLearn(m,nw):buildReview(shuffle(m.items).slice(0,soCauOn()))); };
 act.appendChild(b1);
 if(du.length){
 var boMod=buNhungMucOn(du,m.items);
-var b2=el('<button class="btn ghost">Ôn '+boMod.length+' mục</button>');
+var b2=el('<button class="btn ghost">'+ic("velai",18)+'<span>Ôn '+boMod.length+' mục</span></button>');
 b2.onclick=function(){startSession(buildReview(boMod));};
 act.appendChild(b2);
 }
 if(m.kind==="V"&&coNhanDang()&&sc>0){
-var bd=el('<button class="btn ghost">Tập đọc</button>');
+var bd=el('<button class="btn ghost">'+ic("mic",18)+'<span>Tập đọc</span></button>');
 bd.onclick=function(){go({n:"doc"});};
 act.appendChild(bd);
 }
 if(m.kind==="V"&&m.items.filter(function(it){return it.ru&&it.vi;}).length>=4){
-var bg=el('<button class="btn ghost">Ghép từ</button>');
+var bg=el('<button class="btn ghost">'+ic("noi",18)+'<span>Ghép từ</span></button>');
 bg.onclick=function(){var ss=buildGhep(m.items);if(ss)startSession(ss);};
 act.appendChild(bg);
 }
-if(sc>3){var b3=el('<button class="btn ghost">Luyện gõ</button>');b3.onclick=function(){startSession(buildTyping(m));};act.appendChild(b3);}
-if(m.kind==="L"&&sc>3){var b4=el('<button class="btn ghost">Đọc chữ viết tay</button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
+if(sc>3){var b3=el('<button class="btn ghost">'+ic("but",18)+'<span>Luyện gõ</span></button>');b3.onclick=function(){startSession(buildTyping(m));};act.appendChild(b3);}
+if(m.kind==="L"&&sc>3){var b4=el('<button class="btn ghost">'+ic("sach",18)+'<span>Đọc chữ viết tay</span></button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
 if(m.kind==="V"&&sc>3&&m.items.filter(function(it){return rec(it.id)&&stressInfo(it);}).length>3){
-var b5=el('<button class="btn ghost">Trọng âm</button>');
+var b5=el('<button class="btn ghost">'+ic("nhip",18)+'<span>Trọng âm</span></button>');
 b5.onclick=function(){startSession(buildStress(m));};act.appendChild(b5);
 }
 if(m.kind==="V"&&sc>3&&hasRu()){
-var b6=el('<button class="btn ghost">Nghe chép</button>');
+var b6=el('<button class="btn ghost">'+ic("loa",18)+'<span>Nghe chép</span></button>');
 b6.onclick=function(){startSession(buildDictation(m));};act.appendChild(b6);
 }
 app.appendChild(act);
 if(m.kind==="L"){
 var names=[["table","Bảng tra"],["hand","Chữ viết tay"],["groups","Nhóm dễ nhầm"]];
+app.appendChild(el('<div class="eyebrow" style="margin-bottom:8px">Xem bảng chữ theo</div>'));
 var tabs=el('<div class="tabs"></div>');
 names.forEach(function(t){
 var b=el('<button aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>');
@@ -4498,7 +4501,7 @@ var c=el('<div class="card" style="text-align:center">'+
 '</div>');
 c.querySelector("button").onclick=function(){speak(it.ru);};
 khung.appendChild(c);
-var mic=el('<button class="mic"><span class="vong"></span>'+ic("tai",30)+'<b>Bấm rồi đọc</b></button>');
+var mic=el('<button class="mic"><span class="vong"></span>'+ic("mic",30)+'<b>Bấm rồi đọc</b></button>');
 khung.appendChild(mic);
 var kq=el('<div class="doc-kq"></div>');
 khung.appendChild(kq);
@@ -4967,7 +4970,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=97"></script>
+<script type="module" src="firebase-sync.js?v=98"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
