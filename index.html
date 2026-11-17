@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=84"></script>
+<script src="firebase-config.js?v=85"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -1809,7 +1809,7 @@ var a=acctState();
 if(!a||!a.signed){b.hidden=true;return;}
 b.hidden=false;
 b.innerHTML='<span class="ava">'+esc((a.ten||"?").charAt(0).toUpperCase())+'</span><b>'+esc(a.ten||"Tài khoản")+'</b>';
-b.setAttribute("data-tip","Tài khoản: "+(a.mail||a.ten));
+b.setAttribute("data-tip","Tài khoản: "+(a.ten||a.mail));
 }
 function accountCard(seen){
 var a=acctState();
@@ -4311,6 +4311,7 @@ var LUC_MO=Date.now();
 function catManCho(){
 var m=document.getElementById("manCho");
 if(!m||m.classList.contains("xong"))return;
+if(!xongVeDN)return;
 var con=550-(Date.now()-LUC_MO);
 if(con>0){setTimeout(catManCho,con);return;}
 m.classList.add("xong");
@@ -4340,6 +4341,22 @@ if(f&&getComputedStyle(f).display!=="none"&&getComputedStyle(f).position==="stic
 h=f.getBoundingClientRect().height;
 nutLen.style.bottom="calc("+Math.round(h+16)+"px + env(safe-area-inset-bottom,0px))";
 nutLen.classList.toggle("hien",(window.pageYOffset||document.documentElement.scrollTop||0)>620);
+}
+var DANG_VE_DN=false;
+try{DANG_VE_DN=sessionStorage.getItem("nga:dangdangnhap")==="1";}catch(e){}
+var xongVeDN=!DANG_VE_DN;
+function veDangNhapXong(){
+if(xongVeDN)return;
+xongVeDN=true;
+catManCho();
+}
+if(DANG_VE_DN){
+var mCho=document.getElementById("manCho");
+if(mCho){
+var tnCho=mCho.querySelector(".tn");
+if(tnCho)tnCho.textContent="Đang hoàn tất đăng nhập…";
+}
+setTimeout(veDangNhapXong,9000);
 }
 (function doiFont(){
 var het=false,t0=Date.now();
@@ -4372,11 +4389,18 @@ if(donNha()){}else{
 render();
 initCloud();
 }
-window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
+window.CLOUD_CHANGED=function(){
+cloud=null;initCloud();render();
+var a=acctState();
+if(a&&a.signed)veDangNhapXong();
+};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};
-window.CLOUD_LOI=function(m){try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}};</script>
+window.CLOUD_LOI=function(m){
+veDangNhapXong();
+try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
+};</script>
 
-<script type="module" src="firebase-sync.js?v=84"></script>
+<script type="module" src="firebase-sync.js?v=85"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
