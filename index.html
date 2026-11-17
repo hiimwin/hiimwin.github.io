@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=68"></script>
+<script src="firebase-config.js?v=69"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -504,15 +504,27 @@ color:var(--muted);transition:.2s;white-space:nowrap;overflow:hidden;text-overfl
 .tabs3 button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--sh)}
 .tabbody{margin-top:12px;animation:hienMo .32s cubic-bezier(.22,1,.36,1) both}
 @keyframes hienMo{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
-.pairs>div{display:flex;flex-direction:column;gap:8px}
-.pair{min-height:46px;padding:11px 13px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--line);
-box-shadow:var(--sh);font-size:15px;text-align:left;transition:.2s}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
+.pair{min-height:52px;padding:11px 13px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--line);
+box-shadow:var(--sh);font-size:15px;text-align:left;transition:.2s;
+display:flex;align-items:center;min-width:0;word-break:break-word}
 .pair.cyr{font-family:var(--f-cyr);font-size:17px}
 .pair.pick{background:var(--accent-soft);border-color:transparent;color:var(--accent);font-weight:600}
 .pair.ok{background:var(--ok-bg);color:var(--ok);border-color:transparent;font-weight:600}
 .pair.no{animation:lac .4s ease both}
 .pair:disabled{opacity:.45}
+.noi-ds{display:grid;gap:8px;margin-top:10px}
+.noi{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:var(--r-sm);
+background:var(--ok-bg);color:var(--ok);font-weight:600;font-size:15px;
+animation:noiVao .34s cubic-bezier(.22,1,.36,1) both}
+.noi .ru{font-family:var(--f-cyr);font-size:18px;flex:0 1 auto;min-width:0;
+overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.noi .day{flex:1 1 18px;min-width:16px;height:2px;border-radius:2px;background:currentColor;opacity:.45;position:relative}
+.noi .day::after{content:"";position:absolute;right:-1px;top:-3px;width:8px;height:8px;border-radius:50%;background:currentColor}
+.noi .vi{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.noi .spk{flex:none;width:32px;height:32px;margin-left:2px;background:transparent;box-shadow:none;color:inherit}
+.noi .spk .ic-svg{width:17px;height:17px}
+@keyframes noiVao{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .ctx{padding:16px 18px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh)}
 .ctx .ru{font-family:var(--f-cyr);font-size:21px;line-height:1.45}
 .ctx .vi{font-size:15px;color:var(--muted);margin-top:7px}
@@ -1762,36 +1774,11 @@ function veTab(ten){
 than.innerHTML="";
 than.style.animation="none";void than.offsetWidth;than.style.animation="";
 if(ten==="ghep"){
-var cap=shuffle(MAU).slice(0,3);
-var trai=shuffle(cap.slice()), phai=shuffle(cap.slice());
-var g=el('<div class="pairs"><div class="ct"></div><div class="cp"></div></div>');
-var ct=g.querySelector('.ct'), cp=g.querySelector('.cp');
-var dangChon=null,xong=0;
-trai.forEach(function(c){
-var b=el('<button class="pair cyr">'+esc(plain(c[0]))+'</button>');
-b.dataset.k=c[0];b.onclick=function(){
-if(b.disabled)return;
-if(dangChon)dangChon.classList.remove("pick");
-dangChon=b;b.classList.add("pick");
-};
-ct.appendChild(b);
-});
-phai.forEach(function(c){
-var b=el('<button class="pair">'+esc(c[1])+'</button>');
-b.dataset.k=c[0];b.onclick=function(){
-if(!dangChon||b.disabled)return;
-if(dangChon.dataset.k===b.dataset.k){
-dangChon.classList.remove("pick");dangChon.classList.add("ok");dangChon.disabled=true;
-b.classList.add("ok");b.disabled=true;dangChon=null;
-if(++xong===3)setTimeout(function(){flash("Đúng hết. Đăng nhập để học tiếp 472 từ.");},350);
-}else{
-b.classList.add("no");setTimeout(function(){b.classList.remove("no");},450);
-}
-};
-cp.appendChild(b);
-});
-than.appendChild(g);
-than.appendChild(el('<div class="cvnote" style="margin-top:10px">Bấm một từ Nga rồi bấm nghĩa tiếng Việt tương ứng.</div>'));
+var cap=shuffle(MAU).slice(0,3).map(function(c){return {ru:c[0],vi:c[1]};});
+than.appendChild(veGhepTu(cap,function(){
+setTimeout(function(){flash("Đúng hết. Đăng nhập để học tiếp 472 từ.");},350);
+}));
+than.appendChild(el('<div class="cvnote" style="margin-top:10px">Bấm một từ Nga để nghe, rồi bấm nghĩa tiếng Việt tương ứng.</div>'));
 }else if(ten==="am"){
 var c2=MAU[0];
 var w=el('<div class="ctx"><div class="ru">'+esc(c2[0])+'</div>'+
@@ -2545,6 +2532,8 @@ return {title:m.name,steps:steps.concat(shuffle(quiz))};
 }
 function buildReview(items,tieuDe){
 var steps=[];
+var gh=pairStep(items);
+if(gh)steps.push(gh);
 shuffle(items).slice(0,20).forEach(function(it){
 var pool=modById(it.mod).items;
 var r=Math.random();
@@ -2631,6 +2620,7 @@ var rail=el('<div class="rail"></div>');
 S.steps.forEach(function(_,i){rail.appendChild(el('<i class="'+(i<S.i?"on":(i===S.i?"cur":""))+'"></i>'));});
 app.appendChild(rail);
 if(st.k==="intro")return stepIntro(st);
+if(st.k==="pair")return stepPair(st);
 if(st.k==="mc")return stepMC(st);
 if(st.k==="type")return stepType(st);
 }
@@ -2668,6 +2658,101 @@ speak(st.it.t==="L"?st.it.ex:st.it.ru);
 var b=el('<button class="btn wide act-stick" style="margin-top:14px">Tiếp tục</button>');
 b.onclick=next;app.appendChild(b);
 document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
+}
+function veGhepTu(cap,xong,cham){
+var hop=el('<div></div>');
+var g=el('<div class="pairs"></div>');
+var noi=el('<div class="noi-ds"></div>');
+var trai=shuffle(cap.slice()),phai=shuffle(cap.slice());
+var dangChon=null,conLai=cap.length,sai={};
+function xepLai(){
+var t=0,ph=0;
+Array.prototype.forEach.call(g.children,function(x){
+if(x.dataset.ben==="t"){x.style.gridColumn="1";x.style.gridRow=String(++t);}
+else{x.style.gridColumn="2";x.style.gridRow=String(++ph);}
+});
+}
+function theoRu(k){
+for(var i=0;i<cap.length;i++)if(cap[i].ru===k)return cap[i];
+return null;
+}
+for(var i=0;i<cap.length;i++){
+(function(a,b){
+var bt=el('<button class="pair cyr"></button>');
+bt.textContent=plain(a.ru);
+bt.dataset.k=a.ru;bt.dataset.ben="t";
+bt.onclick=function(){
+if(bt.disabled)return;
+if(dangChon&&dangChon!==bt)dangChon.classList.remove("pick");
+dangChon=bt;bt.classList.add("pick");
+speak(a.ru);
+};
+var bp=el('<button class="pair"></button>');
+bp.textContent=b.vi;
+bp.dataset.k=b.ru;bp.dataset.ben="p";
+bp.onclick=function(){
+if(bp.disabled||!dangChon)return;
+var k=dangChon.dataset.k;
+if(k!==bp.dataset.k){
+sai[k]=1;
+bp.classList.add("no");
+setTimeout(function(){bp.classList.remove("no");},450);
+return;
+}
+var bt2=dangChon;dangChon=null;
+bt2.classList.remove("pick");
+bt2.classList.add("ok");bp.classList.add("ok");
+bt2.disabled=true;bp.disabled=true;
+tingDung();
+var c=theoRu(k);
+conLai--;
+if(cham)cham(c,!sai[k],conLai);
+setTimeout(function(){
+if(bt2.parentNode)bt2.parentNode.removeChild(bt2);
+if(bp.parentNode)bp.parentNode.removeChild(bp);
+xepLai();
+var d=el('<div class="noi"><span class="ru"></span><i class="day"></i>'+
+'<span class="vi"></span><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
+d.querySelector(".ru").textContent=plain(c.ru);
+d.querySelector(".vi").textContent=c.vi;
+d.querySelector(".spk").onclick=function(){speak(c.ru);};
+noi.appendChild(d);
+if(conLai===0&&xong)xong(sai);
+},320);
+};
+g.appendChild(bt);g.appendChild(bp);
+})(trai[i],phai[i]);
+}
+xepLai();
+hop.appendChild(g);hop.appendChild(noi);
+return hop;
+}
+function pairStep(items){
+var tu=[],thay={};
+shuffle(items.filter(function(x){return x.t==="V"&&x.ru&&x.vi;})).forEach(function(x){
+if(tu.length>=5||thay[x.vi])return;
+thay[x.vi]=1;tu.push(x);
+});
+if(tu.length<4)return null;
+return {k:"pair",tu:tu,it:tu[0]};
+}
+function stepPair(st){
+app.appendChild(el('<div class="q anim"><div class="ask">Ghép từ với nghĩa</div></div>'));
+var tiep=el('<button class="btn wide act-stick" style="margin-top:14px" disabled>Còn '+st.tu.length+' cặp</button>');
+app.appendChild(veGhepTu(
+st.tu.map(function(x){return {ru:x.ru,vi:x.vi,it:x};}),
+function(){
+tiep.disabled=false;tiep.textContent="Tiếp tục";tiep.focus();
+document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
+},
+function(c,dung,conLai){
+grade(c.it.id,dung);
+if(dung)S.right++;else{S.wrong++;ghiSai(c.it);}
+if(conLai)tiep.textContent="Còn "+conLai+" cặp";
+}));
+tiep.onclick=next;
+app.appendChild(tiep);
+app.appendChild(el('<div class="note">Bấm một từ Nga để nghe, rồi bấm nghĩa tiếng Việt tương ứng.</div>'));
 }
 function stepMC(st){
 var q=el('<div class="q anim"><div class="ask">'+esc(st.ask)+'</div>'+
@@ -3846,7 +3931,7 @@ initCloud();
 window.CLOUD_CHANGED=function(){cloud=null;initCloud();render();};
 window.CLOUD_FLASH=function(m){flash(String(m||""));};</script>
 
-<script type="module" src="firebase-sync.js?v=68"></script>
+<script type="module" src="firebase-sync.js?v=69"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
