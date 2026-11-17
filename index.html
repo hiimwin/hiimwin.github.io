@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-warMUF2Dk3XYoA7gk6FF9uCOV7Nn/wUmw/5dtQWjQSU=' 'sha256-yOAlZGa/CJhfnUl2JxGwwkuh7xUWMKCweKfHT+NxYt8=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-HyWdNzjANr8iIhcGWPVjc8zF5qO2GfS9nOl9BruL/oo=' 'sha256-yOAlZGa/CJhfnUl2JxGwwkuh7xUWMKCweKfHT+NxYt8=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -3352,7 +3352,7 @@ const MON=[
 {ma:"ru",ten:"Tiếng Nga",ban:"Русский",hh:"Р",bcp:"ru-RU",enTen:"Russian",
 mau:"#4A8BE8",chu:"Chữ Kirin, 33 ký tự",vd:"Здра́вствуйте",
 trongam:"dau",trongamTen:"Trọng âm",trongamDong:"Trọng âm ở đây",
-tenViet:"Chữ viết tay",
+tenViet:"Chữ viết tay",vietMod:"alpha",
 vietMo:"Người Nga viết tay gần như không dùng chữ in. Đọc thông chữ in rồi vẫn có thể bó tay trước một dòng ghi chép — vì mười chữ dưới đây đổi dạng hoàn toàn.",
 vietCuoi:"Mẫu nét và phần chấm điểm làm với CHỮ THƯỜNG — đó là chỗ chữ viết tay khác chữ in nhiều nhất.",
 hat:true,viettay:true,conet:true,coAnh:true,goLatin:true,canLatin:true,
@@ -3371,7 +3371,7 @@ phienAm:"phiên âm Latin",nhom:null,nap:napMonNga},
 {ma:"en",ten:"Tiếng Anh",ban:"English",hh:"E",bcp:"en-US",enTen:"English",
 mau:"#3BA862",chu:"Chữ Latin, 44 âm IPA",vd:"Hello",
 trongam:"nhan",trongamTen:"Trọng âm",trongamDong:"Nhấn vào âm tiết này",
-tenViet:"Tập viết",
+tenViet:"Tập viết",vietMod:"abc",
 vietMo:"Mặt chữ Latin thì ai cũng biết, nhưng viết đúng nét lại là chuyện khác — b và d, p và q, u và v chỉ khác nhau ở nét nào đi trước. Mỗi chữ dưới đây có đường nét mẫu và chấm điểm thật.",
 vietCuoi:"Mẫu nét làm với chữ thường. Ở bảng âm IPA thì tập viết chính TỪ VÍ DỤ, vì không ai đi tập viết ký hiệu IPA.",
 hat:true,viettay:false,conet:true,coAnh:false,goLatin:false,canLatin:false,
@@ -3391,7 +3391,7 @@ phienAm:"phiên âm IPA",nhom:NHOM_ANH,nap:napMonAnh},
 {ma:"zh",ten:"Tiếng Trung",ban:"中文",hh:"中",bcp:"zh-CN",enTen:"Chinese",
 mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",
 trongam:"thanh",trongamTen:"Thanh điệu",trongamDong:"Thanh của chữ này",
-tenViet:"Tập viết chữ Hán",
+tenViet:"Tập viết chữ Hán",vietMod:"alpha",
 vietMo:"Chữ Hán có thứ tự nét cố định. Viết sai thứ tự thì chữ vẫn ra hình, nhưng nét không đều và tra từ điển theo nét thì chịu. Thứ tự nét dưới đây lấy từ bộ dữ liệu chữ Hán bản xứ, không phải tôi đoán.",
 vietCuoi:"Phần chấm điểm xem bạn có đi đúng đường nét, đúng chiều và đủ số nét không — sai thứ tự nét là tụt điểm ngay.",
 hat:true,viettay:false,conet:true,coAnh:true,goLatin:false,goPinyin:true,
@@ -5426,6 +5426,15 @@ var p=el('<div class="hrowpair"><div><div class="pr">'+esc(it.up+" "+it.lo)+'</d
 if(clickable){p.style.cursor="pointer";p.onclick=function(){go({n:"study",one:it.id,from:view});};}
 return p;
 }
+function nutQua(nhan,hinh,den){
+var b=el('<button class="btn ghost sm">'+ic(hinh,17)+'<span>'+esc(nhan)+'</span></button>');
+b.onclick=function(){go(den);};
+return b;
+}
+function modViet(){
+var ma=monNay().vietMod||"alpha";
+return modById(ma)?ma:"alpha";
+}
 function renderHand(m){
 var mn=monNay();
 app.appendChild(el('<div class="note" style="margin-top:0">'+esc(mn.vietMo)+'</div>'));
@@ -5466,6 +5475,11 @@ ctr.children[2].onclick=function(){cur=(cur+1)%list.length;show();};
 app.appendChild(demoWrap);
 app.appendChild(padWrap);
 app.appendChild(ctr);
+if(coNhanDang()){
+var quaDoc=el('<div class="row" style="margin-top:14px;justify-content:center"></div>');
+quaDoc.appendChild(nutQua("Sang tập đọc","mic",{n:"doc"}));
+app.appendChild(quaDoc);
+}
 var thieu=m.items.length-withPath.length;
 app.appendChild(el('<div class="note">'+esc(mn.vietCuoi)+
 (thieu?(' Còn '+thieu+' mục chưa có đường nét mẫu — chỗ đó mới chỉ có chữ mờ để nhìn theo.'):'')+'</div>'));
@@ -5525,7 +5539,9 @@ if(m.kind==="L"){
 var names=[["table","Bảng tra"]];
 if(monNay().conet)names.push(["hand",monNay().tenViet]);
 names.push(["groups","Nhóm dễ nhầm"]);
-app.appendChild(el('<div class="eyebrow" style="margin-bottom:8px">Xem '+esc(monNay().tenChuT)+' theo</div>'));
+var tenBang=String(m.name||monNay().tenChu);
+tenBang=tenBang.charAt(0).toLowerCase()+tenBang.slice(1);
+app.appendChild(el('<div class="eyebrow" style="margin-bottom:8px">Xem '+esc(tenBang)+' theo</div>'));
 var tabs=el('<div class="tabs"></div>');
 names.forEach(function(t){
 var b=el('<button aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>');
@@ -6461,6 +6477,11 @@ setTimeout(xong,250);
 var b=el('<button class="btn wide" style="margin-top:14px">'+esc(it.t==="L"?nhanNghe(it):"Nghe lại")+'</button>');
 b.onclick=function(){speak(it.t==="L"?tenDoc(it):it.ru);};
 vao.appendChild(b);
+if(it.t==="V"&&coNhanDang()){
+var qd=el('<div class="row" style="margin-top:9px"></div>');
+qd.appendChild(nutQua("Tập đọc từ này","mic",{n:"doc",tu:it.id}));
+vao.appendChild(qd);
+}
 var nav=dieuHuongChu(it,bay);
 ganVuot(c,function(){nav.truoc();},function(){nav.sau();});
 vao.appendChild(el('<div class="eyebrow" style="margin:20px 0 8px">Bạn nhớ tới đâu?</div>'));
@@ -6485,6 +6506,10 @@ cotP.appendChild(el('<div class="eyebrow" style="margin:16px 0 8px">Mẫu viết
 cotP.appendChild(strokeDemo(it));
 cotP.appendChild(el('<div class="eyebrow" style="margin:18px 0 8px">Bạn viết thử</div>'));
 cotP.appendChild(writePad(it));
+var quaP=el('<div class="row" style="margin-top:14px"></div>');
+quaP.appendChild(nutQua("Cả bảng tập viết","sach",{n:"mod",mod:it.mod,tab:"hand"}));
+if(coNhanDang())quaP.appendChild(nutQua("Tập đọc","mic",{n:"doc"}));
+cotP.appendChild(quaP);
 }
 if(hai&&rongMan)cotT.appendChild(nav.node);
 if(hai)app.appendChild(khung);
@@ -7294,7 +7319,12 @@ app.appendChild(el('<div class="note" style="margin-bottom:16px">Bấm micrô r�
 var kho=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.ru&&rec(it.id);});
 if(kho.length<1)kho=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.ru;}).slice(0,40);
 kho.sort(function(a,b){var x=diemYeu(a),y=diemYeu(b);return y-x;});
-var it=kho[Math.floor(Math.random()*Math.min(kho.length,20))]||kho[0];
+var it=null;
+if(view&&view.tu){
+var ck=BY_ID[view.tu];
+if(ck&&ck.t==="V"&&ck.ru)it=ck;
+}
+if(!it)it=kho[Math.floor(Math.random()*Math.min(kho.length,20))]||kho[0];
 var khung=el('<div class="doc-khung"></div>');
 app.appendChild(khung);
 function ve(){
@@ -7320,6 +7350,8 @@ if(k)it=k;
 ve();
 };
 hang.appendChild(bKhac);
+hang.appendChild(nutQua("Xem thẻ từ này","sach",{n:"study",one:it.id,from:{n:"doc"}}));
+hang.appendChild(nutQua("Sang tập viết","but",{n:"mod",mod:modViet(),tab:"hand"}));
 khung.appendChild(hang);
 var SR=window.SpeechRecognition||window.webkitSpeechRecognition,dangNghe=false,r=null;
 mic.onclick=function(){
