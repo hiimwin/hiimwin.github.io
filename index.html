@@ -12,7 +12,7 @@
 <noscript><link rel="stylesheet" href="fonts.css"><style>#manCho{display:none}</style></noscript>
 <style>#manCho{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#EDF2FC;color:#19223A;font-family:system-ui,-apple-system,sans-serif;transition:opacity .34s ease}#manCho.xong{opacity:0;pointer-events:none}#manCho .lg{width:56px;height:56px;border-radius:15px;background:#3D5CE0;color:#fff;display:grid;place-items:center;font-size:25px;font-weight:600;letter-spacing:-.02em}#manCho .tn{font-size:15px;font-weight:600;opacity:.82}#manCho .th{width:148px;height:4px;border-radius:99px;background:rgba(20,32,66,.13);overflow:hidden}#manCho .th i{display:block;width:42%;height:100%;border-radius:99px;background:#3D5CE0;animation:mcChay 1.05s ease-in-out infinite}@keyframes mcChay{0%{transform:translateX(-115%)}100%{transform:translateX(255%)}}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #manCho{background:#0D1220;color:#E9EDF7}:root:not([data-theme="light"]) #manCho .th{background:rgba(255,255,255,.14)}}:root[data-theme="dark"] #manCho{background:#0D1220;color:#E9EDF7}:root[data-theme="dark"] #manCho .th{background:rgba(255,255,255,.14)}@media(prefers-reduced-motion:reduce){#manCho .th i{animation:none;width:100%}}</style>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
-<script src="firebase-config.js?v=95"></script>
+<script src="firebase-config.js?v=96"></script>
 </head>
 <body>
 <div id="manCho" role="status" aria-label="Đang tải"><div class="lg">Аа</div><div class="tn">Tiếng Nga từ A đến Я</div><div class="th"><i></i></div></div>
@@ -477,6 +477,43 @@ body.rong .lst.doi .li+.li{border-top:1px solid var(--line)}
 body.hep.rong #app{max-width:1340px}
 .chi-tiet{grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:16px 52px}
 .ct-phai .wsvg{max-width:470px}
+}
+.doc-khung{margin-top:4px}
+.mic{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;
+margin-top:16px;padding:22px 16px;border-radius:var(--r);
+background:var(--surface);box-shadow:inset 0 0 0 1px var(--line),var(--sh);
+color:var(--accent);position:relative;overflow:hidden;
+transition:transform .15s,box-shadow .2s}
+.mic:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1px var(--accent),var(--sh-lift)}
+.mic b{font-size:15.5px;font-weight:600;color:var(--ink)}
+.mic .vong{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+background:radial-gradient(circle at 50% 42%,var(--accent-soft),transparent 62%)}
+.mic.nghe{box-shadow:inset 0 0 0 2px var(--bad),var(--sh)}
+.mic.nghe .vong{opacity:1;animation:micNhip 1.1s ease-in-out infinite}
+.mic.nghe b{color:var(--bad)}
+@keyframes micNhip{0%,100%{transform:scale(.9);opacity:.45}50%{transform:scale(1.06);opacity:1}}
+.doc-kq{margin-top:16px}
+.doc-diem{display:flex;align-items:center;gap:14px}
+.doc-diem .cham{flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+font-family:var(--f-head);font-weight:700;font-size:23px;font-variant-numeric:tabular-nums}
+.doc-diem .l{min-width:0}
+.doc-diem b{display:block;font-family:var(--f-head);font-size:17px;letter-spacing:-.01em}
+.doc-diem span{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.doc-diem i{font-style:normal}
+.doc-van{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.van{padding:9px 13px;border-radius:var(--r-sm);font-size:21px;line-height:1.1;
+background:var(--sunken);color:var(--ink)}
+.van.dung{background:var(--ok-bg);color:var(--ok)}
+.van.sai{background:var(--bad-bg);color:var(--bad);font-weight:600}
+.van.thieu{background:var(--bad-bg);color:var(--bad);opacity:.6;text-decoration:line-through}
+.van.thua{background:var(--surface-2);color:var(--muted);font-style:italic}
+.van.nhan{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2.5px}
+.van.thieu.nhan{text-decoration:line-through}
+.doc-loi{margin:14px 0 0;padding-left:20px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+.doc-loi b{color:var(--ink);font-weight:600}
+@media(min-width:1100px){
+body.vua .van{font-size:25px;padding:11px 16px}
+body.vua .mic{padding:26px 16px}
 }
 .tiendo{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
 .huy{flex:none;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
@@ -1853,7 +1890,7 @@ laVeDau=false;
 document.body.classList.remove("cover-on");
 var bia=canDangNhap();
 if(bia)view={n:"home"};
-document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song","nhanh","anhnga","tiendo"].indexOf(view.n)>=0);
+document.body.classList.toggle("hep",!bia&&["study","gram","set","browse","song","nhanh","anhnga","tiendo","doc"].indexOf(view.n)>=0);
 document.body.classList.remove("rong");
 document.body.classList.remove("vua");
 syncHeader();
@@ -1864,6 +1901,7 @@ if(view.n==="mod"){renderMod();sauKhiVe();return;}
 if(view.n==="study")return renderStudy();
 if(view.n==="song"){renderSong();sauKhiVe();return;}
 if(view.n==="nhanh"){renderNhanh();sauKhiVe();return;}
+if(view.n==="doc"){renderDoc();sauKhiVe();return;}
 if(view.n==="tiendo"){renderTienDo();sauKhiVe();return;}
 if(view.n==="anhnga"){renderAnhNga();sauKhiVe();return;}
 if(view.n==="browse"){renderBrowse();sauKhiVe();return;}
@@ -2364,6 +2402,16 @@ var nb2=el('<button class="btn sm ghost">'+ic("tim",18)+'<span>Đọc nhanh</spa
 nb2.onclick=function(){go({n:"nhanh",kieu:"doc"});};
 nr.appendChild(nb1);nr.appendChild(nb2);
 hangLuyen.appendChild(nrow);
+var ngheDuoc=coNhanDang();
+var drow=el('<div class="set'+(ngheDuoc?"":" khoa")+'"><div class="l"><div class="n">Tập đọc</div>'+
+'<div class="d">'+(ngheDuoc
+? 'Đọc to một từ, máy nghe lại rồi dóng từng vần với từ mẫu — vần nào lệch thì tô đỏ và chỉ ra nghe thành gì.'
+: 'Đọc to một từ rồi máy chấm từng vần. Trình duyệt này chưa có bộ nhận dạng giọng nói — mở bằng Chrome hoặc Edge để dùng.')+
+'</div></div><div class="act"></div></div>');
+var dbtn=el('<button class="btn sm ghost"'+(ngheDuoc?"":" disabled")+'>'+ic(ngheDuoc?"tai":"khoa",18)+'<span>Đọc thử</span></button>');
+if(ngheDuoc)dbtn.onclick=function(){go({n:"doc"});};
+drow.querySelector(".act").appendChild(dbtn);
+hangLuyen.appendChild(drow);
 var kho=nguonGhep();
 var daHocTu=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.vi&&rec(it.id);}).length;
 var moGhep=kho.length>=4;
@@ -2852,6 +2900,11 @@ var boMod=buNhungMucOn(du,m.items);
 var b2=el('<button class="btn ghost">Ôn '+boMod.length+' mục</button>');
 b2.onclick=function(){startSession(buildReview(boMod));};
 act.appendChild(b2);
+}
+if(m.kind==="V"&&coNhanDang()&&sc>0){
+var bd=el('<button class="btn ghost">Tập đọc</button>');
+bd.onclick=function(){go({n:"doc"});};
+act.appendChild(bd);
 }
 if(m.kind==="V"&&m.items.filter(function(it){return it.ru&&it.vi;}).length>=4){
 var bg=el('<button class="btn ghost">Ghép từ</button>');
@@ -4336,6 +4389,198 @@ ds.appendChild(c);
 app.appendChild(ds);
 });
 }
+function coNhanDang(){
+return !!(window.SpeechRecognition||window.webkitSpeechRecognition);
+}
+var NGUYEN="аеёиоуыэюя";
+function tachVan(w){
+var t=String(w||"").toLowerCase().replace(/ё/g,"е"),ra=[],cur="",coNg=false;
+for(var i=0;i<t.length;i++){
+var c=t[i];
+if(NGUYEN.indexOf(c)>=0){
+if(coNg){ra.push(cur);cur="";}
+cur+=c;coNg=true;
+}else if(coNg&&new RegExp("["+NGUYEN+"]").test(t.slice(i+1))){
+ra.push(cur);cur=c;coNg=false;
+}else cur+=c;
+}
+if(cur)ra.push(cur);
+return ra.length?ra:[t];
+}
+function vanTrongAm(ru){
+var t=String(ru||"").toLowerCase(),d=0;
+for(var i=0;i<t.length;i++){
+if(NGUYEN.indexOf(t[i])>=0||t[i]==="ё")d++;
+if(t.charCodeAt(i)===0x301)return d-1;
+}
+return -1;
+}
+function nhoVan(v,nhan){
+var t=String(v||"").toLowerCase().replace(/ё/g,"е").replace(/[\u0300-\u036f]/g,"");
+if(!nhan)t=t.replace(/[оа]/g,"а").replace(/[еия]/g,"и");
+return t;
+}
+function cachChuoi(a,b){
+var m=a.length,n=b.length,d=[],i,j;
+for(i=0;i<=m;i++){d[i]=[i];}
+for(j=0;j<=n;j++)d[0][j]=j;
+for(i=1;i<=m;i++)for(j=1;j<=n;j++)
+d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+return d[m][n];
+}
+function giongNhau(a,b){
+if(!a&&!b)return 1;
+var L=Math.max(a.length,b.length);
+return L?1-cachChuoi(a,b)/L:0;
+}
+function dongVan(mau,nghe,nhan){
+var m=mau.length,n=nghe.length,d=[],v=[],i,j;
+for(i=0;i<=m;i++){d[i]=[];v[i]=[];for(j=0;j<=n;j++){d[i][j]=0;v[i][j]="";}}
+for(i=1;i<=m;i++){d[i][0]=i;v[i][0]="x";}
+for(j=1;j<=n;j++){d[0][j]=j;v[0][j]="t";}
+for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+var gia=1-giongNhau(nhoVan(mau[i-1],i-1===nhan),nhoVan(nghe[j-1],i-1===nhan));
+var a=d[i-1][j-1]+gia,b=d[i-1][j]+1,c=d[i][j-1]+1;
+if(a<=b&&a<=c){d[i][j]=a;v[i][j]="d";}
+else if(b<=c){d[i][j]=b;v[i][j]="x";}
+else{d[i][j]=c;v[i][j]="t";}
+}
+var ra=[];i=m;j=n;
+while(i>0||j>0){
+var b=v[i][j];
+if(b==="d"){ra.unshift({mau:mau[i-1],nghe:nghe[j-1],k:i-1});i--;j--;}
+else if(b==="x"){ra.unshift({mau:mau[i-1],nghe:null,k:i-1});i--;}
+else{ra.unshift({mau:null,nghe:nghe[j-1],k:-1});j--;}
+}
+return ra;
+}
+function chamDoc(ru,nghe){
+var mau=tachVan(plain(ru)),nh=tachVan(plain(nghe)),nhan=vanTrongAm(ru);
+var cap=dongVan(mau,nh,nhan),tot=0,dem=0,loi=[];
+cap.forEach(function(c){
+if(c.mau===null){loi.push({kieu:"thua",nghe:c.nghe});return;}
+dem++;
+if(c.nghe===null){c.diem=0;loi.push({kieu:"thieu",mau:c.mau});return;}
+c.diem=giongNhau(nhoVan(c.mau,c.k===nhan),nhoVan(c.nghe,c.k===nhan));
+tot+=c.diem;
+if(c.diem<0.75)loi.push({kieu:"lech",mau:c.mau,nghe:c.nghe,diem:c.diem});
+});
+var diem=dem?Math.round(tot/dem*100):0;
+if(cap.length>mau.length)diem=Math.max(0,diem-8*(cap.length-mau.length));
+return {cap:cap,diem:Math.max(0,Math.min(100,diem)),loi:loi,nhan:nhan,mau:mau};
+}
+function renderDoc(){
+document.body.classList.add("vua");
+var back=el('<button class="back">← Lộ trình</button>');
+back.onclick=function(){go({n:"home"});};
+app.appendChild(back);
+app.appendChild(el('<div class="eyebrow">Luyện nói</div><h1 style="margin-bottom:6px">Tập đọc</h1>'));
+if(!coNhanDang()){
+app.appendChild(el('<div class="tipbox"><b>Trình duyệt này chưa nghe được</b>Phần tập đọc dùng bộ nhận dạng giọng nói có sẵn của trình duyệt. Chrome, Edge và Safari mới thì có; Firefox thì chưa. Mở app bằng Chrome hoặc Edge để dùng phần này.</div>'));
+return;
+}
+app.appendChild(el('<div class="note" style="margin-bottom:16px">Bấm micrô rồi đọc to từ hiện trên màn. Máy nghe lại rồi dóng từng vần với từ mẫu — vần nào lệch sẽ tô đỏ kèm chỗ nghe thành gì. Cần mạng, và lần đầu trình duyệt sẽ hỏi quyền dùng micrô.</div>'));
+var kho=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.ru&&rec(it.id);});
+if(kho.length<1)kho=ALL_ITEMS.filter(function(it){return it.t==="V"&&it.ru;}).slice(0,40);
+kho.sort(function(a,b){var x=diemYeu(a),y=diemYeu(b);return y-x;});
+var it=kho[Math.floor(Math.random()*Math.min(kho.length,20))]||kho[0];
+var khung=el('<div class="doc-khung"></div>');
+app.appendChild(khung);
+function ve(){
+khung.innerHTML="";
+var c=el('<div class="card" style="text-align:center">'+
+'<div class="lbl">Đọc từ này</div>'+
+'<div class="word cyr">'+esc(it.ru)+'</div>'+
+'<div class="tr">'+esc(it.tr)+'</div>'+
+'<div class="mean-vi">'+esc(it.vi)+'</div>'+
+'<div class="row" style="justify-content:center;margin-top:14px"><button class="btn sm ghost">'+ic("loa",17)+'<span>Nghe mẫu</span></button></div>'+
+'</div>');
+c.querySelector("button").onclick=function(){speak(it.ru);};
+khung.appendChild(c);
+var mic=el('<button class="mic"><span class="vong"></span>'+ic("tai",30)+'<b>Bấm rồi đọc</b></button>');
+khung.appendChild(mic);
+var kq=el('<div class="doc-kq"></div>');
+khung.appendChild(kq);
+var hang=el('<div class="row" style="margin-top:14px"></div>');
+var bKhac=el('<button class="btn ghost sm">'+ic("velai",17)+'<span>Từ khác</span></button>');
+bKhac.onclick=function(){
+var k=kho[Math.floor(Math.random()*Math.min(kho.length,20))];
+if(k)it=k;
+ve();
+};
+hang.appendChild(bKhac);
+khung.appendChild(hang);
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition,dangNghe=false,r=null;
+mic.onclick=function(){
+if(dangNghe){try{r.stop();}catch(e){}return;}
+kq.innerHTML="";
+try{r=new SR();}catch(e){kq.appendChild(el('<div class="fb no">Không mở được micrô.</div>'));return;}
+r.lang="ru-RU";r.interimResults=false;r.maxAlternatives=5;
+dangNghe=true;mic.classList.add("nghe");mic.querySelector("b").textContent="Đang nghe… bấm để dừng";
+r.onresult=function(e){
+var ds=[],res=e.results[0];
+for(var i=0;i<res.length;i++)ds.push(res[i].transcript);
+var tot=ds[0],d=-1;
+ds.forEach(function(x){
+var g=giongNhau(plain(x).toLowerCase(),plain(it.ru).toLowerCase());
+if(g>d){d=g;tot=x;}
+});
+veKetQua(kq,it,tot,ds);
+};
+r.onerror=function(e){
+var m=(e&&e.error)||"";
+kq.innerHTML="";
+kq.appendChild(el('<div class="fb no">'+(
+m==="not-allowed"?"Bạn chưa cho phép dùng micrô. Bấm biểu tượng khoá trên thanh địa chỉ rồi bật micrô cho trang này."
+:m==="no-speech"?"Không nghe thấy gì. Bấm lại rồi đọc to hơn một chút."
+:m==="network"?"Phần nhận dạng cần mạng. Kiểm tra kết nối rồi thử lại."
+:"Chưa nghe được"+(m?" ("+m+")":"."))+'</div>'));
+};
+r.onend=function(){
+dangNghe=false;mic.classList.remove("nghe");
+mic.querySelector("b").textContent="Bấm rồi đọc";
+};
+try{r.start();}catch(e){dangNghe=false;mic.classList.remove("nghe");}
+};
+}
+ve();
+}
+function veKetQua(kq,it,nghe,ds){
+var k=chamDoc(it.ru,nghe);
+kq.innerHTML="";
+var mau=k.diem>=85?"var(--ok)":(k.diem>=60?"var(--warn)":"var(--bad)");
+var nen=k.diem>=85?"var(--ok-bg)":(k.diem>=60?"var(--surface-2)":"var(--bad-bg)");
+var hop=el('<div class="doc-diem"><div class="cham" style="background:'+nen+';color:'+mau+'">'+k.diem+'</div>'+
+'<div class="l"><b>'+(k.diem>=85?"Rõ và đúng":(k.diem>=60?"Nghe ra được, còn lệch":"Chưa đúng"))+'</b>'+
+'<span>Máy nghe thành “<i class="cyr">'+esc(nghe)+'</i>”</span></div></div>');
+kq.appendChild(hop);
+var dong=el('<div class="doc-van"></div>');
+k.cap.forEach(function(c){
+if(c.mau===null){
+dong.appendChild(el('<span class="van thua cyr" title="đọc thừa">'+esc(c.nghe)+'</span>'));
+return;
+}
+var lop=c.nghe===null?"thieu":(c.diem>=0.75?"dung":"sai");
+var o=el('<span class="van '+lop+(c.k===k.nhan?" nhan":"")+' cyr">'+esc(c.mau)+'</span>');
+if(c.nghe!==null&&c.diem<0.75)o.setAttribute("title","nghe thành “"+c.nghe+"”");
+if(c.nghe===null)o.setAttribute("title","không nghe thấy vần này");
+dong.appendChild(o);
+});
+kq.appendChild(dong);
+kq.appendChild(el('<div class="note" style="margin-top:6px">Vần có gạch chân là vần mang trọng âm.</div>'));
+var ul=el('<ul class="doc-loi"></ul>');
+if(!k.loi.length)ul.appendChild(el("<li>Không vần nào lệch. Đọc thêm vài từ nữa cho chắc tay.</li>"));
+k.loi.slice(0,5).forEach(function(l){
+var t=l.kieu==="thieu"?('Thiếu vần <b class="cyr">'+esc(l.mau)+'</b> — đọc rõ cả vần này ra.')
+:l.kieu==="thua"?('Thừa một vần: máy nghe thêm <b class="cyr">'+esc(l.nghe)+'</b>.')
+:('Vần <b class="cyr">'+esc(l.mau)+'</b> nghe thành <b class="cyr">'+esc(l.nghe)+'</b>.');
+ul.appendChild(el("<li>"+t+"</li>"));
+});
+if(k.nhan>=0)ul.appendChild(el('<li style="opacity:.75">Trọng âm ở vần <b class="cyr">'+esc(k.mau[k.nhan]||"")+'</b> — vần này đọc dài và mạnh hơn hẳn các vần còn lại.</li>'));
+kq.appendChild(ul);
+if(ds&&ds.length>1)
+kq.appendChild(el('<div class="note">Máy còn đoán: '+ds.slice(0,4).map(function(x){return "“"+esc(x)+"”";}).join(", ")+'.</div>'));
+}
 function renderTienDo(){
 document.body.classList.add("vua");
 var back=el('<button class="back">← Lộ trình</button>');
@@ -4721,7 +4966,7 @@ veDangNhapXong();
 try{baoLoiDangNhap({code:String(m||"")});}catch(e){flash("Không đăng nhập được.");}
 };</script>
 
-<script type="module" src="firebase-sync.js?v=95"></script>
+<script type="module" src="firebase-sync.js?v=96"></script>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").then(function(r){function hoi(){try{r.update();}catch(e){}}hoi();addEventListener("pageshow",hoi);addEventListener("visibilitychange",function(){if(!document.hidden)hoi();});}).catch(function(){});});</script>
 </body>
 </html>
