@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-mgya8quE/wccsb+GyrVz2mQMHm9x1Ne01TwXBYmhyRw=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-AYYFlNUkKCJ9SjrDwy60AzyIW3cTs+Yt9lnW27SR3Q4=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -441,6 +441,8 @@ display:grid;place-items:center;font-size:16px;line-height:1}
 display:flex;flex-wrap:wrap;gap:2px 16px}
 .ft-note span{white-space:nowrap}
 .ft-note b{color:var(--ink);font-weight:600}
+.ft-cred{font-size:12px;line-height:1.5;color:var(--muted);opacity:.8}
+.ft-cred b{color:var(--ink);font-weight:600;opacity:.9}
 .len-dau{position:fixed;z-index:12;right:max(16px,env(safe-area-inset-right,0px));
 display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border-radius:var(--r-pill);
 background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line),var(--sh-lift);
@@ -708,13 +710,13 @@ line-height:1;padding:3px 6px;border-radius:var(--r-pill);background:var(--deep-
 background:linear-gradient(90deg,var(--accent),var(--deep));transition:width .9s cubic-bezier(.22,1,.36,1)}
 .td-note{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.6}
 .td-note b{color:var(--ink);font-weight:600}
-.td-huy{display:flex;align-items:center;justify-content:space-between;gap:4px;
-margin-top:16px;position:relative}
+.td-huy{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);
+align-items:center;justify-items:center;gap:4px;margin-top:16px;position:relative}
 .td-huy::before{content:"";position:absolute;left:16px;right:16px;top:50%;height:2px;
 transform:translateY(-1px);background:var(--line-soft);border-radius:2px;z-index:0}
-.td-huy .huy{position:relative;z-index:1;width:32px;height:32px;border-radius:11px}
+.td-huy .huy{position:relative;z-index:1;width:100%;max-width:32px;height:auto;aspect-ratio:1;border-radius:11px}
 .td-huy .huy b{font-size:15px}
-@media(max-width:420px){.td-huy .huy{width:28px;height:28px;border-radius:9px}.td-huy .huy b{font-size:13px}}
+@media(max-width:420px){.td-huy .huy{max-width:28px;border-radius:9px}.td-huy .huy b{font-size:13px}}
 .td-tuan{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-top:18px}
 .td-tuan .o{text-align:center;min-width:0}
 .td-tuan .o i{display:grid;place-items:center;aspect-ratio:1;max-width:46px;margin:0 auto;border-radius:12px;
@@ -825,9 +827,12 @@ position:sticky;bottom:0;z-index:9;-webkit-backdrop-filter:var(--blur);backdrop-
 .ft-brand>div>span{font-size:12.5px}
 .ft-note{display:none}
 @media(min-width:900px){
-.ft{flex-direction:row;align-items:center;justify-content:space-between;padding-block:12px 14px}
+.ft{flex-flow:row wrap;align-items:center;justify-content:space-between;
+padding-block:12px 14px;gap:4px 18px}
+.ft-brand{flex:none}
 .ft-note{margin-left:auto;text-align:right;justify-content:flex-end}
-.ft-note{display:flex;font-size:12.5px;max-width:46em}
+.ft-note{display:flex;font-size:12.5px;max-width:46em;flex:0 1 auto;min-width:0}
+.ft-cred{flex:1 0 100%;text-align:right;margin-left:0}
 }
 #app{width:100%}
 body.hep #app{max-width:780px;margin-inline:auto}
@@ -1221,7 +1226,7 @@ font-weight:600;font-size:14.5px;line-height:1.2;transition:transform .12s,box-s
     <!-- Dữ liệu nét chữ Hán lấy từ bộ Make Me a Hanzi, dẫn xuất từ phông chữ
          Arphic. Giấy phép Arphic Public License buộc phải ghi rõ nguồn, nên
          dòng này nằm ngay trên trang chứ không giấu trong tệp đọc thêm. -->
-    <div class="ft-note" style="opacity:.75"><span>Thứ tự nét chữ Hán theo bộ dữ liệu <b>Make Me a Hanzi</b> (phông Arphic, Arphic Public License)</span></div>
+    <div class="ft-cred"><span>Thứ tự nét chữ Hán theo bộ dữ liệu <b>Make Me a Hanzi</b> (phông Arphic, Arphic Public License)</span></div>
   </div>
 </footer>
 <script>const LETTERS=[
@@ -7810,16 +7815,6 @@ dungChuBay();
 layNutLen();
 try{history.scrollRestoration="manual";}catch(e){}
 try{history.replaceState({v:view},"");}catch(e){}
-(function soLieuChanTrang(){
-var n=document.querySelector(".ft-note");
-if(!n)return;
-var chu=(modById("alpha")||{items:[]}).items.length;
-var so=(modById("num")||{items:[]}).items.length;
-n.innerHTML='<span><b>'+chu+'</b> chữ cái Кириллица</span>'+
-'<span><b>'+so+'</b> mục số đếm</span>'+
-'<span><b>'+(ALL_ITEMS.length-chu-so)+'</b> từ · <b>'+TOPICS.length+'</b> chủ đề</span>'+
-'<span>chữ viết tay có chấm điểm</span>';
-})();
 prog=normProg(loadLocal()||prog);
 dongBoMon();
 datNhanMon();
