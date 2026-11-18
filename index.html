@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-eB0mDzZPwcTIkbjz/UEyDm5am5OFZCiaMMvnwv3LZc0=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-AAbNugWMo0iYfkr4FkD1DexRBeoVlh2uZNE/Iq7sy+Y=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -383,6 +383,15 @@ display:flex;align-items:center;justify-content:center;text-align:center}
 .tabs button{padding:9px 16px;border-radius:var(--r-xs);font-size:15px;font-weight:500;color:var(--muted);transition:.15s}
 .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--sh)}
 .note{font-size:14.5px;line-height:1.6;color:var(--muted);margin-top:12px}
+.bao{position:relative;overflow:hidden;padding-left:20px}
+.bao,.fb.bao{background-color:var(--surface);
+background-image:linear-gradient(var(--accent-soft),var(--accent-soft));
+box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 24%,transparent),var(--sh)}
+.bao::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 60%,var(--deep)))}
+.bao .n{color:var(--accent)}
+.bao .d{color:var(--ink);opacity:.82}
+.bao.topnote:hover{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 42%,transparent),var(--sh-lift)}
 .bigspk{width:96px;height:96px;border-radius:50%;background:var(--accent);color:var(--on-accent);
 display:grid;place-items:center;font-size:38px;margin:4px auto 0;box-shadow:var(--sh);transition:transform .12s,box-shadow .15s}
 .bigspk:hover{transform:scale(1.05);box-shadow:var(--sh-lift)}
@@ -4165,7 +4174,7 @@ function warnVoice(){
 if(ttsWarned||!app)return;ttsWarned=true;
 var tenMon=monNay().ten;
 tenMon=tenMon.charAt(0).toLowerCase()+tenMon.slice(1);
-var n=el('<div class="fb neutral topnote">Máy chưa có giọng đọc '+esc(tenMon)+' nên nút loa chưa kêu. Bấm vào đây để xem cách cài.</div>');
+var n=el('<div class="fb neutral topnote bao">Máy chưa có giọng đọc '+esc(tenMon)+' nên nút loa chưa kêu. Bấm vào đây để xem cách cài.</div>');
 n.onclick=function(){ttsWarned=false;n.remove();go({n:"set"});};
 app.insertBefore(n,app.firstChild);
 setTimeout(function(){if(n.parentNode)n.remove();ttsWarned=false;},9000);
@@ -4831,7 +4840,7 @@ var pr=rec(it.id);
 if(pr&&pr.seen&&pr.due&&(somNhat===null||pr.due<somNhat))somNhat=pr.due;
 });
 var soNgay=somNhat?Math.max(1,Math.ceil((somNhat-Date.now())/DAY)):0;
-h.appendChild(el('<div class="set"><div class="l">'+(dungTiengAnh()
+h.appendChild(el('<div class="set bao"><div class="l">'+(dungTiengAnh()
 ? '<div class="n">Nothing due yet</div><div class="d"><b>'+seen+'</b> items you have studied are waiting in the review schedule'+
 (soNgay?(', the first '+(soNgay===1?'tomorrow':'in '+soNgay+' days')):'')+
 '. Now is the time to learn new items below.</div>'
