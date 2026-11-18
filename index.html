@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-6gDs//pqNVX6hQYKVhjKEdXzbDj6CSVHtHHp1L9OL7M=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-mfNHkZCNE8CooD3yArVp8vxfNp2xvzenz7nOdEf8gmU=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -569,11 +569,34 @@ body.nhe .lap{display:none}
 .the-chong>.canvas{transform:rotate(-1deg)}
 .lap{--s:.6}
 }
+.monthe[data-mon="ru"]{--mm:#4A8BE8}
+.monthe[data-mon="en"]{--mm:#3BA862}
+.monthe[data-mon="zh"]{--mm:#DC5A50}
+.mon-o[data-mon="ru"]{--mm:#4A8BE8}
+.mon-o[data-mon="en"]{--mm:#3BA862}
+.mon-o[data-mon="zh"]{--mm:#DC5A50}
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .monthe[data-mon="ru"]{--mm:#2F5FA8}
+:root:not([data-theme="light"]) .monthe[data-mon="en"]{--mm:#27734A}
+:root:not([data-theme="light"]) .monthe[data-mon="zh"]{--mm:#9E3F38}
+:root:not([data-theme="light"]) .mon-o[data-mon="ru"]{--mm:#7FB0F5}
+:root:not([data-theme="light"]) .mon-o[data-mon="en"]{--mm:#6FD3A0}
+:root:not([data-theme="light"]) .mon-o[data-mon="zh"]{--mm:#FF958D}
+}
+:root[data-theme="dark"] .monthe[data-mon="ru"]{--mm:#2F5FA8}
+:root[data-theme="dark"] .monthe[data-mon="en"]{--mm:#27734A}
+:root[data-theme="dark"] .monthe[data-mon="zh"]{--mm:#9E3F38}
+:root[data-theme="dark"] .mon-o[data-mon="ru"]{--mm:#7FB0F5}
+:root[data-theme="dark"] .mon-o[data-mon="en"]{--mm:#6FD3A0}
+:root[data-theme="dark"] .mon-o[data-mon="zh"]{--mm:#FF958D}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .monthe{--mm-sang:#9FB0CC;--mm-toi:#060912}}
+:root[data-theme="dark"] .monthe{--mm-sang:#9FB0CC;--mm-toi:#060912}
 .mondai{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px;
 container-type:inline-size;container-name:dai}
 .monthe{position:relative;display:flex;flex-direction:column;gap:11px;padding:16px 16px 14px;
 border-radius:20px;text-align:left;min-width:0;overflow:hidden;color:#fff;isolation:isolate;
-background:linear-gradient(142deg,color-mix(in srgb,var(--mm) 88%,#101624),var(--mm) 52%,color-mix(in srgb,var(--mm) 74%,#ffffff));
+background:linear-gradient(142deg,color-mix(in srgb,var(--mm) 88%,var(--mm-toi,#101624)),
+var(--mm) 52%,color-mix(in srgb,var(--mm) 74%,var(--mm-sang,#ffffff)));
 box-shadow:0 2px 4px rgba(16,22,40,.10),0 10px 26px -10px color-mix(in srgb,var(--mm) 55%,transparent);
 transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .24s,filter .2s}
 .monthe::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
@@ -4805,7 +4828,7 @@ var o=el('<button class="monthe'+(dang?" dang":"")+'" data-chu="'+esc(m.tag)+'">
 '<span class="bar"><i></i></span>'+
 '<span class="s"></span>'+
 '<span class="cta"></span></button>');
-o.style.setProperty("--mm",m.mau);
+o.dataset.mon=m.ma;
 o.querySelector(".hinh b").textContent=m.tag;
 o.querySelector(".n").textContent=D(m.ten);
 o.querySelector(".c").textContent=td?D("Cấp "+td.capSo)+" · "+D(td.cap.ten):D(m.chu);
@@ -7593,7 +7616,7 @@ MON.forEach(function(m){
 var dang=m.ma===mNay.ma,san=!!m.nap;
 var o=el('<button class="mon-o'+(dang?" dang":"")+(san?"":" soan")+'"'+(san?"":" disabled")+
 '><b></b><span class="t"></span><span class="s"></span></button>');
-o.style.setProperty("--mm",m.mau);
+o.dataset.mon=m.ma;
 o.querySelector("b").textContent=m.ban;
 o.querySelector(".t").textContent=D(m.ten);
 o.querySelector(".s").textContent=san?(dang?D("Đang học"):D(m.chu)):D("Đang soạn nội dung");
