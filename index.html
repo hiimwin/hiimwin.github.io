@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-m2Zn5pb97M+WPy8lSXj0xqJ3Bu+W+gU6SSRtvunH1Eo=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-eao4ARiRdpxfkM4rEGguzBOS/v3jXyUREQyVDey6emk=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -1455,7 +1455,9 @@ const TOPICS=[
 ["ку́рица","kúritsa","chicken","thịt gà"],["ры́ба","rýba","fish","cá"],["рис","ris","rice","cơm, gạo"],
 ["суп","sup","soup","súp, canh"],["сыр","syr","cheese","phô mai"],["яйцо́","yaytsó","egg","trứng"],
 ["о́вощи","óvoshchi","vegetables","rau củ"],["фру́кты","frúkty","fruit","trái cây"],["я́блоко","yábloko","apple","quả táo"],
-["са́хар","sákhar","sugar","đường"],["соль","sol'","salt","muối"],["вку́сно","vkúsno","tasty","ngon"]
+["са́хар","sákhar","sugar","đường"],["соль","sol'","salt","muối"],["вку́сно","vkúsno","tasty","ngon"],
+["говя́дина","govyádina","beef","thịt bò"],
+["свини́на","svinína","pork","thịt lợn"]
 ]},
 {id:"rest",name:"Quán ăn & gọi món",ru:"В ресторане",items:[
 ["рестора́н","restorán","restaurant","nhà hàng"],["кафе́","kafé","café","quán cà phê"],["меню́","menyú","menu","thực đơn"],
@@ -1472,7 +1474,12 @@ const TOPICS=[
 ["рубль","rubl'","ruble","đồng rúp"],["цена́","tsená","price","giá"],
 ["Ско́лько сто́ит?","Skól'ko stóit?","how much does it cost?","cái này bao nhiêu tiền?"],
 ["до́рого","dórogo","expensive","đắt"],["дёшево","dyóshevo","cheap","rẻ"],["ка́рта","kárta","card","thẻ"],
-["ски́дка","skídka","discount","giảm giá"],["купи́ть","kupít'","to buy","mua"],["Я беру́","Ya berú","I'll take it","tôi lấy cái này"]
+["ски́дка","skídka","discount","giảm giá"],["купи́ть","kupít'","to buy","mua"],["Я беру́","Ya berú","I'll take it","tôi lấy cái này"],
+["продава́ть","prodavát'","to sell","bán"],
+["нали́чные","nalíchnyye","cash","tiền mặt"],
+["сда́ча","sdácha","change","tiền thừa"],
+["откры́то","otkrýto","open","mở cửa"],
+["закры́то","zakrýto","closed","đóng cửa"]
 ]},
 {id:"move",name:"Đi lại & phương hướng",ru:"Транспорт",items:[
 ["где","gde","where","ở đâu"],["здесь","zdes'","here","ở đây"],["там","tam","there","ở đó"],
@@ -1487,21 +1494,31 @@ const TOPICS=[
 ["ку́хня","kúkhnya","kitchen","bếp"],["ва́нная","vánnaya","bathroom","phòng tắm"],["туале́т","tualét","toilet","nhà vệ sinh"],
 ["дверь","dver'","door","cửa"],["окно́","oknó","window","cửa sổ"],["стол","stol","table","cái bàn"],
 ["стул","stul","chair","cái ghế"],["крова́ть","krovát'","bed","giường"],["ключ","klyuch","key","chìa khoá"],
-["гости́ница","gostínitsa","hotel","khách sạn"]
+["гости́ница","gostínitsa","hotel","khách sạn"],
+["лифт","lift","lift","thang máy"]
 ]},
 {id:"body",name:"Cơ thể & sức khoẻ",ru:"Здоровье",items:[
 ["голова́","golová","head","cái đầu"],["глаз","glaz","eye","mắt"],["нос","nos","nose","mũi"],
 ["рот","rot","mouth","miệng"],["у́хо","úkho","ear","tai"],["рука́","ruká","hand, arm","tay"],
 ["нога́","nogá","leg, foot","chân"],["живо́т","zhivót","stomach","bụng"],["боли́т","bolít","it hurts","bị đau"],
 ["врач","vrach","doctor","bác sĩ"],["больни́ца","bol'nítsa","hospital","bệnh viện"],["апте́ка","aptéka","pharmacy","nhà thuốc"],
-["лека́рство","lekárstvo","medicine","thuốc"],["Помоги́те!","Pomogíte!","help!","cứu với!"],["Мне пло́хо","Mne plókho","I feel sick","tôi thấy không khoẻ"]
+["лека́рство","lekárstvo","medicine","thuốc"],["Помоги́те!","Pomogíte!","help!","cứu với!"],["Мне пло́хо","Mne plókho","I feel sick","tôi thấy không khoẻ"],
+["спина́","spiná","back","lưng"],
+["се́рдце","sérdtse","heart","tim"],
+["боле́ть","bolét'","to be ill","ốm"]
 ]},
 {id:"adj",name:"Tính từ & cảm xúc",ru:"Прилагательные",items:[
 ["большо́й","bol'shóy","big","to, lớn"],["ма́ленький","málen'kiy","small","nhỏ"],["хоро́ший","khoróshiy","good","tốt"],
 ["плохо́й","plokhóy","bad","tệ, xấu"],["но́вый","nóvyy","new","mới"],["ста́рый","stáryy","old","cũ, già"],
 ["краси́вый","krasívyy","beautiful","đẹp"],["бы́стро","býstro","quickly","nhanh"],["ме́дленно","médlenno","slowly","chậm"],
 ["горя́чий","goryáchiy","hot","nóng"],["холо́дный","kholódnyy","cold","lạnh"],["тру́дно","trúdno","difficult","khó"],
-["легко́","legkó","easy","dễ"],["рад","rad","glad","vui, mừng"],["уста́л","ustál","tired","mệt"],["интере́сно","interésno","interesting","thú vị"]
+["легко́","legkó","easy","dễ"],["рад","rad","glad","vui, mừng"],["уста́л","ustál","tired","mệt"],["интере́сно","interésno","interesting","thú vị"],
+["голо́дный","golódnyy","hungry","đói"],
+["гру́стный","grústnyy","sad","buồn"],
+["серди́тый","serdítyy","angry","tức giận"],
+["стра́шно","stráshno","scary, afraid","sợ"],
+["дли́нный","dlínnyy","long","dài"],
+["коро́ткий","korótkiy","short","ngắn"]
 ]},
 {id:"verb",name:"Động từ thông dụng",ru:"Глаголы",items:[
 ["быть","byt'","to be","thì, là, ở"],["у меня́ есть","u menyá yest'","I have","tôi có"],["де́лать","délat'","to do","làm"],
@@ -1510,7 +1527,11 @@ const TOPICS=[
 ["е́хать","yékhat'","to go (by vehicle)","đi (bằng xe)"],["ви́деть","vídet'","to see","nhìn thấy"],["слы́шать","slýshat'","to hear","nghe thấy"],
 ["чита́ть","chitát'","to read","đọc"],["писа́ть","pisát'","to write","viết"],["есть","yest'","to eat","ăn"],
 ["пить","pit'","to drink","uống"],["спать","spat'","to sleep","ngủ"],["рабо́тать","rabótat'","to work","làm việc"],
-["жить","zhit'","to live","sống"],["люби́ть","lyubít'","to love","yêu, thích"]
+["жить","zhit'","to live","sống"],["люби́ть","lyubít'","to love","yêu, thích"],
+["дать","dat'","to give","cho"],
+["взять","vzyat'","to take","lấy"],
+["нача́ть","nachát'","to begin","bắt đầu"],
+["ждать","zhdat'","to wait","đợi"]
 ]},
 {id:"survive",name:"Câu dùng hằng ngày",ru:"Полезные фразы",items:[
 ["Я не зна́ю","Ya ne znáyu","I don't know","tôi không biết"],
@@ -1542,7 +1563,9 @@ const TOPICS=[
 ["жа́рко","zhárko","it is hot","trời nóng"],["хо́лодно","khólodno","it is cold","trời lạnh"],["тепло́","tepló","it is warm","trời ấm"],
 ["прохла́дно","prokhládno","it is cool","trời mát"],["весна́","vesná","spring","mùa xuân"],["ле́то","léto","summer","mùa hè"],
 ["о́сень","ósen'","autumn","mùa thu"],["зима́","zimá","winter","mùa đông"],
-["Кака́я сего́дня пого́да?","Kakáya sevódnya pogóda?","what is the weather today?","hôm nay thời tiết thế nào?"]
+["Кака́я сего́дня пого́да?","Kakáya sevódnya pogóda?","what is the weather today?","hôm nay thời tiết thế nào?"],
+["вла́жно","vlázhno","humid","ẩm"],
+["бу́ря","búrya","storm","bão"]
 ]},
 {id:"nature",name:"Thiên nhiên",ru:"Природа",items:[
 ["приро́да","priróda","nature","thiên nhiên"],["ого́нь","ogón'","fire","lửa"],["земля́","zemlyá","earth, soil","đất"],
@@ -1575,7 +1598,9 @@ const TOPICS=[
 ["догово́р","dogovór","contract","hợp đồng"],["зарпла́та","zarpláta","salary","lương"],["компью́тер","komp'yúter","computer","máy tính"],
 ["письмо́","pis'mó","letter","lá thư"],["докуме́нт","dokumént","document","tài liệu"],["вопро́с","voprós","question","câu hỏi"],
 ["отве́т","otvét","answer","câu trả lời"],["инжене́р","inzhenér","engineer","kỹ sư"],
-["Кем вы рабо́таете?","Kem vy rabótayete?","what do you do for work?","bạn làm nghề gì?"]
+["Кем вы рабо́таете?","Kem vy rabótayete?","what do you do for work?","bạn làm nghề gì?"],
+["о́тпуск","ótpusk","holiday, leave","kỳ nghỉ"],
+["отпра́вить","otprávit'","to send","gửi"]
 ]},
 {id:"study",name:"Trường học & học tập",ru:"Учёба",items:[
 ["учи́ться","uchít'sya","to study","học"],["учи́тель","uchítel'","teacher","giáo viên"],["учени́к","ucheník","pupil","học sinh"],
@@ -1583,7 +1608,10 @@ const TOPICS=[
 ["тетра́дь","tetrád'","notebook","quyển vở"],["ру́чка","rúchka","pen","cây bút"],["каранда́ш","karandásh","pencil","bút chì"],
 ["слова́рь","slovár'","dictionary","từ điển"],["язы́к","yazýk","language, tongue","ngôn ngữ, cái lưỡi"],["сло́во","slóvo","word","từ"],
 ["предложе́ние","predlozhéniye","sentence","câu"],["оши́бка","oshíbka","mistake","lỗi sai"],["пра́вильно","právil'no","correctly","đúng rồi"],
-["экза́мен","ekzámen","exam","kỳ thi"]
+["экза́мен","ekzámen","exam","kỳ thi"],
+["преподава́ть","prepodavát'","to teach","dạy"],
+["по́мнить","pómnit'","to remember","nhớ"],
+["забы́ть","zabýt'","to forget","quên"]
 ]},
 {id:"hobby",name:"Sở thích & giải trí",ru:"Хобби",items:[
 ["хо́бби","khóbbi","hobby","sở thích"],["му́зыка","múzyka","music","âm nhạc"],["пе́сня","pésnya","song","bài hát"],
@@ -1591,14 +1619,17 @@ const TOPICS=[
 ["танцева́ть","tantsevát'","to dance","nhảy, múa"],["петь","pet'","to sing","hát"],["игра́ть","igrát'","to play","chơi"],
 ["рисова́ть","risovát'","to draw","vẽ"],["фотогра́фия","fotográfiya","photograph","bức ảnh"],["путеше́ствовать","puteshéstvovat'","to travel","đi du lịch"],
 ["отдыха́ть","otdykhát'","to rest","nghỉ ngơi"],["ску́чно","skúchno","boring","chán"],
-["Что ты лю́бишь де́лать?","Shto ty lyúbish' délat'?","what do you like to do?","bạn thích làm gì?"]
+["Что ты лю́бишь де́лать?","Shto ty lyúbish' délat'?","what do you like to do?","bạn thích làm gì?"],
+["гото́вить","gotóvit'","to cook","nấu ăn"]
 ]},
 {id:"sport",name:"Thể thao",ru:"Спорт",items:[
 ["спорт","sport","sport","thể thao"],["футбо́л","futból","football","bóng đá"],["баскетбо́л","basketból","basketball","bóng rổ"],
 ["пла́вать","plávat'","to swim","bơi"],["бе́гать","bégat'","to run","chạy"],["ходи́ть","khodít'","to walk, to go","đi bộ"],
 ["кома́нда","kománda","team","đội"],["игра́","igrá","game, match","trận đấu"],["выи́грывать","vyígryvat'","to win","thắng"],
 ["прои́грывать","proígryvat'","to lose","thua"],["мяч","myach","ball","quả bóng"],["стадио́н","stadión","stadium","sân vận động"],
-["тренирова́ться","trenirovát'sya","to train","tập luyện"],["си́льный","síl'nyy","strong","khoẻ, mạnh"],["уста́лый","ustályy","tired","mệt mỏi"]
+["тренирова́ться","trenirovát'sya","to train","tập luyện"],["си́льный","síl'nyy","strong","khoẻ, mạnh"],["уста́лый","ustályy","tired","mệt mỏi"],
+["те́ннис","ténnis","tennis","quần vợt"],
+["спортза́л","sportzál","gym","phòng tập"]
 ]},
 {id:"trip",name:"Du lịch",ru:"Путешествие",items:[
 ["путеше́ствие","puteshéstviye","trip","chuyến đi"],["чемода́н","chemodán","suitcase","vali"],["па́спорт","pásport","passport","hộ chiếu"],
@@ -1614,7 +1645,11 @@ const TOPICS=[
 ["сообще́ние","soobshchéniye","message","tin nhắn"],["паро́ль","paról'","password","mật khẩu"],["сеть","set'","network","mạng"],
 ["заряди́ть","zaryadít'","to charge","sạc pin"],["прило́жение","prilozhéniye","app","ứng dụng"],["экра́н","ekrán","screen","màn hình"],
 ["Есть вай-фа́й?","Yest' vay-fáy?","is there Wi-Fi?","có Wi-Fi không?"],["Не рабо́тает","Ne rabótayet","it does not work","không hoạt động"],
-["Переда́йте, пожа́луйста","Peredáyte, pozháluysta","please pass on the message","nhắn lại giúp tôi"]
+["Переда́йте, пожа́луйста","Peredáyte, pozháluysta","please pass on the message","nhắn lại giúp tôi"],
+["сайт","sayt","website","trang web"],
+["батаре́я","bataréya","battery","pin"],
+["заряжа́ть","zaryazhát'","to charge","sạc"],
+["скача́ть","skachát'","to download","tải về"]
 ]},
 {id:"city",name:"Trong thành phố",ru:"В городе",items:[
 ["центр","tsentr","centre","trung tâm"],["пло́щадь","plóshchad'","square","quảng trường"],["парк","park","park","công viên"],
@@ -1651,7 +1686,11 @@ const TOPICS=[
 ["лу́чше","lúchshe","better","tốt hơn"],
 ["ху́же","khúzhe","worse","tệ hơn"],
 ["Что вы ду́маете?","Shto vy dúmayete?","what do you think?","bạn nghĩ sao?"],
-["Мне всё равно́","Mne vsyo ravnó","I do not mind","tôi sao cũng được"]
+["Мне всё равно́","Mne vsyo ravnó","I do not mind","tôi sao cũng được"],
+["Ты прав","Ty prav","you're right","bạn nói đúng"],
+["Я не уве́рен","Ya ne uvéren","I'm not sure","tôi không chắc"],
+["потому́ что","potomú chto","because","bởi vì"],
+["наприме́р","naprimér","for example","ví dụ"]
 ]},
 {id:"social",name:"Đời sống xã hội",ru:"Социальная жизнь",items:[
 ["друзья́","druz'yá","friends","bạn bè"],["встре́титься","vstrétit'sya","to meet up","gặp mặt"],
@@ -1662,7 +1701,11 @@ const TOPICS=[
 ["гость","gost'","guest","khách"],["в го́сти","v gósti","to visit someone","đi chơi nhà ai"],
 ["вме́сте","vméste","together","cùng nhau"],["свобо́ден","svobóden","free, available","rảnh"],
 ["за́нят","zányat","busy","bận"],["Пойдём!","Poydyóm!","let's go!","đi thôi!"],
-["Дава́й встре́тимся","Daváy vstrétimsya","let's meet","gặp nhau nhé"]
+["Дава́й встре́тимся","Daváy vstrétimsya","let's meet","gặp nhau nhé"],
+["сва́дьба","svád'ba","wedding","đám cưới"],
+["сосе́д","soséd","neighbour","hàng xóm"],
+["Уда́чи!","Udáchi!","good luck!","chúc may mắn!"],
+["С Но́вым го́дом!","S Nóvym gódom!","happy new year!","chúc mừng năm mới!"]
 ]},
 {id:"society",name:"Xã hội & tin tức",ru:"Общество",items:[
 ["о́бщество","óbshchestvo","society","xã hội"],["но́вости","nóvosti","news","tin tức"],
@@ -1672,7 +1715,12 @@ const TOPICS=[
 ["рели́гия","relígiya","religion","tôn giáo"],
 ["эколо́гия","ekológiya","ecology","môi trường"],["пробле́ма","probléma","problem","vấn đề"],
 ["война́","voyná","war","chiến tranh"],["мир","mir","peace, world","hoà bình, thế giới"],
-["наро́д","naród","people, nation","nhân dân"],["страна́","straná","country","đất nước"]
+["наро́д","naród","people, nation","nhân dân"],["страна́","straná","country","đất nước"],
+["эконо́мика","ekonómika","economy","kinh tế"],
+["здоро́вье","zdoróv'ye","health","sức khoẻ"],
+["образова́ние","obrazovániye","education","giáo dục"],
+["техноло́гия","tekhnológiya","technology","công nghệ"],
+["бу́дущее","búdushcheye","future","tương lai"]
 ]}
 ];
 const NGU_PHAP_RU=[
@@ -1958,7 +2006,8 @@ const CHUDE_ANH=[
 ["man","/mæn/","","người đàn ông"],
 ["woman","/ˈwʊmən/","","người phụ nữ"],
 ["boy","/bɔɪ/","","cậu bé"],
-["girl","/ɡɜːl/","","cô bé"]
+["girl","/ɡɜːl/","","cô bé"],
+["person","/ˈpɜːsn/","","con người"]
 ]},
 {id:"time",name:"Thời gian & ngày tháng",ru:"Time",items:[
 ["today","/təˈdeɪ/","","hôm nay"],
@@ -2007,7 +2056,9 @@ const CHUDE_ANH=[
 ["beer","/bɪə/","","bia"],
 ["breakfast","/ˈbrekfəst/","","bữa sáng"],
 ["lunch","/lʌntʃ/","","bữa trưa"],
-["dinner","/ˈdɪnə/","","bữa tối"]
+["dinner","/ˈdɪnə/","","bữa tối"],
+["juice","/dʒuːs/","","nước ép"],
+["apple","/ˈæpl/","","quả táo"]
 ]},
 {id:"rest",name:"Quán ăn & gọi món",ru:"At the restaurant",items:[
 ["menu","/ˈmenjuː/","","thực đơn"],
@@ -2023,7 +2074,9 @@ const CHUDE_ANH=[
 ["I'm vegetarian","/aɪm ˌvedʒəˈteəriən/","","tôi ăn chay"],
 ["How much is it?","/haʊ ˈmʌtʃ ɪz ɪt/","","bao nhiêu tiền?"],
 ["Cheers!","/tʃɪəz/","","cạn ly!"],
-["No ice, please","/nəʊ aɪs pliːz/","","đừng cho đá"]
+["No ice, please","/nəʊ aɪs pliːz/","","đừng cho đá"],
+["restaurant","/ˈrestrɒnt/","","nhà hàng"],
+["café","/ˈkæfeɪ/","","quán cà phê"]
 ]},
 {id:"shop",name:"Mua sắm & tiền",ru:"Shopping",items:[
 ["money","/ˈmʌni/","","tiền"],
@@ -2061,7 +2114,10 @@ const CHUDE_ANH=[
 ["near","/nɪə/","","gần"],
 ["far","/fɑː/","","xa"],
 ["Where is…?","/weər ɪz/","","…ở đâu?"],
-["map","/mæp/","","bản đồ"]
+["map","/mæp/","","bản đồ"],
+["here","/hɪə/","","ở đây"],
+["there","/ðeə/","","ở đó"],
+["underground","/ˈʌndəɡraʊnd/","","tàu điện ngầm"]
 ]},
 {id:"home",name:"Nhà cửa & khách sạn",ru:"Home & hotel",items:[
 ["house","/haʊs/","","ngôi nhà"],
@@ -2121,7 +2177,9 @@ const CHUDE_ANH2=[
 ["fast","/fɑːst/","","nhanh"],
 ["slow","/sləʊ/","","chậm"],
 ["angry","/ˈæŋɡri/","","tức giận"],
-["afraid","/əˈfreɪd/","","sợ"]
+["afraid","/əˈfreɪd/","","sợ"],
+["long","/lɒŋ/","","dài"],
+["short","/ʃɔːt/","","ngắn"]
 ]},
 {id:"verb",name:"Động từ thông dụng",ru:"Common verbs",items:[
 ["to be","/tə biː/","","thì / là / ở"],
@@ -2147,7 +2205,8 @@ const CHUDE_ANH2=[
 ["to give","/tə ɡɪv/","","cho"],
 ["to take","/tə teɪk/","","lấy"],
 ["to buy","/tə baɪ/","","mua"],
-["to make","/tə meɪk/","","làm ra / chế tạo"]
+["to make","/tə meɪk/","","làm ra / chế tạo"],
+["can","/kæn/","","có thể"]
 ]},
 {id:"survive",name:"Câu dùng hằng ngày",ru:"Everyday phrases",items:[
 ["Yes","/jes/","","vâng / có"],
@@ -2178,7 +2237,10 @@ const CHUDE_ANH2=[
 ["brown","/braʊn/","","màu nâu"],
 ["black","/blæk/","","màu đen"],
 ["white","/waɪt/","","màu trắng"],
-["grey","/ɡreɪ/","","màu xám"]
+["grey","/ɡreɪ/","","màu xám"],
+["colour","/ˈkʌlə/","","màu sắc"],
+["light","/laɪt/","","sáng màu"],
+["dark","/dɑːk/","","sẫm màu"]
 ]},
 {id:"weather",name:"Thời tiết & mùa",ru:"Weather & seasons",items:[
 ["weather","/ˈweðə/","","thời tiết"],
@@ -2231,7 +2293,10 @@ const CHUDE_ANH2=[
 ["size","/saɪz/","","cỡ"],
 ["to try on","/tə traɪ ɒn/","","mặc thử"],
 ["It fits","/ɪt fɪts/","","vừa rồi"],
-["too big","/tuː bɪɡ/","","rộng quá"]
+["too big","/tuː bɪɡ/","","rộng quá"],
+["jeans","/dʒiːnz/","","quần bò"],
+["socks","/sɒks/","","tất"],
+["coat","/kəʊt/","","áo măng tô"]
 ]},
 {id:"animal",name:"Động vật",ru:"Animals",items:[
 ["animal","/ˈænɪml/","","động vật"],
@@ -2267,7 +2332,11 @@ const CHUDE_ANH2=[
 ["busy","/ˈbɪzi/","","bận"],
 ["holiday","/ˈhɒlədeɪ/","","kỳ nghỉ"],
 ["to call","/tə kɔːl/","","gọi điện"],
-["to send","/tə send/","","gửi"]
+["to send","/tə send/","","gửi"],
+["computer","/kəmˈpjuːtə/","","máy tính"],
+["contract","/ˈkɒntrækt/","","hợp đồng"],
+["document","/ˈdɒkjumənt/","","tài liệu"],
+["letter","/ˈletə/","","lá thư"]
 ]},
 {id:"study",name:"Trường học & học tập",ru:"School & study",items:[
 ["school","/skuːl/","","trường học"],
@@ -2284,7 +2353,13 @@ const CHUDE_ANH2=[
 ["to learn","/tə lɜːn/","","học"],
 ["to teach","/tə tiːtʃ/","","dạy"],
 ["to remember","/tə rɪˈmembə/","","nhớ"],
-["to forget","/tə fəˈɡet/","","quên"]
+["to forget","/tə fəˈɡet/","","quên"],
+["dictionary","/ˈdɪkʃənri/","","từ điển"],
+["notebook","/ˈnəʊtbʊk/","","quyển vở"],
+["pencil","/ˈpensl/","","bút chì"],
+["word","/wɜːd/","","từ"],
+["sentence","/ˈsentəns/","","câu"],
+["mistake","/mɪˈsteɪk/","","lỗi sai"]
 ]},
 {id:"hobby",name:"Sở thích & giải trí",ru:"Hobbies",items:[
 ["hobby","/ˈhɒbi/","","sở thích"],
@@ -2301,7 +2376,11 @@ const CHUDE_ANH2=[
 ["to cook","/tə kʊk/","","nấu ăn"],
 ["to travel","/tə ˈtrævl/","","đi du lịch"],
 ["interesting","/ˈɪntrəstɪŋ/","","thú vị"],
-["boring","/ˈbɔːrɪŋ/","","chán"]
+["boring","/ˈbɔːrɪŋ/","","chán"],
+["cinema","/ˈsɪnəmə/","","rạp chiếu phim"],
+["theatre","/ˈθɪətə/","","nhà hát"],
+["photo","/ˈfəʊtəʊ/","","bức ảnh"],
+["to rest","/tə rest/","","nghỉ ngơi"]
 ]},
 {id:"sport",name:"Thể thao",ru:"Sport",items:[
 ["sport","/spɔːt/","","thể thao"],
@@ -2315,7 +2394,10 @@ const CHUDE_ANH2=[
 ["match","/mætʃ/","","trận đấu"],
 ["to win","/tə wɪn/","","thắng"],
 ["to lose","/tə luːz/","","thua"],
-["to train","/tə treɪn/","","tập luyện"]
+["to train","/tə treɪn/","","tập luyện"],
+["ball","/bɔːl/","","quả bóng"],
+["stadium","/ˈsteɪdiəm/","","sân vận động"],
+["to walk","/tə wɔːk/","","đi bộ"]
 ]},
 {id:"trip",name:"Du lịch",ru:"Travel",items:[
 ["travel","/ˈtrævl/","","việc đi lại / du lịch"],
@@ -2330,7 +2412,9 @@ const CHUDE_ANH2=[
 ["camera","/ˈkæmrə/","","máy ảnh"],
 ["guide","/ɡaɪd/","","hướng dẫn viên"],
 ["booking","/ˈbʊkɪŋ/","","đặt chỗ"],
-["Have a good trip!","/hæv ə ɡʊd trɪp/","","chúc đi vui vẻ!"]
+["Have a good trip!","/hæv ə ɡʊd trɪp/","","chúc đi vui vẻ!"],
+["souvenir","/ˌsuːvəˈnɪə/","","quà lưu niệm"],
+["tour","/tʊə/","","chuyến tham quan"]
 ]},
 {id:"phone",name:"Điện thoại & internet",ru:"Phone & internet",items:[
 ["phone","/fəʊn/","","điện thoại"],
@@ -2352,7 +2436,7 @@ const CHUDE_ANH2=[
 ["city","/ˈsɪti/","","thành phố"],
 ["street","/striːt/","","đường phố"],
 ["bank","/bæŋk/","","ngân hàng"],
-["post office","/ˈpəʊst ɒfɪs/","","bưu điện"],
+["post office","/ˈpəʊst ˌɒfɪs/","","bưu điện"],
 ["supermarket","/ˈsuːpəmɑːkɪt/","","siêu thị"],
 ["pharmacy","/ˈfɑːməsi/","","hiệu thuốc"],
 ["park","/pɑːk/","","công viên"],
@@ -2384,7 +2468,12 @@ const CHUDE_ANH2=[
 ["never","/ˈnevə/","","không bao giờ"],
 ["already","/ɔːlˈredi/","","đã rồi"],
 ["still","/stɪl/","","vẫn còn"],
-["very","/ˈveri/","","rất"]
+["very","/ˈveri/","","rất"],
+["for","/fɔː/","","dành cho"],
+["after","/ˈɑːftə/","","sau khi"],
+["before","/bɪˈfɔː/","","trước khi"],
+["also","/ˈɔːlsəʊ/","","cũng"],
+["rarely","/ˈreəli/","","hiếm khi"]
 ]},
 {id:"opinion",name:"Ý kiến & quan điểm",ru:"Opinions",items:[
 ["I think…","/aɪ ˈθɪŋk/","","tôi nghĩ là…"],
@@ -2399,7 +2488,10 @@ const CHUDE_ANH2=[
 ["for example","/fər ɪɡˈzɑːmpl/","","ví dụ"],
 ["important","/ɪmˈpɔːtnt/","","quan trọng"],
 ["true","/truː/","","đúng / thật"],
-["probably","/ˈprɒbəbli/","","có lẽ"]
+["probably","/ˈprɒbəbli/","","có lẽ"],
+["better","/ˈbetə/","","tốt hơn"],
+["worse","/wɜːs/","","tệ hơn"],
+["What do you think?","/wɒt duː juː θɪŋk/","","bạn nghĩ sao?"]
 ]},
 {id:"social",name:"Đời sống xã hội",ru:"Social life",items:[
 ["party","/ˈpɑːti/","","bữa tiệc"],
@@ -2413,7 +2505,11 @@ const CHUDE_ANH2=[
 ["neighbour","/ˈneɪbə/","","hàng xóm"],
 ["Congratulations!","/kənˌɡrætʃuˈleɪʃnz/","","chúc mừng!"],
 ["Happy birthday!","/ˈhæpi ˈbɜːθdeɪ/","","chúc mừng sinh nhật!"],
-["Good luck!","/ɡʊd lʌk/","","chúc may mắn!"]
+["Good luck!","/ɡʊd lʌk/","","chúc may mắn!"],
+["public holiday","/ˌpʊblɪk ˈhɒlədeɪ/","","ngày lễ"],
+["together","/təˈɡeðə/","","cùng nhau"],
+["free","/friː/","","rảnh"],
+["Let's go!","/lets ɡəʊ/","","đi thôi!"]
 ]},
 {id:"society",name:"Xã hội & tin tức",ru:"Society & news",items:[
 ["news","/njuːz/","","tin tức"],
@@ -2428,7 +2524,14 @@ const CHUDE_ANH2=[
 ["problem","/ˈprɒbləm/","","vấn đề"],
 ["change","/tʃeɪndʒ/","","sự thay đổi"],
 ["future","/ˈfjuːtʃə/","","tương lai"],
-["society","/səˈsaɪəti/","","xã hội"]
+["society","/səˈsaɪəti/","","xã hội"],
+["newspaper","/ˈnjuːspeɪpə/","","báo"],
+["history","/ˈhɪstri/","","lịch sử"],
+["culture","/ˈkʌltʃə/","","văn hoá"],
+["religion","/rɪˈlɪdʒən/","","tôn giáo"],
+["war","/wɔː/","","chiến tranh"],
+["peace","/piːs/","","hoà bình"],
+["people","/ˈpiːpl/","","nhân dân"]
 ]}
 ];
 Array.prototype.push.apply(CHUDE_ANH,CHUDE_ANH2);
@@ -2681,7 +2784,10 @@ const CHUDE_TRUNG=[
 ["怎么","zěnme","how","như thế nào"],
 ["哪个","nǎge","which","cái nào"],
 ["这个","zhège","this","cái này"],
-["那个","nàge","that","cái kia"]
+["那个","nàge","that","cái kia"],
+["它","tā","it","nó (vật, con vật)"],
+["这些","zhèxiē","these","những cái này"],
+["那些","nàxiē","those","những cái kia"]
 ]},
 {id:"fam",name:"Người & gia đình",ru:"家人",items:[
 ["家","jiā","family, home","gia đình"],
@@ -2701,7 +2807,11 @@ const CHUDE_TRUNG=[
 ["爷爷","yéye","grandfather","ông nội"],
 ["朋友","péngyǒu","friend","bạn bè"],
 ["男人","nánrén","man","đàn ông"],
-["女人","nǚrén","woman","phụ nữ"]
+["女人","nǚrén","woman","phụ nữ"],
+["人","rén","person","con người"],
+["宝宝","bǎobao","baby","em bé"],
+["男孩","nánhái","boy","cậu bé"],
+["女孩","nǜhái","girl","cô bé"]
 ]},
 {id:"time",name:"Thời gian & ngày tháng",ru:"时间",items:[
 ["今天","jīntiān","today","hôm nay"],
@@ -2725,7 +2835,8 @@ const CHUDE_TRUNG=[
 ["星期五","xīngqīwǔ","Friday","thứ Sáu"],
 ["星期六","xīngqīliù","Saturday","thứ Bảy"],
 ["星期天","xīngqītiān","Sunday","Chủ nhật"],
-["几点了","jǐ diǎn le","what time is it?","mấy giờ rồi?"]
+["几点了","jǐ diǎn le","what time is it?","mấy giờ rồi?"],
+["一会儿","yíhuìr","in a moment","lát nữa"]
 ]},
 {id:"food",name:"Đồ ăn & thức uống",ru:"饮食",items:[
 ["水","shuǐ","water","nước"],
@@ -2749,7 +2860,9 @@ const CHUDE_TRUNG=[
 ["啤酒","píjiǔ","beer","bia"],
 ["早饭","zǎofàn","breakfast","bữa sáng"],
 ["午饭","wǔfàn","lunch","bữa trưa"],
-["晚饭","wǎnfàn","dinner","bữa tối"]
+["晚饭","wǎnfàn","dinner","bữa tối"],
+["果汁","guǒzhī","juice","nước ép"],
+["苹果","píngguǒ","apple","quả táo"]
 ]},
 {id:"rest",name:"Quán ăn & gọi món",ru:"在餐厅",items:[
 ["菜单","càidān","menu","thực đơn"],
@@ -2764,7 +2877,9 @@ const CHUDE_TRUNG=[
 ["我吃素","wǒ chīsù","I'm vegetarian","tôi ăn chay"],
 ["多少钱","duōshao qián","how much is it?","bao nhiêu tiền?"],
 ["干杯","gānbēi","cheers!","cạn ly!"],
-["不要冰","bú yào bīng","no ice","đừng cho đá"]
+["不要冰","bú yào bīng","no ice","đừng cho đá"],
+["餐厅","cāntīng","restaurant","nhà hàng"],
+["咖啡馆","kāfēiguǎn","café","quán cà phê"]
 ]},
 {id:"shop",name:"Mua sắm & tiền",ru:"购物",items:[
 ["钱","qián","money","tiền"],
@@ -2802,7 +2917,11 @@ const CHUDE_TRUNG=[
 ["近","jìn","near","gần"],
 ["远","yuǎn","far","xa"],
 ["在哪里","zài nǎlǐ","where is it?","ở đâu?"],
-["地图","dìtú","map","bản đồ"]
+["地图","dìtú","map","bản đồ"],
+["这里","zhèlǐ","here","ở đây"],
+["那里","nàlǐ","there","ở đó"],
+["火车站","huǒchēzhàn","train station","ga tàu"],
+["地铁","dìtiě","underground","tàu điện ngầm"]
 ]},
 {id:"home",name:"Nhà cửa & khách sạn",ru:"家与酒店",items:[
 ["房子","fángzi","house","ngôi nhà"],
@@ -2838,7 +2957,8 @@ const CHUDE_TRUNG=[
 ["疼","téng","pain, to ache","đau"],
 ["生病","shēngbìng","to be ill","ốm"],
 ["累","lèi","tired","mệt"],
-["救命","jiùmìng","help!","cứu với!"]
+["救命","jiùmìng","help!","cứu với!"],
+["不舒服","bù shūfu","to feel unwell","thấy khó chịu"]
 ]}
 ];
 const CHUDE_TRUNG2=[
@@ -2863,7 +2983,10 @@ const CHUDE_TRUNG2=[
 ["生气","shēngqì","angry","tức giận"],
 ["害怕","hàipà","afraid","sợ"],
 ["多","duō","many, much","nhiều"],
-["少","shǎo","few, little","ít"]
+["少","shǎo","few, little","ít"],
+["老","lǎo","old (people)","già"],
+["长","cháng","long","dài"],
+["短","duǎn","short","ngắn"]
 ]},
 {id:"verb",name:"Động từ thông dụng",ru:"常用动词",items:[
 ["是","shì","to be","là"],
@@ -2889,7 +3012,9 @@ const CHUDE_TRUNG2=[
 ["给","gěi","to give","cho"],
 ["拿","ná","to take","lấy"],
 ["开始","kāishǐ","to begin","bắt đầu"],
-["等","děng","to wait","đợi"]
+["等","děng","to wait","đợi"],
+["可以","kěyǐ","can, may","có thể"],
+["生活","shēnghuó","to live","sống"]
 ]},
 {id:"survive",name:"Câu dùng hằng ngày",ru:"日常用语",items:[
 ["对","duì","right, correct","đúng"],
@@ -2919,7 +3044,10 @@ const CHUDE_TRUNG2=[
 ["棕色","zōngsè","brown","màu nâu"],
 ["黑色","hēisè","black","màu đen"],
 ["白色","báisè","white","màu trắng"],
-["灰色","huīsè","grey","màu xám"]
+["灰色","huīsè","grey","màu xám"],
+["颜色","yánsè","colour","màu sắc"],
+["浅色","qiǎnsè","light (shade)","sáng màu"],
+["深色","shēnsè","dark (shade)","sẫm màu"]
 ]},
 {id:"weather",name:"Thời tiết & mùa",ru:"天气与季节",items:[
 ["天气","tiānqì","weather","thời tiết"],
@@ -2972,7 +3100,10 @@ const CHUDE_TRUNG2=[
 ["尺寸","chǐcùn","size","cỡ"],
 ["试穿","shìchuān","to try on","mặc thử"],
 ["合适","héshì","to fit, suitable","vừa / hợp"],
-["太大了","tài dà le","too big","rộng quá"]
+["太大了","tài dà le","too big","rộng quá"],
+["袜子","wàzi","socks","tất"],
+["牛仔裤","niúzǎkù","jeans","quần bò"],
+["大衣","dàyī","coat","áo măng tô"]
 ]},
 {id:"animal",name:"Động vật",ru:"动物",items:[
 ["动物","dòngwù","animal","động vật"],
@@ -3007,7 +3138,11 @@ const CHUDE_TRUNG2=[
 ["假期","jiàqī","holiday","kỳ nghỉ"],
 ["打电话","dǎ diànhuà","to make a call","gọi điện"],
 ["发送","fāsòng","to send","gửi"],
-["加班","jiābān","to work overtime","tăng ca"]
+["加班","jiābān","to work overtime","tăng ca"],
+["电脑","diànnǎo","computer","máy tính"],
+["合同","hétong","contract","hợp đồng"],
+["文件","wénjiàn","document","tài liệu"],
+["信","xìn","letter","lá thư"]
 ]},
 {id:"study",name:"Trường học & học tập",ru:"学习",items:[
 ["学校","xuéxiào","school","trường học"],
@@ -3024,7 +3159,13 @@ const CHUDE_TRUNG2=[
 ["学","xué","to learn","học"],
 ["教","jiāo","to teach","dạy"],
 ["记得","jìde","to remember","nhớ"],
-["忘记","wàngjì","to forget","quên"]
+["忘记","wàngjì","to forget","quên"],
+["词典","cídǎn","dictionary","từ điển"],
+["本子","běnzi","notebook","quyển vở"],
+["铅笔","qiānbǐ","pencil","bút chì"],
+["词","cí","word","từ"],
+["句子","jùzi","sentence","câu"],
+["错","cuò","mistake, wrong","lỗi sai"]
 ]},
 {id:"hobby",name:"Sở thích & giải trí",ru:"爱好",items:[
 ["爱好","àihào","hobby","sở thích"],
@@ -3039,7 +3180,11 @@ const CHUDE_TRUNG2=[
 ["做饭","zuòfàn","to cook","nấu ăn"],
 ["旅游","lǚyóu","to travel","đi du lịch"],
 ["有意思","yǒu yìsi","interesting","thú vị"],
-["无聊","wúliáo","boring","chán"]
+["无聊","wúliáo","boring","chán"],
+["电影院","diànyǐngyuàn","cinema","rạp chiếu phim"],
+["照片","zhàopiàn","photograph","bức ảnh"],
+["玩","wán","to play","chơi"],
+["休息","xiūxi","to rest","nghỉ ngơi"]
 ]},
 {id:"sport",name:"Thể thao",ru:"运动",items:[
 ["运动","yùndòng","sport","thể thao"],
@@ -3053,7 +3198,10 @@ const CHUDE_TRUNG2=[
 ["比赛","bǐsài","match, competition","trận đấu"],
 ["赢","yíng","to win","thắng"],
 ["输","shū","to lose","thua"],
-["练习","liànxí","to practise","tập luyện"]
+["练习","liànxí","to practise","tập luyện"],
+["球","qiú","ball","quả bóng"],
+["体育场","tǐyùchǎng","stadium","sân vận động"],
+["走路","zǒulù","to walk","đi bộ"]
 ]},
 {id:"trip",name:"Du lịch",ru:"旅行",items:[
 ["旅行","lǚxíng","travel, trip","chuyến đi"],
@@ -3066,7 +3214,9 @@ const CHUDE_TRUNG2=[
 ["航班","hángbān","flight","chuyến bay"],
 ["相机","xiàngjī","camera","máy ảnh"],
 ["导游","dǎoyóu","tour guide","hướng dẫn viên"],
-["一路平安","yílù píng'ān","have a good trip!","thượng lộ bình an!"]
+["一路平安","yílù píng'ān","have a good trip!","thượng lộ bình an!"],
+["纪念品","jìniànpǐn","souvenir","quà lưu niệm"],
+["参观","cānguān","to visit, tour","đi tham quan"]
 ]},
 {id:"phone",name:"Điện thoại & internet",ru:"电话与网络",items:[
 ["电话","diànhuà","telephone","điện thoại"],
@@ -3120,7 +3270,11 @@ const CHUDE_TRUNG2=[
 ["从来不","cónglái bù","never","không bao giờ"],
 ["已经","yǐjīng","already","đã rồi"],
 ["还","hái","still, yet","vẫn còn"],
-["很","hěn","very","rất"]
+["很","hěn","very","rất"],
+["也","yě","also, too","cũng"],
+["以后","yǐhòu","after","sau khi"],
+["以前","yǐqián","before","trước khi"],
+["很少","hěn shǎo","rarely","hiếm khi"]
 ]},
 {id:"opinion",name:"Ý kiến & quan điểm",ru:"观点",items:[
 ["我觉得","wǒ juéde","I think…","tôi thấy / tôi nghĩ là…"],
@@ -3135,7 +3289,9 @@ const CHUDE_TRUNG2=[
 ["比如","bǐrú","for example","ví dụ"],
 ["重要","zhòngyào","important","quan trọng"],
 ["真的","zhēnde","really, true","thật"],
-["可能","kěnéng","maybe, possible","có lẽ"]
+["可能","kěnéng","maybe, possible","có lẽ"],
+["更好","gèng hǎo","better","tốt hơn"],
+["你觉得呢","nǐ juéde ne","what do you think?","bạn nghĩ sao?"]
 ]},
 {id:"social",name:"Đời sống xã hội",ru:"社交",items:[
 ["聚会","jùhuì","party","bữa tiệc"],
@@ -3149,7 +3305,11 @@ const CHUDE_TRUNG2=[
 ["恭喜","gōngxǐ","congratulations","chúc mừng"],
 ["生日快乐","shēngrì kuàilè","happy birthday!","chúc mừng sinh nhật!"],
 ["祝你好运","zhù nǐ hǎoyùn","good luck!","chúc may mắn!"],
-["新年快乐","xīnnián kuàilè","happy new year!","chúc mừng năm mới!"]
+["新年快乐","xīnnián kuàilè","happy new year!","chúc mừng năm mới!"],
+["节日","jiérì","holiday, festival","ngày lễ"],
+["一起","yìqǐ","together","cùng nhau"],
+["有空","yǒu kòng","to be free","rảnh"],
+["走吧","zǒu ba","let's go!","đi thôi!"]
 ]},
 {id:"society",name:"Xã hội & tin tức",ru:"社会与新闻",items:[
 ["新闻","xīnwén","news","tin tức"],
@@ -3164,7 +3324,14 @@ const CHUDE_TRUNG2=[
 ["变化","biànhuà","change","sự thay đổi"],
 ["未来","wèilái","future","tương lai"],
 ["社会","shèhuì","society","xã hội"],
-["世界","shìjiè","world","thế giới"]
+["世界","shìjiè","world","thế giới"],
+["报纸","bàozhǐ","newspaper","báo"],
+["历史","lìshǐ","history","lịch sử"],
+["文化","wénhuà","culture","văn hoá"],
+["宗教","zōngjiào","religion","tôn giáo"],
+["战争","zhànzhēng","war","chiến tranh"],
+["和平","hépíng","peace","hoà bình"],
+["人民","rénmín","people, nation","nhân dân"]
 ]}
 ];
 Array.prototype.push.apply(CHUDE_TRUNG,CHUDE_TRUNG2);
@@ -3241,10 +3408,10 @@ const CAP_ZH=[
 {ten:"Biết đếm",ban:"数字",can:45,hh:"数",mau:"#1FADA4"},
 {ten:"Chào hỏi được",ban:"问候",can:80,hh:"问",mau:"#3BA862"},
 {ten:"Đủ sống sót",ban:"生存",can:130,hh:"生",mau:"#C79A1E"},
-{ten:"Nói chuyện thường ngày",ban:"日常",can:195,hh:"日",mau:"#E08534"},
-{ten:"Khá vững",ban:"熟练",can:280,hh:"熟",mau:"#DC5A50"},
-{ten:"Thạo",ban:"流利",can:380,hh:"流",mau:"#A855C9"},
-{ten:"Hết kho từ",ban:"大师",can:480,hh:"师",mau:"#7355E4"}
+{ten:"Nói chuyện thường ngày",ban:"日常",can:200,hh:"日",mau:"#E08534"},
+{ten:"Khá vững",ban:"熟练",can:290,hh:"熟",mau:"#DC5A50"},
+{ten:"Thạo",ban:"流利",can:400,hh:"流",mau:"#A855C9"},
+{ten:"Hết kho từ",ban:"大师",can:520,hh:"师",mau:"#7355E4"}
 ];
 const NHOM_TRUNG=[
 ["Bốn thanh — sai thanh là sai chữ","妈 mā mẹ · 麻 má cây gai · 马 mǎ con ngựa · 骂 mà mắng. Cùng một âm, bốn chữ khác hẳn nhau. Đây không phải chuyện giọng, mà là chuyện nghĩa."],
