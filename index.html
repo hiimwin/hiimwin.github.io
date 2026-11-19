@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-yGP2EB24wHHn2ulwSf9cA9nScQqsWPWhnpijTGjUaWA=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-fGykHDH/Q9xySeHn5xj4q6JPaW93BnkScGiY9UfxdcU=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -417,9 +417,13 @@ display:grid;place-items:center;font-size:38px;margin:4px auto 0;box-shadow:var(
 .sv.nhan{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
 .opt.stress{font-family:var(--f-cyr);font-size:25px;letter-spacing:.01em}
 .wsvg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto;touch-action:none}
-.wsvg .guide{stroke:var(--line);fill:none;stroke-width:.8;opacity:.75}
-.wsvg .guide.base{stroke:var(--accent);opacity:.45;stroke-width:1.1}
-.wsvg .hatch{stroke:var(--line);stroke-width:.8;opacity:.3}
+.wsvg .guide{stroke:var(--ghost);fill:none;stroke-width:1;opacity:1}
+.wsvg .guide.base{stroke:var(--accent);opacity:.5;stroke-width:1.2}
+.wsvg .hatch{stroke:var(--ghost);stroke-width:.9;opacity:.6}
+.wsvg .guide.mo{opacity:.38}
+.wsvg .guide.dut{stroke-dasharray:4 3.4;opacity:.6}
+.wsvg .o-vuong{fill:none;stroke:var(--accent);stroke-width:1.2;opacity:.5}
+.wsvg .o-chia{fill:none;stroke:var(--accent);stroke-width:.85;opacity:.34;stroke-dasharray:4 3.6}
 .wsvg .ghost-ink{fill:none;stroke:var(--ghost);stroke-width:3.8;stroke-linecap:round;stroke-linejoin:round}
 .wsvg .ink{fill:none;stroke:var(--accent);stroke-width:3.8;stroke-linecap:round;stroke-linejoin:round}
 .wsvg .usr{fill:none;stroke:var(--deep);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
@@ -2497,7 +2501,7 @@ const AM_TRUNG=[
 ["mā","妈","妈","thanh 1 — cao, đều","—","Giữ cao và PHẲNG từ đầu đến cuối, không lên không xuống. Tiếng Việt không có thanh nào phẳng như vậy — gần giọng ngân một nốt nhạc.","妈妈","māma","mum","mẹ"],
 ["má","麻","麻","thanh 2 — đi lên","—","Đi lên đều từ giữa lên cao, như lúc hỏi lại “hả?”. Gần thanh sắc nhưng dài và mượt hơn.","麻烦","máfan","trouble","phiền phức"],
 ["mǎ","马","马","thanh 3 — xuống rồi lên","—","Hạ xuống thấp rồi mới nhấc lên. Nói chậm mới rõ cả hai nhịp; nói nhanh thì thường chỉ còn phần thấp, gần thanh hỏi.","马上","mǎshàng","at once","ngay lập tức"],
-["mà","骂","骂","thanh 4 — đổ xuống","—","Từ cao đổ thẳng xuống, dứt khoát và ngắn, như quát một tiếng. Gần thanh huyền nhưng mạnh hơn hẳn.","再见","zàijiàn","goodbye","tạm biệt"],
+["mà","骂","骂","thanh 4 — đổ xuống","—","Từ cao đổ thẳng xuống, dứt khoát và ngắn, như quát một tiếng. Gần thanh huyền nhưng mạnh hơn hẳn.","骂人","màrén","to scold","mắng người"],
 ["ma","吗","吗","thanh nhẹ — không dấu","—","Đọc nhẹ, ngắn, không mang thanh nào. Hay rơi vào tiếng thứ hai của từ ghép và các chữ cuối câu như 吗, 了, 的.","你好吗","nǐ hǎo ma","how are you","bạn khoẻ không"],
 ["b","爸","爸","b — KHÔNG bật hơi","—","Giống “b” tiếng Việt. Không được bật hơi, nếu không sẽ thành p.","爸爸","bàba","dad","bố"],
 ["p","怕","怕","p — BẬT HƠI","—","Cùng khẩu hình với b nhưng phải phụt hơi ra. Đây là cặp người Việt hay trộn nhất.","朋友","péngyǒu","friend","bạn bè"],
@@ -2520,6 +2524,8 @@ const AM_TRUNG=[
 ["z","在","在","ts","—","Đầu lưỡi chạm răng trên rồi bật, nghe như “ts”. Không bật hơi.","早","zǎo","early","sớm"],
 ["c","菜","菜","ts bật hơi","—","Y như z nhưng phụt hơi mạnh. Người Việt hay đọc thành “x”.","错","cuò","wrong","sai"],
 ["s","三","三","x","—","Như “x” tiếng Việt, lưỡi bẹt, đầu lưỡi sau răng dưới.","岁","suì","years old","tuổi"],
+["y","一","一","i (mở đầu tiếng)","—","Không phải một âm mới: y là cách VIẾT âm i khi i đứng đầu tiếng. 一 yī, 衣 yī — đọc vẫn là “i”.","一起","yìqǐ","together","cùng nhau"],
+["w","五","五","u (mở đầu tiếng)","—","Cũng là quy tắc viết: w là âm u khi u đứng đầu tiếng. 五 wǔ, 我 wǒ — chúm môi tròn rồi bật mở ra.","我们","wǒmen","we","chúng tôi"],
 ["a","八","八","a","—","Như “a” tiếng Việt, miệng mở to.","爸","bà","dad","bố"],
 ["o","我","我","ô","—","Tròn môi, gần “ô” tiếng Việt hơn là “o”.","说","shuō","to speak","nói"],
 ["e","饿","饿","ơ","—","Gần “ơ” tiếng Việt, miệng không tròn, lưỡi lùi về sau.","车","chē","car","xe"],
@@ -2528,14 +2534,22 @@ const AM_TRUNG=[
 ["ü","女","女","uy (môi tròn)","—","Đọc “i” nhưng CHÚM MÔI như đang đọc “u”. Sau j q x y thì viết thành u nhưng vẫn đọc ü.","绿","lǜ","green","màu xanh lá"],
 ["ai","爱","爱","ai","—","Như “ai” tiếng Việt.","买","mǎi","to buy","mua"],
 ["ei","北","北","ây","—","Gần “ây” tiếng Việt hơn là “ei”.","没","méi","not have","không có"],
+["ui","回","回","uây","—","Viết tắt của uei — ở giữa vẫn còn một tiếng “ê” nhẹ, nên đọc là “uây” chứ không phải “ui”.","回家","huí jiā","to go home","về nhà"],
 ["ao","好","好","ao","—","Như “ao” tiếng Việt.","小","xiǎo","small","nhỏ"],
 ["ou","走","走","âu","—","Gần “âu” tiếng Việt, bắt đầu bằng “ô” rồi chúm lại.","有","yǒu","to have","có"],
+["iu","六","六","iêu","—","Viết tắt của iou — đọc gần “iêu” tiếng Việt, không phải “iu”.","牛奶","niúnǎi","milk","sữa"],
+["ie","写","写","iê","—","Đọc “iê” tiếng Việt, kết ở “ê” chứ không phải “e” bẹt.","写字","xiě zì","to write","viết chữ"],
+["üe","月","月","uê (môi tròn)","—","Bắt đầu từ ü rồi trượt sang “ê”, môi chúm tròn suốt. Sau j q x y viết thành ue nhưng vẫn đọc üe: 学 xué.","月亮","yuèliang","moon","mặt trăng"],
+["er","二","二","ơ cong lưỡi","—","Đọc “ơ” rồi cong đầu lưỡi lên. Chỉ đứng một mình thành một tiếng.","儿子","érzi","son","con trai"],
 ["an","看","看","an","—","Như “an” tiếng Việt, đầu lưỡi chạm lợi khi đóng.","饭","fàn","rice, meal","cơm"],
 ["en","很","很","ân","—","Gần “ân” tiếng Việt, không phải “en”.","门","mén","door","cái cửa"],
+["in","新","新","in","—","Như “in” tiếng Việt, đóng bằng đầu lưỡi chạm lợi. Khác ing ở chỗ đóng — đây là cặp người Việt hay trộn nhất.","新年","xīnián","new year","năm mới"],
+["un","春","春","uân","—","Viết tắt của uen — đọc “uân”, không phải “un”. Sau j q x y thì un lại là ün, đọc khác hẳn.","春天","chūntiān","spring","mùa xuân"],
+["ün","云","云","uyn","—","ü đóng bằng n, môi vẫn chúm tròn. Sau j q x y viết thành un: 军 jūn đọc như “jün”.","白云","báiyún","white cloud","mây trắng"],
 ["ang","忙","忙","ang","—","Như “ang” tiếng Việt, đóng bằng âm mũi sau.","上","shàng","up, on","trên"],
 ["eng","冷","冷","âng","—","Gần “âng” tiếng Việt. Khác “ang” ở nguyên âm, khác “en” ở chỗ đóng.","朋友","péngyǒu","friend","bạn bè"],
-["ong","中","中","ung","—","Gần “ung” tiếng Việt hơn là “ong”.","工作","gōngzuò","work","công việc"],
-["er","二","二","ơ cong lưỡi","—","Đọc “ơ” rồi cong đầu lưỡi lên. Chỉ đứng một mình thành một tiếng.","儿子","érzi","son","con trai"]
+["ing","请","请","inh","—","Như “inh” tiếng Việt, đóng bằng âm mũi sau. Khác in ở chỗ đóng, không phải ở nguyên âm.","请进","qǐng jìn","come in","mời vào"],
+["ong","中","中","ung","—","Gần “ung” tiếng Việt hơn là “ong”.","工作","gōngzuò","work","công việc"]
 ];
 const SO_TRUNG=[
 ["零","líng","zero","số không — 0"],
@@ -2552,7 +2566,12 @@ const SO_TRUNG=[
 ["十一","shíyī","eleven","mười một — 11"],
 ["十二","shí'èr","twelve","mười hai — 12"],
 ["十三","shísān","thirteen","mười ba — 13"],
+["十四","shísì","fourteen","mười bốn — 14"],
 ["十五","shíwǔ","fifteen","mười lăm — 15"],
+["十六","shíliù","sixteen","mười sáu — 16"],
+["十七","shíqī","seventeen","mười bảy — 17"],
+["十八","shíbā","eighteen","mười tám — 18"],
+["十九","shíjiǔ","nineteen","mười chín — 19"],
 ["二十","èrshí","twenty","hai mươi — 20"],
 ["二十一","èrshíyī","twenty-one","hai mươi mốt — 21"],
 ["三十","sānshí","thirty","ba mươi — 30"],
@@ -3457,6 +3476,7 @@ tenViet:"Chữ viết tay",vietMod:"alpha",
 vietMo:"Người Nga viết tay gần như không dùng chữ in. Đọc thông chữ in rồi vẫn có thể bó tay trước một dòng ghi chép — vì mười chữ dưới đây đổi dạng hoàn toàn.",
 vietCuoi:"Mẫu nét và phần chấm điểm làm với CHỮ THƯỜNG — đó là chỗ chữ viết tay khác chữ in nhiều nhất.",
 chuLa:true,
+giay:"nga",
 hat:true,viettay:true,conet:true,coAnh:true,goLatin:true,canLatin:true,
 tenChu:"Bảng chữ cái",tenChuT:"bảng chữ cái",donVi:"chữ cái",nhanChu:"Chữ cái",nhanTen:"tên chữ",
 ctaChu:"Bắt đầu từ bảng chữ cái",moTaChu:"33 chữ Кириллица — thuộc mặt chữ và cách đọc trước đã",
@@ -3476,9 +3496,10 @@ phienAm:"phiên âm Latin",nhom:null,nap:napMonNga},
 mau:"#3BA862",chu:"Chữ Latin, 44 âm IPA",vd:"Hello",giongOS:"English (United States)",capTien:"Progress",
 trongam:"nhan",trongamTen:"Trọng âm",trongamDong:"Nhấn vào âm tiết này",
 tenViet:"Tập viết",vietMod:"abc",
-vietMo:"Mặt chữ Latin thì ai cũng biết, nhưng viết đúng nét lại là chuyện khác — b và d, p và q, u và v chỉ khác nhau ở nét nào đi trước. Mỗi chữ dưới đây có đường nét mẫu và chấm điểm thật.",
+vietMo:"Mặt chữ Latin thì ai cũng biết, nhưng viết đúng nét lại là chuyện khác — b và d, p và q, u và v chỉ khác nhau ở nét nào đi trước. Giấy kẻ bốn dòng đúng kiểu vở tập viết: dòng đậm là dòng kẻ chính để đặt chữ, dòng đứt là chiều cao chữ thường, nét cao chạm dòng trên cùng, nét thòng xuống tới dòng dưới cùng.",
 vietCuoi:"Mẫu nét làm với chữ thường. Ở bảng âm IPA thì tập viết chính TỪ VÍ DỤ, vì không ai đi tập viết ký hiệu IPA.",
 chuLa:false,
+giay:"latin",
 hat:true,viettay:false,conet:true,coAnh:false,goLatin:false,canLatin:false,
 tenChu:"Bảng âm IPA",tenChuT:"bảng âm IPA",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
 ctaChu:"Bắt đầu từ bảng âm",moTaChu:"44 âm IPA — mặt chữ bạn biết rồi, cái khó là đọc đúng âm",
@@ -3499,23 +3520,24 @@ phienAm:"phiên âm IPA",nhom:NHOM_ANH,nap:napMonAnh},
 mau:"#DC5A50",chu:"Chữ Hán + pinyin, 4 thanh",vd:"你好",giongOS:"中文 (Chinese, Simplified)",capTien:"进度",
 trongam:"thanh",trongamTen:"Thanh điệu",trongamDong:"Thanh của chữ này",
 tenViet:"Tập viết chữ Hán",vietMod:"alpha",
-vietMo:"Chữ Hán có thứ tự nét cố định. Viết sai thứ tự thì chữ vẫn ra hình, nhưng nét không đều và tra từ điển theo nét thì chịu. Thứ tự nét dưới đây lấy từ bộ dữ liệu chữ Hán bản xứ, không phải tôi đoán.",
+vietMo:"Chữ Hán có thứ tự nét cố định. Viết sai thứ tự thì chữ vẫn ra hình, nhưng nét không đều và tra từ điển theo nét thì chịu. Thứ tự nét dưới đây lấy từ bộ dữ liệu chữ Hán bản xứ, không phải tôi đoán. Ô vuông chia tư là 田字格 — đúng thứ ô học sinh Trung Quốc tập viết; bốn nửa đường kẻ đứt là để canh chữ cho cân trong ô, không phải nét để đồ lên.",
 vietCuoi:"Phần chấm điểm xem bạn có đi đúng đường nét, đúng chiều và đủ số nét không — sai thứ tự nét là tụt điểm ngay.",
 chuLa:true,
+giay:"han",
 hat:true,viettay:false,conet:true,coAnh:true,goLatin:false,goPinyin:true,
 tenChu:"Bảng pinyin",tenChuT:"bảng pinyin",donVi:"âm",nhanChu:"Âm",nhanTen:"ví dụ",
 ctaChu:"Bắt đầu từ pinyin",moTaChu:"Pinyin và bốn thanh — đọc sai thanh là sai nghĩa hẳn",
 biaAm:"Dấu thanh trên pinyin quyết định nghĩa — sai thanh là ra một chữ khác hẳn.",
 nhanhChu:"Âm dễ nhầm",nhanhMo:"Bốn thanh, cặp bật hơi và bộ cong lưỡi — những chỗ người Việt hay trộn. Mỗi âm 4,5 giây.",
-nham:["b","p","d","t","g","k","j","q","x","zh","ch","sh","r","z","c","s","ü","an","ang","en","eng","ong","mā","má","mǎ","mà"],
+nham:["b","p","d","t","g","k","j","q","x","zh","ch","sh","r","z","c","s","ü","an","ang","en","eng","in","ing","ong","mā","má","mǎ","mà"],
 tag:"中",nhan:"Tiếng Trung từ thanh đến câu",ban3:"中文",
 mauBo:{muc:"#64202F",f1:"#FBB6C2",f2:"#FBCFA8",
 sang:{acc:"#D94A62",deep:"#D97A3C"},toi:{acc:"#FF8F9E",deep:"#FFB07A"}},
 loTrinh:"拼音 → 数字 → 词语",
-baiHat:{mod:"alpha",dong:[5,4,4,3,3,4,3,6,4,6],nhan:"Bài đọc",hai:false,duoi:"lo",
+baiHat:{mod:"alpha",dong:[5,4,4,3,3,4,3,2,6,9,5,4],nhan:"Bài đọc",hai:false,duoi:"lo",
 ten:"Bài đọc bảng pinyin",
-mo:"Bốn thanh, 21 phụ âm đầu và 16 vần — đọc theo nhịp đúng thứ tự học sinh Trung Quốc học.",
-dan:"Bốn thanh trước, rồi tới bảng phụ âm đầu chia đúng sáu nhóm b-p-m-f, d-t-n-l, g-k-h, j-q-x, zh-ch-sh-r, z-c-s — thứ tự này là thứ tự học sinh Trung Quốc đọc thuộc lòng. Ba dòng cuối là các vần. Nhạc do chính app dựng ra, không lấy của ai.",
+mo:"Bốn thanh và thanh nhẹ, 23 phụ âm đầu và 24 vần — đọc theo nhịp đúng thứ tự học sinh Trung Quốc học.",
+dan:"Bốn thanh và thanh nhẹ trước, rồi đủ 23 thanh mẫu chia đúng bảy nhóm b-p-m-f, d-t-n-l, g-k-h, j-q-x, zh-ch-sh-r, z-c-s, y-w. Bốn dòng cuối là đủ 24 vần: vần đơn, vần ghép, vần đóng bằng n, vần đóng bằng ng. Đây đúng là hai bảng 声母表 và 韵母表 học sinh Trung Quốc đọc thuộc lòng. Nhạc do chính app dựng ra, không lấy của ai.",
 cuoi:"Bấm một ô để mở trang âm đó. Năm ô đầu là cùng một âm “ma” ở năm thanh khác nhau — nghe kỹ chỗ lên xuống."},
 phienAm:"pinyin",nhom:NHOM_TRUNG,nap:napMonTrung}
 ];
@@ -3676,7 +3698,8 @@ return Object.keys(o).filter(function(k){return !badKey(k);});
 function mergeProg(a,b){
 if(!a)return b; if(!b)return a;
 var newer=(b.v||0)>=(a.v||0)?b:a, older=newer===b?a:b;
-var out={items:{},stats:{streak:0,last:"",hist:{}},settings:newer.settings||older.settings,v:Math.max(a.v||0,b.v||0)};
+var out={items:{},stats:{streak:0,last:"",hist:{}},settings:newer.settings||older.settings,
+v:Math.max(a.v||0,b.v||0),pyv:Math.max(a.pyv||0,b.pyv||0)};
 var ids={},k,i,ka=ownKeys(a.items),kb=ownKeys(b.items);
 for(i=0;i<ka.length;i++)ids[ka[i]]=1;
 for(i=0;i<kb.length;i++)ids[kb[i]]=1;
@@ -3722,7 +3745,7 @@ var snap=await cloud.doc("progress/main").get();
 if(snap&&snap.exists){
 var remote=snap.data();
 if(remote&&remote.items){
-var merged=mergeProg(prog,remote);
+var merged=mergeProg(prog,normProg(remote));
 if(merged!==prog){prog=normProg(merged);dongBoMon();saveLocal();render();}
 }
 }
@@ -3743,7 +3766,22 @@ if(!mm||!mm.nap)p.settings.mon="ru";
 if(p.settings.ui!=="en")p.settings.ui="vi";
 if(typeof p.settings.giong==="string")p.settings.giong=p.settings.giong?{ru:p.settings.giong}:{};
 if(!p.settings.giong||typeof p.settings.giong!=="object")p.settings.giong={};
+doiSoPinyin(p);
 p.v=p.v||0;return p;
+}
+var DOI_PINYIN={26:28,27:29,28:30,29:31,30:32,31:33,32:34,33:35,34:37,35:38,
+36:43,37:44,38:48,39:49,40:51,41:42};
+function doiSoPinyin(p){
+if((p.pyv||0)>=2){p.pyv=2;return;}
+var it=p.items||{},moi={};
+ownKeys(it).forEach(function(k){
+var m=/^zh\.alpha:(\d+)$/.exec(k);
+if(!m){moi[k]=it[k];return;}
+var i=+m[1];
+moi["zh.alpha:"+(DOI_PINYIN.hasOwnProperty(i)?DOI_PINYIN[i]:i)]=it[k];
+});
+p.items=moi;
+p.pyv=2;
 }
 function rec(id){return prog.items[id]||null;}
 function daThuoc(p){return !!(p&&p.b>=4);}
@@ -4690,7 +4728,7 @@ var box=el('<section class="cover cov3">'+
 '<div class="cvmeta"><div class="cvtr"></div><div class="cvvi"></div></div>'+
 '</div>'+
 '<div class="cvtip"></div>'+
-'<div class="cv-sheet" style="margin-top:16px">'+sheetSvg("")+'</div>'+
+'<div class="cv-sheet" style="margin-top:16px">'+sheetSvg("",kieuGiayMon(mnBia),false)+'</div>'+
 '<div class="cvacts">'+
 '<button class="spk-big" aria-label="Nghe cách đọc"><span class="wv"><s></s><s></s><s></s><s></s><s></s></span></button>'+
 '<button class="btn sm ghost">'+ic("choi",17)+' Xem cách viết</button>'+
@@ -4906,7 +4944,7 @@ vaoHoc.onclick=function(){go({n:"home"});};
 box.querySelector(".cv-cta").appendChild(vaoHoc);
 }
 app.appendChild(box);
-var pc=Math.round(thuoc/33*100);
+var pc=soChu?Math.round(thuoc/soChu*100):0;
 setTimeout(function(){
 var bar=box.querySelector(".prog-bar i"), run=box.querySelector(".prog-bar .run");
 if(bar)bar.style.width=Math.max(pc,2)+"%";
@@ -5348,7 +5386,23 @@ note:"忄 bên trái trước (chấm, chấm, sổ), rồi 亡 bên phải."},
 "冷":{n:7,d:["M 32.1,28.6 C 33.1,29.3 36.6,31.6 37.8,32.8 C 39,34 39.1,35.4 39.4,35.9","M 31.2,68.1 C 31.1,67.8 30.6,67 30.5,66.1 C 30.4,65.2 30.1,63.9 30.4,62.8 C 30.8,61.7 31,62.2 32.6,59.5 C 34.2,56.8 38.6,48.7 39.8,46.5","M 56.4,21.9 C 56.6,22.1 57.3,22.4 57.7,23 C 58.2,23.6 59.3,24.1 59.1,25.3 C 59,26.5 57.9,28.2 56.8,30.3 C 55.7,32.5 53.6,36 52.3,38.2 C 51,40.4 50.4,41.3 48.9,43.3 C 47.4,45.3 44.8,48.5 43.4,50.1 C 42,51.7 40.8,52.5 40.3,53","M 59.6,29.7 C 59.7,29.9 59.6,30.4 59.9,30.8 C 60.2,31.2 59.9,30.9 61.2,32.2 C 62.5,33.5 65.4,36.6 67.6,38.6 C 69.8,40.6 72.4,42.9 74.5,44.1 C 76.6,45.3 77.8,45.3 80,45.8 C 82.2,46.3 86.4,46.7 87.7,46.9","M 54.7,42.8 C 55.5,43.3 58.5,45.4 59.4,46.1 C 60.3,46.8 60,46.5 60.3,47 C 60.6,47.5 61.1,48.8 61.3,49.1","M 46.7,57.6 C 47,57.7 47.7,58.3 48.4,58.4 C 49.1,58.6 48.1,59.2 50.7,58.5 C 53.3,57.8 61.5,54.7 64.1,54 C 66.7,53.3 65.8,54 66.4,54.1 C 67,54.2 67.2,54.5 67.6,54.8 C 68,55.1 68.8,55.5 68.8,56 C 68.8,56.5 69.1,56.1 67.8,58 C 66.5,59.9 62,65.8 60.8,67.5 C 59.6,69.2 60.7,68.2 60.6,68.3 C 60.5,68.4 60.1,68.3 60,68.3","M 53.4,66.3 C 54.2,66.9 56.5,68.5 58,69.8 C 59.5,71.1 61.5,72.9 62.4,73.9 C 63.3,74.9 63.3,75.1 63.6,75.8 C 63.9,76.6 64.2,78 64.3,78.4"],
 note:"Hai chấm băng 冫 bên trái, rồi 令 bên phải."},
 "二":{n:2,d:["M 41.5,36.8 C 42.5,36.9 43.2,37.7 47.6,37.2 C 52,36.7 63.9,34.2 67.7,33.7 C 71.6,33.2 70.2,34 70.7,34","M 30.4,61.2 C 31.2,61.4 31.1,62.7 34.9,62.5 C 38.7,62.3 46.1,60.8 53.1,60.1 C 60.1,59.4 71.8,58.2 76.7,58.3 C 81.7,58.4 81.8,60.1 82.8,60.5"],
-note:"Hai nét ngang: trên ngắn, dưới dài."}
+note:"Hai nét ngang: trên ngắn, dưới dài."},
+"回":{n:6,d:["M 31.8,32 C 32.2,32.4 33.5,33.4 34.1,34.2 C 34.7,35 35.1,35.1 35.6,37 C 36.1,38.9 36.5,41.6 36.9,45.6 C 37.3,49.6 37.6,57.6 38.1,61.2 C 38.6,64.9 39.4,66.5 39.7,67.5","M 35.9,32.7 C 36,32.8 36.1,33.1 36.6,33.3 C 37.2,33.5 36,34.2 39.2,34.1 C 42.4,34 50.1,33.3 55.7,32.6 C 61.3,31.9 69.6,30.3 72.7,29.9 C 75.8,29.5 73.7,29.9 74.3,30.2 C 74.9,30.5 76,31.4 76.5,31.8 C 77,32.2 77.2,32.5 77.3,32.7 C 77.4,33 77.6,29.6 77.3,33.3 C 77,37 75.8,50 75.2,54.7 C 74.6,59.4 74.4,59.8 73.9,61.4 C 73.4,63 72.4,63.3 72.1,64.5 C 71.8,65.8 72.1,68.2 72.1,68.9","M 46.1,42.6 C 46.4,42.9 47.3,42.2 48,44.3 C 48.7,46.4 50,53.6 50.4,55.4","M 50.4,44.6 C 50.5,44.5 50.9,44 51.1,43.8 C 51.4,43.6 50.6,43.8 51.9,43.6 C 53.2,43.4 57.2,42.6 58.8,42.4 C 60.4,42.2 60.6,42 61.3,42.3 C 62,42.6 63.2,43 63.2,44.2 C 63.2,45.4 62.1,48.4 61.5,49.5 C 60.9,50.6 60.1,50.4 59.8,50.6","M 51.6,54.3 C 51.8,54.2 51.4,53.7 52.6,53.4 C 53.8,53.1 56.9,52.5 58.7,52.4 C 60.5,52.3 62.5,52.8 63.2,52.9","M 41.2,65.4 C 41.4,65.2 37.4,65 42.1,64.4 C 46.8,63.8 65,62.2 69.6,61.8"],
+note:"Khung ngoài viết trước nhưng CHỪA đáy, rồi 口 bên trong, xong mới đóng nét đáy. Quy tắc: vào nhà rồi mới đóng cửa."},
+"六":{n:4,d:["M 51.3,25.6 C 51.5,25.7 51.2,25.9 52.2,26.4 C 53.2,27 56.1,27.9 57.3,28.9 C 58.6,29.9 59.3,31.7 59.7,32.3","M 30.3,45.6 C 31,45.7 30.6,46.6 34.2,46.3 C 37.8,46 45.2,44.4 52.1,43.6 C 59,42.8 71.1,41.7 75.5,41.4 C 79.9,41.1 77.3,41.3 78.5,41.6 C 79.8,41.9 82.3,42.8 83,43","M 45.9,52.7 C 46.2,53.3 47.6,54.8 47.4,56 C 47.3,57.2 46,58.4 45,59.7 C 44,61 42.5,62.6 41.4,63.7 C 40.3,64.8 39.9,65.2 38.5,66.1 C 37.1,67 33.8,68.8 32.8,69.3","M 62.6,53.7 C 64.2,55.3 70.2,61.4 72,63.4 C 73.8,65.4 73,64.5 73.4,65.5 C 73.8,66.5 74.2,68.7 74.4,69.3"],
+note:"Chấm trên cùng trước, rồi nét ngang, cuối là hai nét phẩy và mác toẻ sang hai bên. Trên trước, dưới sau."},
+"写":{n:5,d:["M 39.8,26.1 C 39.9,26.5 40.6,27.6 40.7,28.2 C 40.8,28.8 41.1,28.1 40.5,29.6 C 39.9,31.1 37.7,35.3 37.1,37.1 C 36.5,38.9 36.9,39.9 36.9,40.4","M 42.9,28.5 C 43.1,28.6 43.2,29 43.8,29.1 C 44.4,29.2 44.4,29.4 46.3,29.1 C 48.2,28.8 51.2,28 54.9,27.4 C 58.6,26.9 65.6,26 68.4,25.8 C 71.2,25.6 70.8,26.2 71.5,26.4 C 72.2,26.6 72.1,26.7 72.4,27.1 C 72.7,27.5 74.1,27.6 73.3,28.8 C 72.5,30 68.6,33.4 67.6,34.3","M 50.9,42.6 C 51.1,42.5 50.9,42 51.9,41.8 C 52.9,41.6 54.9,41.6 56.8,41.2 C 58.7,40.8 61.6,39.5 63.2,39.2 C 64.8,38.9 66,39.5 66.6,39.5","M 47.8,33.7 C 48.1,33.9 49.1,34.7 49.4,35.1 C 49.8,35.5 50.3,33.4 49.9,36.3 C 49.5,39.2 46.7,50 46.8,52.7 C 46.9,55.5 48.5,53.1 50.4,52.8 C 52.3,52.5 55.1,51.6 58,51.1 C 60.9,50.6 65.9,50 68,49.9 C 70.1,49.8 70,49.9 70.8,50.3 C 71.6,50.7 73.1,49.6 73,52.3 C 73,55 71.2,63.3 70.5,66.4 C 69.9,69.5 69.6,69.8 69.1,70.9 C 68.6,72 68.4,72.6 67.8,73.2 C 67.3,73.8 67.3,75 65.8,74.4 C 64.3,73.8 60,70.5 58.8,69.7","M 33.2,63.8 C 33.5,63.9 34.1,64.3 34.9,64.4 C 35.7,64.5 36.5,64.7 37.9,64.5 C 39.3,64.3 39.8,63.8 43.3,63.1 C 46.8,62.4 55.2,60.7 58.6,60.5 C 62,60.3 62.7,61.5 63.5,61.7"],
+note:"Mái 冖 che bên trên viết trước (chấm rồi nét ngang có móc), sau đó mới tới phần bên dưới."},
+"月":{n:4,d:["M 44.5,24.4 C 45,24.8 46.7,25.5 47.2,26.5 C 47.7,27.5 47.6,27.7 47.7,30.3 C 47.8,32.9 47.8,38.5 47.6,42.3 C 47.4,46.1 46.8,50.4 46.3,53.1 C 45.8,55.8 45.4,56.7 44.6,58.6 C 43.8,60.5 42.9,62.7 41.7,64.5 C 40.6,66.3 39,68.2 37.7,69.6 C 36.5,71 35.2,72.1 34.2,72.9 C 33.2,73.7 32,74.3 31.6,74.6","M 49.6,25 C 49.8,25.1 49.5,25.8 50.5,25.8 C 51.5,25.8 53.1,25.7 55.4,25.2 C 57.7,24.7 62.3,23.1 64.1,22.9 C 65.9,22.7 65.7,23.6 66.2,24 C 66.7,24.4 67,20 67.2,25.4 C 67.4,30.8 67.6,49 67.6,56.4 C 67.6,63.8 67.7,67 67.4,69.6 C 67.2,72.2 66.7,71.7 66.1,72 C 65.5,72.3 65.4,72.1 64,71.6 C 62.6,71.1 58.8,69.4 57.7,68.9","M 49.7,39.8 C 49.9,39.7 49.3,39.5 50.6,39.2 C 51.9,38.9 55.8,38.4 57.5,38.2 C 59.2,38.1 60.4,38.3 61,38.3","M 48.5,51.3 C 48.7,51.2 47.9,51.2 49.4,50.9 C 50.9,50.6 55.6,49.8 57.5,49.6 C 59.4,49.4 60.4,49.7 61,49.7"],
+note:"Nét phẩy bên trái trước, rồi nét gập có móc bên phải, cuối cùng mới hai nét ngang bên trong. Ngoài trước, trong sau."},
+"新":{n:13,d:["M 42.7,20.6 C 43.5,21 46.3,22.2 47.4,23 C 48.6,23.8 49.2,25.2 49.6,25.6","M 35.9,32.4 C 36,32.5 35.8,32.7 36.5,32.7 C 37.2,32.8 37.2,33.2 40,32.7 C 42.8,32.2 50.6,30.2 53.4,29.7 C 56.2,29.2 56.2,29.5 56.8,29.5","M 37.5,36.3 C 37.9,36.7 39.4,38.1 40,38.8 C 40.6,39.6 40.9,40.5 41.1,40.8","M 50.8,33.1 C 51,33.5 52.2,34.1 51.9,35.4 C 51.6,36.7 50,39.7 49.2,40.9 C 48.5,42.1 47.7,42.5 47.4,42.8","M 27.1,47.3 C 27.7,47.4 26.5,48.6 30.6,47.9 C 34.7,47.2 47.6,44 51.5,43.2 C 55.4,42.4 53.5,43 54.2,43 C 54.9,43 55.6,43.3 55.9,43.3","M 31.4,55.3 C 31.9,55.4 31,56.3 34.4,55.6 C 37.8,54.9 48.3,52 51.8,51.3 C 55.4,50.6 55.1,51.5 55.7,51.5","M 43.7,46.5 C 44.1,46.8 45.6,44.9 45.9,48.2 C 46.3,51.5 45.9,63 45.8,66.3 C 45.7,69.6 45.5,67.5 45.2,68 C 44.9,68.5 45.3,69.5 44.2,69.2 C 43.1,68.9 39.6,66.6 38.7,66.1","M 35.8,59 C 35.6,59.8 35.3,62.1 34.8,63.7 C 34.3,65.3 33.2,67.6 32.9,68.4","M 47.6,57.4 C 48.4,57.8 51.2,59 52.1,59.6 C 53,60.2 52.9,60.8 53.1,61","M 72.9,25.5 C 73,25.6 73.3,25.8 73.5,26.3 C 73.7,26.8 75.1,27.4 73.9,28.6 C 72.7,29.9 67.8,32.8 66.2,33.8 C 64.6,34.8 64.8,34.7 64.4,34.8 C 64,34.9 63.9,34.7 63.8,34.7","M 59.2,33.9 C 59.5,34.1 60.4,34.7 60.8,35.2 C 61.2,35.7 61.7,35 61.8,36.9 C 61.9,38.8 61.8,43.7 61.6,46.5 C 61.4,49.3 61.1,51.5 60.7,53.7 C 60.3,55.9 59.7,58.1 59.1,59.8 C 58.6,61.5 58.1,62.5 57.4,64 C 56.7,65.5 55.6,67.4 54.9,68.6 C 54.2,69.8 53.3,70.7 53,71.1","M 63.7,45.6 C 63.9,45.5 61.9,45.7 64.7,45 C 67.5,44.3 77.1,42.1 80.3,41.6 C 83.6,41.2 83.6,42.2 84.2,42.3","M 71,45.9 C 71.5,46.2 73.5,41.8 73.9,47.5 C 74.3,53.2 73.6,74.7 73.5,80.1"],
+note:"亲 bên trái viết hết chín nét rồi mới tới 斤 bên phải. Trái trước, phải sau."},
+"春":{n:9,d:["M 43.1,29.9 C 43.2,30 42.8,30.2 43.6,30.3 C 44.4,30.4 44.6,30.9 48,30.4 C 51.4,29.9 60.7,27.7 64,27.2 C 67.3,26.7 67,27.2 67.6,27.2","M 42.1,37.8 C 42.6,37.9 43.8,38.2 44.8,38.2 C 45.8,38.2 46.8,38.2 48.4,38 C 50,37.8 52.1,37.6 54.6,37.1 C 57.1,36.6 61.5,35.2 63.5,34.9 C 65.5,34.6 65.9,35.1 66.4,35.1","M 29.9,47.3 C 30.2,47.4 30.7,47.9 31.5,48 C 32.3,48.1 32.4,48.5 34.9,48.1 C 37.4,47.7 40,46.8 46.4,45.8 C 52.8,44.8 68.4,42.8 73.3,42.2 C 78.2,41.6 74.7,42.1 75.7,42.3 C 76.8,42.5 78.9,43.4 79.6,43.6","M 52.2,20.6 C 52.5,20.8 53.5,21.5 53.9,22 C 54.4,22.5 54.8,23.1 54.9,23.5 C 55.1,23.9 55.2,22 54.8,24.2 C 54.4,26.4 53.2,33.6 52.5,36.7 C 51.8,39.8 51.3,41.3 50.7,42.8 C 50.2,44.3 50.2,44.2 49.2,46 C 48.2,47.8 46,51.5 44.6,53.4 C 43.2,55.3 42,56.3 40.9,57.3 C 39.8,58.3 39.3,58.9 38.3,59.6 C 37.3,60.4 36.4,61 34.9,61.8 C 33.4,62.6 30.3,64 29.4,64.4","M 59.6,45.8 C 59.9,45.9 59.7,44.9 61.4,46.3 C 63.2,47.7 67.9,52.3 70.1,54.1 C 72.4,55.9 73.3,56.6 74.9,57.3 C 76.5,58 77.5,58 79.6,58.3 C 81.7,58.6 86,59 87.3,59.1","M 44.4,56.5 C 44.6,56.7 45.3,57 45.7,57.4 C 46.1,57.9 46.4,58 46.6,59.2 C 46.8,60.4 46.9,62 46.8,64.4 C 46.7,66.8 46,71.5 45.9,73.6 C 45.8,75.7 46.1,76.5 46.1,77.1","M 47.4,56.4 C 47.5,56.5 47.8,56.9 48.1,57 C 48.5,57.1 47.4,57.6 49.5,57.2 C 51.6,56.8 58.6,54.9 60.8,54.6 C 63,54.3 62.2,55.1 62.6,55.4 C 63,55.7 63.2,56.1 63.4,56.3 C 63.6,56.6 63.8,56.2 63.8,56.9 C 63.8,57.7 63.5,58.4 63.6,60.8 C 63.7,63.2 64.1,69.4 64.2,71.4 C 64.3,73.4 64.4,72.3 64.2,73 C 64,73.7 63.3,74.3 63.2,75.4 C 63.1,76.5 63.4,78.7 63.4,79.4","M 48.4,66.6 C 48.6,66.5 48.5,66.1 49.4,65.8 C 50.3,65.5 52.6,65.2 53.7,65 C 54.8,64.9 55.5,64.9 56.2,64.9 C 56.9,65 57.5,65.2 57.7,65.3","M 47.9,75 C 48.1,74.8 47.7,74.3 49.1,74 C 50.5,73.7 54.5,73.1 56.3,73 C 58.1,72.9 59.5,73.2 60.1,73.2"],
+note:"Ba nét ngang rồi nét phẩy – mác ở trên trước, 日 ở dưới sau cùng. Trên trước, dưới sau."},
+"云":{n:4,d:["M 44.7,33.2 C 45,33.3 45.4,33.6 46.2,33.7 C 47,33.8 46.5,34.3 49.6,33.7 C 52.7,33.1 61.7,30.9 64.8,30.3 C 67.9,29.7 67.8,30.3 68.4,30.3","M 31.5,49.3 C 32.1,49.4 32.2,50.2 35.1,49.9 C 38.1,49.6 42.8,48.2 49.2,47.3 C 55.6,46.4 69,44.9 73.5,44.4 C 78,43.9 74.9,44.2 76.2,44.4 C 77.5,44.6 80.3,45.4 81.1,45.6","M 56.6,49.3 C 56.3,49.4 55.4,49.5 54.9,49.8 C 54.4,50.1 54.3,49.6 53.5,50.9 C 52.7,52.2 51.5,55.4 50,57.6 C 48.6,59.8 45.9,62.6 44.8,64.3 C 43.7,66 43.3,67.1 43.6,67.7 C 43.9,68.3 44,68.3 46.8,67.8 C 49.6,67.3 57.1,65.5 60.2,64.9 C 63.3,64.3 63.9,64.2 65.3,64.1 C 66.7,64 68,64.1 68.5,64.1","M 64.6,57.1 C 66.1,58.7 71.8,64.7 73.5,66.7 C 75.2,68.7 74.6,68.5 74.9,69.3 C 75.2,70.1 75.3,71.3 75.4,71.7"],
+note:"Hai nét ngang ở trên trước, rồi nét gập và chấm ở dưới."},
+"请":{n:10,d:["M 38.9,23 C 39.9,23.6 43.7,25.6 45,26.7 C 46.4,27.8 46.7,29 47,29.5","M 24.5,45.9 C 24.8,46 25.6,46.3 26.3,46.3 C 27,46.3 26.6,46.8 28.5,46.1 C 30.4,45.5 35.6,43.1 37.5,42.4 C 39.4,41.7 39.5,42 40.1,42 C 40.7,42 41,42 41.3,42.2 C 41.6,42.4 42.2,39.7 41.9,43.2 C 41.6,46.7 39.6,59.7 39.3,63.4 C 39,67.2 39.3,65.5 39.9,65.7 C 40.6,65.9 41.6,65.6 43.2,64.5 C 44.8,63.4 48.5,60 49.6,59.1","M 54.5,31.1 C 55.3,31.1 57.2,31.5 59.1,31.3 C 61,31.1 64.1,30.2 66.1,29.7 C 68.1,29.2 69.8,28.4 71.3,28.1 C 72.8,27.8 74.4,28 75,28","M 55.1,38.4 C 55.8,38.4 57.3,38.7 59.1,38.5 C 60.9,38.3 64,37.6 65.7,37.2 C 67.4,36.8 68.2,36.1 69.3,35.9 C 70.4,35.7 71.9,35.9 72.4,35.9","M 61.1,21 C 61.5,21.3 62.8,22 63.3,22.5 C 63.8,23 64.1,20.8 64.1,24 C 64.1,27.2 63.9,38.4 63.6,41.6 C 63.4,44.8 62.8,42.8 62.6,43","M 47,46.5 C 47.6,46.6 47.9,47.3 50.5,46.9 C 53.1,46.5 58.1,45.2 62.8,44.3 C 67.6,43.4 75.9,42.2 79,41.8 C 82.2,41.4 80.9,41.9 81.7,42.1 C 82.5,42.3 83.6,42.7 84,42.8","M 55.5,50.3 C 55.8,50.5 56.8,51.3 57.1,51.7 C 57.5,52.2 57.5,52.1 57.6,53 C 57.7,53.9 57.8,54.8 57.6,57 C 57.4,59.2 57.1,63.2 56.6,66.4 C 56.2,69.6 55.2,74.4 54.9,76","M 59.2,51.1 C 59.4,51.2 59.6,51.4 60.1,51.4 C 60.6,51.4 61.7,51.2 62.2,51.1 C 62.7,51 61.6,50.9 62.9,50.6 C 64.2,50.3 68.4,49.1 70,49.1 C 71.6,49.1 72.2,49.9 72.6,50.8 C 73,51.7 72.4,51.4 72.5,54.4 C 72.7,57.4 73.4,65.6 73.5,68.7 C 73.6,71.8 73.6,71.9 73.3,73.1 C 73,74.3 72.3,75.5 71.7,75.9 C 71.1,76.3 70.9,75.9 69.8,75.4 C 68.8,75 66.1,73.6 65.4,73.2","M 59.3,59 C 59.4,58.9 59.1,58.5 59.9,58.2 C 60.7,57.9 62.9,57.4 64,57.2 C 65.2,57 66.1,56.9 66.8,56.9 C 67.5,56.9 68,57.2 68.2,57.2","M 58.7,65.6 C 58.8,65.5 58.2,65.3 59.4,64.9 C 60.7,64.6 64.7,63.7 66.2,63.5 C 67.8,63.3 68.3,63.8 68.7,63.9"],
+note:"Bộ 讠 bên trái hai nét trước, rồi 青 bên phải tám nét. Trái trước, phải sau."},
 };
 const CURSIVE={
 "и":{n:1,d:["M 12,70 L 28,34 L 28,62 C 28,69 34,73 40,69 L 52,34 L 52,62 C 52,69 58,73 64,69 L 74,52"],
@@ -5432,14 +5486,29 @@ return '<text class="ghost-text'+(hand?" hand":"")+'" x="56" y="'+
 function chuTapViet(it){
 return monNay().viettay?(it.up+" "+it.lo):it.lo;
 }
-function sheetSvg(inner,thang){
-return '<svg class="wsvg'+(thang?" thang":"")+'" viewBox="0 0 112 100" aria-hidden="true">'+
-'<line class="guide" x1="0" y1="34" x2="112" y2="34"/>'+
+const GIAY={
+nga:'<line class="guide" x1="0" y1="34" x2="112" y2="34"/>'+
 '<line class="guide base" x1="0" y1="72" x2="112" y2="72"/>'+
 '<g class="hatch">'+
 [0,22,44,66,88,110,132].map(function(x){return '<line x1="'+x+'" y1="12" x2="'+(x-20)+'" y2="94"/>';}).join("")+
-'</g>'+
-'<g class="art" transform="'+(thang?"translate(0,0)":"translate(16,0) skewX(-14)")+'">'+inner+'</g>'+
+'</g>',
+latin:'<line class="guide mo" x1="3" y1="20" x2="109" y2="20"/>'+
+'<line class="guide dut" x1="3" y1="44" x2="109" y2="44"/>'+
+'<line class="guide base" x1="3" y1="76" x2="109" y2="76"/>'+
+'<line class="guide mo" x1="3" y1="94" x2="109" y2="94"/>',
+han:'<rect class="o-vuong" x="22" y="16" width="68" height="68" rx="1.5"/>'+
+'<g class="o-chia">'+
+'<line x1="56" y1="16" x2="56" y2="84"/><line x1="22" y1="50" x2="90" y2="50"/>'+
+'<line x1="22" y1="16" x2="90" y2="84"/><line x1="90" y1="16" x2="22" y2="84"/>'+
+'</g>'
+};
+function kieuGiayMon(mn){return (mn&&mn.giay)||"latin";}
+function kieuGiay(){return kieuGiayMon(monNay());}
+function sheetSvg(inner,kieu,xien){
+kieu=GIAY[kieu]?kieu:"nga";
+return '<svg class="wsvg k-'+kieu+(xien?"":" thang")+'" viewBox="0 0 112 100" aria-hidden="true">'+
+GIAY[kieu]+
+'<g class="art" transform="'+(xien?"translate(16,0) skewX(-14)":"translate(0,0)")+'">'+inner+'</g>'+
 '<circle class="pen" r="2.8"/></svg>';
 }
 function netChu(){
@@ -5495,6 +5564,12 @@ return null;
 function centerArt(svg){
 if(!svg)return;
 var art=svg.querySelector(".art");if(!art)return;
+var penH=svg.querySelector(".pen");
+if(svg.classList.contains("k-han")){
+art.setAttribute("transform","translate(0,0)");
+if(penH)penH.setAttribute("transform","translate(0,0)");
+return;
+}
 try{
 var bb=art.getBBox();
 if(!bb.width)return;
@@ -5512,7 +5587,7 @@ var inner=g
 ? g.d.map(function(d){return '<path class="ghost-ink" d="'+d+'"/>';}).join("")+
 g.d.map(function(d){return '<path class="ink" d="'+d+'"/>';}).join("")
 : ghostFit(chuTapViet(it),monNay().viettay);
-var box=el('<div class="wbox"><div class="sheet">'+sheetSvg(inner,!(g&&monNay().viettay))+'</div>'+
+var box=el('<div class="wbox"><div class="sheet">'+sheetSvg(inner,kieuGiay(),!!(g&&monNay().viettay))+'</div>'+
 '<div class="row" style="margin-top:12px">'+
 '<button class="btn sm ghost" style="flex:none">'+ic("velai",17)+' Viết lại</button>'+
 '<div class="seg" style="flex:none"><button data-sp="cham">Chậm</button><button data-sp="vua">Vừa</button></div>'+
@@ -5645,7 +5720,7 @@ var g=netCua(it.lo);
 var inner=g
 ? g.d.map(function(d){return '<path class="ghost-ink" d="'+d+'"/>';}).join("")+'<g class="userg"></g><g class="missg"></g>'
 : ghostFit(chuTapViet(it),monNay().viettay)+'<g class="userg"></g><g class="missg"></g>';
-var box=el('<div class="wbox"><div class="sheet">'+sheetSvg(inner,!(g&&monNay().viettay))+'</div>'+
+var box=el('<div class="wbox"><div class="sheet">'+sheetSvg(inner,kieuGiay(),!!(g&&monNay().viettay))+'</div>'+
 '<div class="row" style="margin-top:12px">'+
 '<button class="btn sm ghost" style="flex:none">Viết lại</button>'+
 '</div>'+
@@ -8088,7 +8163,7 @@ function nhanGoiTienDo(){
 if(location.hash.indexOf("#mang=")!==0)return;
 try{
 var goi=JSON.parse(decodeURIComponent(location.hash.slice(6)));
-if(goi&&goi.items){prog=normProg(mergeProg(prog,goi));dongBoMon();}
+if(goi&&goi.items){prog=normProg(mergeProg(prog,normProg(goi)));dongBoMon();}
 saveLocal();
 }catch(e){}
 try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}
