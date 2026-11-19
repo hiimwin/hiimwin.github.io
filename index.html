@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-eao4ARiRdpxfkM4rEGguzBOS/v3jXyUREQyVDey6emk=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-DeOeBHZit8G96FGDTZ78YXnmSf/y2dOMiwUc4vdFm8w=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -3670,7 +3670,7 @@ const CAU_TRUNG=[
 ["请帮我一下。","qǐng bāng wǒ yíxià","Please help me.","Làm ơn giúp tôi một chút.","请|帮|我|一下","一下 làm lời nhờ nhẹ đi, nghe bớt ra lệnh."],
 ["我每天看书。","wǒ měitiān kàn shū","I read every day.","Ngày nào tôi cũng đọc sách.","我|每天|看|书","Từ chỉ thời gian lặp lại đứng TRƯỚC động từ."],
 ["我们有时间。","wǒmen yǒu shíjiān","We have time.","Chúng ta còn thời gian.","我们|有|时间","有 vừa là “có” sở hữu, vừa là “tồn tại”."],
-["这是我最好的朋友。","zhè shì wǒ zuì hǎo de péngyou","This is my best friend.","Đây là bạn thân nhất của tôi.","这|是|我|最好的|朋友","最 + tính từ + 的 là khối bổ nghĩa đứng trước danh từ."],
+["这是我最好的朋友。","zhè shì wǒ zuì hǎo de péngyǒu","This is my best friend.","Đây là bạn thân nhất của tôi.","这|是|我|最好的|朋友","最 + tính từ + 的 là khối bổ nghĩa đứng trước danh từ."],
 ["一张票多少钱？","yì zhāng piào duōshao qián","How much is a ticket?","Một vé bao nhiêu tiền?","一张|票|多少|钱","张 là lượng từ cho vật mỏng và phẳng: vé, giấy, bàn."],
 ["我在这里住了三年。","wǒ zài zhèlǐ zhù le sān nián","I have lived here for three years.","Tôi ở đây ba năm rồi.","我|在这里|住了|三年","Khoảng thời gian kéo dài đứng SAU động từ, không đứng trước."]
 ];
@@ -3867,15 +3867,16 @@ if(f&&f.parentNode)f.parentNode.firstChild.nodeValue=dungTiengAnh()
 : mn.ten.replace("Tiếng ","")+" · Việt — ";
 var fb=document.querySelector("footer b:not(.tacgia)");
 if(fb)fb.textContent=nhan;
+dichNav();
 var ns=document.getElementById("nav-song");
 if(ns){
 ns.hidden=!mn.hat;
 var bhN=mn.baiHat;
 if(bhN){
-ns.setAttribute("data-tip",bhN.ten);
-ns.setAttribute("aria-label",bhN.ten);
+ns.setAttribute("data-tip",D(bhN.ten));
+ns.setAttribute("aria-label",D(bhN.ten));
 var nb=ns.querySelector("b");
-if(nb)nb.textContent=bhN.nhan;
+if(nb)nb.textContent=D(bhN.nhan);
 }
 }
 datMauMon();
@@ -4374,7 +4375,27 @@ TU_DIEN={
 "Đáng nhớ":"Worth remembering","Chưa đúng. Câu đúng là:":"Not quite. The correct sentence is:",
 "Câu nói đời thường":"Everyday speech","Câu đời thường":"Everyday speech",
 "Nghĩa đen":"Literally","Khi nào dùng":"When to use it",
-"Vào học":"Start learning","Nhớ nhanh":"Quick hook","Từ mới":"New word"
+"Vào học":"Start learning","Nhớ nhanh":"Quick hook","Từ mới":"New word",
+"Đăng nhập":"Sign in","Đăng xuất":"Sign out","Tài khoản":"Account",
+"Bài hát":"Song","Bài đọc":"Chant","Giới thiệu":"About","Trang giới thiệu":"About page",
+"Ngữ pháp":"Grammar","Tra cứu":"Look up","Sáng / tối":"Light / dark",
+"Đổi nền sáng / tối":"Switch light / dark","Đổi nền sáng tối":"Switch light and dark",
+"Mở menu":"Open menu","Về trang chủ":"Back to home","Lên đầu":"Back to top",
+"Đọc nhanh":"Quick read","Đời sống thường ngày":"Everyday life",
+"Chữ viết tay":"Handwriting","Tập viết":"Writing practice","Tập viết chữ Hán":"Hanzi writing",
+"Trọng âm":"Stress","Thanh điệu":"Tones","Phát âm":"Pronunciation","Ngữ cảnh":"In context",
+"Xem cách viết":"See the strokes","Bấm một chữ bên dưới để đổi.":"Tap a letter below to switch.",
+"Xem thẻ từ này":"Open this card","Sang tập viết":"Go to writing","Sang tập đọc":"Go to reading",
+"Hỏi cả tiếng Anh":"Ask in English too",
+"ngày":"days","chữ cái ·":"letters ·","âm ·":"sounds ·","mục số đếm ·":"number items ·",
+"từ theo":"words across","từ vựng đang chờ":"words waiting",
+"Bảng chữ cái A–Z":"The A–Z alphabet","Bài hát ABC":"The ABC song",
+"Bài hát bảng chữ cái":"The alphabet song","Bài đọc bảng pinyin":"The pinyin chant",
+"bảng chữ cái":"alphabet","bảng âm IPA":"IPA chart","bảng pinyin":"pinyin chart",
+"tiếng Nga":"Russian","tiếng Anh":"English","tiếng Trung":"Chinese",
+"tắt hẳn trình duyệt (hoặc app đang mở trang này) rồi mở lại":"quit the browser (or the app showing this page) completely, then open it again",
+"Mượn: thứ tự nét chữ Hán lấy từ bộ dữ liệu":"Borrowed: the Chinese stroke order comes from the dataset",
+", dẫn xuất từ phông chữ Arphic — giấy phép Arphic Public License buộc ghi rõ nguồn.":", derived from the Arphic fonts — the Arphic Public License requires the credit."
 };
 MAU_DICH=[
 [/^Ôn (\d+) mục$/,"Review $1 items"],
@@ -4405,6 +4426,13 @@ MAU_DICH=[
 [/^(\d+) mục số đếm$/,"$1 number items"],
 [/^(\d+) từ · (\d+) chủ đề$/,"$1 words · $2 topics"],
 [/^Đã thuộc$/,"Known"],
+[/^Câu (\d+) \/ (\d+) · đúng (\d+)$/,"Question $1 / $2 · $3 right"],
+[/^— phát âm (.+) hoạt động bình thường\.$/,"— $1 speech is working."],
+[/^Máy có giọng (.+) nhưng không ra tiếng — kiểm tra lại âm lượng.*$/,"A $1 voice is installed but nothing comes out — check the volume and the browser's permission to play sound."],
+[/^Máy có giọng (.+) nhưng không ra tiếng — thử gạt công tắc chuông.*$/,"A $1 voice is installed but nothing comes out — flick the ring switch on the side of the iPhone to ring, then turn the volume up."],
+[/^Máy chưa có giọng (.+) nào, nên nút loa không kêu\..*$/,"There is no $1 voice on this device, so the speaker button stays silent. A voice is a separate package — adding the language to your interface list does not count."],
+[/^Học từ cái khó nhất trở đi — (.+), mẹo đọc cho người Việt, rồi mới tới từ và câu\.$/,"Start with the hard part — the $1, the pronunciation tips for Vietnamese speakers, and only then words and sentences."],
+[/^Học từ (.+) trở đi$/,"Start from the $1"],
 [/^Hiện tại: ([\d.]+)×$/,"Currently: $1×"],
 [/^· giống (\d+)%$/,"· $1% match"],
 [/^Mỗi từ đều có sẵn nghĩa tiếng Anh\. Bật lên thì bài ôn hỏi thêm chiều (.+) → Anh và Anh → (.+), học một công đôi việc\.$/,"Every word already carries an English meaning. Turn this on and reviews also ask $1 → English and English → $2."],
@@ -4461,6 +4489,24 @@ return k+'="'+dichCau(v)+'"';
 return r;
 }
 function D(t){return dungTiengAnh()?dichCau(String(t==null?"":t)):t;}
+function dichNav(){
+var ds=document.querySelectorAll("#nav-menu button, #nav-burger, #nav-home, .len-dau");
+for(var i=0;i<ds.length;i++){
+var e=ds[i];
+if(e.id==="nav-song")continue;
+var b=e.querySelector("b");
+if(b){
+if(b.getAttribute("data-vi")==null)b.setAttribute("data-vi",b.textContent);
+b.textContent=D(b.getAttribute("data-vi"));
+}
+["data-tip","aria-label","title"].forEach(function(k){
+if(!e.hasAttribute(k))return;
+var g=e.getAttribute("data-vi-"+k);
+if(g==null){g=e.getAttribute(k);e.setAttribute("data-vi-"+k,g);}
+e.setAttribute(k,D(g));
+});
+}
+}
 function NG(it){return (dungTiengAnh()&&it&&it.en)?it.en:(it?it.vi:"");}
 function el(h){
 var d=document.createElement("div");d.innerHTML=dichHTML(h).trim();
@@ -4577,8 +4623,8 @@ function warnCongTacTat(){
 if(daBaoCongTac)return;daBaoCongTac=true;
 var tm=tenmon();
 flash(osKind()==="ios"
-? "Máy có giọng "+tm+" nhưng không ra tiếng — thử gạt công tắc chuông bên hông iPhone sang chuông, rồi vặn to âm lượng."
-: "Máy có giọng "+tm+" nhưng không ra tiếng — kiểm tra lại âm lượng và quyền phát tiếng của trình duyệt.");
+? "Máy có giọng "+D(tm)+" nhưng không ra tiếng — thử gạt công tắc chuông bên hông iPhone sang chuông, rồi vặn to âm lượng."
+: "Máy có giọng "+D(tm)+" nhưng không ra tiếng — kiểm tra lại âm lượng và quyền phát tiếng của trình duyệt.");
 }
 function osKind(){
 var u=navigator.userAgent||"";
@@ -4613,7 +4659,7 @@ function warnVoice(){
 if(ttsWarned||!app)return;ttsWarned=true;
 var tenMon=monNay().ten;
 tenMon=tenMon.charAt(0).toLowerCase()+tenMon.slice(1);
-var n=el('<div class="fb neutral topnote bao">Máy chưa có giọng đọc '+esc(tenMon)+' nên nút loa chưa kêu. Bấm vào đây để xem cách cài.</div>');
+var n=el('<div class="fb neutral topnote bao">Máy chưa có giọng đọc '+esc(D(tenMon))+' nên nút loa chưa kêu. Bấm vào đây để xem cách cài.</div>');
 n.onclick=function(){ttsWarned=false;n.remove();go({n:"set"});};
 app.insertBefore(n,app.firstChild);
 setTimeout(function(){if(n.parentNode)n.remove();ttsWarned=false;},9000);
@@ -4945,7 +4991,7 @@ var box=el('<section class="cover cov3">'+
 '<h1>'+esc(mnBia.nhan)+'</h1></div>'+
 '<p class="lead" style="margin:0">'+(mnBia.ma==="ru"
 ? 'Học từ mặt chữ trở đi — bảng chữ cái, cách đọc cho người Việt, chữ viết tay, rồi mới tới từ và câu.'
-: 'Học từ cái khó nhất trở đi — '+esc(mnBia.tenChuT)+', mẹo đọc cho người Việt, rồi mới tới từ và câu.')+'</p>'+
+: 'Học từ cái khó nhất trở đi — '+esc(D(mnBia.tenChuT))+', mẹo đọc cho người Việt, rồi mới tới từ và câu.')+'</p>'+
 '<div class="prog">'+
 '<div class="lbl">Đã thuộc <b>'+thuoc+'/'+soChu+'</b> '+esc(mnBia.donVi)+' · <b>'+soTu+'</b> từ vựng đang chờ</div>'+
 '<div class="prog-bar"><i></i><span class="run">'+ic("maybay",19)+'</span></div>'+
@@ -5234,7 +5280,7 @@ var hero=el(
 '<section class="hero">'+
 '<div class="h-a">'+
 '<div class="eyebrow"><span class="cyr">'+esc(mnHome.ban3)+'</span> · '+esc(mnHome.ten.replace("Tiếng ",""))+' — Việt</div>'+
-'<h1>Học từ '+esc(mnHome.tenChuT)+' trở đi</h1>'+
+'<h1>Học từ '+esc(D(mnHome.tenChuT))+' trở đi</h1>'+
 '<div class="ru">'+esc(mnHome.loTrinh)+'</div>'+
 '</div>'+
 '<div class="h-b">'+
@@ -6130,11 +6176,6 @@ act.appendChild(bg);
 }
 if(sc>3){var b3=el('<button class="btn ghost">'+ic("but",18)+'<span>Luyện gõ</span></button>');b3.onclick=function(){startSession(buildTyping(m));};act.appendChild(b3);}
 if(m.kind==="L"&&sc>3&&monNay().viettay){var b4=el('<button class="btn ghost">'+ic("sach",18)+'<span>Đọc chữ viết tay</span></button>');b4.onclick=function(){startSession(buildHand(m));};act.appendChild(b4);}
-if(m.kind==="L"&&monNay().conet&&!monNay().viettay){
-var b4b=el('<button class="btn ghost">'+ic("sach",18)+'<span>'+esc(monNay().tenViet)+'</span></button>');
-b4b.onclick=function(){go({n:"mod",mod:m.id,tab:"hand"});};
-act.appendChild(b4b);
-}
 if(m.kind==="V"&&sc>3&&m.items.filter(function(it){return rec(it.id)&&stressInfo(it);}).length>3){
 var b5=el('<button class="btn ghost">'+ic("nhip",18)+'<span>'+esc(monNay().trongamTen)+'</span></button>');
 b5.onclick=function(){startSession(buildStress(m));};act.appendChild(b5);
@@ -7611,7 +7652,7 @@ var meta=el('<div class="nh-meta"><span class="dem"></span><span class="chuoi"><
 app.appendChild(meta);
 var than=el('<div></div>');app.appendChild(than);
 function veMeta(){
-meta.querySelector(".dem").textContent="Câu "+Math.min(i+1,ds.length)+" / "+ds.length+" · đúng "+dung;
+meta.querySelector(".dem").textContent=D("Câu "+Math.min(i+1,ds.length)+" / "+ds.length+" · đúng "+dung);
 meta.querySelector(".chuoi").textContent=chuoi>1?("chuỗi "+chuoi):"";
 }
 function dungGio(){
@@ -8131,7 +8172,7 @@ if(mNay.ma==="ru")toggle("Hiện phiên âm Latin","Dòng “máma”, “spasí
 else toggle("Hiện "+mNay.phienAm,"Dòng phiên âm nhỏ dưới mỗi từ.","translit");
 if(mNay.goLatin)toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
 if(mNay.coAnh!==false)toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều "+tenmon()+" → Anh và Anh → "+tenmon()+", học một công đôi việc.","anh");
-toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc "+mNay.tenChuT+". Không khuyến khích.","unlockAll");
+toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc "+D(mNay.tenChuT)+". Không khuyến khích.","unlockAll");
 var nenCho=nenDaChon();
 var dangToi=laNenToi();
 var nen=el('<div class="set"><div class="l"><div class="n">Nền sáng / tối</div>'+
@@ -8186,7 +8227,7 @@ var dangChon=(prog.settings.giong&&prog.settings.giong[mn.ma])||"";
 var ds=[{t:"Tự động",v:""}].concat(giongRu.map(function(v){return {t:tenGiong(v),v:v.voiceURI||v.name};}));
 ds.forEach(function(o){
 var b=el('<button class="btn sm '+(dangChon===o.v?"":"ghost")+'"></button>');
-b.textContent=o.t;
+b.textContent=D(o.t);
 b.onclick=function(){
 if(!prog.settings.giong||typeof prog.settings.giong!=="object")prog.settings.giong={};
 prog.settings.giong[mn.ma]=o.v;touch();loadVoices();render();
@@ -8212,8 +8253,8 @@ var vlist=voices.map(function(v){return v.name+" ["+v.lang+"]";});
 var vbox=el('<div class="set" style="display:block'+(ruV?'':';border-left:3px solid var(--accent)')+'">'+
 '<div class="n">Giọng đọc</div>'+
 '<div class="d" style="margin-bottom:8px">'+(ruV
-? 'Đang dùng: <b>'+esc(ruV.name)+'</b> — phát âm '+esc(tenmon())+' hoạt động bình thường.'
-: 'Máy chưa có giọng '+esc(tenmon())+' nào, nên nút loa không kêu. Giọng đọc là gói riêng — thêm '+esc(tenmon())+' vào danh sách ngôn ngữ giao diện không tính.')+'</div>'+
+? 'Đang dùng: <b>'+esc(ruV.name)+'</b> — phát âm '+esc(D(tenmon()))+' hoạt động bình thường.'
+: 'Máy chưa có giọng '+esc(D(tenmon()))+' nào, nên nút loa không kêu. Giọng đọc là gói riêng — thêm '+esc(D(tenmon()))+' vào danh sách ngôn ngữ giao diện không tính.')+'</div>'+
 (ruV?'':'<div class="tipbox" style="margin-top:0"><b>'+esc(vh.t)+'</b>'+vh.h+'</div>')+
 '<div class="d" style="margin-top:8px">Không cài được cũng không sao: mọi từ trong app đều có dòng phiên âm kiểu tiếng Việt để đọc theo.</div>'+
 '<details class="more"><summary>Xem '+voices.length+' giọng máy đang có</summary>'+
@@ -8275,7 +8316,7 @@ var mnN=monNay();
 var soChuN=((modById("alpha")||{items:[]}).items).length;
 var soSoN=((modById("num")||{items:[]}).items).length;
 var soCdN=MODULES.filter(function(x){return x.kind==="V"&&x.id!=="num";}).length;
-app.appendChild(el('<div class="note">Nội dung: '+soChuN+' mục trong '+esc(mnN.tenChuT)+', '+soSoN+' mục số đếm và '+
+app.appendChild(el('<div class="note">Nội dung: '+soChuN+' mục trong '+esc(D(mnN.tenChuT))+', '+soSoN+' mục số đếm và '+
 (ALL_ITEMS.length-soChuN-soSoN)+' từ/câu theo '+soCdN+' chủ đề — mỗi mục đều có nghĩa tiếng Việt và mẹo đọc riêng cho người Việt. '+esc(mnN.tenChu)+' kèm nét mẫu và bảng tập viết có chấm điểm.</div>'));
 }
 const FLOATY=[
@@ -8424,6 +8465,7 @@ try{window.scrollTo({top:0,behavior:em?"auto":"smooth"});}catch(e){window.scroll
 nutLen.classList.remove("hien");
 };
 document.body.appendChild(nutLen);
+dichNav();
 addEventListener("scroll",function(){
 if(henLen)return;
 henLen=setTimeout(function(){henLen=0;soatNutLen();},120);
