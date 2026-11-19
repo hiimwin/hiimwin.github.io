@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-smyLO/88yoZHZq/QUykr0HSpKRq4SdLVrNbLLk0KJrQ=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-x9FG8RPcVMWuEOah0o3cxcR9SGaREF7lU5SN3B1UHhw=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -3512,6 +3512,19 @@ if(t==="light")return false;
 try{return !!(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches);}
 catch(e){return false;}
 }
+function nenDaChon(){
+try{return localStorage.getItem(LS_KEY+":theme")||"";}catch(e){return "";}
+}
+function datNen(gt){
+var r=document.documentElement;
+if(gt)r.setAttribute("data-theme",gt);
+else r.removeAttribute("data-theme");
+try{
+if(gt)localStorage.setItem(LS_KEY+":theme",gt);
+else localStorage.removeItem(LS_KEY+":theme");
+}catch(e){}
+datMauMon();
+}
 function datMauMon(){
 var bo=monNay().mauBo;
 if(!bo)return;
@@ -3906,6 +3919,9 @@ TU_DIEN={
 "Dòng “máma”, “spasíbo” dưới chữ Nga.":"The “máma”, “spasíbo” line under the Russian.",
 "Gõ bằng bàn phím Latin":"Type on a Latin keyboard",
 "Nghe chép":"Dictation","Nghe chậm":"Play slowly",
+"Nền sáng / tối":"Light / dark","Theo máy":"Follow the device","Sáng":"Light","Tối":"Dark",
+"Để “Theo máy” thì app đi theo cài đặt sáng/tối của máy: máy hẹn giờ chuyển nền tối buổi tối thì app chuyển theo, không phải vào đây bấm lại. Chọn Sáng hoặc Tối là ghim cứng một kiểu, máy đổi cũng mặc kệ. Hiện đang:":"On “Follow the device” the app tracks the system light/dark setting: if the device switches to dark in the evening, the app follows, with nothing to press here. Picking Light or Dark pins one of them whatever the device does. Currently:",
+"tối (theo máy)":"dark (from the device)","sáng (theo máy)":"light (from the device)","tối":"dark","sáng":"light",
 "Nghe một từ rồi gõ lại, máy chấm đúng từng chữ. Máy chưa có giọng đọc tiếng Nga — chọn giọng trong Cài đặt rồi quay lại.":"Hear a word, type it back, every letter checked. This device has no Russian voice — pick one in Settings and come back.",
 "Nghe một từ rồi gõ lại, máy chấm đúng từng chữ. Máy chưa có giọng đọc tiếng Anh — chọn giọng trong Cài đặt rồi quay lại.":"Hear a word, type it back, every letter checked. This device has no English voice — pick one in Settings and come back.",
 "Nghe một từ rồi gõ lại, máy chấm đúng từng chữ. Máy chưa có giọng đọc tiếng Trung — chọn giọng trong Cài đặt rồi quay lại.":"Hear a word, type it back, every letter checked. This device has no Chinese voice — pick one in Settings and come back.",
@@ -4314,6 +4330,7 @@ if(m.addEventListener)m.addEventListener("change",datNhe);
 }catch(e){}
 function render(){
 datNhe();
+datMauMon();
 dungHat();
 app.innerHTML="";
 var khoaMan=view.n+"|"+(view.n==="study"?"":(view.one||""))+"|"+(view.mod||"")+"|"+(view.tab||"");
@@ -7726,6 +7743,18 @@ else toggle("Hiện "+mNay.phienAm,"Dòng phiên âm nhỏ dưới mỗi từ.",
 if(mNay.goLatin)toggle("Gõ bằng bàn phím Latin","Ở bài gõ chữ: gõ “privet” thì tự ra “привет”, khỏi cần bàn phím Nga.","latinType");
 if(mNay.coAnh!==false)toggle("Hỏi cả tiếng Anh","Mỗi từ đều có sẵn nghĩa tiếng Anh. Bật lên thì bài ôn hỏi thêm chiều "+tenmon()+" → Anh và Anh → "+tenmon()+", học một công đôi việc.","anh");
 toggle("Bỏ khoá lộ trình","Cho phép vào thẳng phần từ vựng mà chưa thuộc "+mNay.tenChuT+". Không khuyến khích.","unlockAll");
+var nenCho=nenDaChon();
+var dangToi=laNenToi();
+var nen=el('<div class="set"><div class="l"><div class="n">Nền sáng / tối</div>'+
+'<div class="d">Để “Theo máy” thì app đi theo cài đặt sáng/tối của máy: máy hẹn giờ chuyển nền tối buổi tối thì app chuyển theo, không phải vào đây bấm lại. Chọn Sáng hoặc Tối là ghim cứng một kiểu, máy đổi cũng mặc kệ. Hiện đang: <b>'+
+(dangToi?"tối":"sáng")+(nenCho?"":" (theo máy)")+'</b>.</div></div></div>');
+var nenr=el('<div class="row" style="flex:none"></div>');
+[["Theo máy",""],["Sáng","light"],["Tối","dark"]].forEach(function(o){
+var b=el('<button class="btn sm '+(nenCho===o[1]?"":"ghost")+'">'+o[0]+'</button>');
+b.onclick=function(){datNen(o[1]);render();};
+nenr.appendChild(b);
+});
+nen.appendChild(nenr);app.appendChild(nen);
 var hu=el('<div class="set"><div class="l"><div class="n">Hiệu ứng nền</div>'+
 '<div class="d">Nền chuyển màu và lớp làm mờ sau các thẻ nhìn đẹp nhưng tốn sức máy. Cửa sổ app cài về máy có lúc không được tăng tốc phần cứng như tab trình duyệt, nên ở đó app mặc định chạy chế độ nhẹ: nền đứng yên, không làm mờ. Hiện đang: <b>'+(nenNhe()?"nhẹ":"đầy đủ")+'</b>.</div></div></div>');
 var hur=el('<div class="row" style="flex:none"></div>');
@@ -7961,12 +7990,7 @@ document.getElementById("nav-gram").onclick=function(){go({n:"gram"});};
 document.getElementById("nav-browse").onclick=function(){go({n:"browse"});};
 document.getElementById("nav-set").onclick=function(){go({n:"set"});};
 document.getElementById("nav-theme").onclick=function(){
-var r=document.documentElement;
-var cur=r.getAttribute("data-theme");
-var dark=cur?cur==="dark":window.matchMedia("(prefers-color-scheme:dark)").matches;
-r.setAttribute("data-theme",dark?"light":"dark");
-try{localStorage.setItem(LS_KEY+":theme",dark?"light":"dark");}catch(e){}
-datMauMon();
+datNen(laNenToi()?"light":"dark");
 };
 try{var th=localStorage.getItem(LS_KEY+":theme");if(th)document.documentElement.setAttribute("data-theme",th);}catch(e){}
 datMauMon();
