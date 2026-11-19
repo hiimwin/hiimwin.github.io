@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-fGykHDH/Q9xySeHn5xj4q6JPaW93BnkScGiY9UfxdcU=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-m2Zn5pb97M+WPy8lSXj0xqJ3Bu+W+gU6SSRtvunH1Eo=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -1544,6 +1544,14 @@ const TOPICS=[
 ["о́сень","ósen'","autumn","mùa thu"],["зима́","zimá","winter","mùa đông"],
 ["Кака́я сего́дня пого́да?","Kakáya sevódnya pogóda?","what is the weather today?","hôm nay thời tiết thế nào?"]
 ]},
+{id:"nature",name:"Thiên nhiên",ru:"Природа",items:[
+["приро́да","priróda","nature","thiên nhiên"],["ого́нь","ogón'","fire","lửa"],["земля́","zemlyá","earth, soil","đất"],
+["не́бо","nébo","sky","bầu trời"],["луна́","luná","moon","mặt trăng"],["звезда́","zvezdá","star","ngôi sao"],
+["гора́","gorá","mountain","ngọn núi"],["река́","reká","river","con sông"],["мо́ре","móre","sea","biển"],
+["о́зеро","ózero","lake","hồ"],["лес","les","forest","rừng"],["де́рево","dérevo","tree","cái cây"],
+["цвето́к","tsvetók","flower","bông hoa"],["трава́","travá","grass","cỏ"],["ка́мень","kámen'","stone","hòn đá"],
+["песо́к","pesók","sand","cát"],["лист","list","leaf","chiếc lá"],["во́здух","vózdukh","air","không khí"]
+]},
 {id:"cloth",name:"Quần áo & mua đồ",ru:"Одежда",items:[
 ["оде́жда","odézhda","clothes","quần áo"],["руба́шка","rubáshka","shirt","áo sơ mi"],["футбо́лка","futbólka","t-shirt","áo phông"],
 ["брю́ки","bryúki","trousers","quần dài"],["джи́нсы","dzhínsy","jeans","quần bò"],["пла́тье","plát'ye","dress","váy liền"],
@@ -1558,7 +1566,8 @@ const TOPICS=[
 ["свинья́","svin'yá","pig","con lợn"],["пету́х","petúkh","rooster","con gà trống"],["мышь","mysh'","mouse","con chuột"],
 ["медве́дь","medvéd'","bear","con gấu"],["волк","volk","wolf","con sói"],["лиса́","lisá","fox","con cáo"],
 ["за́яц","záyats","hare","con thỏ rừng"],["обезья́на","obez'yána","monkey","con khỉ"],["слон","slon","elephant","con voi"],
-["тигр","tigr","tiger","con hổ"]
+["тигр","tigr","tiger","con hổ"],
+["змея́","zmeyá","snake","con rắn"],["насеко́мое","nasekómoye","insect","côn trùng"]
 ]},
 {id:"work",name:"Công việc & văn phòng",ru:"Работа",items:[
 ["рабо́та","rabóta","work, job","công việc"],["о́фис","ófis","office","văn phòng"],["колле́га","kolléga","colleague","đồng nghiệp"],
@@ -1596,7 +1605,6 @@ const TOPICS=[
 ["ви́за","víza","visa","thị thực"],["грани́ца","granítsa","border","biên giới"],["бага́ж","bagázh","luggage","hành lý"],
 ["рейс","reys","flight","chuyến bay"],["но́мер","nómer","hotel room, number","phòng khách sạn, số"],["бронь","bron'","booking","đặt chỗ"],
 ["экску́рсия","ekskúrsiya","excursion","chuyến tham quan"],["сувени́р","suvenír","souvenir","quà lưu niệm"],["пляж","plyazh","beach","bãi biển"],
-["го́ры","góry","mountains","núi"],
 ["Я заброни́ровал но́мер","Ya zabroníroval nómer","I booked a room","tôi đã đặt phòng"],
 ["Где мо́жно купи́ть биле́т?","Gde mózhno kupít' bilét?","where can I buy a ticket?","mua vé ở đâu?"]
 ]},
@@ -1611,9 +1619,10 @@ const TOPICS=[
 {id:"city",name:"Trong thành phố",ru:"В городе",items:[
 ["центр","tsentr","centre","trung tâm"],["пло́щадь","plóshchad'","square","quảng trường"],["парк","park","park","công viên"],
 ["банк","bank","bank","ngân hàng"],["це́рковь","tsérkov'","church","nhà thờ"],["музе́й","muzéy","museum","bảo tàng"],
-["библиоте́ка","bibliotéka","library","thư viện"],["мост","most","bridge","cây cầu"],["река́","reká","river","con sông"],
+["библиоте́ка","bibliotéka","library","thư viện"],["мост","most","bridge","cây cầu"],
 ["суперма́ркет","supermárket","supermarket","siêu thị"],["остано́вка","ostanóvka","bus stop","trạm xe buýt"],
 ["перекрёсток","perekryóstok","crossroads","ngã tư"],["зда́ние","zdániye","building","toà nhà"],["эта́ж","etázh","floor, storey","tầng"],
+["по́чта","póchta","post office","bưu điện"],["светофо́р","svetofór","traffic light","đèn giao thông"],
 ["Как дойти́ до…?","Kak doytí do…?","how do I get to…?","đi tới … thế nào?"]
 ]},
 {id:"prep",name:"Giới từ & trạng từ",ru:"Предлоги и наречия",items:[
@@ -1660,7 +1669,7 @@ const TOPICS=[
 ["газе́та","gazéta","newspaper","báo"],["прави́тельство","pravítel'stvo","government","chính phủ"],
 ["зако́н","zakón","law","luật"],["вы́боры","výbory","elections","bầu cử"],
 ["исто́рия","istóriya","history, story","lịch sử, câu chuyện"],["культу́ра","kul'túra","culture","văn hoá"],
-["рели́гия","relígiya","religion","tôn giáo"],["приро́да","priróda","nature","thiên nhiên"],
+["рели́гия","relígiya","religion","tôn giáo"],
 ["эколо́гия","ekológiya","ecology","môi trường"],["пробле́ма","probléma","problem","vấn đề"],
 ["война́","voyná","war","chiến tranh"],["мир","mir","peace, world","hoà bình, thế giới"],
 ["наро́д","naród","people, nation","nhân dân"],["страна́","straná","country","đất nước"]
@@ -2188,6 +2197,26 @@ const CHUDE_ANH2=[
 ["winter","/ˈwɪntə/","","mùa đông"],
 ["It's raining","/ɪts ˈreɪnɪŋ/","","trời đang mưa"]
 ]},
+{id:"nature",name:"Thiên nhiên",ru:"Nature",items:[
+["nature","/ˈneɪtʃə/","","thiên nhiên"],
+["fire","/ˈfaɪə/","","lửa"],
+["earth","/ɜːθ/","","đất"],
+["sky","/skaɪ/","","bầu trời"],
+["moon","/muːn/","","mặt trăng"],
+["star","/stɑː/","","ngôi sao"],
+["mountain","/ˈmaʊntɪn/","","ngọn núi"],
+["river","/ˈrɪvə/","","con sông"],
+["sea","/siː/","","biển"],
+["lake","/leɪk/","","hồ"],
+["forest","/ˈfɒrɪst/","","rừng"],
+["tree","/triː/","","cái cây"],
+["flower","/ˈflaʊə/","","bông hoa"],
+["grass","/ɡrɑːs/","","cỏ"],
+["stone","/stəʊn/","","hòn đá"],
+["sand","/sænd/","","cát"],
+["leaf","/liːf/","","chiếc lá"],
+["air","/eə/","","không khí"]
+]},
 {id:"cloth",name:"Quần áo & mua đồ",ru:"Clothes",items:[
 ["clothes","/kləʊðz/","","quần áo"],
 ["shirt","/ʃɜːt/","","áo sơ mi"],
@@ -2218,7 +2247,11 @@ const CHUDE_ANH2=[
 ["tiger","/ˈtaɪɡə/","","con hổ"],
 ["monkey","/ˈmʌŋki/","","con khỉ"],
 ["snake","/sneɪk/","","con rắn"],
-["insect","/ˈɪnsekt/","","côn trùng"]
+["insect","/ˈɪnsekt/","","côn trùng"],
+["bear","/beə/","","con gấu"],
+["wolf","/wʊlf/","","con sói"],
+["fox","/fɒks/","","con cáo"],
+["rabbit","/ˈræbɪt/","","con thỏ"]
 ]},
 {id:"work",name:"Công việc & văn phòng",ru:"Work & office",items:[
 ["work","/wɜːk/","","công việc"],
@@ -2292,8 +2325,8 @@ const CHUDE_ANH2=[
 ["luggage","/ˈlʌɡɪdʒ/","","hành lý"],
 ["suitcase","/ˈsuːtkeɪs/","","vali"],
 ["beach","/biːtʃ/","","bãi biển"],
-["mountain","/ˈmaʊntɪn/","","núi"],
-["sea","/siː/","","biển"],
+["border","/ˈbɔːdə/","","biên giới"],
+["flight","/flaɪt/","","chuyến bay"],
 ["camera","/ˈkæmrə/","","máy ảnh"],
 ["guide","/ɡaɪd/","","hướng dẫn viên"],
 ["booking","/ˈbʊkɪŋ/","","đặt chỗ"],
@@ -2328,7 +2361,12 @@ const CHUDE_ANH2=[
 ["bridge","/brɪdʒ/","","cây cầu"],
 ["corner","/ˈkɔːnə/","","góc phố"],
 ["traffic","/ˈtræfɪk/","","giao thông"],
-["crossing","/ˈkrɒsɪŋ/","","chỗ sang đường"]
+["crossing","/ˈkrɒsɪŋ/","","chỗ sang đường"],
+["centre","/ˈsentə/","","trung tâm"],
+["square","/skweə/","","quảng trường"],
+["library","/ˈlaɪbrəri/","","thư viện"],
+["bus stop","/ˈbʌs stɒp/","","trạm xe buýt"],
+["building","/ˈbɪldɪŋ/","","toà nhà"]
 ]},
 {id:"prep",name:"Giới từ & trạng từ",ru:"Prepositions & adverbs",items:[
 ["in","/ɪn/","","trong"],
@@ -2900,6 +2938,26 @@ const CHUDE_TRUNG2=[
 ["冬天","dōngtiān","winter","mùa đông"],
 ["下雨了","xià yǔ le","it's raining","trời đang mưa"]
 ]},
+{id:"nature",name:"Thiên nhiên",ru:"自然",items:[
+["自然","zìrán","nature","thiên nhiên"],
+["火","huǒ","fire","lửa"],
+["土","tǔ","earth, soil","đất"],
+["天空","tiānkōng","sky","bầu trời"],
+["月亮","yuèliang","moon","mặt trăng"],
+["星星","xīngxing","star","ngôi sao"],
+["山","shān","mountain","ngọn núi"],
+["河","hé","river","con sông"],
+["海","hǎi","sea","biển"],
+["湖","hú","lake","hồ"],
+["森林","sēnlín","forest","rừng"],
+["树","shù","tree","cái cây"],
+["花","huā","flower","bông hoa"],
+["草","cǎo","grass","cỏ"],
+["石头","shítou","stone","hòn đá"],
+["沙子","shāzi","sand","cát"],
+["叶子","yèzi","leaf","chiếc lá"],
+["空气","kōngqì","air","không khí"]
+]},
 {id:"cloth",name:"Quần áo & mua đồ",ru:"衣服",items:[
 ["衣服","yīfu","clothes","quần áo"],
 ["衬衫","chènshān","shirt","áo sơ mi"],
@@ -2930,7 +2988,11 @@ const CHUDE_TRUNG2=[
 ["老虎","lǎohǔ","tiger","con hổ"],
 ["猴子","hóuzi","monkey","con khỉ"],
 ["蛇","shé","snake","con rắn"],
-["熊猫","xióngmāo","panda","gấu trúc"]
+["熊猫","xióngmāo","panda","gấu trúc"],
+["熊","xióng","bear","con gấu"],
+["狼","láng","wolf","con sói"],
+["狐狸","húli","fox","con cáo"],
+["兔子","tùzi","rabbit","con thỏ"]
 ]},
 {id:"work",name:"Công việc & văn phòng",ru:"工作",items:[
 ["工作","gōngzuò","work, job","công việc"],
@@ -3000,8 +3062,8 @@ const CHUDE_TRUNG2=[
 ["行李","xíngli","luggage","hành lý"],
 ["箱子","xiāngzi","suitcase","vali"],
 ["海滩","hǎitān","beach","bãi biển"],
-["山","shān","mountain","núi"],
-["海","hǎi","sea","biển"],
+["边境","biānjìng","border","biên giới"],
+["航班","hángbān","flight","chuyến bay"],
 ["相机","xiàngjī","camera","máy ảnh"],
 ["导游","dǎoyóu","tour guide","hướng dẫn viên"],
 ["一路平安","yílù píng'ān","have a good trip!","thượng lộ bình an!"]
@@ -3033,7 +3095,13 @@ const CHUDE_TRUNG2=[
 ["桥","qiáo","bridge","cây cầu"],
 ["路口","lùkǒu","intersection","ngã tư"],
 ["交通","jiāotōng","traffic","giao thông"],
-["红绿灯","hónglǜdēng","traffic light","đèn giao thông"]
+["红绿灯","hónglǜdēng","traffic light","đèn giao thông"],
+["中心","zhōngxīn","centre","trung tâm"],
+["广场","guǎngchǎng","square","quảng trường"],
+["图书馆","túshūguǎn","library","thư viện"],
+["教堂","jiàotáng","church","nhà thờ"],
+["公交站","gōngjiāozhàn","bus stop","trạm xe buýt"],
+["大楼","dàlóu","building","toà nhà"]
 ]},
 {id:"prep",name:"Giới từ & trạng từ",ru:"介词与副词",items:[
 ["在","zài","at, in","ở"],
