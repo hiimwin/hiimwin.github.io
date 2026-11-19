@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-x9FG8RPcVMWuEOah0o3cxcR9SGaREF7lU5SN3B1UHhw=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-RjWOz/r0dsRFvBTockcQ58Ndt3qVAOMRqoxw1oT6V0U=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -3563,6 +3563,13 @@ monDangDung=m.ma;
 return m;
 }
 dungMon("ru");
+function doiMon(ma){
+prog.settings.mon=ma;
+touch();
+dungMon(ma);
+loadVoices();
+datNhanMon();
+}
 function dongBoMon(){
 var ma=(prog&&prog.settings&&prog.settings.mon)||"ru";
 if(ma===monDangDung)return false;
@@ -4874,7 +4881,7 @@ o.querySelector(".s").textContent=td?D(td.thuoc+" thuộc · "+td.hoc+"/"+td.ton
 o.querySelector(".cta").textContent=dang?D("Đang học"):D("Vào học");
 o.title=D(m.ten)+" — "+D(m.chu);
 if(!dang)o.onclick=function(){
-prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();datNhanMon();
+doiMon(m.ma);
 if(sauKhiDoi)sauKhiDoi();else go({n:"home"});
 };
 dai.appendChild(o);
@@ -7711,7 +7718,7 @@ o.querySelector("b").textContent=m.ban;
 o.querySelector(".t").textContent=D(m.ten);
 o.querySelector(".s").textContent=san?(dang?D("Đang học"):D(m.chu)):D("Đang soạn nội dung");
 if(san&&!dang)o.onclick=function(){
-prog.settings.mon=m.ma;touch();dungMon(m.ma);loadVoices();go({n:"home"});
+doiMon(m.ma);go({n:"home"});
 };
 mg.appendChild(o);
 });
