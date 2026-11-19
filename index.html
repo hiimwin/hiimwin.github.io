@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-LqawabNCjU0TjzaSXX7ahDJFlkOBpqNn2tr5pQK+eBc=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-mBm0JguE+KzpYi7IEQ1skeRE0+CzJcaXaxha8oAfNl8=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -205,6 +205,8 @@ background:conic-gradient(var(--deep) calc(var(--p)*3.6deg),var(--sunken) 0);tra
 .cell{background:var(--surface);border-radius:var(--r-sm);padding:11px 5px;text-align:center;display:block;box-shadow:var(--sh);transition:transform .12s,box-shadow .15s}
 .cell:hover{transform:translateY(-2px);box-shadow:var(--sh-lift)}
 .cell.known{background:var(--deep-soft)}
+.cell.dang,.li.dang{background:var(--accent-soft);
+box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--accent) 38%,transparent)}
 .cell .g{font-family:var(--f-cyr);font-size:22px;line-height:1.15}
 .cell .p{font-size:12.5px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hrowpair{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--surface);border-radius:var(--r-sm);
@@ -262,6 +264,14 @@ padding-bottom:6%}
 .spk{flex:none;width:46px;height:46px;border-radius:50%;background:var(--surface-2);color:var(--ink);
 display:grid;place-items:center;font-size:18px;transition:transform .12s,background .15s}
 .spk:hover{background:var(--accent-soft);transform:scale(1.06)}
+.spk,.spk-big,.bigspk{position:relative}
+.spk.cho::after,.spk-big.cho::after,.bigspk.cho::after{
+content:"";position:absolute;inset:-4px;border-radius:50%;pointer-events:none;
+border:2px solid currentColor;animation:loaCho .85s ease-in-out infinite}
+@keyframes loaCho{0%{opacity:.5;transform:scale(.9)}70%{opacity:0;transform:scale(1.14)}100%{opacity:0;transform:scale(1.14)}}
+.spk.keu{background:var(--accent-soft)}
+.spk-big.keu .wv s{animation-play-state:running}
+.bigspk.keu{animation:pulse 1s ease-in-out infinite}
 .spk:active{transform:scale(.96)}
 .q{text-align:center;margin-bottom:20px}
 .q .ask{font-weight:600;text-transform:uppercase;letter-spacing:.11em;font-size:11.5px;color:var(--muted);margin-bottom:12px}
@@ -1149,6 +1159,8 @@ transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
 .rv{opacity:1;transform:none;transition:none}
 .dcard,.cta::before,#app.swap{animation:none}
 .the.vaoPhai,.the.vaoTrai{animation:none}
+.spk.cho::after,.spk-big.cho::after,.bigspk.cho::after{animation:none;opacity:.45}
+.bigspk.keu{animation:none}
 .chapwrap.xo .chapbody>*{animation:none}
 .chapwrap{transition:none}
 .sw,.sw i{transition:none}
@@ -3571,6 +3583,7 @@ prog.settings.mon=ma;
 touch();
 dungMon(ma);
 loadVoices();
+moiGiongDoc();
 datNhanMon();
 }
 function dongBoMon(){
@@ -3731,6 +3744,8 @@ if(!p.settings.giong||typeof p.settings.giong!=="object")p.settings.giong={};
 p.v=p.v||0;return p;
 }
 function rec(id){return prog.items[id]||null;}
+function daThuoc(p){return !!(p&&p.b>=4);}
+function lopHoc(p){return daThuoc(p)?" known":(p&&p.seen?" dang":"");}
 function grade(id,ok){
 var p=prog.items[id]||{b:0,due:0,c:0,w:0,seen:0};
 if(ok){p.b=Math.min(p.b+1,INTERVALS.length-1);p.c=(p.c||0)+1;}
@@ -4061,7 +4076,7 @@ TU_DIEN={
 "Cách cài trên Windows":"How to install on Windows",
 "là thứ phải nắm trước, chưa có nó thì câu nào cũng thấy lạ. Mỗi mục có câu ví dụ bấm nghe được. Phần này tham khảo, không tính điểm.":"is what you need first; without it every sentence feels strange. Each entry has an example you can tap to hear. This section is reference only and is not scored.",
 "Bấm một ô để mở trang chữ đó. Dòng cuối có Ъ và Ь — hai chữ không đọc thành tiếng, chỉ đổi cách đọc chữ đứng trước.":"Tap a cell to open that letter. The last row has Ъ and Ь — two letters with no sound of their own; they only change the letter before them.",
-"Bấm vào từng chữ để xem cách đọc, mẹo cho người Việt, từ ví dụ và dạng viết tay. Ô nền xanh là đã thuộc.":"Tap a letter for its sound, a pronunciation tip, an example word and its handwritten shape. Green cells are the ones you know.",
+"Bấm vào từng chữ để xem cách đọc, mẹo cho người Việt, từ ví dụ và dạng viết tay. Ô có viền là đang học, ô nền xanh là đã thuộc.":"Tap a letter for its sound, a pronunciation tip, an example word and its handwritten shape. Outlined cells are in progress, green ones you already know.",
 "Tiếng Nga từ A đến Я":"Russian from A to Я",
 "Tiếng Anh từ âm đến câu":"English from sounds to sentences",
 "Tiếng Trung từ thanh đến câu":"Chinese from tones to sentences",
@@ -4166,18 +4181,21 @@ var f=document.createDocumentFragment();
 while(d.firstChild)f.appendChild(d.firstChild);
 return f;
 }
-var voices=[],ruV=null,giongRu=[],ttsWarned=false,daMoiGiong=false;
+var voices=[],ruV=null,giongRu=[],ttsWarned=false,giongDaMoi="";
 function moiGiongDoc(){
-if(daMoiGiong||!window.speechSynthesis)return;
-daMoiGiong=true;
+if(!window.speechSynthesis)return;
+var bcp=monNay().bcp;
+if(giongDaMoi===bcp)return;
+try{ if(speechSynthesis.speaking||speechSynthesis.pending)return; }catch(e){return;}
+giongDaMoi=bcp;
 try{
 var m=new SpeechSynthesisUtterance("\u00a0");
-m.volume=0;m.rate=2;m.lang=monNay().bcp;
+m.volume=0;m.rate=2;m.lang=bcp;
 speechSynthesis.speak(m);
 }catch(e){}
 }
-addEventListener("pointerdown",moiGiongDoc,{once:true,capture:true});
-addEventListener("keydown",moiGiongDoc,{once:true,capture:true});
+addEventListener("pointerdown",moiGiongDoc,{capture:true});
+addEventListener("keydown",moiGiongDoc,{capture:true});
 function loadVoices(){
 try{voices=window.speechSynthesis?speechSynthesis.getVoices()||[]:[];}catch(e){voices=[];}
 var ma=monNay().ma,tien=new RegExp("^"+ma,"i");
@@ -4207,39 +4225,64 @@ try{if(view&&view.n==="set")render();}catch(e){}
 };}catch(e){}
 loadVoices();
 }
+var phienNoi=0,utTreo=null,nutLoa=null,nutTruoc=null;
+addEventListener("pointerdown",function(e){
+try{
+var n=e.target&&e.target.closest&&e.target.closest(".spk,.spk-big,.bigspk");
+if(n)nutLoa=n;
+}catch(err){}
+},true);
+function datTrangThaiLoa(n,tt){
+if(!n||!n.classList)return;
+n.classList.toggle("cho",tt==="cho");
+n.classList.toggle("keu",tt==="keu");
+}
 function speak(text,toc){
 if(!window.speechSynthesis){warnVoice();return;}
 loadVoices();
 if(!ruV&&voices.length){warnVoice();return;}
+var phien=++phienNoi;
+var nut=nutLoa;nutLoa=null;
+if(nutTruoc&&nutTruoc!==nut)datTrangThaiLoa(nutTruoc,"");
+nutTruoc=nut;
+datTrangThaiLoa(nut,"cho");
+var canCat=!!utTreo;
 try{
-if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();
+if(canCat)speechSynthesis.cancel();
 if(speechSynthesis.paused)speechSynthesis.resume();
-var u=new SpeechSynthesisUtterance(plain(text));
-u.lang=monNay().bcp;if(ruV)u.voice=ruV;
-var nhip=toc||prog.settings.rate||.85;
-u.rate=nhip;
-if(!daMoiGiong){
-daMoiGiong=true;
-try{
-var moi=new SpeechSynthesisUtterance("\u00a0");
-moi.volume=0;moi.rate=2;moi.lang=monNay().bcp;if(ruV)moi.voice=ruV;
-speechSynthesis.speak(moi);
 }catch(e){}
-}
-speechSynthesis.speak(u);
-setTimeout(function(){
-try{
-if(speechSynthesis.speaking||speechSynthesis.pending)return;
-var u2=new SpeechSynthesisUtterance(plain(text));
-u2.lang=monNay().bcp;u2.rate=nhip;
-speechSynthesis.speak(u2);
-setTimeout(function(){
-if(!speechSynthesis.speaking&&!speechSynthesis.pending)warnCongTacTat();
-},260);
-}catch(e){}
-},240);
-}catch(e){}
+utTreo=null;
+if(canCat)setTimeout(function(){phatCau(text,toc,phien,nut,false);},80);
+else phatCau(text,toc,phien,nut,false);
 if(!ruV)setTimeout(function(){loadVoices();if(!ruV)warnVoice();},800);
+}
+function phatCau(text,toc,phien,nut,lanHai){
+if(phien!==phienNoi)return;
+var nhip=toc||prog.settings.rate||.85,u;
+try{u=new SpeechSynthesisUtterance(plain(text));}catch(e){datTrangThaiLoa(nut,"");return;}
+u.lang=monNay().bcp;
+if(ruV&&!lanHai)u.voice=ruV;
+u.rate=nhip;
+var daChay=false;
+u.onstart=function(){
+daChay=true;
+if(phien!==phienNoi)return;
+datTrangThaiLoa(nut,"keu");
+};
+u.onend=u.onerror=function(){
+daChay=true;
+if(utTreo===u)utTreo=null;
+if(phien!==phienNoi)return;
+datTrangThaiLoa(nut,"");
+};
+try{speechSynthesis.speak(u);utTreo=u;}catch(e){datTrangThaiLoa(nut,"");return;}
+setTimeout(function(){
+if(daChay||phien!==phienNoi)return;
+if(lanHai){datTrangThaiLoa(nut,"");warnCongTacTat();return;}
+try{speechSynthesis.cancel();}catch(e){}
+utTreo=null;
+setTimeout(function(){phatCau(text,toc,phien,nut,true);},60);
+},700);
 }
 var daBaoCongTac=false;
 function warnCongTacTat(){
@@ -4602,7 +4645,7 @@ function renderLanding(){
 document.body.classList.add("cover-on");
 var alpha=modById("alpha");
 var hoc=ALL_ITEMS.filter(function(x){return rec(x.id);}).length;
-var thuoc=alpha.items.filter(function(x){var p=rec(x.id);return p&&p.b>=3;}).length;
+var thuoc=alpha.items.filter(function(x){return daThuoc(rec(x.id));}).length;
 var mnBia=monNay(),soChu=alpha.items.length;
 var numMod=modById("num"),soSo=numMod?numMod.items.length:0;
 var soChuDe=MODULES.filter(function(m){return m.kind==="V"&&m.id!=="num";}).length;
@@ -4926,7 +4969,7 @@ var a0=acctState();
 if(a0&&a0.signed)hero.querySelector(".h-c").appendChild(el('<div class="syncline"><i></i>Đang đồng bộ với <b>'+esc(a0.ten)+'</b></div>'));
 var strip=hero.querySelector(".astrip");
 alpha.items.forEach(function(it){
-var p=rec(it.id),cls=p?(p.b>=3?"known":"seen"):"";
+var p=rec(it.id),cls=daThuoc(p)?"known":(p&&p.seen?"seen":"");
 var b=el('<button class="'+cls+'" title="'+esc(it.up+it.lo+" · "+it.nmv)+'">'+esc(it.up)+'</button>');
 b.onclick=function(){go({n:"study",one:it.id,from:{n:"home"}});};
 strip.appendChild(b);
@@ -5790,20 +5833,20 @@ if(tab==="hand")return renderHand(m);
 var g=el('<div class="grid"></div>');
 m.items.forEach(function(it){
 var p=rec(it.id);
-var c=el('<button class="cell'+(p&&p.b>=4?" known":"")+'">'+
+var c=el('<button class="cell'+lopHoc(p)+'">'+
 '<div class="g">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="p">'+esc(it.snd==="—"?it.nmv:it.snd)+'</div></button>');
 c.onclick=function(){go({n:"study",one:it.id,from:{n:"mod",mod:m.id,tab:tab}});};
 g.appendChild(c);
 });
 app.appendChild(g);
-app.appendChild(el('<div class="note">Bấm vào từng chữ để xem cách đọc, mẹo cho người Việt, từ ví dụ và dạng viết tay. Ô nền xanh là đã thuộc.</div>'));
+app.appendChild(el('<div class="note">Bấm vào từng chữ để xem cách đọc, mẹo cho người Việt, từ ví dụ và dạng viết tay. Ô có viền là đang học, ô nền xanh là đã thuộc.</div>'));
 return;
 }
 var lst=el('<div class="lst" style="margin-top:0"></div>');
 m.items.forEach(function(it){
 var p=rec(it.id);
-var r=el('<div class="li'+(p&&p.b>=4?" known":"")+'">'+
+var r=el('<div class="li'+lopHoc(p)+'">'+
 '<div class="l"><div class="r1">'+esc(it.ru)+'</div>'+
 (prog.settings.translit?'<div class="r2">'+esc(it.tr)+' · '+esc(it.en)+'</div>':'<div class="r2">'+esc(it.en)+'</div>')+
 '<div class="r3">'+esc(NG(it))+'</div></div>'+
