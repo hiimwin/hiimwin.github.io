@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-RjWOz/r0dsRFvBTockcQ58Ndt3qVAOMRqoxw1oT6V0U=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-o5Pj4M/DPVjPwaFe6tst2kZIzE3NRrnrNcHGASLaXjg=' 'sha256-LqawabNCjU0TjzaSXX7ahDJFlkOBpqNn2tr5pQK+eBc=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -43,7 +43,7 @@ appId: "1:497797224730:web:0ec30e77a7e66d675434a3"
 --sh-lift:0 2px 6px rgba(20,32,66,.06),0 26px 50px -20px rgba(20,32,66,.34),inset 0 1px 0 rgba(255,255,255,.8);
 --f-head:"Inter","Be Vietnam Pro",system-ui,sans-serif;
 --f-ui:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
---f-cyr:"PT Serif",Georgia,"Noto Serif SC","Songti SC","SimSun","Microsoft YaHei","PingFang SC",serif;
+--f-cyr:"PT Serif","Inter","Segoe UI",system-ui,Georgia,"Noto Serif SC","Songti SC","SimSun","Microsoft YaHei","PingFang SC",serif;
 --f-hand:"Marck Script","Segoe Script",cursive;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -269,6 +269,7 @@ display:grid;place-items:center;font-size:18px;transition:transform .12s,backgro
 .q .big.lat{font-family:var(--f-head);font-size:28px;font-weight:700}
 .q .big.hw{font-family:var(--f-hand);font-size:62px}
 .q .sub{color:var(--muted);font-size:16px;margin-top:5px;font-family:var(--f-cyr);font-style:italic}
+.q .sub.ui{font-family:var(--f-ui);font-style:normal}
 .opts{display:grid;gap:9px}
 .opt{background:var(--surface);border-radius:var(--r-sm);padding:15px 17px;text-align:left;font-size:18px;min-height:56px;
 display:flex;align-items:center;gap:12px;box-shadow:var(--sh);transition:transform .12s,box-shadow .15s}
@@ -450,8 +451,8 @@ font-size:13.5px;color:var(--muted);animation-delay:.62s}
 body.cover-on header .hbtn{display:none}
 footer{margin-top:46px;border-top:1px solid var(--line);background:var(--surface)}
 .ft{padding-block:26px 30px;display:flex;flex-direction:column;gap:18px}
-.ft-brand .tag{position:relative;top:1.75px}
-.brand .tag{position:relative;top:2px}
+.ft-brand>div{line-height:1.3}
+.brand .tag{position:relative;top:1px}
 .ft-brand{display:flex;align-items:center;gap:11px;min-width:0}
 .ft-brand .tag{flex:none;width:34px;height:34px;border-radius:var(--r-xs);background:linear-gradient(135deg,var(--f1),var(--f2));color:var(--on-accent);
 display:grid;place-items:center;font-size:16px;line-height:1}
@@ -1747,32 +1748,32 @@ const CAP_RU=[
 {ten:"Hết kho từ",ban:"Мастер",can:520,hh:"М",mau:"#7355E4"}
 ];
 const ABC_ANH=[
-["A","a","ay","ây","—","Tên chữ là /eɪ/ — “ây”, không phải “a”.","apple","/ˈæpl/","apple","quả táo"],
-["B","b","bee","bi","—","/biː/ — kéo dài “i”. Đừng lẫn với chữ P khi nghe qua điện thoại.","book","/bʊk/","book","quyển sách"],
-["C","c","see","xi","—","/siː/ — đọc như “see”. Người Việt hay đọc thành “xê”.","cat","/kæt/","cat","con mèo"],
-["D","d","dee","đi","—","/diː/ — giống hệt từ “dee”. Dễ lẫn với B và T khi nghe.","dog","/dɒɡ/","dog","con chó"],
-["E","e","ee","i","—","/iː/ — đọc là “i” chứ không phải “ê”. Đây là bẫy quen thuộc nhất.","egg","/eɡ/","egg","quả trứng"],
-["F","f","ef","ép","—","/ef/ — bắt đầu bằng “e”, kết thúc bằng âm /f/ răng chạm môi.","fish","/fɪʃ/","fish","con cá"],
-["G","g","gee","gi","—","BẪY: G đọc /dʒiː/ (“gi”), còn J mới đọc /dʒeɪ/ (“giây”). Người Việt hay đọc ngược hai chữ này.","girl","/ɡɜːl/","girl","cô gái"],
-["H","h","aitch","êch","—","/eɪtʃ/ — “êch”, KHÔNG phải “hắt”. Tên chữ không chứa âm /h/ nào cả.","hat","/hæt/","hat","cái mũ"],
-["I","i","eye","ai","—","/aɪ/ — đọc đúng như từ “eye” (con mắt), không phải “i”.","ice","/aɪs/","ice","nước đá"],
-["J","j","jay","giây","—","/dʒeɪ/. Nhớ cặp: G là “gi”, J là “giây”.","jump","/dʒʌmp/","to jump","nhảy"],
-["K","k","kay","kây","—","/keɪ/ — “kây”, vần giống A.","key","/kiː/","key","chìa khoá"],
-["L","l","el","eo","—","/el/ — đuôi /l/ phải cong lưỡi chạm lợi, đừng bỏ lửng.","love","/lʌv/","love","tình yêu"],
-["M","m","em","em","—","/em/ — ngậm môi lại ở cuối.","man","/mæn/","man","người đàn ông"],
-["N","n","en","en","—","/en/ — đầu lưỡi chạm lợi. Khác M ở chỗ môi không ngậm.","name","/neɪm/","name","tên"],
-["O","o","oh","ô","—","/əʊ/ — bắt đầu bằng “ơ” rồi mới tròn môi, không phải “ô” thẳng.","open","/ˈəʊpən/","to open","mở"],
-["P","p","pee","pi","—","/piː/ — phải BẬT HƠI, không thì nghe thành B.","pen","/pen/","pen","cái bút"],
-["Q","q","cue","kiu","—","/kjuː/ — có âm /j/ ở giữa, “ki-u” liền một hơi.","queen","/kwiːn/","queen","nữ hoàng"],
-["R","r","ar","a","—","Giọng Anh-Anh đọc /ɑː/ như “a”; giọng Mỹ cong lưỡi thành /ɑːr/.","red","/red/","red","màu đỏ"],
-["S","s","ess","ét","—","/es/ — đuôi là âm /s/ xì ra, đừng nuốt.","sun","/sʌn/","sun","mặt trời"],
-["T","t","tee","ti","—","/tiː/ — bật hơi ở đầu. Dễ lẫn với D khi nghe qua điện thoại.","time","/taɪm/","time","thời gian"],
-["U","u","you","iu","—","/juː/ — đọc đúng như từ “you”.","up","/ʌp/","up","lên"],
-["V","v","vee","vi","—","/viː/ — răng trên chạm môi dưới. Khác hẳn B.","very","/ˈveri/","very","rất"],
-["W","w","double-u","đắp-bờ-iu","—","/ˈdʌbljuː/ — BA âm tiết, nghĩa đen là “u đôi”. Không gọi là “vê kép”.","water","/ˈwɔːtə/","water","nước"],
-["X","x","ex","éch","—","/eks/ — có cả /k/ và /s/ ở cuối.","box","/bɒks/","box","cái hộp"],
-["Y","y","wye","oai","—","/waɪ/ — đọc đúng như từ “why”. Không phải “i cờ-rét”.","yes","/jes/","yes","vâng"],
-["Z","z","zed","dét","—","Anh-Anh đọc /zed/, Mỹ đọc /ziː/ (“zi”). Cả hai đều đúng, tuỳ giọng bạn theo.","zoo","/zuː/","zoo","sở thú"]
+["A","a","ay","ây","/eɪ/","Tên chữ là /eɪ/ — “ây”, không phải “a”.","apple","/ˈæpl/","apple","quả táo"],
+["B","b","bee","bi","/biː/","/biː/ — kéo dài “i”. Đừng lẫn với chữ P khi nghe qua điện thoại.","book","/bʊk/","book","quyển sách"],
+["C","c","see","xi","/siː/","/siː/ — đọc như “see”. Người Việt hay đọc thành “xê”.","cat","/kæt/","cat","con mèo"],
+["D","d","dee","đi","/diː/","/diː/ — giống hệt từ “dee”. Dễ lẫn với B và T khi nghe.","dog","/dɒɡ/","dog","con chó"],
+["E","e","ee","i","/iː/","/iː/ — đọc là “i” chứ không phải “ê”. Đây là bẫy quen thuộc nhất.","egg","/eɡ/","egg","quả trứng"],
+["F","f","ef","ép","/ef/","/ef/ — bắt đầu bằng “e”, kết thúc bằng âm /f/ răng chạm môi.","fish","/fɪʃ/","fish","con cá"],
+["G","g","gee","gi","/dʒiː/","BẪY: G đọc /dʒiː/ (“gi”), còn J mới đọc /dʒeɪ/ (“giây”). Người Việt hay đọc ngược hai chữ này.","girl","/ɡɜːl/","girl","cô gái"],
+["H","h","aitch","êch","/eɪtʃ/","/eɪtʃ/ — “êch”, KHÔNG phải “hắt”. Tên chữ không chứa âm /h/ nào cả.","hat","/hæt/","hat","cái mũ"],
+["I","i","eye","ai","/aɪ/","/aɪ/ — đọc đúng như từ “eye” (con mắt), không phải “i”.","ice","/aɪs/","ice","nước đá"],
+["J","j","jay","giây","/dʒeɪ/","/dʒeɪ/. Nhớ cặp: G là “gi”, J là “giây”.","jump","/dʒʌmp/","to jump","nhảy"],
+["K","k","kay","kây","/keɪ/","/keɪ/ — “kây”, vần giống A.","key","/kiː/","key","chìa khoá"],
+["L","l","el","eo","/el/","/el/ — đuôi /l/ phải cong lưỡi chạm lợi, đừng bỏ lửng.","love","/lʌv/","love","tình yêu"],
+["M","m","em","em","/em/","/em/ — ngậm môi lại ở cuối.","man","/mæn/","man","người đàn ông"],
+["N","n","en","en","/en/","/en/ — đầu lưỡi chạm lợi. Khác M ở chỗ môi không ngậm.","name","/neɪm/","name","tên"],
+["O","o","oh","ô","/əʊ/","/əʊ/ — bắt đầu bằng “ơ” rồi mới tròn môi, không phải “ô” thẳng.","open","/ˈəʊpən/","to open","mở"],
+["P","p","pee","pi","/piː/","/piː/ — phải BẬT HƠI, không thì nghe thành B.","pen","/pen/","pen","cái bút"],
+["Q","q","cue","kiu","/kjuː/","/kjuː/ — có âm /j/ ở giữa, “ki-u” liền một hơi.","queen","/kwiːn/","queen","nữ hoàng"],
+["R","r","ar","a","/ɑː/","Giọng Anh-Anh đọc /ɑː/ như “a”; giọng Mỹ cong lưỡi thành /ɑːr/.","red","/red/","red","màu đỏ"],
+["S","s","ess","ét","/es/","/es/ — đuôi là âm /s/ xì ra, đừng nuốt.","sun","/sʌn/","sun","mặt trời"],
+["T","t","tee","ti","/tiː/","/tiː/ — bật hơi ở đầu. Dễ lẫn với D khi nghe qua điện thoại.","time","/taɪm/","time","thời gian"],
+["U","u","you","iu","/juː/","/juː/ — đọc đúng như từ “you”.","up","/ʌp/","up","lên"],
+["V","v","vee","vi","/viː/","/viː/ — răng trên chạm môi dưới. Khác hẳn B.","very","/ˈveri/","very","rất"],
+["W","w","double-u","đắp-bờ-iu","/ˈdʌbljuː/","/ˈdʌbljuː/ — BA âm tiết, nghĩa đen là “u đôi”. Không gọi là “vê kép”.","water","/ˈwɔːtə/","water","nước"],
+["X","x","ex","éch","/eks/","/eks/ — có cả /k/ và /s/ ở cuối.","box","/bɒks/","box","cái hộp"],
+["Y","y","wye","oai","/waɪ/","/waɪ/ — đọc đúng như từ “why”. Không phải “i cờ-rét”.","yes","/jes/","yes","vâng"],
+["Z","z","zed","dét","/zed/","Anh-Anh đọc /zed/, Mỹ đọc /ziː/ (“zi”). Cả hai đều đúng, tuỳ giọng bạn theo.","zoo","/zuː/","zoo","sở thú"]
 ];
 const AM_ANH=[
 ["iː","sheep","sheep","i dài","—","Kéo dài và căng môi sang hai bên. Đây là âm người Việt hay đọc ngắn lại thành “ship”.","tree","/triː/","tree","cái cây"],
@@ -5404,6 +5405,11 @@ NET_TU[tu]={n:n,d:d,
 note:"Viết lần lượt từng chữ, trái sang phải: "+cc.join(" – ")+". Tất cả "+n+" nét."};
 return NET_TU[tu];
 }
+function ghiAm(x){
+x=String(x==null?"":x);
+return /^\/.*\/$/.test(x)?x:("“"+x+"”");
+}
+function amCua(it){ return it.snd==="—"?it.nmv:it.snd; }
 function laTenChu(it){
 var m=modById(it.mod);
 return !!(monNay().viettay||(m&&m.id==="abc"));
@@ -5839,7 +5845,7 @@ var o4=shuffle([it].concat(others)).map(function(x){return {txt:x.up+" "+x.lo,ok
 return {k:"mc",it:it,ask:"Chữ viết tay này là chữ gì?",big:it.up+" "+it.lo,hand:true,sub:"",opts:o4,optCyr:true,audio:it.lo};
 }
 var o3=shuffle([it].concat(others)).map(function(x){return {txt:x.up+" "+x.lo,ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Nghe rồi chọn chữ",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:true,audio:it.lo,auto:true};
+return {k:"mc",it:it,ask:"Nghe rồi chọn chữ",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",subUi:true,opts:o3,optCyr:true,audio:it.lo,auto:true};
 }
 function mcVocab(it,mode,pool){
 var others=pick(pool.filter(function(x){return x.id!==it.id;}),3);
@@ -5867,7 +5873,7 @@ var ov=shuffle([it].concat(kv)).map(function(x){return {txt:NG(x),ok:x.id===it.i
 return {k:"mc",it:it,ask:"Từ tiếng Anh này nghĩa là gì?",big:it.en,cyr:false,sub:"",opts:ov,optCyr:false,audio:null};
 }
 var o3=shuffle([it].concat(others)).map(function(x){return {txt:NG(x),ok:x.id===it.id};});
-return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",opts:o3,optCyr:false,audio:it.ru,auto:true};
+return {k:"mc",it:it,ask:"Nghe rồi chọn nghĩa",big:"\u0000loa",cyr:false,sub:"Bấm loa để nghe lại",subUi:true,opts:o3,optCyr:false,audio:it.ru,auto:true};
 }
 const VOWELS="аеёиоуыэюя";
 const THANH_DAT={a:"āáǎà",o:"ōóǒò",e:"ēéěè",i:"īíǐì",u:"ūúǔù","ü":"ǖǘǚǜ"};
@@ -6349,7 +6355,7 @@ app.appendChild(el('<div class="note">Bấm một từ Nga để nghe, rồi b�
 function stepMC(st){
 var q=el('<div class="q anim"><div class="ask">'+esc(st.ask)+'</div>'+
 '<div class="big'+(st.hand?" hw":(st.cyr?"":" lat"))+'">'+(st.big==="\u0000loa"?ic("loa",54):esc(st.big))+'</div>'+
-(st.sub?'<div class="sub">'+esc(st.sub)+'</div>':'')+'</div>');
+(st.sub?'<div class="sub'+(st.subUi?" ui":"")+'">'+esc(st.sub)+'</div>':'')+'</div>');
 app.appendChild(q);
 if(st.audio){
 var sp=el('<div class="row" style="justify-content:center;margin:-8px 0 16px"><button class="spk" aria-label="Nghe">'+ic("loa",19)+'</button></div>');
@@ -6398,9 +6404,9 @@ document.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();next();}};
 return;
 }
 var txt=it.t==="L"
-? (it.up+" "+it.lo+" — đọc “"+(it.snd==="—"?it.nmv:it.snd)+"”")
+? (it.up+" "+it.lo+" — đọc "+ghiAm(amCua(it)))
 : (plain(it.ru)+" — "+NG(it));
-var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+'<b>'+esc(it.t==="L"?it.up+" "+it.lo:it.ru)+'</b> '+esc(it.t==="L"?("đọc “"+(it.snd==="—"?it.nmv:it.snd)+"”"):("= "+NG(it)))+'</div>');
+var fb=el('<div class="fb '+(ok?"ok":"no")+'">'+(ok?"Chính xác. ":"Chưa đúng. ")+'<b>'+esc(it.t==="L"?it.up+" "+it.lo:it.ru)+'</b> '+(it.t==="L"?("đọc "+esc(ghiAm(amCua(it)))):esc("= "+NG(it)))+'</div>');
 app.appendChild(fb);
 var b=el('<button class="btn wide act-stick" style="margin-top:10px">Tiếp tục</button>');
 b.onclick=next;app.appendChild(b);b.focus();
@@ -6504,7 +6510,7 @@ veLai();
 function stepType(st){
 var q=el('<div class="q anim"><div class="ask">'+esc(st.ask)+'</div>'+
 (st.dict?'':'<div class="big lat">'+esc(st.big)+'</div>')+
-(st.sub?'<div class="sub">'+esc(st.sub)+'</div>':'')+'</div>');
+(st.sub?'<div class="sub'+(st.subUi?" ui":"")+'">'+esc(st.sub)+'</div>':'')+'</div>');
 app.appendChild(q);
 if(st.dict){
 var spk=el('<button class="bigspk" aria-label="Nghe lại">'+ic("loa",34)+'</button>');
@@ -6617,7 +6623,9 @@ return el('<div class="card the">'+
 ? '<div class="hand" style="font-size:40px;line-height:1.25;color:var(--muted);margin-top:4px">'+esc(it.up+" "+it.lo)+'</div>'+
 '<div class="eyebrow" style="margin-top:2px">chữ in · chữ viết tay</div>'
 : '')+
-'<div class="tr">'+esc(nhanTenCua(it))+': “'+esc(it.nm)+'” · đọc “'+esc(it.nmv)+'”'+(it.snd!=="—"?' · âm “'+esc(it.snd)+'”':'')+'</div>'+
+'<div class="tr">'+esc(nhanTenCua(it))+': “'+esc(it.nm)+'”'+
+(it.snd!=="—"?' · âm '+esc(ghiAm(it.snd)):'')+
+(it.nmv&&it.nmv!==it.snd?' · đọc “'+esc(it.nmv)+'”':'')+'</div>'+
 '<div class="the-an">'+
 '<div class="tipbox"><b>Mẹo cho người Việt</b>'+esc(it.tip)+'</div>'+
 '<div class="exrow"><button class="spk" aria-label="Nghe ví dụ">'+ic("loa",19)+'</button>'+
@@ -6749,7 +6757,6 @@ var bt=el('<button class="c'+x[1]+'">'+esc(x[0])+'<i>'+esc(hanMoi(it,x[1]))+'</i
 bt.onclick=function(){
 if(daCham)return;
 daCham=true;
-lat();
 tuCham(it.id,x[1]);
 nav.sau();
 };
@@ -7250,7 +7257,7 @@ function oPhanHoi(c,ok,hetGio){
 var it=c.it;
 var nhan=ok?"Chính xác.":(hetGio?"Hết giờ.":"Chưa đúng.");
 var noi=it.t==="L"
-? '<b class="cyr">'+esc(it.up+" "+it.lo)+'</b> đọc “'+esc(it.snd==="—"?it.nmv:it.snd)+'”'
+? '<b class="cyr">'+esc(it.up+" "+it.lo)+'</b> đọc '+esc(ghiAm(amCua(it)))
 : '<b class="cyr">'+esc(it.ru)+'</b> '+esc(it.tr)+' — '+esc(NG(it));
 var fb=el('<div class="fb '+(ok?"ok":"no")+' nh-fb"><div class="l">'+nhan+' '+noi+'</div>'+
 '<button class="spk" aria-label="Nghe lại">'+ic("loa",19)+'</button></div>');
