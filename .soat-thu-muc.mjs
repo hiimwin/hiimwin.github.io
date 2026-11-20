@@ -116,6 +116,14 @@ const TRON = {
   "fonts.css": (s) => s.trimEnd().endsWith("}") || "khong ket thuc bang }",
 };
 
+/* "Bắt được lỗi" và "chính tôi sập" KHÔNG được phép nhìn giống nhau.
+   Đo thật: nhét một lỗi lập trình vào chốt này rồi chạy deploy — firebase in ra
+   đúng một câu "predeploy error: Command terminated with non-zero exit code 1",
+   y hệt lúc chốt chặn thật. Nhìn từ ngoài thì tưởng đang được bảo vệ, trong khi
+   thư mục deploy CHƯA HỀ được soát một dòng nào. Một cái chốt sập mà vẫn "trông
+   như đang gác" thì gác được rất lâu trước khi có ai nhận ra.
+   Nên: bắt được lỗi -> thoát 1. Chốt tự sập -> thoát 3 kèm câu nói thẳng ra. */
+function soat() {
 const thieu = [];
 for (const [ten, coToiThieu] of Object.entries(PHAI_CO)) {
   const duong = path.join(THU_MUC, ten);
@@ -158,3 +166,14 @@ if (la.length) {
    lạ" trong khi chốt còn soát cả chuyện đủ/thiếu — người đọc tưởng mình được
    bảo đảm ít hơn thực tế cũng là một kiểu nói sai. */
 console.log("nga-dist: du " + Object.keys(PHAI_CO).length + " tep bat buoc, khong co tep la.");
+}
+
+try {
+  soat();
+} catch (e) {
+  console.error("CHOT NAY SAP — day KHONG phai 'bat duoc loi', day la loi cua CHINH CHOT.");
+  console.error("Deploy da dung lai, nhung thu muc deploy CHUA HE duoc soat mot dong nao.");
+  console.error("Sua chot roi chay lai; dung bo qua, vi bo qua la deploy khong co ai gac.");
+  console.error(String((e && e.stack) || e).split("\n").slice(0, 5).join("\n"));
+  process.exit(3);
+}
