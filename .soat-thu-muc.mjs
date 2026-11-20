@@ -35,6 +35,26 @@ const DUOC_PHEP = new Set([
   "firebase-debug.log",
 ]);
 
+/* Chốt này lúc đầu chỉ hỏi MỘT CHIỀU: "có gì thừa không". Đo thử thì thấy ngay
+   chiều kia bỏ ngỏ hoàn toàn — xoá index.html đi, chốt vẫn nói "không có tệp lạ"
+   và thoát 0. Thư mục thiếu thì có thừa gì đâu: sạch bong, và sạch theo đúng
+   nghĩa tai hại nhất. Deploy lúc ấy là đẩy một trang không có index.html lên,
+   mà site này có luật bắt mọi đường dẫn về index.html — nên mất index.html là
+   mất cả app, không phải mất một trang.
+   Kèm cỡ tối thiểu, vì "tệp có mặt" chưa đủ: một tệp bị cắt cụt hay ghi dở vẫn
+   có mặt. Mấy con số dưới đây đặt thấp hơn hẳn cỡ thật (index.html ~600KB), chỉ
+   để bắt cái rỗng và cái cụt, không phải để canh từng byte. */
+const PHAI_CO = {
+  "index.html": 100000,
+  "sw.js": 500,
+  "manifest.json": 100,
+  "icon.svg": 100,
+  "fonts.css": 10000,
+  "NOTICE": 10,
+  "firebase.json": 200,
+  ".firebaserc": 10,
+};
+
 /* Đi HẾT CÂY, xét từng tệp theo đường dẫn.
    Bản trước chỉ soát tầng trên cùng. Nó vẫn bắt được nga-dist/anh/rac.txt — nhưng
    bắt nhầm lý do: "anh" bị chặn vì cái TÊN lạ, chứ không phải vì có ai nhìn vào bên
@@ -63,9 +83,28 @@ function diHet(goc, tien = "") {
   return ra;
 }
 
+/* Soát THIẾU trước, vì nó nguy hơn: thừa một tệp là lộ một tệp, thiếu index.html
+   là mất cả app. Và in riêng, không dùng chung tiêu đề với phần thừa — một tiêu
+   đề dùng cho hai loại lỗi trái ngược thì ít nhất một nửa số lần nó nói sai. */
+const thieu = [];
+for (const [ten, coToiThieu] of Object.entries(PHAI_CO)) {
+  let c = -1;
+  try { c = fs.statSync(path.join(THU_MUC, ten)).size; } catch (e) { /* không có */ }
+  if (c < 0) thieu.push(ten + " — KHONG CO");
+  else if (c < coToiThieu) thieu.push(ten + " — chi " + c + " byte, doi it nhat " + coToiThieu);
+}
+if (thieu.length) {
+  console.error("DUNG LAI: ban dung trong nga-dist bi THIEU hoac bi cut:");
+  for (const t of thieu) console.error("  " + t);
+  console.error("Deploy luc nay la day mot ban dung do dang len — site nay co luat bat");
+  console.error("moi duong dan ve index.html, nen mat index.html la mat ca app.");
+  console.error("Chay lai 'node build.cjs <so ban>' roi deploy.");
+  process.exit(1);
+}
+
 const la = diHet("").filter(t => !DUOC_PHEP.has(t));
 if (la.length) {
-  console.error("DUNG LAI: co tep la trong nga-dist:");
+  console.error("DUNG LAI: co tep LA trong nga-dist:");
   for (const t of la) console.error("  " + t);
   console.error("Thu muc nay la thu muc deploy — de quen o day la lan sau no len web.");
   console.error("");
@@ -79,4 +118,7 @@ if (la.length) {
   console.error("cac tep khac trong do van bi chan, va do la co y.");
   process.exit(1);
 }
-console.log("nga-dist: khong co tep la.");
+/* Dòng xanh phải nói ĐÚNG những gì vừa kiểm. Trước đây nó chỉ nói "không có tệp
+   lạ" trong khi chốt còn soát cả chuyện đủ/thiếu — người đọc tưởng mình được
+   bảo đảm ít hơn thực tế cũng là một kiểu nói sai. */
+console.log("nga-dist: du " + Object.keys(PHAI_CO).length + " tep bat buoc, khong co tep la.");
