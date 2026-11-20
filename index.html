@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-Tcjlpx6rZnrRH1vZFdIf+KiJV8xzgGcChstoOYHICdQ=' 'sha256-pPYBcdmQFOhdbJ1VdftU4yjCTJ3jFwZDsdKFcCTvk7M=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-Tcjlpx6rZnrRH1vZFdIf+KiJV8xzgGcChstoOYHICdQ=' 'sha256-Khv1XHQZCEAekeX3ImUPj0TFaQx+Dlsa9dmC/Qu4Hl0=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -3974,6 +3974,15 @@ try{flash("Trình duyệt không cho lưu tiến độ trong máy — tải lạ
 }
 }
 function touch(){prog.v=Date.now();dirty=true;saveLocal();queueCloud();}
+var dangDocLai=false;
+function thuDocLai(){
+if(dangDocLai||!cloud||daDocMay)return;
+dangDocLai=true;
+docMay(false).then(function(duoc){
+dangDocLai=false;
+if(duoc)queueCloud();
+},function(){dangDocLai=false;});
+}
 function baoGuiHong(){
 if(dongBoHong)return;
 dongBoHong=true;
@@ -3981,7 +3990,7 @@ try{flash("Chưa gửi được tiến độ lên tài khoản — phần đã h
 }
 function queueCloud(){
 if(!cloud)return;
-if(!daDocMay)return;
+if(!daDocMay){thuDocLai();return;}
 clearTimeout(saveTimer);
 saveTimer=setTimeout(function(){
 if(saving){queueCloud();return;}
@@ -4004,6 +4013,10 @@ if(!ns){ try{ ns = window.claude && window.claude.use ? await window.claude.use(
 if(!ns){cloud=null;syncHeader();return;}
 cloud=ns;
 syncHeader();
+await docMay(true);
+}
+async function docMay(lanDau){
+if(!cloud)return false;
 try{
 var snap=await cloud.doc("progress/main").get();
 if(!snap)throw new Error("kho tra ve rong, khong ro la hong hay trong");
@@ -4014,10 +4027,12 @@ var merged=mergeProg(prog,normProg(remote));
 if(merged!==prog){prog=normProg(merged);dongBoMon();saveLocal();render();}
 }
 }
-daDocMay=true;
+daDocMay=true;dongBoHong=false;
+return true;
 }catch(e){
 daDocMay=false;
-try{flash("Chưa đọc được tiến độ trên tài khoản — app tạm dừng đồng bộ để không ghi đè nhầm.");}catch(e2){}
+if(lanDau){try{flash("Chưa đọc được tiến độ trên tài khoản — app tạm dừng đồng bộ để không ghi đè nhầm.");}catch(e2){}}
+return false;
 }
 }
 function normProg(p){
