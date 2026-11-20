@@ -19,7 +19,11 @@ import { fileURLToPath } from "node:url";
 /* fileURLToPath chu khong tu cat chuoi: tren Windows duong dan that co the chua
    ky tu ~ , trong URL no thanh %7E, va ban tu cat de nguyen %7E -> doc nham thu
    muc, bao "khong co thu muc" o moi lan build. Da dinh dung loi do. */
-const THU_MUC = path.dirname(fileURLToPath(import.meta.url));
+/* KHAI BAO o day, GAN o trong soat(). Dong gan nay co the nem loi, va neu no
+   chay luc nap module thi no nam NGOAI phan boc — luc ay chot sap lai ra thoat 1,
+   tuc la lai giong "bat duoc loi", dung cai vua di tach ra. Khai bao thi khong
+   bao gio nem, nen chuyen dong gan vao trong la bit duoc not cho ho ay. */
+let THU_MUC;
 
 const DUOC_PHEP = new Set([
   /* bay lên web */
@@ -124,6 +128,11 @@ const TRON = {
    như đang gác" thì gác được rất lâu trước khi có ai nhận ra.
    Nên: bắt được lỗi -> thoát 1. Chốt tự sập -> thoát 3 kèm câu nói thẳng ra. */
 function soat() {
+/* fileURLToPath chu khong tu cat chuoi: tren Windows duong dan that co the chua
+   ky tu ~ , trong URL no thanh %7E, va ban tu cat de nguyen %7E -> doc nham thu
+   muc, bao "khong co thu muc" o moi lan build. Da dinh dung loi do. */
+THU_MUC = path.dirname(fileURLToPath(import.meta.url));
+
 const thieu = [];
 for (const [ten, coToiThieu] of Object.entries(PHAI_CO)) {
   const duong = path.join(THU_MUC, ten);
