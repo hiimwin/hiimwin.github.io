@@ -86,12 +86,48 @@ function diHet(goc, tien = "") {
 /* Soát THIẾU trước, vì nó nguy hơn: thừa một tệp là lộ một tệp, thiếu index.html
    là mất cả app. Và in riêng, không dùng chung tiêu đề với phần thừa — một tiêu
    đề dùng cho hai loại lỗi trái ngược thì ít nhất một nửa số lần nó nói sai. */
+/* HAI câu hỏi, không phải một.
+   Hỏi "tệp có đủ to không" là hỏi sai câu, và một phép kiểm hỏi sai câu thì vẫn
+   XANH — cái xanh ấy hại hơn không có phép kiểm, vì giờ có người tin nó. Đo thật:
+   cắt index.html còn đúng một nửa (599450 -> 299725 byte, kết thúc giữa chừng ở
+   "localStorage.set") thì chốt vẫn nói "đủ 8 tệp bắt buộc", thoát 0. Nửa tệp ấy
+   là trang trắng.
+   Nên hỏi thêm câu thứ hai: tệp có TRỌN không. Dấu kết thúc thì rẻ và chắc hơn
+   mọi ngưỡng cỡ — một tệp bị cắt thì không có đuôi, dù nó to bao nhiêu.
+   Ngưỡng cỡ vẫn giữ để bắt cái rỗng, và vẫn đặt thấp hơn hẳn cỡ thật: canh sát
+   quá thì mỗi lần sửa nội dung lại báo động giả, mà báo động giả vài lần là người
+   ta thôi đọc — lúc ấy phép kiểm còn chạy nhưng đã hết tác dụng. */
+const TRON = {
+  "index.html": (s) => s.trimEnd().endsWith("</html>") || "khong ket thuc bang </html>",
+  /* Dấu kết thúc phải nằm Ở CUỐI tệp, không thì nó không trả lời câu đang hỏi.
+     Bản đầu tôi hỏi sw.js "có dòng const CACHE không" — dòng ấy là dòng SỐ 1, nên
+     cắt đôi tệp vẫn còn nguyên và chốt vẫn xanh. Đúng cái bệnh vừa sửa ở index.html,
+     tái phát ngay trong cùng một lần sửa. Đo mới thấy, đọc lại code thì không. */
+  "sw.js": (s) => {
+    const t = s.trimEnd();
+    if (!/const CACHE = "nga-v\d+"/.test(s)) return "khong thay dong const CACHE";
+    if (!t.endsWith("});")) return "khong ket thuc bang });";
+    return true;
+  },
+  "firebase.json": (s) => { try { JSON.parse(s); return true; } catch (e) { return "khong phai JSON hop le"; } },
+  "manifest.json": (s) => { try { JSON.parse(s); return true; } catch (e) { return "khong phai JSON hop le"; } },
+  ".firebaserc": (s) => { try { JSON.parse(s); return true; } catch (e) { return "khong phai JSON hop le"; } },
+  "icon.svg": (s) => s.trimEnd().endsWith("</svg>") || "khong ket thuc bang </svg>",
+  "fonts.css": (s) => s.trimEnd().endsWith("}") || "khong ket thuc bang }",
+};
+
 const thieu = [];
 for (const [ten, coToiThieu] of Object.entries(PHAI_CO)) {
+  const duong = path.join(THU_MUC, ten);
   let c = -1;
-  try { c = fs.statSync(path.join(THU_MUC, ten)).size; } catch (e) { /* không có */ }
-  if (c < 0) thieu.push(ten + " — KHONG CO");
-  else if (c < coToiThieu) thieu.push(ten + " — chi " + c + " byte, doi it nhat " + coToiThieu);
+  try { c = fs.statSync(duong).size; } catch (e) { /* không có */ }
+  if (c < 0) { thieu.push(ten + " — KHONG CO"); continue; }
+  if (c < coToiThieu) { thieu.push(ten + " — chi " + c + " byte, doi it nhat " + coToiThieu); continue; }
+  const hoi = TRON[ten];
+  if (hoi) {
+    const ket = hoi(fs.readFileSync(duong, "utf8"));
+    if (ket !== true) thieu.push(ten + " — BI CAT: " + ket);
+  }
 }
 if (thieu.length) {
   console.error("DUNG LAI: ban dung trong nga-dist bi THIEU hoac bi cut:");
