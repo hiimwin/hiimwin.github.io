@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-Tcjlpx6rZnrRH1vZFdIf+KiJV8xzgGcChstoOYHICdQ=' 'sha256-Khv1XHQZCEAekeX3ImUPj0TFaQx+Dlsa9dmC/Qu4Hl0=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://hoc-tieng-nga.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com 'sha256-ahWu56gxNiBDTRXw1Tg4WnyBQTzWZNYRkiNQ/b7+zXA=' 'sha256-vgZbjmW3wQDp2XStwOzPZR48CxDchbX3l5MOje7bikU=' 'sha256-QsgIHhkKPCbQhzPSJcX2h75mpfiUAywQ4fvsUTbXxY4=' 'sha256-sVrG3reoxtHnltEupOSKGgsnDVs/kbqY0vw0YFwp+50=' 'sha256-0DwxjqKHu+giatjcSBgh6I+o/H6UXGTfCpQ5+pu3fv4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.googleusercontent.com; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://www.gstatic.com; worker-src 'self'; manifest-src 'self'; media-src 'self' data: blob:; frame-src 'self' https://winspeak.web.app https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3D5CE0">
 <meta name="referrer" content="no-referrer">
@@ -16,7 +16,7 @@
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
 <script>window.FIREBASE_CONFIG = {
 apiKey: "AIzaSyCVe_CXzofRwOfhZYRvODLAOme70ZcXqBk",
-authDomain: "winapps-vn.firebaseapp.com",
+authDomain: "winspeak-vn.web.app",
 projectId: "winapps-vn",
 storageBucket: "winapps-vn.firebasestorage.app",
 messagingSenderId: "547221112374",
@@ -156,7 +156,9 @@ border-top:1px solid var(--line-soft);font-size:13.5px;color:var(--muted)}
 .syncline i{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
 .syncline b{color:var(--ink);font-weight:600;word-break:break-all}
 #nav-acct .ava{width:26px;height:26px;border-radius:var(--r-xs);background:linear-gradient(135deg,var(--f1),var(--f2));color:var(--on-accent);
-display:grid;place-items:center;font-size:13px;font-weight:700;line-height:1}
+display:grid;place-items:center;font-size:13px;font-weight:700;line-height:1;overflow:hidden}
+#nav-acct .ava>i{grid-area:1/1;width:100%;height:100%;display:grid;place-items:center;font-style:normal}
+#nav-acct .ava>img{grid-area:1/1;width:100%;height:100%;object-fit:cover;display:block}
 .cta{width:100%;background:linear-gradient(135deg,var(--f1),var(--f2));color:var(--on-accent);border-radius:var(--r);padding:17px 18px;margin:20px 0;
 display:flex;align-items:center;gap:14px;text-align:left;box-shadow:var(--sh);transition:transform .12s,box-shadow .15s}
 .cta:hover{transform:translateY(-1px);box-shadow:var(--sh-lift)}
@@ -390,13 +392,13 @@ transition:transform .26s cubic-bezier(.34,1.32,.5,1)}
 .sw:active i{transform:scale(.94)}
 .sw[aria-pressed="true"]:active i{transform:translateX(20px) scale(.94)}
 .tabs{display:inline-flex;background:var(--surface-2);border-radius:var(--r-sm);padding:3px;gap:3px;margin-bottom:16px;max-width:100%}
+.tabs button{padding:9px 16px;border-radius:var(--r-xs);font-size:15px;font-weight:500;color:var(--muted);transition:.15s}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--sh)}
 @media(max-width:560px){
 .tabs{display:flex;width:100%;flex-wrap:nowrap;gap:4px;padding:4px}
 .tabs button{flex:1 1 0;min-width:0;padding:8px 6px;font-size:13.5px;line-height:1.2;min-height:44px;
 display:flex;align-items:center;justify-content:center;text-align:center}
 }
-.tabs button{padding:9px 16px;border-radius:var(--r-xs);font-size:15px;font-weight:500;color:var(--muted);transition:.15s}
-.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--sh)}
 .note{font-size:14.5px;line-height:1.6;color:var(--muted);margin-top:12px}
 .bao{position:relative;overflow:hidden;padding-left:20px}
 .bao,.fb.bao{background-color:var(--surface);
@@ -461,7 +463,6 @@ font-family:var(--f-cyr);font-size:15px;line-height:1;display:grid;place-items:c
 .cover .cv-facts{margin-top:30px;padding-top:18px;border-top:1px solid var(--line-soft);
 font-size:13.5px;color:var(--muted);animation-delay:.62s}
 .cover .cv-facts b{color:var(--ink);font-weight:600}
-@media(max-width:420px){.cover h1{font-size:31px}.cover .lead{font-size:16px}}
 body.cover-on header .hbtn{display:none}
 footer{margin-top:46px;border-top:1px solid var(--line);background:var(--surface)}
 .ft{padding-block:26px 30px;display:flex;flex-direction:column;gap:18px}
@@ -1160,7 +1161,6 @@ transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){
 .rv{opacity:1;transform:none;transition:none}
 .dcard,.cta::before,#app.swap{animation:none}
-.the.vaoPhai,.the.vaoTrai{animation:none}
 .spk.cho::after,.spk-big.cho::after,.bigspk.cho::after{animation:none;opacity:.45}
 .bigspk.keu{animation:none}
 .chapwrap.xo .chapbody>*{animation:none}
@@ -1168,7 +1168,7 @@ transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
 .sw,.sw i{transition:none}
 .opt.right,.opt.wrong,.fb{animation:none}
 }
-@media(max-width:1024px){
+@media(max-width:1023.98px){
 .cover h1{font-size:44px}
 .hero h1{font-size:30px}
 .grid{grid-template-columns:repeat(auto-fill,minmax(72px,1fr))}
@@ -1205,6 +1205,7 @@ body.menu-open .hbtn{display:flex;animation:cvUp .22s ease both}
 .stat b{font-size:23px}
 .stat small{font-size:10.5px;letter-spacing:.05em}
 }
+@media(max-width:420px){.cover h1{font-size:31px}.cover .lead{font-size:16px}}
 @media(max-width:899px){
 footer{display:none}
 body.cover-on footer{display:block}
@@ -1267,6 +1268,7 @@ to{transform:none;opacity:1}}
 to{transform:none;opacity:1}}
 .the.vaoPhai{animation:theVaoPhai .33s cubic-bezier(.16,1,.3,1) both}
 .the.vaoTrai{animation:theVaoTrai .33s cubic-bezier(.16,1,.3,1) both}
+@media (prefers-reduced-motion:reduce){.the.vaoPhai,.the.vaoTrai{animation:none}}
 .the.vaoPhai,.the.vaoTrai{will-change:transform,opacity}
 .the button{touch-action:pan-y}
 .the{position:relative;touch-action:pan-y;cursor:pointer;-webkit-user-select:none;user-select:none}
@@ -4936,7 +4938,8 @@ if(!window.CLOUD)return null;
 var st=window.CLOUD.state();
 return {signed:!!(st.user&&!st.user.isAnonymous),
 ten:tenNguoi(st.user),
-mail:(st.user&&st.user.email)||""};
+mail:(st.user&&st.user.email)||"",
+anh:(st.user&&st.user.photoURL)||""};
 }
 function tenNguoi(u){
 if(!u)return "";
@@ -4997,7 +5000,21 @@ var b=document.getElementById("nav-acct");if(!b)return;
 var a=acctState();
 if(!a||!a.signed){b.hidden=true;return;}
 b.hidden=false;
-b.innerHTML='<span class="ava">'+esc((a.ten||"?").charAt(0).toUpperCase())+'</span><b>'+esc(a.ten||"Tài khoản")+'</b>';
+b.innerHTML='<span class="ava"><i>'+esc((a.ten||"?").charAt(0).toUpperCase())+'</i></span><b>'+esc(a.ten||"Tài khoản")+'</b>';
+if(a.anh){
+var oAnh=b.querySelector(".ava"),im=document.createElement("img");
+im.alt="";im.referrerPolicy="no-referrer";
+im.onerror=function(){
+if(im.parentNode)im.parentNode.removeChild(im);
+console.warn("[nga] không tải được ảnh đại diện từ "+
+(function(){try{return new URL(im.src).host;}catch(e){return "?";}})()+
+" — đã lùi về chữ cái đầu. Hay gặp: CSP img-src thiếu máy chủ đó, hoặc "+
+"service worker chen vào. Thử mở thẳng địa chỉ ảnh ở tab khác để biết "+
+"ảnh chết hay chỉ chết TRONG trang.");
+};
+im.src=a.anh;
+oAnh.appendChild(im);
+}
 b.setAttribute("data-tip","Tài khoản: "+(a.ten||a.mail));
 }
 function accountCard(seen){
@@ -8576,7 +8593,9 @@ render();
 initCloud();
 }
 window.CLOUD_CHANGED=function(){
-cloud=null;initCloud();render();
+cloud=null;
+syncHeader();
+initCloud();render();
 var a=acctState();
 if(a&&a.signed)veDangNhapXong();
 };
